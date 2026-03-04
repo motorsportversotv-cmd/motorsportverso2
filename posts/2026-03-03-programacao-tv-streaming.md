@@ -1,0 +1,42 @@
+# Programação TV & Streaming
+
+---
+layout: post
+title: "Programação TV & Streaming: SARR 2026 e Supercars"
+date: 2026-03-03 09:00:00 -0300
+categories: [Programação, Automobilismo]
+---
+
+# 🏁 Programação TV & Streaming
+
+Confira os horários das transmissões para acompanhar o Rally SARR e a Supercars Australia:
+
+### 🏎️ Terça-feira, 03/03
+**Evento:** South American Rally Race (SARR 2026) - Etapa 4
+
+
+| Horário | Evento | Canal |
+| :--- | :--- | :--- |
+| **09:23** | Rally Sarr-ARG - Etapa 4 | [🔴 YouTube](https://www.youtube.com) |
+| **14:30** | Rally Sarr-ARG - Resumo | [🔴 YouTube Fifi Rally](https://www.youtube.com) |
+
+---
+
+### 🇦🇺 Quarta-feira, 04/03
+**Evento:** Supercars Australia - Melbourne
+
+
+| Horário | Evento | Canal |
+| :--- | :--- | :--- |
+| **22:25** | Supercars - Treino Livre | [💜 Twitch Acelera GP](https://www.twitch.tv/aceleragp) |
+
+---
+
+### 🏆 Quinta-feira, 05/03
+**Evento:** Supercars Australia - Melbourne
+
+
+| Horário | Evento | Canal |
+| :--- | :--- | :--- |
+| **22:25** | Supercars - **Corrida 1** | [💜 Twitch Acelera GP](https://www.twitch.tv/aceleragp) |
+| **Pós-Corrida** | Supercars - Treino Livre | [💜 Twitch Acelera GP](https://www.twitch.tv/aceleragp) |
