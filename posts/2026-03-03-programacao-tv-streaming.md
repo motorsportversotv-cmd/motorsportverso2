@@ -39,4 +39,6 @@ Confira os horários das transmissões para acompanhar o Rally SARR e a Supercar
 | Horário | Evento | Canal |
 | :--- | :--- | :--- |
 | **22:25** | Supercars - **Corrida 1** | [💜 Twitch Acelera GP](https://www.twitch.tv/aceleragp) |
-| **Pós-Corrida** | Supercars - Treino Livre | [💜 Twitch Acelera GP](https://www.twitch.tv/aceleragp) |
+| **Pós-Corrida** | Supercars - Treino Livre | [💜 Twitch Acelera GP](https://www.twitch.tv/aceleragp) | 
+
+
