@@ -1,103 +1,39 @@
 Rally Sarr 
 
 
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rally Sarr - Resultados</title>
+    <title>Resultado Rally</title>
     <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f4f4f4;
-            font-family: sans-serif;
-        }
-
-        /* Container principal que divide em duas colunas */
-        .main-container {
-            display: flex;
-            flex-wrap: wrap; /* Ajusta para celular */
-            gap: 40px;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            max-width: 1000px;
-            align-items: center;
-        }
-
-        /* Coluna da Imagem */
-        .image-section {
-            flex: 1;
-            text-align: center;
-            min-width: 300px;
-        }
-
-        .image-section img {
-            width: 100%;
-            max-width: 450px;
-            height: auto;
-            border-radius: 8px;
-            transition: transform 0.3s;
-        }
-
-        .image-section img:hover {
-            transform: scale(1.02);
-        }
-
-        /* Coluna do Texto/Resultados */
-        .results-section {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        h2 { color: #333; margin-bottom: 20px; }
-
-        .results-list {
-            list-style: none;
-            padding: 0;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: #444;
-        }
-
-        .results-list li {
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .caption { margin-top: 15px; color: #888; font-size: 0.85rem; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        .container { display: flex; align-items: flex-start; gap: 40px; }
+        .resultado { font-weight: bold; }
     </style>
 </head>
-   <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rally Sarr - Resultados</title>
-    <body>
-        <img src="WhatsApp Image 2026-03-01 at 00.11.04.PNG" alt="https://www.facebook.com/photo/?fbid=122122264845006386&set=a.122097144261006386">
-        
-    </a>
-    <p>Clique na imagem para acessar o site</p>
+<body>
 
-        <!-- Lado Direito: Resultados -->
-        <div class="results-section">
-            <h2>Resultado Top 5 geral Carros/Autos etapa 6</h2>
-            <ul class="results-list">
-                <li><strong>1.</strong> 101-Lelio Carneiro Jr\Weberth Moreira - Century CR7 T1+</li>
-                <li><strong>2.</strong> 102-Francisco Castro - Chevrolet Colorado Proto</li>
-                <li><strong>3.</strong> 103-Ramiro Corvalan - SD-Renault Oroch-T1.1</li>
-                <li><strong>4.</strong> 121-José Martinez\Juan Carlos Pereira - Toyota Tundra</li>
-                <li><strong>5.</strong> 111-Alberto Tornatore - Buggy VW TRT 4x2</li>
-            </ul>
+    <div class="container">
+        <!-- Lado Esquerdo: Link com Imagem -->
+        <div>
+            <p>Rally San</p>
+            <a href="https://www.facebook.com" target="_blank">
+                <img src="sua-imagem.jpg" alt="Clique para acessar o site" width="300">
+                <br>Clique na imagem para acessar o site
+            </a>
+        </div>
+
+        <!-- Lado Direito: Top 5 -->
+        <div>
+            <h2 class="resultado">Resultado Top 5 geral Carros/Autos etapa 6</h2>
+            <ol>
+                <li>101-Lelio Carneiro Jr/Weberth Moreira - Century CR7 T1+</li>
+                <li>102-Francisco Castro - Chevrolet Colorado Proto</li>
+                <li>103-Ramiro Corvalan - SD-Renault Oroch-T1.1</li>
+                <li>121-José Martinez/Juan Carlos Pereira - Toyota Tundra</li>
+                <li>111-Alberto Tomatore - Buggy VW TRT 4x2</li>
+            </ol>
         </div>
     </div>
 
