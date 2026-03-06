@@ -1,5 +1,7 @@
 Rally Sarr 
 
+
+html
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,24 +9,37 @@ Rally Sarr
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rally Sarr</title>
     <style>
-        body body {
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente */
-    min-height: 100vh;       /* Faz o corpo ter a altura total da janela */
-    margin: 0;
-}
-        .container {
-            text-align: left;
-     img {
-    width: 600px; /* Define um tamanho fixo grande */
-    max-width: 90vw; /* Garante que ela não estoure a tela do celular (50% da largura da tela) */
-    height: auto; /* Mantém a proporção para não achatar */
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-        img:hover {
+        /* Corrigido: Removido 'body body' e chaves extras */
+        body {
+            display: flex;
+            justify-content: center; 
+            align-items: center;     
+            min-height: 100vh;       
+            margin: 0;
+            background-color: #f0f0f0; /* Opcional: cor de fundo */
+            font-family: sans-serif;
+        }
+         .container {
+            text-align: center; /* Centraliza o texto abaixo da imagem */
+        }
+
+        /* Corrigido: Seleção correta da imagem dentro da classe */
+        .container img {
+            width: 600px; 
+            max-width: 90vw; 
+            height: auto; 
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease; /* Suaviza o hover */
+        }
+
+        .container img:hover {
             transform: scale(1.02); 
+        }   
+
+         p {
+            margin-top: 10px;
+            color: #666;
         }
     </style>
 </head>
@@ -32,11 +47,14 @@ Rally Sarr
 
     <div class="container">
         <a href="https://linkezine.com.br" target="_blank">
-            <img src="https://linkezine.com.br/2026/02/27/fifi-rally-team-sarr-argentina-2026/" alt="Clique para acessar o link">
+            <!-- Nota: Certifique-se que o src é de uma imagem (.jpg, .png) e não da página em si -->
+            <img src="https://linkezine.com.br" alt="https://linkezine.com.br/2026/02/27/fifi-rally-team-sarr-argentina-2026/">
         </a>
         <p>Clique na imagem para acessar o site</p>
     </div>
 
+</body>
+</html>
 
 
 <h3>Resultado Top 5 geral Carros\Autos etapa 6</h3>
