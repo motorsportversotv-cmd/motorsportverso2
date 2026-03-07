@@ -13,9 +13,36 @@
             justify-content: flex-start; 
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             font-family: sans-serif;
-            background-color: #f4f4f4; /* Um fundo leve para destacar os cards */
+            background-color: #f4f4f4;
+        }
+
+        /* Menu com Fundo Verde e Escrita Branca */
+        nav {
+            width: 100%;
+            background-color: #008000; /* Verde */
+            padding: 15px 0;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        nav a {
+            color: #ffffff; /* Branco */
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.95em;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #e0e0e0; /* Cinza clarinho ao passar o mouse */
+            text-decoration: underline;
         }
 
         .container {
@@ -53,16 +80,19 @@
     </style>
 </head>
 <body>
- <!-- Informações da Etapa (Título Principal) -->
+
+    <!-- Menu de Navegação -->
+    <nav>
+        <a href="#">Erechim</a>
+        <a href="#">Inscritos</a>
+        <a href="#">Vídeos</a>
+        <a href="#">Rally Virtual</a>
+    </nav>
+
     <div class="texto-centralizado">
         <h1>BR de Rally</h1>
-        <p><strong>BR de Rally</strong></p>
     </div>
     
-    
-    
-    
-    <!-- Informações da Etapa (Título Principal) -->
     <div class="texto-centralizado">
         <h2>🏁 Resultado: 1ª Etapa CBRV</h2>
         <p><strong>Campeonato Brasileiro Virtual de Rally</strong></p>
@@ -70,7 +100,7 @@
 
     <!-- Bloco 1 -->
     <div class="container">
-        <a href="https://www.facebook.com/photo/?fbid=122122405833006386&set=a.122097144261006386" target="_blank">
+        <a href="https://www.facebook.com" target="_blank">
             <img src="WhatsApp Image 2026-03-03 at 10.44.41.jpeg" alt="Imagem do Rally 1">
         </a>
         <h3>Resultado Top 3 Geral</h3>
@@ -85,23 +115,20 @@
 
     <!-- Bloco 2 -->
     <div class="container">
-        <a href="https://www.facebook.com/photo.php?fbid=122122610937006386&set=pb.61580191586221.-2207520000&type=3" target="_blank">
+        <a href="https://www.facebook.com" target="_blank">
             <img src="WhatsApp Image 2026-03-03 at 21.21.37.jpeg" alt="Imagem do Rally 2">
         </a>
         <p>Clique na imagem para acessar o site</p>
     </div>
 
- <div class="container">
-    <a href="https://www.facebook.com/photo/?fbid=122122611303006386&set=pb.61580191586221.-2207520000" target="_blank">
-        <!-- Use o nome novo e curto que você criou -->
-        <img src="641393291_17970429471001355_2396092805804420107_n.jpg" alt="Imagem do Rally 3">
-    </a>
-    <p>Clique na imagem para acessar o site</p>
-</div>
+    <!-- Bloco 3 -->
+    <div class="container">
+        <a href="https://www.facebook.com" target="_blank">
+            <img src="641393291_17970429471001355_2396092805804420107_n.jpg" alt="Imagem do Rally 3">
+        </a>
+        <p>Clique na imagem para acessar o site</p>
+    </div>
 
-    
 </body>
 </html>
-
-
 
