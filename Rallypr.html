@@ -1,154 +1,151 @@
+html
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado Rally das Praias 2026</title>
+    <style>
+        /* Cores e Reset */
+        :root {
+            --verde-escuro: #004d40;
+            --verde-hover: #00695c;
+            --branco: #ffffff;
+            --cinza-claro: #f4f4f4;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: var(--cinza-claro);
+        }
+
+        /* Cabeçalho e Menu */
+        header { 
+            background-color: var(--verde-escuro); 
+            color: var(--branco); 
+            padding: 20px 0; 
+            text-align: center; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            background-color: var(--verde-hover);
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: var(--branco);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Conteúdo */
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .img-container { 
+            text-align: center; 
+            margin-bottom: 30px; 
+        }
+
+        img { 
+            max-width: 100%; 
+            height: auto; 
+            border: 5px solid var(--verde-escuro);
+            border-radius: 8px; 
+        }
+
+        /* Tabela */
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            background-color: var(--branco);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        th { 
+            background-color: var(--verde-escuro); 
+            color: var(--branco); 
+            padding: 15px;
+            text-transform: uppercase;
+        }
+
+        td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: center; 
+        }
+
+        tr:nth-child(even) { background-color: #e8f5e9; } /* Verde bem clarinho para as linhas */
+        
+        tr:hover { background-color: #c8e6c9; }
+
+        .nc { color: #d32f2f; font-weight: bold; } /* Destaque para Não Completou */
+    </style>
 </head>
 <body>
 
-    <h1 style="text-align: center;">Resultado Rally das Praias 2026</h1>
+    <header>
+        <h1>🏁 RALLY DAS PRAIAS 2026 🏁</h1>
+    </header>
 
-    <p style="text-align: center;">
-        <img src="data:image/jpeg;base64,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" alt="Carro de Rally">
+    <nav> <a href="#">Rally da Praias-Guaratuba</a>
+        <a href="#">Início</a>
+        <a href="#">Resultados</a>
+      
+    </nav>
 
-    
-    </p>
+    <div class="container">
+        <div class="img-container">
+            <img src="data:image/jpeg;base64,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" alt="Carro de Rally">
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Posição</th>
+                    <th>Nº</th>
+                    <th>Dupla</th>
+                    <th>Modelo</th>
+                    <th>Categoria</th>
+                    <th>Tempo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 4x2 Pro -->
+                <tr><td>1</td><td>89</td><td>Bruno Foscarini / Felipe Costa</td><td>VW Gol G7</td><td>4x2 Pro</td><td>46:26.60</td></tr>
+                <tr><td>2</td><td>10</td><td>Adib Sada / Albert Oliveira Filho</td><td>Ford Ká</td><td>4x2 Pro</td><td>51:27.10</td></tr>
+                <tr><td class="nc">NC</td><td>7</td><td>Rafael Tulio / Guilherme Pontarolo</td><td>Peugeot 207</td><td>4x2 Pro</td><td>--</td></tr>
+                
+                <!-- 4x2 Super -->
+                <tr><td>1</td><td>14</td><td>Ronaldo e Edna Paske</td><td>Peugeot 206</td><td>4x2 Super</td><td>52:29.10</td></tr>
+                <tr><td>2</td><td>21</td><td>Marcio Carvalho / Gilson Rocha</td><td>Peugeot 207</td><td>4x2 Super</td><td>53:53.26</td></tr>
+                <tr><td>3</td><td>34</td><td>Andersson e Helena Linzmeyer</td><td>Peugeot 207</td><td>4x2 Super</td><td>58:19.41</td></tr>
+                <tr><td>4</td><td>777</td><td>Perci Hultmann / Juliano Zerbinatto</td><td>Peugeot 207</td><td>4x2 Super</td><td>1:11:00.84</td></tr>
+                
+                <!-- RTT -->
+                <tr><td>1</td><td>82</td><td>Felipe e Gustavo Lorenci</td><td>Mitsubishi Triton RS</td><td>RTT</td><td>50:10.94</td></tr>
+                <tr><td>2</td><td>67</td><td>Felipe Paiva / William Santos</td><td>Mitsubishi L200 RS</td><td>RTT</td><td>52:20.44</td></tr>
+                <tr><td>3</td><td>74</td><td>Marcelo Maronezi / Hugo Hultmann</td><td>Mitsubishi Triton Sport R</td><td>RTT</td><td>52:41.41</td></tr>
+            </tbody>
+        </table>
+    </div>
 
 </body>
 </html>
-    
-    
-    </p>
-</head>
-
-
-  <table border="1"width=100%>
-
-                    <tr>
-                        <th>Posição</th>
-                        <th>numero</th>
-                        <th>Dupla</th>
-                        <th>Modelo</th>
-                        <th>Categoria</th>
-                        <th>Tempo</th>
-                        
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>89</td>
-                        <td>Bruno Foscarini\Felipe Costa</td>
-                        <td>VW Gol G7</td>
-                        <td>4x2 Pro</td>
-                        <td>46:26.60</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>10</td>
-                        <td>Adib Sada\Albert Oliveira Filho</td>
-                        <td>Ford Ká</td>
-                        <td>4x2 Pro</td>
-                        <td>51:27.10</td>
-                    </tr>
-                    <tr>
-                        <td>NC</td>
-                        <td>7</td>
-                        <td>Rafael Tulio\Guilherme Pontarolo
-                        <td>Peugeot 207</td>
-                        <td>4x2 Pro</td>
-                        <td>nc</td>
-                    </tr>
-                    <tr>
-                        <td>NC</td>
-                        <td>17</td>
-                        <td>Gunter Hinkelmann\Cezinha</td>
-                        <td>Renault Sandero RS</td>
-                        <td>4x2 Pro</td>
-                        <td>nc</td>
-                    </tr>
-                    <tr>
-                        <td>NC</td>
-                        <td>35</td>
-                        <td>Rodrigo de Jesus\Giulian Telma</td>
-                        <td>Peugeot 207
-                        <td>4x2 Pro</td>
-                        <td>nc</td>
-
-                    <tr>
-                        <td>1</td>
-                        <td>14</td>
-                        <td>Ronaldo e Edna Paske</td>
-                        <td>Peugeot 206</td>
-                        <td>4x2 Super</td>
-                        <td>52:29.10</td>
-                    </tr>
-                    <tr> 
-                        <td>2
-                        <td>21
-                        <td>Marcio Carvalho\GIlson Rocha</td>
-                        <td>Peugeot 207
-                        <td>4x2 Super
-                        <td>53:53.26</td>
-                    </tr>
-                    
-
-                    <tr>
-                        <td>3
-                        <td>34
-                        <td>Andersson e Helena Linzmeyer
-                        <td>Peugeot 207
-                        <td>4x2 Super
-                        <td>58:19.41
-                    </tr>
-                        <td>4
-                        <td>777
-                        <td>Perci Hultmann\Juliano Zerbinatto
-                        <td>Peugeot 207 
-                        <td>4x2 Super
-                        <td>1:11:00.84
-                          
-                    </tr>
-                        <td>nc
-                        <td>29
-                        <td>Albert Oliveira\Joel Kravtchenco
-                        <td>Peugeot 207
-                        <td>4x2 Super
-                        <td>NC 
-                        </tr>
-
-
-
-       </tr>
-                        <td>1
-                        <td>82
-                        <td>Felipe e Gustavo Lorenci
-                        <td>Mitsubishi Triton RS 
-                        <td>RTT 
-                        <td>50:10.94
-                        </tr>
-        </tr>
-                        <td>2
-                        <td>67
-                        <td>Felipe Paiva\William Santos
-                        <td>Mitsubishi L200 RS 
-                        <td>RTT 
-                        <td>52:20.44
-                        </tr>
-                    
-        </tr>
-                        <td>3
-                        <td>74
-                        <td>Marcelo Maronezi\Hugo Hultmann
-                        <td>Mitsubishi Triton Sport R
-                        <td>RTT 
-                        <td>52:41.41
-                        </tr>
-                    
-    
-                </table>
-            </p>
-         </body>
-
 x
 
 
@@ -167,4 +164,4 @@ html
 </html>
 
 
-</html>
+
