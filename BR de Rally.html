@@ -171,54 +171,39 @@
   </thead>
   <tbody>
     <tr>
-      <td>Alejandro Galanti / Marcelo Toyotoshi</td>
-      <td>PRY</td>
-      <td>Gazoo Racing Paraguay</td>
-      <td>Toyota</td>
-      <td>GR Yaris Rally2</td>
-      <td>FIA CODASUR /Rally 2 RC2</td>
-    </tr>
-<tr>
-      <td>Gunter Hinkelmann\Thiago Osternack</td>
-      <td>BRA</td>
-      <td>MSL Brasil</td>
-      <td>Hyundai
-      <td>HB20 Proto</td>
-      <td>BR  /Rally 2 RC2/Gaucho Rally 2</td>
-    </tr>
-<tr>
-      <td>Sebastian Franco\Lucas Hurtado</td>
-      <td>BOL</td>
-      <td>GP Motorsport</td>
-      <td>Citroen
-      <td>C3 Rally 2
-      <td>FIA CODASUR /Rally 2 RC2</td>
-    </tr>
+      <tr><td>Alejandro Galanti\Marcelo Toyotoshi</td><td>Gazzo Racing Paraguay</td><td>Toyota</td><td>GR Yaris Rally 2</td><td>Fia Codassur Rally 2</td></td
+       <tr><td>Sebastien Franco\Lucas Hurtado</td><td>GP Motorsport</td><td>Citroen</td><td>C3 Rally 2</td><td>Fia Codassur Rally 2</td></td    
+        </tbody>
+    </table>
 
-<tr>
-      <td>Ulysses Bertholdo\Marcelo Dalmut</td>
-      <td>BRA</td>
-      <td>Mitsubishi\Tramontina Pro</td>
-      <td>Mitsubishi 
-      <td>Lancer Evo X 
-      <td>FIA CODASUR 2/Rally 2 RC2/BR Rally 2/Gaucho Rally 2</td>
-</tr>
-      <tr>
-      <td>Cesar Pedotti\Nicolas Elizaur</td>
-      <td>PRY</td>
-      <td>Pochi Rally team</td>
-      <td>Mitsubishi 
-      <td>Lancer Evo X 
-      <td>FIA CODASUR 2/Rally 2 RC2/BR Rally 2/Gaucho Rally 2</td>
-</tr>
-      <tr>
-      <td>Juliano e Rafael Sartori</td>
-      <td>BRA</td>
-      <td>Sartori Rally Team</td>
-      <td>VW</td>
-      <td>Polo MR</td>
-      <td>FIA CODASUR /Rally 2 RC2/BR Rally 2/Gaucho Rally 2</td>
-  </tr>
+    <script>
+    function filtrarTabela() {
+        const input = document.getElementById("meuInput");
+        const filter = input.value.toUpperCase();
+        const table = document.getElementById("minhaTabela");
+        const tr = table.getElementsByTagName("tr");
+
+        // Começa em 1 para pular o cabeçalho
+        for (let i = 1; i < tr.length; i++) {
+            let visible = false;
+            const tds = tr[i].getElementsByTagName("td");
+            
+            // Percorre todas as colunas da linha atual
+            for (let j = 0; j < tds.length; j++) {
+                if (tds[j]) {
+                    const txtValue = tds[j].textContent || tds[j].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        visible = true;
+                        break; // Se achou em uma coluna, não precisa olhar as outras
+                    }
+                }
+            }
+            tr[i].style.display = visible ? "" : "none";
+        }
+    }
+    </script>
+
+
       
   </tbody>
 </table>
