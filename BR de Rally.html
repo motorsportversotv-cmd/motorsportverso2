@@ -139,75 +139,76 @@
         </ol>
     </div>
 
-    <!-- Seção Inscritos (Alvo do Submenu) -->
-    <div id="inscritos-erechim" class="container">
-        <h3>👥 Inscritos - Erechim</h3>
-        <p>
-          <table border="1"> 
-                          <table border="1">
-  <thead>
+ <!-- Seção Inscritos -->
+<div id="inscritos-erechim" class="container">
+    <h3>👥 Inscritos - Erechim</h3>
+
     <!-- Campo de Busca -->
-<input type="text" id="meuInput" onkeyup="filtrarTabela()" placeholder="Pesquise por piloto/navegador, nat, equipe, marca, modelo, campeonato/categoria">
+    <input type="text" id="meuInput" onkeyup="filtrarTabela()" placeholder="Pesquise por piloto, equipe, carro ou categoria...">
 
-<!-- Tabela -->
-<table id="minhaTabela">
-    <table id="minhaTabela">
-    <thead>
-        <tr 
-            <input type="text" id="meuInput" onkeyup="filtrarTabela()" placeholder="Pesquise por programa, canal, local...">
-
-    <table id="minhaTabela">
+    <!-- Tabela -->
+    <table id="minhaTabela" border="1">
         <thead>
             <tr>
-                <th>Piloto\Navegador</th>
+                <th>Piloto / Navegador</th>
                 <th>Nat</th>
                 <th>Equipe</th>
                 <th>Marca</th>
                 <th>Modelo</th>
-                 <th>catgeoria\Campeonato</th>
+                <th>Categoria / Campeonato</th>
             </tr>
         </thead>
         <tbody>
-  </thead>
-  <tbody>
-    <tr>
-      <tr><td>Alejandro Galanti\Marcelo Toyotoshi</td><td>Gazzo Racing Paraguay</td><td>Toyota</td><td>GR Yaris Rally 2</td><td>Fia Codassur Rally 2</td></td
-       <tr><td>Sebastien Franco\Lucas Hurtado</td><td>GP Motorsport</td><td>Citroen</td><td>C3 Rally 2</td><td>Fia Codassur Rally 2</td></td    
+            <tr>
+                <td>Alejandro Galanti \ Marcelo Toyotoshi</td>
+                <td>PAR</td>
+                <td>Gazzo Racing Paraguay</td>
+                <td>Toyota</td>
+                <td>GR Yaris Rally 2</td>
+                <td>Fia Codasur Rally 2</td>
+            </tr>
+            <tr>
+                <td>Sebastien Franco \ Lucas Hurtado</td>
+                <td>BOL</td>
+                <td>GP Motorsport</td>
+                <td>Citroen</td>
+                <td>C3 Rally 2</td>
+                <td>Fia Codasur Rally 2</td>
+            </tr>
         </tbody>
     </table>
+</div>
 
-    <script>
-    function filtrarTabela() {
-        const input = document.getElementById("meuInput");
-        const filter = input.value.toUpperCase();
-        const table = document.getElementById("minhaTabela");
-        const tr = table.getElementsByTagName("tr");
+<script>
+function filtrarTabela() {
+    // Pega o valor digitado e transforma em maiúsculo para comparar
+    const input = document.getElementById("meuInput");
+    const filter = input.value.toUpperCase();
+    const table = document.getElementById("minhaTabela");
+    const tr = table.getElementsByTagName("tr");
 
-        // Começa em 1 para pular o cabeçalho
-        for (let i = 1; i < tr.length; i++) {
-            let visible = false;
-            const tds = tr[i].getElementsByTagName("td");
-            
-            // Percorre todas as colunas da linha atual
-            for (let j = 0; j < tds.length; j++) {
-                if (tds[j]) {
-                    const txtValue = tds[j].textContent || tds[j].innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        visible = true;
-                        break; // Se achou em uma coluna, não precisa olhar as outras
-                    }
+    // Loop por todas as linhas, começando da 1 (pula o cabeçalho)
+    for (let i = 1; i < tr.length; i++) {
+        let visible = false;
+        const tds = tr[i].getElementsByTagName("td");
+        
+        // Verifica se o texto de alguma coluna da linha bate com a busca
+        for (let j = 0; j < tds.length; j++) {
+            if (tds[j]) {
+                const txtValue = tds[j].textContent || tds[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    visible = true;
+                    break; 
                 }
             }
-            tr[i].style.display = visible ? "" : "none";
         }
+        // Mostra ou esconde a linha
+        tr[i].style.display = visible ? "" : "none";
     }
-    </script>
+}
+</script>
 
-
-      
-  </tbody>
-</table>
-                        
+                  
                          
     </div>
 
