@@ -1,195 +1,82 @@
 
-# Programação TV & Streaming
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: sans-serif; }
+        #meuInput { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f6f8fa; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
 
----
-layout:"Cinza"
-categories: [Programação, Automobilismo]
----
+    <!-- Campo de Busca -->
+    <input type="text" id="meuInput" onkeyup="filtrarTabela()" placeholder="Pesquise por programa, canal, local...">
 
+    <table id="minhaTabela">
+        <thead>
+            <tr>
+                <th>Dia</th>
+                <th>Hora</th>
+                <th>Programa</th>
+                <th>Local</th>
+                <th>Canal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>05/03</td><td>02:45</td><td>Supercars Australia Corrida 1</td><td>Melbourne</td><td>Twitch.TV Acelera GP</td></tr>
+            <tr><td>05/03</td><td>09:00</td><td>Rally Sarr ARG</td><td>Argentina</td><td>Youtube</td></tr>
+            <tr><td>05/03</td><td>22:30</td><td>F1-FP</td><td>Melbourne</td><td>Sportv2 ou 3</td></tr>
+            <tr><td>05/03</td><td>09:00</td><td>Rally Sarr etapa 6</td><td>Argentina</td><td>Youtube Somos Dakar / Fifi Rally</td></tr>
+            <tr><td>06/03</td><td>03:25</td><td>Supercars Australia-Corrida 2</td><td>Melbourne</td><td>Twitch.TV Acelera GP</td></tr>
+            <tr><td>07/03</td><td>02:00</td><td>F1-FP2</td><td>Melbourne</td><td>Sportv2 ou 3</td></tr>
+            <tr><td>07/03</td><td>04:15</td><td>Supercars Australia-race 3</td><td>Melbourne</td><td>Twitch.TV Acelera GP</td></tr>
+            <tr><td>07/03</td><td>09:55</td><td>GT Winter Series</td><td>Aragon</td><td>Youtube</td></tr>
+            <tr><td>07/03</td><td>10:00</td><td>Stock Car Pro Series-corrida 1</td><td>Curvelo-MG</td><td>Youtube Esporte na Band</td></tr>
+            <tr><td>07/03</td><td>10:20</td><td>Rally Sarr ARG-etapa 8</td><td>Argentina</td><td>Youtube Fifi Rally / Somos Dakar</td></tr>
+            <tr><td>07/03</td><td>13:40</td><td>Copa Truck-Qualyfing</td><td>Campo Grande-MS</td><td>Youtube High Speed TV</td></tr>
+            <tr><td>07/03</td><td>16:00</td><td>TCR Brasil-Qualyfing</td><td>Curvelo-MG</td><td>Youtube Esporte na Band / Gazeta</td></tr>
+            <tr><td>07/03</td><td>17:00</td><td>Indycar</td><td>Phoenix</td><td>Band / ESPN 4</td></tr>
+            <tr><td>07/03</td><td>20:30</td><td>Supercars Australia-Corrida 4</td><td>Melbourne</td><td>KICK TV</td></tr>
+            <tr><td>08/03</td><td>01:00</td><td>F1</td><td>Melbourne</td><td>TV Globo / Sportv3</td></tr>
+            <tr><td>08/03</td><td>05:00</td><td>Winter Series</td><td>Aragon</td><td>Youtube</td></tr>
+            <tr><td>08/03</td><td>09:30</td><td>TCR Brasil-race 1</td><td>Curvelo</td><td>Youtube / TV Gazeta</td></tr>
+        </tbody>
+    </table>
 
+    <script>
+    function filtrarTabela() {
+        const input = document.getElementById("meuInput");
+        const filter = input.value.toUpperCase();
+        const table = document.getElementById("minhaTabela");
+        const tr = table.getElementsByTagName("tr");
 
+        // Começa em 1 para pular o cabeçalho
+        for (let i = 1; i < tr.length; i++) {
+            let visible = false;
+            const tds = tr[i].getElementsByTagName("td");
+            
+            // Percorre todas as colunas da linha atual
+            for (let j = 0; j < tds.length; j++) {
+                if (tds[j]) {
+                    const txtValue = tds[j].textContent || tds[j].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        visible = true;
+                        break; // Se achou em uma coluna, não precisa olhar as outras
+                    }
+                }
+            }
+            tr[i].style.display = visible ? "" : "none";
+        }
+    }
+    </script>
 
-
-#  Programação TV & Streaming
-
-
-.
-Programação dias 04-08/03/2026
-
-
-
-
- html
-<table border="1">
-  <thead>
-    <tr style="background-color: #f6f8fa;">
-    <input type="text" id="meuInput" onkeyup="filtrarTabela()" placeholder="Pesquise por nomes..">
-
-<table id="minhaTabela">
-  <tr class="header">
-      <th>Dia</th>
-      <th>Hora</th>
-      <th>Programa</th>
-      <th>Local</th>
-      <th>Canal</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr> 
-                    </tr>
-
-                     <tr> 
-                        <td>05\03 
-                        <td>02:45
-                        <td>Supercars Australia Corrida 1
-                        <td>Melbourne
-                        <td>Twitch.TV Acelera GP
-                      <tr> 
-
-
-    
-                    <tr>
-                        <td>05/03
-                        <td>09:00
-                        <td>Rally Sarr ARG
-                        <td>Argentina
-                        <td>Youtube
-                       
-                    </tr>
-                    <tr> 
-                        <td>05\03 
-                        <td>22:30
-                        <td>F1-FP
-                        <td>Melbourne
-                        <td>Sportv2 ou 3 
-                    </tr>
-
-                     <tr> 
-                        <td>05\03 
-                        <td>09:00
-                        <td>Rally Sarr etapa 6 
-                        <td>Argentina
-                        <td>Youtube Somos Dakar\Youtube Fifi Rally 
-                    </tr>
-
-                          
-
-                   </tr>
-                    <tr> 
-                        <td>06\03 
-                        <td>03:25
-                        <td>Supercars Australia-Corrida 2
-                        <td>Melbourne
-                        <td>Twitch.TV Acelera GP
-                    </tr>
-
-
-                   </tr>
-                    <tr> 
-                        <td>06\03 
-                        <td>03:25
-                        <td>Supercars Australia-Corrida 2
-                        <td>Melbourne
-                        <td>Twitch.TV Acelera GP
-                    </tr>
-  
-</tr>
-                    <tr> 
-                        <td>07\03 
-                        <td>02:00
-                        <td>F1-FP2
-                        <td>Melbourne
-                        <td>Sportv2 ou 3 
-
-</tr>          
-                        <td>07\03 
-                        <td>04:15
-                        <td>Supercars Australia-corrida\race 3 
-                        <td>Melbourne
-                        <td>Twitch.TV Acelera GP
-
-</tr>          
-                        <td>07\03 
-                        <td>09:55
-                         <td>GT Winter Series
-                        <td>Aragon
-                        <td>Youtube 
-
-
-
-</tr>          
-                        <td>07\03 
-                        <td>10:00 
-                        <td>Stock Car Pro Series-race\corrida 1(Sprint) 
-                        <td>Curvelo-MG 
-                        <td>Youtube\Youtube Esporte na Band 
-
-
-</tr>          
-                        <td>07\03 
-                        <td>10:20
-                        <td>Rally Sarr ARG-etapa 8 
-                        <td>Argentina 
-                        <td>Youtube Fifi Rally\Youtube Somos Dakar 
-                         
-
-</tr>          
-                        <td>07\03 
-                        <td>13:40
-                        <td>Copa Truck-Qualyfing
-                        <td>Campo Grande-MS 
-                        <td>Youtube\Youtube & PhizTV High Speed TV
-
-
-</tr>          
-                        <td>07\03 
-                        <td>16:00 
-                        <td>TCR Brasil\TCR South America-Qualyfing 
-                        <td>Curvelo-MG 
-                        <td>Youtube\Youtube Esporte na Band\Youtube Gazeta Esportiva 
-</tr>          
-                        <td>07\03 
-                        <td>17:00
-                        <td>Indycar
-                        <td>Phoenix
-                        <td>Band\ESPN 4   
-
-</tr>          
-                        <td>07\03 
-                        <td>20:30
-                        <td>Supercars Australia-Corrida 4
-                        <td>Melbourne
-                        <td>KICK TV 
-                         
-</tr>          
-                        <td>08\03 
-                        <td>01:00
-                        <td>F1
-                        <td>Melbourne
-                        <td>TV Globo\Sportv3\Globoplaypremium  
-                         
-<tr>                    <td>08\03 
-                        <td>05:00
-                        <td>Winter Series
-                        <td>Aragon
-                        <td>Youtube 
-
-<tr>                    <td>08\03 
-                        <td>09:30
-                        <td>TCR Brasil\TCR South America-race 1
-                        <td>Curvelo 
-                        <td>Youtube\Youtube Esporte na band\TV Gazeta\Youtube TV Gazeta Esportiva
-                         
----
-
-
-
-
-
-
-
-
-
+</body>
+</html>
 
 
 
