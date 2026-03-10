@@ -1,65 +1,70 @@
-Brasiliero de cross country
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            margin: 0;
-            background-color: #fdf6e3; /* Fundo levemente amarelado para contraste */
-        }
-
-        /* Barra de Navegação Estilo GitHub */
         .github-menu {
-            background-color: #3e2723; /* Marrom Escuro (Fundo do menu) */
-            padding: 16px 32px;
+            background-color: #3e2723; /* Marrom escuro */
+            padding: 12px 24px;
             display: flex;
-            align-items: center;
-            color: #ffca28; /* Amarelo (Texto e ícones) */
-            border-bottom: 1px solid #ffb300;
+            gap: 15px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         }
 
         .menu-item {
-            margin-right: 16px;
-            font-weight: 600;
-            cursor: pointer;
+            color: #ffca28; /* Amarelo */
+            text-decoration: none;
             padding: 8px 12px;
             border-radius: 6px;
-            transition: background 0.3s;
-            text-decoration: none;
-            color: inherit;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Espaço entre o texto e o número */
+            transition: 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        /* Estilo do contador (Badge) */
+        .counter {
+            background-color: #5d4037; /* Marrom um pouco mais claro */
+            color: #ffe082;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            border: 1px solid #ffca28;
+        }
+
+        .menu-item.active {
+            border-bottom: 2px solid #ffca28;
+            background-color: rgba(255, 202, 40, 0.1); /* Fundo amarelado suave */
         }
 
         .menu-item:hover {
-            background-color: #5d4037; /* Marrom mais claro no hover */
-            color: #ffe082;
-        }
-
-        .active {
-            border-bottom: 2px solid #ffca28; /* Linha amarela indicando aba ativa */
-        }
-
-        .search-bar {
             background-color: #5d4037;
-            border: 1px solid #ffca28;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 6px;
-            margin-left: auto;
         }
     </style>
 </head>
 <body>
 
 <nav class="github-menu">
-    <a href="#" class="menu-item active">Barretos</a>Inscritos 
-    <a href="#" class="menu-item">Categorias</a>
- 
+    <!-- "Inscritos" agora é um badge dentro do link de Barretos -->
+    <a href="#" class="menu-item active" onclick="ativar(this)">
+        Barretos <span class="counter">1.2k</span>
+    </a>
     
-    <input type="text" class="search-bar" placeholder="Pesquisar...">
+    <a href="#" class="menu-item" onclick="ativar(this)">
+        Categorias
+    </a>
 </nav>
+
+<script>
+    function ativar(elemento) {
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        elemento.classList.add('active');
+    }
+</script>
 
 </body>
 </html>
