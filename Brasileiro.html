@@ -46,12 +46,17 @@
         .content {
             padding: 20px;
             background: #fff8e1;
-            display: none; /* Esconde por padrão */
+            display: none; 
             border: 1px solid #ffca28;
         }
         .content.show {
-            display: block; /* Mostra o selecionado */
+            display: block; 
         }
+
+        /* Ajuste na tabela para melhor visualização */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 8px; text-align: left; }
+        #meuInput { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
     </style>
 </head>
 <body>
@@ -69,11 +74,11 @@
 <!-- Seções de conteúdo -->
 <div id="aba-barretos" class="content show">
     <h2>Página de Barretos</h2>
-    <p>
-          <!-- Campo de Busca -->
+    
+    <!-- Campo de Busca -->
     <input type="text" id="meuInput" onkeyup="filtrarTabela()" placeholder="Pesquise por piloto, equipe, carro ou categoria...">
 
-    <!-- Tabela -->
+    <!-- Tabela Corrigida -->
     <table id="minhaTabela" border="1">
         <thead>
             <tr>
@@ -85,41 +90,37 @@
         </thead>
         <tbody>
             <tr>
-                <tr>
-                   <td>Marcos Baugart\Kleber Cincea</td>
-                   <td>Szimic Racing</td>
-                 <td>Ford Ranger</td>
-                 <td/>ULT.BR</td>
-        
-<tr>
-                   <td>Gunter Hinkelmann\Thiago Osternack</td>
-                   <td>MSL Motorsport</td>
-                 <td>Ford Ranger</td>
-                 <td>T1.1</td>
-                <tr/>     
-
-<tr>
-                   <td>Alessandro Tozoni\Christina Xavier</td>
-                   <td>Faster rally Team</td>
-                 <td>MEM T-Rex</td>
-                 <td>ULT.BR</td>
-                <tr/>     
-
-<tr>
-                   <td>Luiz Barros\Rogerio Palmegiano</td>
-                   <td>Braço Curto Motorsport</td>
-                 <td>Mitsubishi L200 Evo</td>
-                 <td>ULT.BR</td>
-                <tr/>     
-   <tr>
-                   <td>Mario Marcondes Neto\Artemio Pauluci Neto</td>
-                   <td>Braço Curto Motorsport</td>
-                 <td>Ford Ranger</td>
-                 <td>ULT.BR</td>
-                <tr/>                      
-                    
-    </p>
-        
+                <td>Marcos Baugart / Kleber Cincea</td>
+                <td>Szimic Racing</td>
+                <td>Ford Ranger</td>
+                <td>ULT.BR</td>
+            </tr>
+            <tr>
+                <td>Gunter Hinkelmann / Thiago Osternack</td>
+                <td>MSL Motorsport</td>
+                <td>Ford Ranger</td>
+                <td>T1.1</td>
+            </tr>
+            <tr>
+                <td>Alessandro Tozoni / Christina Xavier</td>
+                <td>Faster rally Team</td>
+                <td>MEM T-Rex</td>
+                <td>ULT.BR</td>
+            </tr>
+            <tr>
+                <td>Luiz Barros / Rogerio Palmegiano</td>
+                <td>Braço Curto Motorsport</td>
+                <td>Mitsubishi L200 Evo</td>
+                <td>ULT.BR</td>
+            </tr>
+            <tr>
+                <td>Mario Marcondes Neto / Artemio Pauluci Neto</td>
+                <td>Braço Curto Motorsport</td>
+                <td>Ford Ranger</td>
+                <td>ULT.BR</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <div id="aba-categorias" class="content">
@@ -128,16 +129,37 @@
 </div>
 
 <script>
+    // Função para trocar de aba
     function trocarAba(elemento, idConteudo) {
-        // 1. Remove o "active" de todos os botões
         document.querySelectorAll('.menu-item').forEach(aba => aba.classList.remove('active'));
-        
-        // 2. Esconde todos os conteúdos
         document.querySelectorAll('.content').forEach(cont => cont.classList.remove('show'));
-
-        // 3. Ativa o botão clicado e mostra o conteúdo dele
         elemento.classList.add('active');
         document.getElementById(idConteudo).classList.add('show');
+    }
+
+    // FUNÇÃO DE FILTRO QUE ESTAVA FALTANDO
+    function filtrarTabela() {
+        var input, filtro, tabela, tr, td, i, j, visivel;
+        input = document.getElementById("meuInput");
+        filtro = input.value.toUpperCase();
+        tabela = document.getElementById("minhaTabela");
+        tr = tabela.getElementsByTagName("tr");
+
+        // Começa em 1 para não filtrar o cabeçalho (th)
+        for (i = 1; i < tr.length; i++) {
+            visivel = false;
+            // Pega todas as colunas da linha atual
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (td[j]) {
+                    if (td[j].innerHTML.toUpperCase().indexOf(filtro) > -1) {
+                        visivel = true;
+                        break; // Se achou em uma coluna, mostra a linha e pula para a próxima
+                    }
+                }
+            }
+            tr[i].style.display = visivel ? "" : "none";
+        }
     }
 </script>
 
