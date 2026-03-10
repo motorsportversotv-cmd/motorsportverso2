@@ -161,6 +161,22 @@
             tr[i].style.display = visivel ? "" : "none";
         }
     }
+
+ }
+
+            if (visivel) {
+                tr[i].style.display = "";
+                // Recalcula o fundo das linhas para manter o efeito zebra
+                tr[i].className = (contadorVisiveis % 2 === 0) ? "impar" : "par";
+                contadorVisiveis++;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+
+
+    
 </script>
 
 </body>
