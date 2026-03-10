@@ -3,70 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        /* Estilo da barra do menu */
+        /* Estilo da barra */
         .github-menu {
             background-color: #3e2723; /* Marrom Escuro */
-            padding: 10px 20px;
+            padding: 10px;
             display: flex;
-            align-items: center;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            border-bottom: 1px solid #ffca28;
+            gap: 10px;
+            font-family: sans-serif;
+            border-bottom: 2px solid #ffca28;
         }
 
-        /* Link principal */
         .menu-item {
             color: #ffca28; /* Amarelo */
             text-decoration: none;
-            padding: 8px 16px;
-            font-weight: 600;
+            padding: 8px 15px;
             display: flex;
             align-items: center;
-            gap: 8px; /* Espaço entre Barretos e Inscritos */
-            border-bottom: 2px solid transparent;
-            transition: 0.2s;
+            gap: 8px;
+            border-radius: 6px 6px 0 0;
+            font-weight: bold;
         }
 
-        /* O contador "Inscritos" (Badge) dentro do link */
         .counter {
-            background-color: #5d4037; /* Marrom médio */
-            color: #ffe082; /* Amarelo claro */
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            border: 1px solid #ffb300;
-        }
-
-        /* Estado ativo (selecionado) */
-        .menu-item.active {
-            border-bottom: 2px solid #ffca28;
-            background-color: rgba(255, 202, 40, 0.1);
-        }
-
-        .menu-item:hover {
             background-color: #5d4037;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            border: 1px solid #ffca28;
+        }
+
+        /* Estilo quando clicado */
+        .menu-item.active {
+            background-color: #ffca28;
+            color: #3e2723;
+        }
+        .active .counter {
+            background-color: #3e2723;
+            color: #ffca28;
+        }
+
+        /* Área de conteúdo */
+        .content {
+            padding: 20px;
+            background: #fff8e1;
+            display: none; /* Esconde por padrão */
+            border: 1px solid #ffca28;
+        }
+        .content.show {
+            display: block; /* Mostra o selecionado */
         }
     </style>
 </head>
 <body>
 
 <nav class="github-menu">
-    <!-- O link completo agora engloba o nome e o contador -->
-    <a href="#" class="menu-item active" onclick="ativar(this)">
+    <a href="javascript:void(0)" class="menu-item active" onclick="trocarAba(this, 'aba-barretos')">
         Barretos <span class="counter">Inscritos 1.2k</span>
     </a>
     
-    <a href="#" class="menu-item" onclick="ativar(this)">
+    <a href="javascript:void(0)" class="menu-item" onclick="trocarAba(this, 'aba-categorias')">
         Categorias
     </a>
 </nav>
 
+<!-- Seções de conteúdo -->
+<div id="aba-barretos" class="content show">
+    <h2>Página de Barretos</h2>
+    <p>Aqui aparece a lista de inscritos de Barretos...</p>
+</div>
+
+<div id="aba-categorias" class="content">
+    <h2>Categorias</h2>
+    <p>Veja as categorias disponíveis aqui.</p>
+</div>
+
 <script>
-    function ativar(elemento) {
-        // Remove a marcação de ativo de todos e adiciona no clicado
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.classList.remove('active');
-        });
+    function trocarAba(elemento, idConteudo) {
+        // 1. Remove o "active" de todos os botões
+        document.querySelectorAll('.menu-item').forEach(aba => aba.classList.remove('active'));
+        
+        // 2. Esconde todos os conteúdos
+        document.querySelectorAll('.content').forEach(cont => cont.classList.remove('show'));
+
+        // 3. Ativa o botão clicado e mostra o conteúdo dele
         elemento.classList.add('active');
+        document.getElementById(idConteudo).classList.add('show');
     }
 </script>
 
