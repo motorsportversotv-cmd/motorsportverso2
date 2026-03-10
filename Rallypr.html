@@ -1,12 +1,10 @@
-
-<!DOCTYPE 
-<html lang="pt-br"
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado Rally das Praias 2026</title>
     <style>
-        /* Cores e Reset */
         :root {
             --verde-escuro: #004d40;
             --verde-hover: #00695c;
@@ -21,7 +19,6 @@
             background-color: var(--cinza-claro);
         }
 
-        /* Cabeçalho e Menu */
         header { 
             background-color: var(--verde-escuro); 
             color: var(--branco); 
@@ -34,33 +31,29 @@
             background-color: var(--verde-hover);
             text-align: center;
             padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
         }
 
-        nav a {
+        nav a, nav span {
             color: var(--branco);
             text-decoration: none;
-            margin: 0 15px;
             font-weight: bold;
             text-transform: uppercase;
             font-size: 14px;
         }
 
-        nav a:hover {
-            text-decoration: underline;
-        }
+        .dropdown { list-style: none; position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: var(--branco); min-width: 200px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1; }
+        .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; text-align: left; }
+        .dropdown-content a:hover { background-color: #f1f1f1; }
+        .dropdown:hover .dropdown-content { display: block; }
 
-        /* Conteúdo */
-        .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        .img-container { 
-            text-align: center; 
-            margin-bottom: 30px; 
-        }
-
+        .container { max-width: 1000px; margin: 20px auto; padding: 0 20px; }
+        .img-flex { display: flex; justify-content: space-between; margin-bottom: 30px; padding: 0 20px; }
+        
         img { 
             max-width: 100%; 
             height: auto; 
@@ -68,117 +61,70 @@
             border-radius: 8px; 
         }
 
-        /* Tabela */
         table { 
-            width: 100%; 
+            width: 95%; 
+            margin: 20px auto;
             border-collapse: collapse; 
             background-color: var(--branco);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        th { 
-            background-color: var(--verde-escuro); 
-            color: var(--branco); 
-            padding: 15px;
-            text-transform: uppercase;
-        }
-
-        td { 
-            border: 1px solid #ddd; 
-            padding: 12px; 
-            text-align: center; 
-        }
-
-        tr:nth-child(even) { background-color: #e8f5e9; } /* Verde bem clarinho para as linhas */
-        
+        th { background-color: var(--verde-escuro); color: var(--branco); padding: 15px; text-transform: uppercase; }
+        td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        tr:nth-child(even) { background-color: #e8f5e9; }
         tr:hover { background-color: #c8e6c9; }
-
-        .nc { color: #d32f2f; font-weight: bold; } /* Destaque para Não Completou */
     </style>
 </head>
 <body>
-    
 
     <header>
         <h1>🏁 Rallypr 🏁</h1>
     </header>
 
-    <section id="contato">
-    <h2 style="text-align: center;">
-    <p style="text-align: center;">
+    <nav> 
+        <a href="pagina1.html">Velocidade</a>
+        <span>Rally Das Praias-Guaratuba</span>
 
-    </p>
-html
-<nav> 
-    <!-- Link para uma página externa/outro arquivo -->
-    <a href="pagina1.html">Velocidade</a>
-    
-    <span>Rally Das Praias-Guaratuba</span>
+        <li class="dropdown">
+            <a href="#">Velocidade ▾</a>
+            <div class="dropdown-content">
+                <a href="Resultado rally das praias 2026.html">Resultado Rally das Praias 2026</a>
+                <a href="Rally do Centro Oeste.html">Rally do Centro Oeste</a>
+            </div>
+        </li>
 
-    <li class="dropdown">
-                <a href="#">Velocidade ▾</a>
-                <div class="dropdown-content">
-                  <a href="Resultado rally das praias 2026.html">Resultado Rally das Praias 2026</a>
-                    <a href="Rally do Centro Oeste.html">Rally do Centro Oeste</a>
-                </div>
-            </li>
-
-<li class="dropdown">
-    <a href="#">Virtual ▾</a>
-    <div class="dropdown-content">
-        <a href="Rally_Virtual.html">RALLY VIRTUAL</a>
-    </div>
-</li
-      
+        <li class="dropdown">
+            <a href="#">Virtual ▾</a>
+            <div class="dropdown-content">
+                <a href="Rally_Virtual.html">RALLY VIRTUAL</a>
+            </div>
+        </li>
     </nav>
 
-<div style="display: flex; align-items: flex-start;">
-    <img src="download (6).jpg" alt="Rally" width="300" height="200">
-    
-    <!-- Esta imagem será empurrada para a direita -->
-    <img src="50245640956_bc7cefc42c_o.jpg" alt="Rally Virtual" width="300" height="200" style="margin-left: auto;">
-</div>
+    <div class="img-flex">
+        <img src="download (6).jpg" alt="Rally" width="300" height="200">
+        <img src="50245640956_bc7cefc42c_o.jpg" alt="Rally Virtual" width="300" height="200">
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Etapa</th>
-      <th>Evento</th>
-      <th>Localização</th>
-      <th>Data</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Rally das Praias</td>
-      <td>Guaratuba - PR</td>
-      <td>20-22/02</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Rally do Centro Oeste</td>
-      <td>Jardim Alegre</td>
-      <td>15-17/05</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Rally da Graciosa</td>
-      <td>Quatro Barras - PR</td>
-      <td>17-19/07</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Rally Vales do Iguaçu</td>
-      <td>Pato Branco - PR</td>
-      <td>06-08/11</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Rally Sprint</td>
-      <td>Balsa Nova - PR</td>
-      <td>04-06/12</td>
-    </tr>
-  </tbody>
-</table>
+    <table>
+      <thead>
+        <tr>
+          <th>Etapa</th>
+          <th>Evento</th>
+          <th>Localização</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Rally das Praias</td><td>Guaratuba - PR</td><td>20-22/02</td></tr>
+        <tr><td>2</td><td>Rally do Centro Oeste</td><td>Jardim Alegre - PR</td><td>15-17/05</td></tr>
+        <tr><td>3</td><td>Rally da Graciosa</td><td>Quatro Barras - PR</td><td>17-19/07</td></tr>
+        <tr><td>4</td><td>Rally Vales do Iguaçu</td><td>Pato Branco - PR</td><td>06-08/11</td></tr>
+        <tr><td>5</td><td>Rally Sprint</td><td>Balsa Nova - PR</td><td>04-06/12</td></tr>
+      </tbody>
+    </table>
+
+</body>
+</html>
+
 
