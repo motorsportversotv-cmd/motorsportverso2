@@ -5,7 +5,7 @@
     <style>
         /* Estilo da barra */
         .github-menu {
-            background-color: #3e2723; /* Marrom Escuro */
+            background-color: #3e2723;
             padding: 10px;
             display: flex;
             gap: 10px;
@@ -14,7 +14,7 @@
         }
 
         .menu-item {
-            color: #ffca28; /* Amarelo */
+            color: #ffca28;
             text-decoration: none;
             padding: 8px 15px;
             display: flex;
@@ -32,54 +32,60 @@
             border: 1px solid #ffca28;
         }
 
-        /* Estilo quando clicado */
         .menu-item.active {
             background-color: #ffca28;
             color: #3e2723;
         }
-        .active .counter {
-            background-color: #3e2723;
-            color: #ffca28;
-        }
 
-        /* Área de conteúdo */
         .content {
             padding: 20px;
             background: #fff8e1;
             display: none; 
             border: 1px solid #ffca28;
+            font-family: sans-serif;
         }
         .content.show {
             display: block; 
         }
 
-        /* Ajuste na tabela para melhor visualização */
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 8px; text-align: left; }
-        #meuInput { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
+        /* ESTILO DA TABELA */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; border: 1px solid #ccc; }
+        th { background-color: #3e2723; color: #ffca28; padding: 12px; text-align: left; }
+        td { padding: 10px; border: 1px solid #ddd; }
+
+        /* Classes para Linhas Cinza e Branca (Zebra) */
+        .linha-branca { background-color: #ffffff; }
+        .linha-cinza { background-color: #f2f2f2; }
+        
+        tr:hover { background-color: #fff1c1; } /* Destaque ao passar o mouse */
+
+        #meuInput { 
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 10px; 
+            box-sizing: border-box; 
+            border: 2px solid #3e2723;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
 
 <nav class="github-menu">
     <a href="javascript:void(0)" class="menu-item active" onclick="trocarAba(this, 'aba-barretos')">
-        Barretos <span class="counter">Inscritos 1.2k</span>
+        Barretos <span class="counter">Inscritos 5</span>
     </a>
-    
     <a href="javascript:void(0)" class="menu-item" onclick="trocarAba(this, 'aba-categorias')">
         Categorias
     </a>
 </nav>
 
-<!-- Seções de conteúdo -->
 <div id="aba-barretos" class="content show">
     <h2>Página de Barretos</h2>
     
-    <!-- Campo de Busca -->
     <input type="text" id="meuInput" onkeyup="filtrarTabela()" placeholder="Pesquise por piloto, equipe, carro ou categoria...">
 
-    <!-- Tabela Corrigida -->
-    <table id="minhaTabela" border="1">
+    <table id="minhaTabela">
         <thead>
             <tr>
                 <th>Piloto / Navegador</th>
@@ -89,31 +95,31 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr class="linha-branca">
                 <td>Marcos Baugart / Kleber Cincea</td>
                 <td>Szimic Racing</td>
                 <td>Ford Ranger</td>
                 <td>ULT.BR</td>
             </tr>
-            <tr>
+            <tr class="linha-cinza">
                 <td>Gunter Hinkelmann / Thiago Osternack</td>
                 <td>MSL Motorsport</td>
                 <td>Ford Ranger</td>
                 <td>T1.1</td>
             </tr>
-            <tr>
+            <tr class="linha-branca">
                 <td>Alessandro Tozoni / Christina Xavier</td>
                 <td>Faster rally Team</td>
                 <td>MEM T-Rex</td>
                 <td>ULT.BR</td>
             </tr>
-            <tr>
+            <tr class="linha-cinza">
                 <td>Luiz Barros / Rogerio Palmegiano</td>
                 <td>Braço Curto Motorsport</td>
                 <td>Mitsubishi L200 Evo</td>
                 <td>ULT.BR</td>
             </tr>
-            <tr>
+            <tr class="linha-branca">
                 <td>Mario Marcondes Neto / Artemio Pauluci Neto</td>
                 <td>Braço Curto Motorsport</td>
                 <td>Ford Ranger</td>
@@ -129,7 +135,6 @@
 </div>
 
 <script>
-    // Função para trocar de aba
     function trocarAba(elemento, idConteudo) {
         document.querySelectorAll('.menu-item').forEach(aba => aba.classList.remove('active'));
         document.querySelectorAll('.content').forEach(cont => cont.classList.remove('show'));
@@ -137,47 +142,35 @@
         document.getElementById(idConteudo).classList.add('show');
     }
 
-    // FUNÇÃO DE FILTRO QUE ESTAVA FALTANDO
     function filtrarTabela() {
-        var input, filtro, tabela, tr, td, i, j, visivel;
-        input = document.getElementById("meuInput");
-        filtro = input.value.toUpperCase();
-        tabela = document.getElementById("minhaTabela");
-        tr = tabela.getElementsByTagName("tr");
+        var input = document.getElementById("meuInput");
+        var filtro = input.value.toUpperCase();
+        var tabela = document.getElementById("minhaTabela");
+        var tr = tabela.getElementsByTagName("tr");
+        var contadorVisiveis = 0;
 
-        // Começa em 1 para não filtrar o cabeçalho (th)
-        for (i = 1; i < tr.length; i++) {
-            visivel = false;
-            // Pega todas as colunas da linha atual
-            td = tr[i].getElementsByTagName("td");
-            for (j = 0; j < td.length; j++) {
-                if (td[j]) {
-                    if (td[j].innerHTML.toUpperCase().indexOf(filtro) > -1) {
-                        visivel = true;
-                        break; // Se achou em uma coluna, mostra a linha e pula para a próxima
-                    }
+        for (var i = 1; i < tr.length; i++) {
+            var visivel = false;
+            var td = tr[i].getElementsByTagName("td");
+            
+            for (var j = 0; j < td.length; j++) {
+                if (td[j] && td[j].innerText.toUpperCase().indexOf(filtro) > -1) {
+                    visivel = true;
+                    break;
                 }
             }
-            tr[i].style.display = visivel ? "" : "none";
-        }
-    }
-
- }
 
             if (visivel) {
                 tr[i].style.display = "";
-                // Recalcula o fundo das linhas para manter o efeito zebra
-                tr[i].className = (contadorVisiveis % 2 === 0) ? "impar" : "par";
+                // Aplica cores alternadas apenas nas linhas que aparecem
+                tr[i].className = (contadorVisiveis % 2 === 0) ? "linha-branca" : "linha-cinza";
                 contadorVisiveis++;
             } else {
                 tr[i].style.display = "none";
             }
         }
     }
-
-
-    
 </script>
 
 </body>
-</html>  
+</html>
