@@ -73,12 +73,12 @@
             border-radius: 8px;
             margin-bottom: 15px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border-left: 8px solid; /* A cor será definida individualmente */
+            border-left: 8px solid;
         }
         .card-categoria h3 { margin-top: 0; font-size: 1.3rem; }
         .card-categoria p { line-height: 1.5; color: #444; margin-bottom: 0; }
 
-        /* CORES ESPECÍFICAS POR CATEGORIA */
+        /* CORES POR CATEGORIA */
         .cat-t1plus { border-left-color: #2196F3; } /* Azul */
         .cat-t1plus h3 { color: #2196F3; }
 
@@ -93,6 +93,13 @@
 
         .cat-stock { border-left-color: #9C27B0; } /* Roxo */
         .cat-stock h3 { color: #9C27B0; }
+
+        /* CORES NOVAS UTV */
+        .cat-utv-challenger { border-left-color: #00BCD4; } /* Ciano */
+        .cat-utv-challenger h3 { color: #00BCD4; }
+
+        .cat-utv-ssv { border-left-color: #795548; } /* Marrom */
+        .cat-utv-ssv h3 { color: #795548; }
 
     </style>
 </head>
@@ -157,21 +164,19 @@
         <h3>Categoria Stock</h3>
         <p>Carros de produção 4x4 (série), como <strong>Mitsubishi Triton Sport, Chevrolet S10 e Ford Ranger Raptor</strong>.</p>
     </div>
-</div>
-    <div class="card-categoria cat-utv challenger">
+
+    <div class="card-categoria cat-utv-challenger">
         <h3>Categoria UTVs Challenger</h3>
-        <p>UTVs prototipo</p>
+        <p>UTVs protótipo de alta performance.</p>
     </div>
 
-    
-</div>
-    <div class="card-categoria cat-utv ssv">
+    <div class="card-categoria cat-utv-ssv">
         <h3>Categoria UTVs SSVr</h3>
-        <p>UTVs produção</p>
+        <p>UTVs de produção com modificações de segurança.</p>
     </div>
 </div>
+
 <script>
-    // Função para trocar abas
     function trocarAba(elemento, idConteudo) {
         document.querySelectorAll('.menu-item').forEach(aba => aba.classList.remove('active'));
         document.querySelectorAll('.content').forEach(cont => cont.classList.remove('show'));
@@ -179,7 +184,6 @@
         document.getElementById(idConteudo).classList.add('show');
     }
 
-    // Função de busca na tabela
     function filtrarTabela() {
         var input, filter, table, tr, td, i, j, txtValue;
         input = document.getElementById("meuInput");
@@ -205,4 +209,3 @@
 
 </body>
 </html>
-
