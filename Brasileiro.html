@@ -97,6 +97,7 @@
     </style>
 </head>
 <body>
+<body>
 
 <nav class="github-menu">
     <a class="menu-item active" onclick="trocarAba(this, 'aba-barretos')">
@@ -104,14 +105,17 @@
     </a>
     <a class="menu-item" onclick="trocarAba(this, 'aba-categorias')">Categorias</a>
 </nav>
+
 <!-- CONTEÚDO: BARRETOS -->
 <div id="aba-barretos" class="content show">
-    <!-- Link exibido por extenso -->
+    <!-- Link corrigido aqui -->
     <div style="margin-bottom: 20px; word-break: break-all;">
         <strong>Vídeo do Evento:</strong> 
-        <a href="https://globoplay.globo.com/v/2450774/" target="_blank" style="color: #3e2723;">
-            https://globoplay.globo.com/v/2450774/
+        <a href="https://globoplay.globo.com" target="_blank" style="color: #3e2723;">
+            https://globoplay.globo.com
         </a>
+    </div> <!-- Agora a div está fechada corretamente -->
+
     <h2>Inscritos - Rally Barretos</h2>
     <input type="text" id="meuInput" onkeyup="filtrarTabela()" placeholder="Pesquise por piloto, equipe, carro ou categoria...">
     
@@ -126,8 +130,7 @@
         </thead>
         <tbody>
             <tr><td>Marcos Baumgart / Kleber Cincea</td><td>Szimic Racing</td><td>Ford Ranger</td><td>ULT.BR</td></tr>
-            <tr><td>Gunter Hinkelmann / Thiago Osternack</td><td>MSL Motorsport</td><td>Ford Ranger</td><td>T1.1</td>
- /tr>
+            <tr><td>Gunter Hinkelmann / Thiago Osternack</td><td>MSL Motorsport</td><td>Ford Ranger</td><td>T1.1</td></tr>
             <tr><td>Alessandro Tozoni / Christina Xavier</td><td>Faster Rally</td><td>MEM T-Rex</td><td>ULT.BR</td></tr>
             <tr><td>Luiz Barros / Rogerio Palmegiano</td><td>Braço Curto</td><td>Mitsubishi L200 Evo</td><td>ULT.BR</td></tr>
             <tr><td>Mario Marcondes / Artemio Pauluci</td><td>Braço Curto</td><td>Ford Ranger</td><td>ULT.BR</td></tr>
@@ -177,19 +180,28 @@
 
 <script>
     function trocarAba(elemento, idConteudo) {
-        // Remove 'active' de todos os itens do menu
+        // Remove active de todos
         document.querySelectorAll('.menu-item').forEach(aba => aba.classList.remove('active'));
         // Esconde todos os conteúdos
-        document.querySelectorAll('.content').forEach(cont => cont.classList.remove('show'));
+        document.querySelectorAll('.content').forEach(cont => {
+            cont.classList.remove('show');
+            cont.style.display = 'none';
+        });
         
-        // Adiciona 'active' no clicado e mostra o conteúdo correspondente
+        // Ativa o atual
         elemento.classList.add('active');
-        document.getElementById(idConteudo).classList.add('show');
+        const alvo = document.getElementById(idConteudo);
+        if (alvo) {
+            alvo.classList.add('show');
+            alvo.style.display = 'block';
+        }
     }
 
     function filtrarTabela() {
         var input, filter, table, tr, td, i, j, txtValue;
         input = document.getElementById("meuInput");
+        if (!input) return;
+        
         filter = input.value.toUpperCase();
         table = document.getElementById("minhaTabela");
         tr = table.getElementsByTagName("tr");
@@ -212,3 +224,5 @@
 
 </body>
 
+
+      
