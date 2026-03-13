@@ -168,23 +168,37 @@
         <h3>Categoria UTVs SSV</h3>
         <p>UTVs de produção com modificações de segurança.</p>
     </div>
-</div>
+</div> <!-- Garanta que esta DIV fecha a aba-categorias -->
 
 <script>
     function trocarAba(elemento, idConteudo) {
-        // Remove 'active' de todos os itens do menu
-        document.querySelectorAll('.menu-item').forEach(aba => aba.classList.remove('active'));
-        // Esconde todos os conteúdos
-        document.querySelectorAll('.content').forEach(cont => cont.classList.remove('show'));
+        // 1. Remove 'active' de todos os itens do menu
+        const abasMenu = document.querySelectorAll('.menu-item');
+        abasMenu.forEach(aba => aba.classList.remove('active'));
         
-        // Adiciona 'active' no clicado e mostra o conteúdo correspondente
+        // 2. Esconde todos os blocos de conteúdo
+        const conteudos = document.querySelectorAll('.content');
+        conteudos.forEach(cont => {
+            cont.classList.remove('show');
+            cont.style.display = 'none'; // Garante que suma visualmente
+        });
+        
+        // 3. Ativa a aba clicada
         elemento.classList.add('active');
-        document.getElementById(idConteudo).classList.add('show');
+        
+        // 4. Mostra o conteúdo correspondente
+        const alvo = document.getElementById(idConteudo);
+        if (alvo) {
+            alvo.classList.add('show');
+            alvo.style.display = 'block'; // Força a exibição
+        }
     }
 
     function filtrarTabela() {
         var input, filter, table, tr, td, i, j, txtValue;
         input = document.getElementById("meuInput");
+        if (!input) return; // Evita erro se o input não existir na aba atual
+        
         filter = input.value.toUpperCase();
         table = document.getElementById("minhaTabela");
         tr = table.getElementsByTagName("tr");
@@ -204,8 +218,3 @@
         }
     }
 </script>
-
-</body>
-</html>
-
-           
