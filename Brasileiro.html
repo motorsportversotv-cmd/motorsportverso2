@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brasileiro de rally cross country</title>
+    <title>Brasileiro de Rally Cross Country</title>
     <style>
         /* ESTILOS GERAIS E MENU */
         body { font-family: sans-serif; background-color: #fdfae6; margin: 0; padding: 20px; }
@@ -54,7 +54,7 @@
         
         .content.show { display: block; }
 
-        /* ESTILO DA TABELA (ABA BARRETOS) */
+        /* ESTILO DA TABELA */
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th { background-color: #3e2723; color: #ffca28; padding: 12px; text-align: left; }
         td { padding: 10px; border: 1px solid #ddd; }
@@ -66,7 +66,7 @@
             box-sizing: border-box; border: 2px solid #3e2723; border-radius: 4px;
         }
 
-        /* ESTILO DOS CARDS (ABA CATEGORIAS) */
+        /* ESTILO DOS CARDS */
         .card-categoria {
             background: white;
             padding: 15px;
@@ -79,28 +79,20 @@
         .card-categoria p { line-height: 1.5; color: #444; margin-bottom: 0; }
 
         /* CORES POR CATEGORIA */
-        .cat-t1plus { border-left-color: #2196F3; } /* Azul */
+        .cat-t1plus { border-left-color: #2196F3; }
         .cat-t1plus h3 { color: #2196F3; }
-
-        .cat-t1-1 { border-left-color: #4CAF50; } /* Verde */
+        .cat-t1-1 { border-left-color: #4CAF50; }
         .cat-t1-1 h3 { color: #4CAF50; }
-
-        .cat-ult-br { border-left-color: #FF9800; } /* Laranja */
+        .cat-ult-br { border-left-color: #FF9800; }
         .cat-ult-br h3 { color: #FF9800; }
-
-        .cat-ult-sp { border-left-color: #F44336; } /* Vermelho */
+        .cat-ult-sp { border-left-color: #F44336; }
         .cat-ult-sp h3 { color: #F44336; }
-
-        .cat-stock { border-left-color: #9C27B0; } /* Roxo */
+        .cat-stock { border-left-color: #9C27B0; }
         .cat-stock h3 { color: #9C27B0; }
-
-        /* CORES NOVAS UTV */
-        .cat-utv-challenger { border-left-color: #00BCD4; } /* Ciano */
+        .cat-utv-challenger { border-left-color: #00BCD4; }
         .cat-utv-challenger h3 { color: #00BCD4; }
-
-        .cat-utv-ssv { border-left-color: #795548; } /* Marrom */
+        .cat-utv-ssv { border-left-color: #795548; }
         .cat-utv-ssv h3 { color: #795548; }
-
     </style>
 </head>
 <body>
@@ -108,14 +100,13 @@
 <nav class="github-menu">
     <a class="menu-item active" onclick="trocarAba(this, 'aba-barretos')">
         Barretos <span class="counter">5</span>
-    
-
+    </a>
     <a class="menu-item" onclick="trocarAba(this, 'aba-categorias')">Categorias</a>
 </nav>
 
 <!-- CONTEÚDO: BARRETOS -->
 <div id="aba-barretos" class="content show">
-    <h2><a href="https://globoplay.globo.com">https://globoplay.globo.com/v/2450774/</a>
+    <p><a href="https://globoplay.globo.com/v/2450774/" target="_blank">Assista ao vídeo no Globoplay</a></p>
 
     <h2>Inscritos - Rally Barretos</h2>
     <input type="text" id="meuInput" onkeyup="filtrarTabela()" placeholder="Pesquise por piloto, equipe, carro ou categoria...">
@@ -181,8 +172,12 @@
 
 <script>
     function trocarAba(elemento, idConteudo) {
+        // Remove 'active' de todos os itens do menu
         document.querySelectorAll('.menu-item').forEach(aba => aba.classList.remove('active'));
+        // Esconde todos os conteúdos
         document.querySelectorAll('.content').forEach(cont => cont.classList.remove('show'));
+        
+        // Adiciona 'active' no clicado e mostra o conteúdo correspondente
         elemento.classList.add('active');
         document.getElementById(idConteudo).classList.add('show');
     }
@@ -212,3 +207,5 @@
 
 </body>
 </html>
+
+           
