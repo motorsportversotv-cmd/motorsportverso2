@@ -1,1 +1,150 @@
-Endurance 
+OOOO <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEC 7 Le Mans Series</title>
+    <style>
+        /* Paleta de Cores e Reset */
+        :root {
+            --azul-claro: #00B4FF;
+            --azul-hover: #0081B4;
+            --branco: #FFFFFF;
+            --cinza-fundo: #F4F7F9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--cinza-fundo);
+        }
+
+        /* Estilo da Navbar */
+        .navbar {
+            background-color: var(--branco);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            height: 80px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 4px solid var(--azul-claro);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--azul-claro);
+            text-decoration: none;
+        }
+
+        /* Itens do Menu */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links li {
+            position: relative;
+            padding: 0 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--azul-claro);
+        }
+
+        /* Dropdown (Séries) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--branco);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            top: 100%;
+            left: 0;
+            z-index: 1;
+            border-top: 2px solid var(--azul-claro);
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            display: block;
+            text-transform: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--cinza-fundo);
+        }
+
+        /* Botão Destaque 24h Le Mans */
+        .btn-lemans {
+            background-color: var(--azul-claro);
+            color: var(--branco) !important;
+            padding: 10px 20px !important;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .btn-lemans:hover {
+            background-color: var(--azul-hover) !important;
+        }
+
+        /* Responsividade Básica */
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Oculta em celulares para simplificar */
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo">ENDURANCE HUB</a>
+        
+        <ul class="nav-links">
+            <li><a href="#">WEC</a></li>
+            
+            <li class="dropdown">
+                <a href="#">SÉRIES ▾</a>
+                <div class="dropdown-content">
+
+                    <a href="#">WEC</a>
+                    <a href="#">European Le Mans Series (ELMS)</a>
+                    <a href="#">Asian Le Mans Series</a>
+                    <a href="#">Le Mans Cup</a>
+                </div>
+            </li>
+
+            <li><a href="#">Calendário</a></li>
+            <li><a href="#">Notícias</a></li>
+            <li><a href="#" class="btn-lemans">24H LE MANS</a></li>
+        </ul>
+    </nav>
+
+    <div style="padding: 50px; text-align: center;">
+        <h1>Acompanhe o Mundial de Endurance</h1>
+        <p style="color: #666; margin-top: 10px;">Notícias e categorias do ecossistema Le Mans.</p>
+    </div>
+
+</body>
+</html>
