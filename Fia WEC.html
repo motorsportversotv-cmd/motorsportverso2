@@ -1,187 +1,110 @@
-OOOO <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEC & Le Mans Series</title>
+    <title>Endurance Hub - WEC</title>
     <style>
-        /* Paleta de Cores e Reset */
         :root {
             --azul-claro: #00B4FF;
             --azul-hover: #0081B4;
             --branco: #FFFFFF;
-            --cinza-fundo: #F4F7F9;
+            --fundo: #F4F7F9;
+            --texto: #333;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--fundo); color: var(--texto); }
 
-        body {
-            background-color: var(--cinza-fundo);
-        }
-
-        /* Estilo da Navbar */
+        /* NAVBAR CORRIGIDA */
         .navbar {
-            background-color: var(--branco);
+            background: var(--branco);
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 5%;
             height: 80px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             border-bottom: 4px solid var(--azul-claro);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--azul-claro);
-            text-decoration: none;
-        }
+        .logo { font-size: 22px; font-weight: 900; color: var(--azul-claro); text-decoration: none; text-transform: uppercase; }
 
-        /* Itens do Menu */
-        .nav-links {
-            display: flex;
-            list-style: none;
-            align-items: center;
-        }
+        .nav-links { display: flex; list-style: none; align-items: center; }
+        .nav-links li { padding: 0 15px; position: relative; }
+        .nav-links a { text-decoration: none; color: var(--texto); font-weight: 700; font-size: 13px; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover { color: var(--azul-claro); }
 
-        .nav-links li {
-            position: relative;
-            padding: 0 15px;
-        }
+        /* BOTÃO DESTAQUE */
+        .btn-lemans { background: var(--azul-claro); color: white !important; padding: 10px 15px; border-radius: 4px; }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 14px;
-            transition: 0.3s;
-        }
+        /* CONTEÚDO PRINCIPAL */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; text-align: center; }
+        h1 { margin-bottom: 10px; color: var(--azul-hover); }
+        .subtitle { margin-bottom: 40px; color: #666; }
 
-        .nav-links a:hover {
-            color: var(--azul-claro);
-        }
-
-        /* Dropdown (Séries) */
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: var(--branco);
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            top: 100%;
-            left: 0;
-            z-index: 1;
-            border-top: 2px solid var(--azul-claro);
-        }
-
-        .dropdown-content a {
-            color: #333;
-            padding: 12px 16px;
-            display: block;
-            text-transform: none;
-            border-bottom: 1px solid #eee;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: var(--cinza-fundo);
-        }
-
-        /* Botão Destaque 24h Le Mans */
-        .btn-lemans {
-            background-color: var(--azul-claro);
-            color: var(--branco) !important;
-            padding: 10px 20px !important;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-
-        .btn-lemans:hover {
-            background-color: var(--azul-hover) !important;
-        }
-
-        /* Responsividade Básica */
-        @media (max-width: 768px) {
-            .nav-links { display: none; } /* Oculta em celulares para simplificar */
-        }
+        /* GRID DE CATEGORIAS */
+        .grid-categorias { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; text-align: left; }
+        
+        .card { background: var(--branco); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--azul-claro); }
+        .card-header { background: #f8f9fa; padding: 15px; font-weight: 800; border-bottom: 1px solid #eee; color: var(--azul-hover); }
+        .card-body { padding: 20px; font-size: 14px; line-height: 1.6; }
+        .marcas { margin-top: 15px; padding-top: 10px; border-top: 1px solid #f0f0f0; font-weight: bold; color: #555; }
+        .ausentes { font-size: 12px; color: #999; font-style: italic; margin-top: 10px; display: block; }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <a href="#" class="logo">ENDURANCE HUB</a>
-        
+        <a href="#" class="logo">Endurance Hub</a>
         <ul class="nav-links">
             <li><a href="#">WEC</a></li>
-            
-            <li class="dropdown">
-                <a href="#">SÉRIES ▾</a>
-                <div class="dropdown-content">
-
-                    <a href="#">WEC</a>
-                    <a href="#">European Le Mans Series (ELMS)</a>
-                    <a href="#">Asian Le Mans Series</a>
-                    <a href="#">Le Mans Cup</a>
-                </div>
-            </li>
-
             <li><a href="#">Calendário</a></li>
             <li><a href="#">Notícias</a></li>
-            <li><a href="#">Categorias do WEC</a></li>
-            <p>
-                <section class="categorias-container">
-    <h2>Categorias do WEC</h2>
-    <div class="grid-categorias">
-        
-        <!-- Card Hypercar (LMH) -->
-        <div class="card">
-            <div class="card-header">Hypercar (LMH)</div>
-            <div class="card-body">
-                <p><strong>Regulamento:</strong> Protótipos de alta tecnologia com sistema híbrido opcional nas 4 rodas.</p>
-                <p class="marcas">Ferrari, Peugeot, Toyota, Aston Martin.</p>
-            </div>
-        </div>
-
-        <!-- Card LMDh -->
-        <div class="card destaque">
-            <div class="card-header">Hypercar (LMDh)</div>
-            <div class="card-body">
-                <p><strong>Regulamento:</strong> Sistema híbrido padrão com chassis base LMP2 (Oreca, Ligier, Dallara, Multimatic).</p>
-                <p class="marcas">Genesis, Alpine, BMW, Cadillac.</p>
-            </div>
-        </div>
-
-        <!-- Card LMGT3 -->
-        <div class="card">
-            <div class="card-header">LMGT3</div>
-            <div class="card-body">
-                <p><strong>Regulamento:</strong> Padrão FIA GT3. Apenas equipes clientes com 2 carros por marca.</p>
-                <p class="marcas">Ferrari, BMW, Porsche, Ford, Corvette, Aston Martin, Mercedes, Lexus.</p>
-                <span class="obs">*Ausentes: Lamborghini, Audi, Honda.</span>
-            </div>
-        </div>
-
-    </div>
-</section>
-            </p>
             <li><a href="#" class="btn-lemans">24H LE MANS</a></li>
         </ul>
     </nav>
 
-    <div style="padding: 50px; text-align: center;">
+    <main class="container">
         <h1>Acompanhe o Mundial de Endurance</h1>
-        <p style="color: #666; margin-top: 10px;">Notícias e categorias do ecossistema Le Mans.</p>
-    </div>
+        <p class="subtitle">Detalhes técnicos das categorias oficiais</p>
+
+        <div class="grid-categorias">
+            <!-- Hypercar LMH -->
+            <div class="card">
+                <div class="card-header">HYPERCAR (LMH)</div>
+                <div class="card-body">
+                    <p><strong>Regulamento:</strong> Protótipos com sistema híbrido opcional nas 4 rodas.</p>
+                    <div class="marcas">Fabricantes: Ferrari, Peugeot, Toyota, Aston Martin.</div>
+                </div>
+            </div>
+
+            <!-- Hypercar LMDh -->
+            <div class="card">
+                <div class="card-header">HYPERCAR (LMDh)</div>
+                <div class="card-body">
+                    <p><strong>Regulamento:</strong> Sistema híbrido padrão e chassis base LMP2 (Oreca, Ligier, Dallara, Multimatic).</p>
+                    <div class="marcas">Fabricantes: Genesis, Alpine, BMW, Cadillac.</div>
+                </div>
+            </div>
+
+            <!-- LMGT3 -->
+            <div class="card">
+                <div class="card-header">LMGT3</div>
+                <div class="card-body">
+                    <p><strong>Regulamento:</strong> Padrão FIA GT3. Apenas equipes clientes com 2 carros por marca.</p>
+                    <div class="marcas">Fabricantes: Ferrari, BMW, Porsche, Ford, Corvette, Aston Martin, Mercedes, Lexus.</div>
+                    <span class="ausentes">*Sem participação: Lamborghini, Audi, Honda.</span>
+                </div>
+            </div>
+        </div>
+    </main>
 
 </body>
 </html>
+
+        
+       
+   
