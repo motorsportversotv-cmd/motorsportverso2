@@ -106,15 +106,20 @@
     <div class="lista-noticias">
         <!-- Notícia 1 -->
         <article class="news-card">
-            <div class="download.jpg" style="background-image</div>
+            <!-- Corrigido: div de imagem com estilo inline adequado -->
+            <div class="news-image" style="background-image: url('download.jpg'); height: 200px; background-size: cover;"></div>
+            
             <div class="news-content">
                 <span class="tag tag-wec">WEC</span>
-                <h3>BYD analisa entrada no Fia WEC </h3>
-                <p>A marca Chinesa analisa entrada no Fia WEC e nas 24h Le Mans </p>
-                <a href="#" class="read-more">Ler mais →</a>noticia-byd.html
+                <h3>BYD analisa entrada no Fia WEC</h3>
+                <p>A marca Chinesa analisa entrada no Fia WEC e nas 24h Le Mans</p>
+                
+                <!-- Corrigido: O arquivo 'noticia-byd.html' deve estar dentro do atributo href -->
+                <a href="noticia-byd.html" class="read-more">Ler mais →</a>
             </div>
         </article>
-</body>
+    </div> <!-- Faltava fechar a div lista-noticias -->
+</section>
 </html>
 
         
