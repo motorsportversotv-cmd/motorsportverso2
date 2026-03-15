@@ -1,1 +1,166 @@
-Hill Climb
+!DOCTYPE html>
+<html lang="pt-br" 
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universo Hill Climb</title>
+    <style>
+        :root {
+            --laranja: #ff6600;
+            --laranja-escuro: #e65c00;
+            --preto: #1a1a1a;
+            --cinza-claro: #f4f4f4;
+            --branco: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--cinza-claro);
+            color: #333;
+        }
+
+        /* Menu */
+        header {
+            background-color: var(--preto);
+            color: var(--branco);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 4px solid var(--laranja);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav a {
+            color: var(--branco);
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--laranja);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #333;
+            color: var(--branco);
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            color: var(--laranja);
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Seções */
+        section {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: var(--preto);
+            border-left: 5px solid var(--laranja);
+            padding-left: 10px;
+        }
+
+        .content-box {
+            background: var(--branco);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--preto);
+            color: var(--branco);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; align-items: center; }
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#o-que-e">O que é</a>
+            <a href="#goodwood">Goodwood</a>
+            <a href="#pikes">Pikes Peak</a>
+            <a href="#friends">Friends</a>
+            <a href="#brasil">Brasil</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Hill Climb</h1>
+        <p>A emoção da subida contra o relógio.</p>
+    </div>
+
+    <section id="o-que-e">
+        <div class="content-box">
+            <h2>O que é Hill Climb?</h2>
+            <p>Conhecida como subida de montanha, é uma modalidade automobilística onde pilotos competem individualmente contra o relógio, buscando o menor tempo em trajetos sinuosos de subida. É um dos tipos mais antigos de corrida, focado em habilidade pura e potência.</p>
+        </div>
+    </section>
+
+    <section id="goodwood">
+        <div class="content-box">
+            <h2>Goodwood Festival of Speed</h2>
+            <p>O evento icônico no Reino Unido que reúne carros clássicos e modernos subindo a colina de Lord March. Não é apenas uma corrida, mas uma celebração da velocidade.</p>
+        </div>
+    </section>
+
+    <section id="pikes">
+        <div class="content-box">
+            <h2>Pikes Peak International</h2>
+            <p>"The Race to the Clouds", realizada no Colorado (EUA). A corrida termina a mais de 14.000 pés de altitude, com 156 curvas perigosas. É uma das mais desafiadoras do mundo.</p>
+        </div>
+    </section>
+
+    <section id="friends">
+        <div class="content-box">
+            <h2>Friends Hill Climb</h2>
+            <p>Eventos focados em confraternização, permitindo a entusiastas e amigos subirem montanhas em um ambiente controlado e seguro. Frequentemente realizado em estradas cênicas no Brasil.</p>
+        </div>
+    </section>
+
+    <section id="brasil">
+        <div class="content-box">
+            <h2>Hill Climb Brasil</h2>
+            <p>O cenário nacional vem crescendo, com projetos que organizam subidas de montanha, unindo desde carros preparados a modelos de rua em busca de tempo e emoção.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Universo Hill Climb - Layout Orange</p>
+    </footer>
+
+</body>
+</html>
