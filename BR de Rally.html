@@ -17,12 +17,13 @@
             background-color: #f4f4f4;
             scroll-behavior: smooth;
         }
-  /* Menu Principal */
+
+        /* Menu Principal */
         nav {
             width: 100%;
             background-color: #008000; /* Verde */
             padding: 0;
-            margin-bottom: 30px;
+            margin-bottom: 0; /* Ajustado para colar na barra de notícias */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -61,7 +62,7 @@
             background-color: #008000;
             min-width: 160px;
             box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
+            z-index: 10;
         }
 
         .dropdown-content a {
@@ -73,6 +74,56 @@
 
         .dropdown:hover .dropdown-content {
             display: block;
+        }
+
+        /* BARRA DE NOTÍCIAS (NOVO) */
+        .news-bar {
+            width: 100%;
+            background: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            height: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .news-title {
+            background: #ffcc00;
+            color: #000;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            z-index: 2;
+        }
+
+        .news-ticker {
+            flex: 1;
+            white-space: nowrap;
+            display: inline-block;
+            padding-left: 100%;
+            animation: ticker 30s linear infinite;
+        }
+
+        .news-ticker span {
+            padding-right: 60px;
+            font-size: 0.9em;
+            display: inline-block;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .news-bar:hover .news-ticker {
+            animation-play-state: paused;
         }
 
         /* Restante do Estilo */
@@ -96,27 +147,37 @@
         }
 
         img:hover { transform: scale(1.02); }
-
-        .texto-centralizado {
-            text-align: center;
-            max-width: 600px;
-            margin-bottom: 20px;
-        }
-
-        ol { display: inline-block; text-align: left; }
     </style>
 </head>
 <body>
 
-<div class="news-bar">
-    <div class="news-title">Últimas Notícias</div>
-    <div class="news-ticker">
-        <span>🏁 Rally de Erechim 2024: Inscrições abertas para todas as categorias!</span>
-        <span>🚗 Novo regulamento técnico para o Brasileiro de Rally de Velocidade.</span>
-        <span>🏆 Confira os destaques da última etapa do Rally Virtual.</span>
+    <!-- Menu de Navegação -->
+    <nav>
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Erechim ▼</a>
+            <div class="dropdown-content">
+                <a href="#inscritos-erechim">Inscritos</a>
+            </div>
+        </div>
+        <a href="#meus-videos">Vídeos</a>
+        <a href="#">Rally Virtual</a>
+    </nav>
+
+    <!-- Barra de Notícias Aplicada -->
+    <div class="news-bar">
+        <div class="news-title">Últimas Notícias</div>
+        <div class="news-ticker">
+            <span>🏁 Rally de Erechim 2024: Inscrições abertas para todas as categorias!</span>
+            <span>🚗 Novo regulamento técnico para o Brasileiro de Rally de Velocidade.</span>
+            <span>🏆 Confira os destaques da última etapa do Rally Virtual.</span>
+        </div>
     </div>
-</div>
-    
+
+    <!-- Exemplo de conteúdo abaixo -->
+    <div class="container">
+        <h1>Bem-vindo ao BR DE Rally</h1>
+        <p>Acompanhe as principais informações do rally nacional.</p>
+    </div>
     <!-- Menu de Navegação Corrigido -->
     <nav>
         <div class="dropdown">
