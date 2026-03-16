@@ -227,72 +227,61 @@
              <h3>Brasileiro de rally virtual</h3>    
              <a href="BR Rally Virtual.html" class="read-more">Ler mais →</a>  
 
-<!-- Barra de Cobertura Especial -->
-<div class="coverage-highlight">
-    <div class="coverage-badge">AO VIVO</div>
-    <div class="coverage-text">
-        Cobertura Rally de Erechim 2026 | <strong>19 a 22/03</strong>
+<!-- Barra de Cobertura Simples -->
+<div class="barra-cobertura-erechim">
+    <div class="cobertura-info">
+        <span class="emoji-car">🏁</span>
+        COBERTURA RALLY DE ERECHIM 2026 | <strong>19 A 22/03</strong>
     </div>
-    <a href="#programacao" class="coverage-btn">Ver Programação</a>
+    <a href="#detalhes" class="btn-detalhes">SAIBA MAIS</a>
 </div>
 
-/* Estilo da Barra de Cobertura */
-.coverage-highlight {
+/* Estilo da Barra de Cobertura Verde */
+.barra-cobertura-erechim {
     width: 100%;
-    background: linear-gradient(90deg, #004d00 0%, #008000 100%);
-    color: white;
+    background-color: #008000; /* Verde igual ao seu menu */
+    color: #ffffff; /* Escrita em branco */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 15px 0;
-    gap: 20px;
-    border-bottom: 4px solid #ffcc00; /* Linha amarela de destaque */
+    gap: 15px;
+    border-top: 2px solid rgba(255,255,255,0.2); /* Linha sutil para separar do menu */
     margin-bottom: 20px;
+    font-family: 'Arial Black', sans-serif;
 }
 
-.coverage-badge {
-    background-color: #ff0000;
-    color: white;
-    padding: 5px 12px;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 0.8em;
-    animation: blinker 1.5s linear infinite;
-}
-
-.coverage-text {
-    font-size: 1.2em;
-    text-transform: uppercase;
+.cobertura-info {
+    font-size: 1.1em;
     letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
-.coverage-btn {
-    background-color: #ffcc00;
-    color: #000;
-    padding: 8px 15px;
+.emoji-car {
+    margin-right: 10px;
+}
+
+.btn-detalhes {
+    background-color: #ffffff;
+    color: #008000;
+    padding: 5px 15px;
     text-decoration: none;
     font-weight: bold;
-    border-radius: 5px;
-    font-size: 0.9em;
-    transition: transform 0.2s;
+    border-radius: 3px;
+    font-size: 0.8em;
+    transition: background 0.3s;
 }
 
-.coverage-btn:hover {
-    transform: scale(1.1);
-    background-color: #e6b800;
+.btn-detalhes:hover {
+    background-color: #e0e0e0;
 }
 
-/* Animação do "Ao Vivo" */
-@keyframes blinker {
-    50% { opacity: 0; }
-}
-
-/* Ajuste para Mobile */
+/* Ajuste para telas pequenas */
 @media (max-width: 600px) {
-    .coverage-highlight {
+    .barra-cobertura-erechim {
         flex-direction: column;
         text-align: center;
-        gap: 10px;
+        padding: 20px 10px;
     }
 }
 
