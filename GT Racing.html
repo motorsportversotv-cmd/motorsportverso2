@@ -1,21 +1,58 @@
+html
 <!DOCTYPE html>
-<html lang=pt-br>
-<head> 
-     <meta charset="UTF-8"
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
     <title>GT Racing-Motorsportverso</title>
-  <body>
+    <style>
+        /* Estilo do Menu */
+        nav {
+            background-color: black; /* Fundo Preto */
+            padding: 10px;
+        }
 
-    <h1>GT Racing</h1>
-    <p>As categorias de GT pelo mundo</p>
+        ul {
+            list-style: none; /* Remove as bolinhas da lista */
+            display: flex;    /* Coloca os itens lado a lado */
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            /* Linha cinza entre os itens (borda direita) */
+            border-right: 2px solid gray; 
+        }
+
+        li:last-child {
+            border-right: none; /* Remove a linha do último item */
+        }
+
+        a {
+            display: block;
+            padding: 15px 25px;
+            color: white;           /* Texto Branco */
+            text-decoration: none;  /* Remove o sublinhado */
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            transition: 0.3s;       /* Efeito suave ao passar o mouse */
+        }
+
+        /* Efeito de passar o mouse: Fundo Vermelho */
+        a:hover {
+            background-color: red; 
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Produtos</a></li>
+            <li><a href="#">Serviços</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </nav>
 
 </body>
 </html>
-</head>
-
-<style>
-  body {
-    background-color: black; /* Troque por gray, red ou white */
-    color: white; /* Cor do texto (branco fica melhor no fundo preto) */
-  }
-</style>
