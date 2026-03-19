@@ -1,1 +1,154 @@
-GT Series Cup BR 
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GT Series Cup BR</title>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GT Series Cup BR</title>
+    <style>
+        /* RESET BÁSICO */
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; }
+
+        /* 1. MENU SUPERIOR (CINZA E VERDE) */
+        nav {
+            background-color: #2b2b2b; /* Cinza Escuro */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            height: 70px;
+            border-bottom: 3px solid #2ecc71; /* Linha Verde inferior */
+        }
+        
+        .logo-site {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .menu-links {
+            display: flex;
+            height: 100%;
+        }
+
+        nav a {
+            color: #2ecc71; /* Verde */
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #3d3d3d;
+            color: #fff;
+        }
+
+        /* 2. BARRA DE NOTÍCIAS (LETREIRO) */
+        .breaking-news {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 12px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+        .breaking-news-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 25s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+        .news-tag {
+            background: #2ecc71;
+            color: #000;
+            padding: 3px 10px;
+            font-weight: bold;
+            margin-right: 15px;
+            border-radius: 2px;
+            text-transform: uppercase;
+        }
+
+        /* 3. BARRA DE COBERTURA RALLY ERECHIM */
+        .barra-cobertura-erechim {
+            background-color: #ffffff;
+            border-bottom: 4px solid #e31d1a;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .texto-rally { 
+            font-size: 15px; 
+            color: #333; 
+            font-weight: bold; 
+        }
+        .btn-detalhes {
+            background-color: #e31d1a;
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 13px;
+            transition: transform 0.2s, background 0.3s;
+        }
+        .btn-detalhes:hover { 
+            background-color: #b31614; 
+            transform: scale(1.05);
+        }
+
+        /* CONTEÚDO */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENU -->
+    <nav>
+        <div class="logo-site">GT SERIES CUP BR</div>
+        <div class="menu-links">
+            <a href="#">CATEGORIAS</a>
+            <a href="#">RESULTADOS</a>
+        </div>
+    </nav>
+
+    <!-- BARRA DE NOTÍCIAS -->
+    <div class="breaking-news">
+        <div class="breaking-news-content">
+            <span class="news-tag">Destaque:</span> Inscrições abertas para a temporada 2026 da GT Series Cup BR! | 🏎️ Novos carros confirmados na categoria GT3... | 🛠️ Mudanças no regulamento técnico para a próxima etapa...
+        </div>
+    </div>
+
+    
+
+    <!-- ÁREA PRINCIPAL -->
+    <div class="container">
+        <h1>Bem-vindo à GT Series Cup BR</h1>
+        <p>O centro das emoções do automobilismo e rally nacional.</p>
+    </div>
+
+</body>
+</html>
