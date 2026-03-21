@@ -1,4 +1,46 @@
-
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados Rally de Erechim 2026</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centraliza o container na página */
+            padding: 20px;
+        }
+        .content-wrapper {
+            width: 100%;
+            max-width: 850px;
+            text-align: center; /* Centraliza títulos e textos */
+        }
+        h1 { color: #d32f2f; margin-bottom: 10px; }
+        h2 { color: #333; margin-top: 30px; border-bottom: 2px solid #d32f2f; display: inline-block; padding-bottom: 5px; }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center; /* Centraliza o texto dentro da tabela */
+        }
+        th {
+            background-color: #222;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .tempo { font-weight: bold; color: #d32f2f; }
+    </style>
+</head>
 <div class="content-wrapper">
     <h1>Super Prime Rally de Erechim 2026</h1>
 
