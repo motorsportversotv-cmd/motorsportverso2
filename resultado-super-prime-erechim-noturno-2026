@@ -2,21 +2,25 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados Rally</title>
     <style>
-        body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 20px auto; padding: 0 20px; }
-        h2 { border-bottom: 2px solid #e74c3c; padding-bottom: 5px; color: #c0392b; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #f8f9fa; font-weight: bold; }
-        tr:nth-child(even) { background-color: #f2f2f2; }
-        .pos { font-weight: bold; width: 40px; text-align: center; }
-        .tempo { font-family: monospace; font-weight: bold; color: #2c3e50; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h2 { color: #d32f2f; border-left: 5px solid #d32f2f; padding-left: 10px; margin-top: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { background-color: #2c3e50; color: white; padding: 12px; text-align: left; }
+        td { padding: 10px; border-bottom: 1px solid #ddd; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        tr:hover { background-color: #f1f1f1; }
+        .pos { font-weight: bold; width: 30px; text-align: center; color: #d32f2f; }
+        .tempo { font-family: 'Courier New', Courier, monospace; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <h2>Top 10 Geral</h2>
+<div class="container">
+    <h2>TOP 10 GERAL</h2>
     <table>
         <thead>
             <tr>
@@ -41,7 +45,7 @@
         </tbody>
     </table>
 
-    <h2>Rally 4</h2>
+    <h2>RALLY 4</h2>
     <table>
         <thead>
             <tr>
@@ -60,8 +64,7 @@
             <tr><td class="pos">5</td><td>Cardoso / Silva</td><td>Peugeot 207</td><td>Cardoso Rally Team</td><td class="tempo">3:42.3</td></tr>
         </tbody>
     </table>
+</div>
 
 </body>
 </html>
-
-
