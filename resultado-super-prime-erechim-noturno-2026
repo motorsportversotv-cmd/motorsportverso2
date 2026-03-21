@@ -2,43 +2,66 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Resultado Super Prime Erechim 2026</title>
+    <title>Resultados Rally</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 20px auto; padding: 0 20px; }
+        h2 { border-bottom: 2px solid #e74c3c; padding-bottom: 5px; color: #c0392b; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f8f9fa; font-weight: bold; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .pos { font-weight: bold; width: 40px; text-align: center; }
+        .tempo { font-family: monospace; font-weight: bold; color: #2c3e50; }
+    </style>
 </head>
 <body>
-    <h1>Resultado Super Prime Erechim 2026</h1>
-    <p>Top 10
 
-<p>1-Zaldivar/Allende-Skoda Fábia RS Rally 2-MZR Rally-CO Rally 2-3:04.2</p>
+    <h2>Top 10 Geral</h2>
+    <table>
+        <thead>
+            <tr>
+                <th class="pos">#</th>
+                <th>Piloto / Navegador</th>
+                <th>Carro</th>
+                <th>Equipe</th>
+                <th>Tempo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td class="pos">1</td><td>Zaldivar / Allende</td><td>Skoda Fábia RS Rally 2</td><td>MZR Rally</td><td class="tempo">3:04.2</td></tr>
+            <tr><td class="pos">2</td><td>Franco / Hurtado</td><td>Citroen C3 Rally 2</td><td>GP Motorsport</td><td class="tempo">3:07.0</td></tr>
+            <tr><td class="pos">3</td><td>Baldoni / Franchello</td><td>Skoda Fábia RS Rally 2</td><td>Baratec</td><td class="tempo">3:07.9</td></tr>
+            <tr><td class="pos">4</td><td>Saba / Olmos</td><td>Toyota GR Yaris Rally 2</td><td>Saba Competition</td><td class="tempo">3:08.3</td></tr>
+            <tr><td class="pos">5</td><td>Weiler / Sanchez</td><td>Toyota GR Yaris Rally 2</td><td>Gazzo Racing Paraguay</td><td class="tempo">3:09.3</td></tr>
+            <tr><td class="pos">6</td><td>Galanti / Toyotoshi</td><td>Toyota GR Yaris Rally 2</td><td>Gazzo Racing Paraguay</td><td class="tempo">3:09.7</td></tr>
+            <tr><td class="pos">7</td><td>Tarqui / Startieri</td><td>Skoda Fábia RS Rally 2</td><td>-</td><td class="tempo">3:13.7</td></tr>
+            <tr><td class="pos">8</td><td>D'Agustini / Carrera</td><td>Skoda Fábia RS Rally 2</td><td>Baratec</td><td class="tempo">3:15.8</td></tr>
+            <tr><td class="pos">9</td><td>Bestard / Diaz</td><td>Toyota GR Yaris Rally 2</td><td>ABR Rally</td><td class="tempo">3:16.2</td></tr>
+            <tr><td class="pos">10</td><td>Wiesmeier / Miranda</td><td>Toyota GR Yaris Rally 2</td><td>Saba Competition</td><td class="tempo">3:16.7</td></tr>
+        </tbody>
+    </table>
 
-<p>2-Franco/Hurtado-Citroen C3 Rally 2-GP Motorsport -CO Rally 2-3:07.0</p>
-
-<p>3-Baldoni/Franchello-Skoda Fábia RS Rally 2-Baratec-CO Rally 2-3:07.9</p>
-
-<p>4-Saba/Olmos-Toyota GR Yaris Rally 2-Saba Competition-CO Rally 2-3:08.3</p>
-
-<p>5-Weiler/Sanchez-Toyota GR Yaris Rally 2-Gazzo Racing Paraguay-CO Rally 2-3:09.3</p>
-
-<p>6-Galanti/Toyotoshi-Toyota GR Yaris Rally 2-Gazzo Racing Paraguay-CO Rally 2-3:09.7</p>
-
-<p>7-Tarqui/Startieri-Skoda Fábia RS Rally 2 -CO Rally 2-3:13.7</p>
-
-<p>8-D'Augustini/Carrera-Skoda Fábia RS Rally 2 -Baratec-CO Rally 2-3:15.8</p>
-
-<p>9-Bestard/Diaz-Toyota GR Yaris Rally 2 -ABR Rally-CO Rally 2-3:16.2</p>
-
-<p>10-Whiesmeier/Miranda -Toyota GR Yaris Rally 2-Saba Competition-CO Rally 2-3:16.7</p>
-
-<p> Rally 4
-
-1-Stedile/Spironelo-Peugeot 208 Rally 4-TRP-3:35.8
-
-2-Parades/Garcia -Peugeot 208 Rally 4-GP Motorsport-3:39.1
-
-3-Tarqui/Calderon-Peugeot 208 Rally 4-3:40.9
-
-4-Contin/Bouvier-Renault Clio RS Rally 4 -Gianni Motorsport-3:41.9
-
-5-Cardoso/Silva-Peugeot 207-Cardoso Rally Team-3:42.3
+    <h2>Rally 4</h2>
+    <table>
+        <thead>
+            <tr>
+                <th class="pos">#</th>
+                <th>Piloto / Navegador</th>
+                <th>Carro</th>
+                <th>Equipe</th>
+                <th>Tempo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td class="pos">1</td><td>Stedile / Spironelo</td><td>Peugeot 208 Rally 4</td><td>TRP</td><td class="tempo">3:35.8</td></tr>
+            <tr><td class="pos">2</td><td>Parades / Garcia</td><td>Peugeot 208 Rally 4</td><td>GP Motorsport</td><td class="tempo">3:39.1</td></tr>
+            <tr><td class="pos">3</td><td>Tarqui / Calderon</td><td>Peugeot 208 Rally 4</td><td>-</td><td class="tempo">3:40.9</td></tr>
+            <tr><td class="pos">4</td><td>Contin / Bouvier</td><td>Renault Clio RS Rally 4</td><td>Gianni Motorsport</td><td class="tempo">3:41.9</td></tr>
+            <tr><td class="pos">5</td><td>Cardoso / Silva</td><td>Peugeot 207</td><td>Cardoso Rally Team</td><td class="tempo">3:42.3</td></tr>
+        </tbody>
+    </table>
 
 </body>
 </html>
+
+
