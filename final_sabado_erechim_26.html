@@ -1,42 +1,21 @@
-html
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados Rally</title>
+    <title>Classificação Rally - Atualizada</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-        h1 { color: #f39c12; text-transform: uppercase; letter-spacing: 2px; }
-        h2 { border-left: 5px solid #f39c12; padding-left: 10px; align-self: flex-start; max-width: 800px; margin: 30px auto 10px; width: 100%; }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 800px;
-            background-color: #2c3e50;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            margin-bottom: 20px;
-        }
-        th { background-color: #f39c12; color: #1a1a1a; padding: 12px; text-align: left; }
-        td { padding: 10px 12px; border-bottom: 1px solid #3e4f5f; }
-        tr:hover { background-color: #34495e; }
-        .pos { font-weight: bold; color: #f39c12; width: 40px; }
-        .tempo { font-family: 'Courier New', Courier, monospace; font-weight: bold; color: #2ecc71; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #1a1a1a; color: #fff; padding: 20px; }
+        h2 { color: #fff; border-left: 4px solid #f39c12; padding-left: 10px; margin-bottom: 20px; }
+        table { border-collapse: collapse; width: 100%; max-width: 900px; background-color: #242f3d; border-radius: 8px; overflow: hidden; }
+        th { background-color: #f39c12; color: #000; padding: 12px; text-align: left; text-transform: uppercase; font-size: 14px; }
+        td { padding: 12px; border-bottom: 1px solid #313d4f; font-size: 14px; }
+        tr:nth-child(even) { background-color: #2b3644; }
+        .pos { color: #f39c12; font-weight: bold; width: 30px; }
+        .tempo { color: #66bb6a; font-family: monospace; font-weight: bold; text-align: right; }
+        .categoria { color: #94a3b8; }
     </style>
 </head>
 <body>
-
-    <h1>Classificação do Rally</h1>
 
     <h2>Top 10 - Geral / Rally 2</h2>
     <table>
@@ -50,36 +29,16 @@ html
             </tr>
         </thead>
         <tbody>
-            <tr><td class="pos">1</td><td>Franco / Hurtado</td><td>Citroen C3 Rally 2 (GP Motorsport)</td><td></td>Rally 2 CO</td><td  class="tempo">50:07.9</td></tr>
-            <tr><td class="pos">2</td><td>Weiler / Sanchez</td><td>Toyota GR Yaris Rally 2 (Gazzo Racing PY)</td><td></td>Rally 2 CO</td><td  class="tempo">50:17.6</td></tr>
-            <tr><td class="pos">3</td><td>Baldoni / Franchello</td><td>Skoda Fabia RS Rally 2 (Baratec)</td><td></td>Rally 2 CO</td><td  class="tempo">50:34.4</td></tr>
-            <tr><td class="pos">4</td><td>D'Augustini / Carrera</td><td>Skoda Fábia RS Rally 2 (Baratec)</td><td></td>Rally 2 CO</td><td  class="tempo">50:37.9</td></tr>
-            <tr><td class="pos">5</td><td>Saba / Olmos</td><td>Toyota GR Yaris Rally 2 (Saba Competition)</td><td></td>Rally 2 CO</td><td  class="tempo">50:38.3</td></tr>
-            <tr><td class="pos">6</td><td>Tarqui / Startieri</td><td>Skoda Fabia RS Rally 2 </td><td></td>Rally 2 CO</td><td  class="tempo">51:21.3</td></tr>
-            <tr><td class="pos">7</td><td>Bestard / Diaz</td><td>Toyota GR Yaris Rally 2(ABR Rally) </td><td></td>Rally 2 CO</td><td  class="tempo">52:17.8</td></tr>
-            <tr><td class="pos">8</td><td>Tarqui/ Monteiro</td><td>Skoda Fabia RS Rally 2</td><td></td>Rally 2 CO</td><td  class="tempo">54:55.8</td></tr>
-            <tr><td class="pos">9</td><td>R.Varela / Marini</td><td>Peugeot 208 MR(Varela Rally) </td><td></td> BR Rally 2 </td><td  class="tempo">56:20.1</td></tr>
-            <tr><td class="pos">10</td><td>L.Stedile / Spironelo </td><td>Peugeot 208 Rally 4(TRP) </td><td></td> Rally 4 CO4 </td><td  class="tempo">56:23.5</td></tr>
-        
-        </tbody>
-    </table>
-
-    <h2>Categoria Rally 4</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Pos</th>
-                <th>Piloto / Navegador</th>
-                <th>Carro / Equipe</th>
-                <th>Tempo</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td class="pos">1</td><td>Stedile / Spironelo</td><td>Peugeot 208 Rally 4 (TRP)</td><td class="tempo">3:35.8</td></tr>
-            <tr><td class="pos">2</td><td>Parades / Garcia</td><td>Peugeot 208 Rally 4 (GP Motorsport)</td><td class="tempo">3:39.1</td></tr>
-            <tr><td class="pos">3</td><td>Tarqui / Calderon</td><td>Peugeot 208 Rally 4</td><td class="tempo">3:40.9</td></tr>
-            <tr><td class="pos">4</td><td>Contin / Bouvier</td><td>Renault Clio RS Rally 4 (Gianni Motorsport)</td><td class="tempo">3:41.9</td></tr>
-            <tr><td class="pos">5</td><td>Cardoso / Silva</td><td>Peugeot 207 (Cardoso Rally Team)</td><td class="tempo">3:42.3</td></tr>
+            <tr><td class="pos">1</td><td>Franco / Hurtado</td><td>Citroen C3 Rally 2 (GP Motorsport)</td><td class="categoria">Rally 2 CO</td><td class="tempo">50:07.9</td></tr>
+            <tr><td class="pos">2</td><td>Weiler / Sanchez</td><td>Toyota GR Yaris Rally 2 (Gazzo Racing PY)</td><td class="categoria">Rally 2 CO</td><td class="tempo">50:17.6</td></tr>
+            <tr><td class="pos">3</td><td>Baldoni / Franchello</td><td>Skoda Fabia RS Rally 2 (Baratec)</td><td class="categoria">Rally 2 CO</td><td class="tempo">50:34.4</td></tr>
+            <tr><td class="pos">4</td><td>D'Augustini / Carrera</td><td>Skoda Fabia RS Rally 2 (Baratec)</td><td class="categoria">Rally 2 CO</td><td class="tempo">50:37.9</td></tr>
+            <tr><td class="pos">5</td><td>Saba / Olmos</td><td>Toyota GR Yaris Rally 2 (Saba Competition)</td><td class="categoria">Rally 2 CO</td><td class="tempo">50:38.3</td></tr>
+            <tr><td class="pos">6</td><td>Tarqui / Startieri</td><td>Skoda Fabia RS Rally 2</td><td class="categoria">Rally 2 CO</td><td class="tempo">51:21.3</td></tr>
+            <tr><td class="pos">7</td><td>Bestard / Diaz</td><td>Toyota GR Yaris Rally 2 (ABR Rally)</td><td class="categoria">Rally 2 CO</td><td class="tempo">52:17.8</td></tr>
+            <tr><td class="pos">8</td><td>Tarqui / Monteiro</td><td>Skoda Fabia RS Rally 2</td><td class="categoria">Rally 2 CO</td><td class="tempo">54:55.8</td></tr>
+            <tr><td class="pos">9</td><td>R. Varela / Marini</td><td>Peugeot 208 MR (Varela Rally)</td><td class="categoria">BR Rally 2</td><td class="tempo">56:20.1</td></tr>
+            <tr><td class="pos">10</td><td>L. Stedile / Spironelo</td><td>Peugeot 208 Rally 4 (TRP)</td><td class="categoria">Rally 4 CO</td><td class="tempo">56:23.5</td></tr>
         </tbody>
     </table>
 
