@@ -4,165 +4,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GT Series Cup BR</title>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GT Series Cup BR</title>
     <style>
-        /* RESET BÁSICO */
-        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; }
+        /* RESET E BASE */
+        body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f4f4; }
 
-        /* 1. MENU SUPERIOR (CINZA E VERDE) */
+        /* MENU PRINCIPAL */
         nav {
-            background-color: #2b2b2b; /* Cinza Escuro */
+            background-color: #2b2b2b;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 30px;
+            padding: 0 50px;
             height: 70px;
-            border-bottom: 3px solid #2ecc71; /* Linha Verde inferior */
-        }
-        
-        .logo-site {
-            color: #ffffff;
-            font-size: 22px;
-            font-weight: bold;
-            letter-spacing: 1px;
+            border-bottom: 4px solid #2ecc71;
+            position: relative;
+            z-index: 1000;
         }
 
-        .menu-links {
-            display: flex;
-            height: 100%;
-        }
+        .logo-site { color: #fff; font-size: 22px; font-weight: bold; }
 
-        nav a {
-            color: #2ecc71; /* Verde */
+        .menu-links { display: flex; height: 100%; }
+
+        /* ITEM DO MENU */
+        .dropdown { position: relative; height: 100%; }
+
+        .menu-btn {
+            color: #2ecc71;
             text-decoration: none;
             font-weight: bold;
             text-transform: uppercase;
-            padding: 0 20px;
+            padding: 0 25px;
             height: 100%;
             display: flex;
             align-items: center;
-            transition: all 0.3s ease;
+            transition: 0.3s;
+            cursor: pointer;
         }
 
-        nav a:hover {
-            background-color: #3d3d3d;
-            color: #fff;
+        .dropdown:hover .menu-btn { background-color: #3d3d3d; color: #fff; }
+
+        /* SUBMENU (DROPDOWN) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            background-color: #fff;
+            min-width: 320px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-top: 3px solid #2ecc71;
         }
 
-        /* 2. BARRA DE NOTÍCIAS (LETREIRO) */
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* ESTILO DAS CATEGORIAS DENTRO DO MENU */
+        .cat-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            color: #333;
+            text-decoration: none;
+            display: block;
+            transition: 0.2s;
+        }
+
+        .cat-item:hover { background-color: #f9f9f9; border-left: 5px solid #2ecc71; }
+
+        .cat-item strong { color: #2b2b2b; display: block; margin-bottom: 5px; }
+        
+        .cat-item p { 
+            margin: 0; 
+            font-size: 11px; 
+            color: #666; 
+            line-height: 1.4;
+            white-space: normal; /* Permite que o texto quebre linha */
+        }
+
+        /* CALENDÁRIO */
+        .calendar-item {
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            border-bottom: 1px solid #eee;
+        }
+        .calendar-item span { font-weight: bold; color: #e31d1a; }
+
+        /* LETREIRO DE NOTÍCIAS */
         .breaking-news {
             background: #1a1a1a;
             color: #fff;
-            padding: 12px 0;
+            padding: 10px 0;
             overflow: hidden;
             white-space: nowrap;
-            font-size: 14px;
         }
         .breaking-news-content {
             display: inline-block;
             padding-left: 100%;
-            animation: marquee 25s linear infinite;
+            animation: marquee 30s linear infinite;
         }
         @keyframes marquee {
             0% { transform: translate(0, 0); }
             100% { transform: translate(-100%, 0); }
         }
-        .news-tag {
-            background: #2ecc71;
-            color: #000;
-            padding: 3px 10px;
-            font-weight: bold;
-            margin-right: 15px;
-            border-radius: 2px;
-            text-transform: uppercase;
-        }
+    </style>
+</head>
+<body>
 
+    <nav>
+        <div class="logo-site">GT SERIES CUP BR</div>
+        
+        <div class="menu-links">
+            <!-- MENU CATEGORIAS -->
+            <div class="dropdown">
+                <a class="menu-btn">CATEGORIAS ▼</a>
+                <div class="dropdown-content">
+                    <div class="cat-item">
+                        <strong>🏎️ GT3</strong>
+                        <p>FIA GT3 acima de 2013 (Ferrari 296 GT3, 488 GT3, Mercedes AMG GT3, Porsche 992 GT3 R, BMW M4 GT3 , Stock Car atual,Lamborghini Super Trofeu).</p>
+                    </div>
+                    <div class="cat-item">
+                        <strong>🏁 GT3 LIGHT</strong>
+                        <p>FIA GT3 até 2013 (Ferrari 458 GT3, Lamborghini Gallardo GT3, Stock Car antigo, Lamborghini Super Trofeu).</p>
+                    </div>
+                    <div class="cat-item">
+                        <strong>🛠️ GT4</strong>
+                        <p>FIA GT4 acima 2013 (BMW M4 GT4, Mercedes AMG GT4, Mustang GT4, BMW M2 Racing).</p>
+                    </div>
+                    <div class="cat-item">
+                        <strong>🎮 GT4 LIGHT</strong>
+                        <p> Fia TCR, Fia GT4 até 2013, Maceratti Trofeu, Stock cra acima de 2013, Mitsubishi Lancer Cup, Mercedes CLA Cup,Mercedes A45s Cup, Carros GT de Track Day (Ford Mustang, BMW  M2, 320, Chevrolet Camaro, Audi A3 DTCC).</p>
+                    </div>
+                </div>
+            </div>
 
+            <!-- MENU CALENDÁRIO -->
+            <div class="dropdown">
+                <a class="menu-btn">CALENDÁRIO ▼</a>
+                <div class="dropdown-content" style="min-width: 250px;">
+                    <div class="calendar-item">1ª Etapa - Interlagos <span>15/Mar</span></div>
+                    <div class="calendar-item">2ª Etapa - Goiânia <span>12/Abr</span></div>
+                    <div class="calendar-item">3ª Etapa - Curitiba <span>24/Mai</span></div>
+                    <div class="calendar-item">4ª Etapa - Velocitta <span>21/Jun</span></div>
+                    <div class="calendar-item">5ª Etapa - Interlagos <span>19/Jul</span></div>
+                </div>
+            </div>
 
+            <a href="#" class="menu-btn">RESULTADOS</a>
+        </div>
+    </nav>
 
-
-
-
-<!-- Adicione este CSS dentro da sua tag <style> -->
-<style>
-    /* ... seus estilos anteriores ... */
-
-    /* 4. BARRA DE CATEGORIAS */
-    .categorias-container {
-        background-color: #fff;
-        padding: 20px 0;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .categorias-grid {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        flex-wrap: wrap;
-    }
-
-    .categoria-item {
-        background-color: #2b2b2b;
-        color: #2ecc71;
-        padding: 15px 25px;
-        border-radius: 5px;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 14px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-width: 120px;
-        transition: all 0.3s ease;
-        border: 2px solid transparent;
-    }
-
-    .categoria-item:hover {
-        background-color: #2ecc71;
-        color: #2b2b2b;
-        transform: translateY(-5px);
-        border-color: #2b2b2b;
-    }
-
-    .categoria-icon {
-        font-size: 20px;
-        margin-bottom: 5px;
-    }
-</style>
-
-<!-- Adicione este HTML logo após a "BARRA DE NOTÍCIAS" -->
-<div class="categorias-container">
-    <div class="categorias-grid">
-        <a href="#" class="categoria-item">
-            <span class="categoria-icon">🏎️</span>
-            GT3 
-            <p>Fia GT3 acima de 2013 , no caso do Brasil,Ferrari 296 GT3, Ferrari 488 GT3, Mercedes AMG GT3, Lamborghini Huracan GT3 Evo, Porsche 992 GT3 R,BMW M4 GT3 , Lamborghini Huracan Super Trofeu, Stock Car acima de 2013</p>
-        </a>
-        <a href="#" class="categoria-item">
-            <span class="categoria-icon">🏁</span>
-            GT3 Light
-            <p>Fia GT3 até 2013 , no caso do Brasil,Ferrari 296 GT3, Ferrari 458 Italia GT3, Lamborghini Gallardo GT3, Lamborghini Huracan Super Trofeu, Stock Car até 2013</p>
-        </a>
-        <a href="#" class="categoria-item">
-            <span class="categoria-icon">🛠️</span>
-            GT4
-             <p>Fia GT4 acima 2013 , no caso do Brasil,BMW M4 GT4, Mercedes AMG GT4, Ford Mustang GT4,BMW M2 Racing</p>
-        </a>
-        <a href="#" class="categoria-item">
-            <span class="categoria-icon">🎮</span>
-            GT4 Light
-           <p> Fia GT4 até 2013 , no caso do Brasil,BMW M3 GT4, Fia TCR, Mercedes CLA CUP,  A45S Cup, Fia Linea Trofeu,Maceratti Trofeu,BR Marcas, carros GT de Track Day preparados, como Ford Mustang,BMW M2, BMW 320, Chevrolet Camaro,
-           Mercedes AMG GT, Stock Car acima de 2013, Fia GT3 até 2013,Ferrari Challenge,Ginetta G55 GT4, Audi A3 DTCC</p>
-       
-
-       
+    <div class="breaking-news">
+        <div class="breaking-news-content">
+            Inscrições abertas para a temporada 2026! | Novos carros confirmados na categoria GT3...
+        </div>
     </div>
-</div>
+
+</body>
+</html>
 
