@@ -157,48 +157,7 @@
 <!-- 2. Tabela -->
 <table id="minhaTabela">
   <tr class="header">
-    <th>Nome</th>
-    <th>Cidade</th>
-  </tr>
-  <tr>
-    <td>Ana Silva</td>
-    <td>São Paulo</td>
-  </tr>
-  <tr>
-    <td>Bruno Souza</td>
-    <td>Rio de Janeiro</td>
-  </tr>
-  <tr>
-    <td>Carla Dias</td>
-    <td>Curitiba</td>
-  </tr>
-</table>
-
-<script>
-function filtrarTabela() {
-  // Declaração de variáveis
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("inputBusca");
-  filter = input.value.toUpperCase(); // Converte para maiúsculas para busca case-insensitive
-  table = document.getElementById("minhaTabela");
-  tr = table.getElementsByTagName("tr");
-
-  // Percorre todas as linhas da tabela (exceto o cabeçalho)
-  for (i = 1; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0]; // Filtra pela primeira coluna (Nome)
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = ""; // Mostra a linha
-      } else {
-        tr[i].style.display = "none"; // Oculta a linha
-      }
-    }
-  }
-}
-</script>
-
-  <tr>
+    <tr>
     <th>No</th>
     <th>Piloto</th>
     <th>Modelo</th>
@@ -252,6 +211,32 @@ function filtrarTabela() {
   
   
 </table>
+
+<script>
+function filtrarTabela() {
+  // Declaração de variáveis
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("inputBusca");
+  filter = input.value.toUpperCase(); // Converte para maiúsculas para busca case-insensitive
+  table = document.getElementById("minhaTabela");
+  tr = table.getElementsByTagName("tr");
+
+  // Percorre todas as linhas da tabela (exceto o cabeçalho)
+  for (i = 1; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0]; // Filtra pela primeira coluna (Nome)
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = ""; // Mostra a linha
+      } else {
+        tr[i].style.display = "none"; // Oculta a linha
+      }
+    }
+  }
+}
+</script>
+
+  
 
           
         </div>
