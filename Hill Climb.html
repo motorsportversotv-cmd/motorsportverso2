@@ -183,56 +183,56 @@
   }
 </style>
 
+<!-- 1. Campo de Busca -->
+<input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="Buscar por piloto, modelo ou categoria..." style="width: 100%; padding: 10px; margin-bottom: 10px;">
+
+<!-- 2. Tabela Corrigida -->
 <table id="minhaTabela">
-  <tr class="header">
-    <th>No</th>
-    <th>Piloto</th>
-    <th>Modelo</th>
-    <th>Categoria</th>
-  </tr>
-  <tr>
-    <td>76</td>
-    <td>Iures Delfino</td>
-    <td>Mitsubishi Lancer Evo X</td>
-    <td>Extreme</td>
-  </tr>
-  <tr>
-    <td>48</td>
-    <td>Mauricio Law</td>
-    <td>Porsche 992 Carrera S</td>
-    <td>Super Sport Plus</td>
-  </tr>
-  <tr>
-    <td>73</td>
-    <td>Valeski</td>
-    <td>VW Beetle</td>
-    <td>Pro Stock Turbo-B</td>
-  </tr>
-  <tr>
-    <td>777</td>
-    <td>Marcelo Triska</td>
-    <td>Subaru Impreza WRX STI Version 8</td>
-    <td>Street Turbo</td>
-  </tr>
-  <tr>
-    <td>86</td>
-    <td>Gibrian</td>
-    <td>Subaru Impreza WRX</td>
-    <td>Street Turbo</td>
-  </tr>
-  <tr>
-    <td>33</td>
-    <td>Tico</td>
-    <td>Renault Sandero RS</td>
-    <td>Pro Stock Aspro-B</td>
-  </tr>
-  <tr>
-    <td>66</td>
-    <td>Anthony</td>
-    <td>Chevrolet Astra</td>
-    <td>Street Aspro</td>
-  </tr>
+  <thead>
+    <tr class="header">
+      <th>No</th>
+      <th>Piloto</th>
+      <th>Modelo</th>
+      <th>Categoria</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>76</td><td>Iures Delfino</td><td>Mitsubishi Lancer Evo X</td><td>Extreme</td></tr>
+    <tr><td>48</td><td>Mauricio Law</td><td>Porsche 992 Carrera S</td><td>Super Sport Plus</td></tr>
+    <tr><td>73</td><td>Valeski</td><td>VW Beetle</td><td>Pro Stock Turbo-B</td></tr>
+    <tr><td>777</td><td>Marcelo Triska</td><td>Subaru Impreza WRX STI Version 8</td><td>Street Turbo</td></tr>
+    <tr><td>86</td><td>Gibrian</td><td>Subaru Impreza WRX</td><td>Street Turbo</td></tr>
+    <tr><td>33</td><td>Tico</td><td>Renault Sandero RS</td><td>Pro Stock Aspro-B</td></tr>
+    <tr><td>66</td><td>Anthony</td><td>Chevrolet Astra</td><td>Street Aspro</td></tr>
+  </tbody>
 </table>
+
+<script>
+function filtrarTabela() {
+  var input, filter, table, tr, td, i, j, visible;
+  input = document.getElementById("inputBusca");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("minhaTabela");
+  tr = table.getElementsByTagName("tr");
+
+  // Começa do 1 para pular o cabeçalho (th)
+  for (i = 1; i < tr.length; i++) {
+    visible = false;
+    td = tr[i].getElementsByTagName("td");
+    
+    // Percorre todas as colunas da linha atual
+    for (j = 0; j < td.length; j++) {
+      if (td[j] && td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+        visible = true; // Se encontrar em qualquer coluna, marca como visível
+        break;
+      }
+    }
+    
+    // Aplica o resultado (mostra ou esconde)
+    tr[i].style.display = visible ? "" : "none";
+  }
+}
+</script>
 
   
 </table>
