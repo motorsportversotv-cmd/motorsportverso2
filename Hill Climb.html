@@ -204,29 +204,6 @@ function buscar() {
 }
 </script>
 
-function filtrar() {
-  // 1. Pega o valor do input e limpa (minúsculo e sem acentos)
-  var input = document.getElementById("inputBusca");
-  var filter = input.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-  
-  var table = document.getElementById("minhaTabela");
-  var tr = table.getElementsByTagName("tr");
-
-  // 2. Percorre as linhas (pula o header i=1)
-  for (var i = 1; i < tr.length; i++) {
-    // Pega todo o texto da linha e limpa também (minúsculo e sem acentos)
-    var textoLinha = tr[i].textContent || tr[i].innerText;
-    var textoLimpo = textoLinha.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-
-    // 3. Compara
-    if (textoLimpo.indexOf(filter) > -1) {
-      tr[i].style.display = "";
-    } else {
-      tr[i].style.display = "none";
-    }
-  }
-}
-</script>
 
 
   
