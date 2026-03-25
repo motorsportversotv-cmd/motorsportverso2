@@ -155,9 +155,36 @@
 <input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="Buscar por piloto, carro , categoria...">
 
 <!-- 2. Tabela -->
+<style>
+  /* Estilização da Tabela */
+  #minhaTabela {
+    width: 100%;
+    border-collapse: collapse; /* Faz com que as bordas sejam únicas e finas */
+    font-family: sans-serif;
+  }
+
+  /* Aplica bordas em todas as células e cabeçalhos */
+  #minhaTabela th, 
+  #minhaTabela td {
+    border: 1px solid #333; /* Espessura, estilo e cor da borda */
+    padding: 10px;          /* Espaçamento interno para o texto não encostar na borda */
+    text-align: left;
+  }
+
+  /* Destaque para o cabeçalho */
+  #minhaTabela th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  /* Efeito opcional: destaca a linha ao passar o mouse */
+  #minhaTabela tr:hover {
+    background-color: #f9f9f9;
+  }
+</style>
+
 <table id="minhaTabela">
   <tr class="header">
-    <tr>
     <th>No</th>
     <th>Piloto</th>
     <th>Modelo</th>
@@ -171,8 +198,8 @@
   </tr>
   <tr>
     <td>48</td>
-    <td>Mauricio  Law</td>
-    <td>Posrche 992 Carrera S</td>
+    <td>Mauricio Law</td>
+    <td>Porsche 992 Carrera S</td>
     <td>Super Sport Plus</td>
   </tr>
   <tr>
@@ -193,22 +220,20 @@
     <td>Subaru Impreza WRX</td>
     <td>Street Turbo</td>
   </tr>
-
-<tr>
+  <tr>
     <td>33</td>
     <td>Tico</td>
     <td>Renault Sandero RS</td>
-    <td>pro Stock Aspro-B</td>
+    <td>Pro Stock Aspro-B</td>
   </tr>
-
-  
-<tr>
+  <tr>
     <td>66</td>
     <td>Anthony</td>
     <td>Chevrolet Astra</td>
     <td>Street Aspro</td>
   </tr>
-  
+</table>
+
   
 </table>
 
