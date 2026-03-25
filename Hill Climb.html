@@ -103,7 +103,9 @@
         @media (max-width: 768px) {
             nav { flex-direction: column; align-items: center; }
             .hero h1 { font-size: 2rem; }
-        }
+        {
+
+      
     </style>
 </head>
 <body>
@@ -152,16 +154,15 @@
             <p>Eventos focados em confraternização, permitindo a entusiastas e amigos subirem montanhas em um ambiente controlado e seguro. Frequentemente realizado em estradas cênicas no Brasil.</p>
             <p>Edição Campo Largo-2026</p>
 <!-- 1. Campo de Busca -->
-<input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="Buscar por piloto, carro , categoria...">
-
 <style>
-  #minhaTabela { width: 100%; border-collapse: collapse; font-family: sans-serif; margin-top: 10px; }
-  #minhaTabela th, #minhaTabela td { border: 1px solid #333; padding: 10px; text-align: left; }
-  #minhaTabela th { background-color: #f2f2f2; }
-  #inputBusca { width: 100%; padding: 12px; font-size: 16px; border: 2px solid #007bff; border-radius: 4px; }
+  #minhaTabela { width: 100%; border-collapse: collapse; font-family: sans-serif; }
+  #minhaTabela th, #minhaTabela td { border: 1px solid #000; padding: 8px; text-align: left; }
+  #minhaTabela th { background-color: #ddd; }
+  #inputBusca { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #333; }
 </style>
 
-<input type="text" id="inputBusca" onkeyup="filtrar()" placeholder="Busque por número, piloto, carro ou categoria...">
+<!-- O 'oninput' é mais rápido e confiável que o 'onkeyup' -->
+<input type="text" id="inputBusca" oninput="buscar()" placeholder="Digite para filtrar...">
 
 <table id="minhaTabela">
   <thead>
@@ -184,6 +185,25 @@
 </table>
 
 <script>
+function buscar() {
+  var input = document.getElementById("inputBusca");
+  var filtro = input.value.toLowerCase();
+  var tabela = document.getElementById("minhaTabela");
+  var linhas = tabela.getElementsByTagName("tr");
+
+  // Começa do 1 para não esconder o cabeçalho
+  for (var i = 1; i < linhas.length; i++) {
+    var textoDaLinha = linhas[i].innerText.toLowerCase();
+    
+    if (textoDaLinha.includes(filtro)) {
+      linhas[i].style.display = "";
+    } else {
+      linhas[i].style.display = "none";
+    }
+  }
+}
+</script>
+
 function filtrar() {
   // 1. Pega o valor do input e limpa (minúsculo e sem acentos)
   var input = document.getElementById("inputBusca");
