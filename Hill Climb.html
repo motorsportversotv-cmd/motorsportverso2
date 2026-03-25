@@ -151,12 +151,35 @@
             <h2>Friends Hill Climb</h2>
             <p>Eventos focados em confraternização, permitindo a entusiastas e amigos subirem montanhas em um ambiente controlado e seguro. Frequentemente realizado em estradas cênicas no Brasil.</p>
             <p>Edição Campo Largo-2026</p>
-<table id="ImputBusca" onkeyup="filtrarTabela()" placeholder="Buscar por nomes..."> border="1">
+<!-- 1. Campo de Busca -->
+<input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="Buscar por nomes...">
+
+<!-- 2. Tabela -->
+<table id="minhaTabela">
+  <tr class="header">
+    <th>Nome</th>
+    <th>Cidade</th>
+  </tr>
+  <tr>
+    <td>Ana Silva</td>
+    <td>São Paulo</td>
+  </tr>
+  <tr>
+    <td>Bruno Souza</td>
+    <td>Rio de Janeiro</td>
+  </tr>
+  <tr>
+    <td>Carla Dias</td>
+    <td>Curitiba</td>
+  </tr>
+</table>
+
 <script>
 function filtrarTabela() {
-  // declaração de variáveis 
-  var imput, filter ,table,tr,td , i , txtValue
-  input.value.toUpperCase(); // Converte para maiúsculas para busca case-insensitive
+  // Declaração de variáveis
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("inputBusca");
+  filter = input.value.toUpperCase(); // Converte para maiúsculas para busca case-insensitive
   table = document.getElementById("minhaTabela");
   tr = table.getElementsByTagName("tr");
 
@@ -173,7 +196,8 @@ function filtrarTabela() {
     }
   }
 }
-</script
+</script>
+
   <tr>
     <th>No</th>
     <th>Piloto</th>
