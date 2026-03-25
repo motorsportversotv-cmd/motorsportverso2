@@ -154,39 +154,15 @@
 <!-- 1. Campo de Busca -->
 <input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="Buscar por piloto, carro , categoria...">
 
-<!-- 2. Tabela -->
 <style>
-  /* Estilização da Tabela */
-  #minhaTabela {
-    width: 100%;
-    border-collapse: collapse; /* Faz com que as bordas sejam únicas e finas */
-    font-family: sans-serif;
-  }
-
-  /* Aplica bordas em todas as células e cabeçalhos */
-  #minhaTabela th, 
-  #minhaTabela td {
-    border: 1px solid #333; /* Espessura, estilo e cor da borda */
-    padding: 10px;          /* Espaçamento interno para o texto não encostar na borda */
-    text-align: left;
-  }
-
-  /* Destaque para o cabeçalho */
-  #minhaTabela th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-  }
-
-  /* Efeito opcional: destaca a linha ao passar o mouse */
-  #minhaTabela tr:hover {
-    background-color: #f9f9f9;
-  }
+  #minhaTabela { width: 100%; border-collapse: collapse; font-family: sans-serif; margin-top: 10px; }
+  #minhaTabela th, #minhaTabela td { border: 1px solid #333; padding: 10px; text-align: left; }
+  #minhaTabela th { background-color: #f2f2f2; }
+  #inputBusca { width: 100%; padding: 12px; font-size: 16px; border: 2px solid #007bff; border-radius: 4px; }
 </style>
 
-<!-- CAMPO DE BUSCA -->
-<input type="text" id="inputBusca" onkeyup="filtrar()" placeholder="Digite o nome do piloto, carro ou número...">
+<input type="text" id="inputBusca" onkeyup="filtrar()" placeholder="Busque por número, piloto, carro ou categoria...">
 
-<!-- TABELA CORRIGIDA -->
 <table id="minhaTabela">
   <thead>
     <tr>
@@ -209,17 +185,21 @@
 
 <script>
 function filtrar() {
+  // 1. Pega o valor do input e limpa (minúsculo e sem acentos)
   var input = document.getElementById("inputBusca");
-  var filter = input.value.toLowerCase(); // Busca tudo em minúsculo
+  var filter = input.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+  
   var table = document.getElementById("minhaTabela");
   var tr = table.getElementsByTagName("tr");
 
-  // Começa do 1 para pular o cabeçalho
+  // 2. Percorre as linhas (pula o header i=1)
   for (var i = 1; i < tr.length; i++) {
-    var conteudoLinha = tr[i].textContent || tr[i].innerText;
-    
-    // Verifica se o texto digitado existe em QUALQUER lugar da linha
-    if (conteudoLinha.toLowerCase().indexOf(filter) > -1) {
+    // Pega todo o texto da linha e limpa também (minúsculo e sem acentos)
+    var textoLinha = tr[i].textContent || tr[i].innerText;
+    var textoLimpo = textoLinha.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+
+    // 3. Compara
+    if (textoLimpo.indexOf(filter) > -1) {
       tr[i].style.display = "";
     } else {
       tr[i].style.display = "none";
@@ -227,38 +207,7 @@ function filtrar() {
   }
 }
 </script>
-    // Aplica o resultado (mostra ou esconde)
-    tr[i].style.display = visible ? "" : "none";
-  }
-}
-</script>
 
-  
-</table>
-
-<script>
-function filtrarTabela() {
-  // Declaração de variáveis
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("inputBusca");
-  filter = input.value.toUpperCase(); // Converte para maiúsculas para busca case-insensitive
-  table = document.getElementById("minhaTabela");
-  tr = table.getElementsByTagName("tr");
-
-  // Percorre todas as linhas da tabela (exceto o cabeçalho)
-  for (i = 1; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0]; // Filtra pela primeira coluna (Nome)
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = ""; // Mostra a linha
-      } else {
-        tr[i].style.display = "none"; // Oculta a linha
-      }
-    }
-  }
-}
-</script>
 
   
 
