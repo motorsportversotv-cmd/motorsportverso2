@@ -183,13 +183,13 @@
   }
 </style>
 
-<!-- 1. Campo de Busca -->
-<input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="Buscar por piloto, modelo ou categoria..." style="width: 100%; padding: 10px; margin-bottom: 10px;">
+<!-- CAMPO DE BUSCA -->
+<input type="text" id="inputBusca" onkeyup="filtrar()" placeholder="Digite o nome do piloto, carro ou número...">
 
-<!-- 2. Tabela Corrigida -->
+<!-- TABELA CORRIGIDA -->
 <table id="minhaTabela">
   <thead>
-    <tr class="header">
+    <tr>
       <th>No</th>
       <th>Piloto</th>
       <th>Modelo</th>
@@ -208,26 +208,25 @@
 </table>
 
 <script>
-function filtrarTabela() {
-  var input, filter, table, tr, td, i, j, visible;
-  input = document.getElementById("inputBusca");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("minhaTabela");
-  tr = table.getElementsByTagName("tr");
+function filtrar() {
+  var input = document.getElementById("inputBusca");
+  var filter = input.value.toLowerCase(); // Busca tudo em minúsculo
+  var table = document.getElementById("minhaTabela");
+  var tr = table.getElementsByTagName("tr");
 
-  // Começa do 1 para pular o cabeçalho (th)
-  for (i = 1; i < tr.length; i++) {
-    visible = false;
-    td = tr[i].getElementsByTagName("td");
+  // Começa do 1 para pular o cabeçalho
+  for (var i = 1; i < tr.length; i++) {
+    var conteudoLinha = tr[i].textContent || tr[i].innerText;
     
-    // Percorre todas as colunas da linha atual
-    for (j = 0; j < td.length; j++) {
-      if (td[j] && td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
-        visible = true; // Se encontrar em qualquer coluna, marca como visível
-        break;
-      }
+    // Verifica se o texto digitado existe em QUALQUER lugar da linha
+    if (conteudoLinha.toLowerCase().indexOf(filter) > -1) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
     }
-    
+  }
+}
+</script>
     // Aplica o resultado (mostra ou esconde)
     tr[i].style.display = visible ? "" : "none";
   }
