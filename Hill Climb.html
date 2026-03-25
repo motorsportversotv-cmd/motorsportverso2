@@ -152,6 +152,28 @@
             <p>Eventos focados em confraternização, permitindo a entusiastas e amigos subirem montanhas em um ambiente controlado e seguro. Frequentemente realizado em estradas cênicas no Brasil.</p>
             <p>Edição Campo Largo-2026</p>
 <table id="ImputBusca" onkeyup="filtrarTabela()" placeholder="Buscar por nomes..."> border="1">
+<script>
+function filtrarTabela() {
+  // declaração de variáveis 
+  var imput, filter ,table,tr,td , i , txtValue
+  input.value.toUpperCase(); // Converte para maiúsculas para busca case-insensitive
+  table = document.getElementById("minhaTabela");
+  tr = table.getElementsByTagName("tr");
+
+  // Percorre todas as linhas da tabela (exceto o cabeçalho)
+  for (i = 1; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0]; // Filtra pela primeira coluna (Nome)
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = ""; // Mostra a linha
+      } else {
+        tr[i].style.display = "none"; // Oculta a linha
+      }
+    }
+  }
+}
+</script
   <tr>
     <th>No</th>
     <th>Piloto</th>
