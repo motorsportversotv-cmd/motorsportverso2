@@ -1,1 +1,72 @@
-GT Word Challenge 
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motorsport Verso-GTWC</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 20px; }
+
+        /* O segredo para ficar lado a lado está aqui */
+        .news-container { 
+            display: flex;           /* Ativa o modo flexível */
+            flex-direction: row;     /* Alinha em linha (lado a lado) */
+            flex-wrap: wrap;         /* Se não couber, joga para a linha de baixo */
+            gap: 20px;               /* Espaço entre os cards */
+            justify-content: center; /* Centraliza os cards na tela */
+            align-items: flex-start; /* Alinha os cards pelo topo */
+        }
+
+        article { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+            width: 350px;           /* Largura fixa para cada card */
+            box-sizing: border-box; 
+        }
+
+        .tag { 
+            background: #e74c3c; 
+            color: white; 
+            padding: 3px 8px; 
+            font-size: 12px; 
+            border-radius: 4px; 
+            text-transform: uppercase; 
+        }
+
+        .read-more { 
+            display: inline-block; 
+            margin-top: 10px; 
+            color: #2980b9; 
+            text-decoration: none; 
+            font-weight: bold; 
+        }
+
+        /* Ajuste para o embed não quebrar o layout */
+        .instagram-media { min-width: auto !important; width: 100% !important; margin: 15px 0 !important; }
+    </style>
+</head>
+<body>
+
+<section>
+    <div class="news-container">
+        <!-- Post 1 (BYD) -->
+        <article>
+            <div class="news-content" style="text-align: center;">
+                <span class="tag tag-wec">WEC</span>
+                <h3>BYD analisa entrada no FIA WEC</h3>
+                <p>A marca chinesa analisa entrada no FIA WEC e nas 24h de Le Mans.</p>
+                <a href="noticia-byd.html" class="read-more">Ler mais →</a>
+            </div>
+        </article>
+
+    
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
+</body>
+</html>
