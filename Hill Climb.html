@@ -222,39 +222,66 @@ function buscar() {
         </div>
     </section>
 
-    <section id="brasil">
-        <div class="content-box">
-            <h2>Hill Climb Brasil</h2>
-            <p>O cenário nacional vem crescendo, com projetos que organizam subidas de montanha, unindo desde carros preparados a modelos de rua em busca de tempo e emoção.</p>
-       <section id="videos">
+  <style>
+  /* Container principal que organiza os vídeos */
+  .video-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Cria colunas automáticas */
+    gap: 20px; /* Espaço entre os vídeos */
+    padding: 20px;
+  }
+
+  /* Deixa o iframe responsivo dentro do item */
+  .video-item {
+    position: relative;
+    padding-bottom: 56.25%; /* Proporção 16:9 */
+    height: 0;
+    overflow: hidden;
+  }
+
+  .video-item iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px; /* Opcional: arredonda os cantos */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Opcional: sombra leve */
+  }
+
+  .content-box h2 {
+    text-align: center;
+    font-family: sans-serif;
+  }
+</style>
+
+<section id="videos">
   <div class="content-box">
     <h2>Videos</h2>
     
     <div class="video-wrapper">
-      <!-- Vídeo 1 -->
       <div class="video-item">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/Yc6l3m1x7aI?si=yHRqd3T_h6LggF9Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/Yc6l3m1x7aI" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
       </div>
 
-      <!-- Vídeo 2 -->
       <div class="video-item">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/kxXnp5ud8RI?si=jxs7GdG4Day2n9IF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/kxXnp5ud8RI" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
       </div>
 
-      <!-- Vídeo 3 -->
       <div class="video-item">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/Qj0JxHx6NOw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/Qj0JxHx6NOw" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
       </div>
 
-      <!-- Vídeo 4 -->
       <div class="video-item">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/Y2ZG9_TK1ok?si=fLobA3KAvSxUd6lg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-      </div>
-      <!-- Vídeo 5 -->
-      <div class="video-item">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/cucOa1svUIU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/Y2ZG9_TK1ok" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
       </div>
 
+      <div class="video-item">
+        <iframe src="https://www.youtube.com/embed/cucOa1svUIU" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
 
       
         <p>&copy; 2026 Motorsportverso-Hill Climb - Layout Orange</p>
