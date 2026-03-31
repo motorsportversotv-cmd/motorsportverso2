@@ -79,7 +79,7 @@
 
         <hr>
 
-        <h2>Resultado Etapa 1 - UTV Rally Cup Paulista</h2>
+        <h2>Resultado Etapa 1 - UTV Rally Cup Paulista-Arboville</h2>
         <img src="imagem_2026-03-31_004623684.png" alt="UTV Cup" width="300">      
         <div class="lista-resultados">
             <p><strong>Top 3 UTV Ultimate</strong></p>
@@ -132,6 +132,71 @@
             <p>2-29-Denisio Do Nascimento-Can-am Maverick R-22:21.59</p>
             <p>3.5-Davidson Mantovani-Can-am Maverick R-22:24.25</p>
         </div>
+
+<!-- Barra de Notícias -->
+<div class="ticker-wrapper">
+    <div class="ticker-title">ÚLTIMAS NOTÍCIAS</div>
+    <div class="ticker-content">
+        <div class="ticker-text">
+            <span>🏁 Pedro Biamor domina a Etapa 1 com 78 pontos!</span>
+            <span>🚗 Can-am Maverick R lidera as principais categorias.</span>
+            <span>🏆 Helena Dayama vence na categoria UTV Feminino.</span>
+            <span>📅 Próxima etapa do UTV Rally Cup em breve...</span>
+            <!-- Repita o primeiro item para um loop infinito suave -->
+            <span>🏁 Pedro Biamor domina a Etapa 1 com 78 pontos!</span>
+        </div>
+    </div>
+</div>
+
+/* Container da Barra */
+.ticker-wrapper {
+    display: flex;
+    background: #d32f2f; /* Vermelho destaque */
+    color: white;
+    overflow: hidden;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Título Fixo */
+.ticker-title {
+    background: #1a1a1a;
+    padding: 0 20px;
+    z-index: 2;
+    position: relative;
+}
+
+/* Área do texto que rola */
+.ticker-content {
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+}
+
+.ticker-text {
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker 25s linear infinite;
+}
+
+.ticker-text span {
+    padding-right: 50px;
+}
+
+/* Efeito de pausa ao passar o mouse */
+.ticker-wrapper:hover .ticker-text {
+    animation-play-state: paused;
+}
+
+/* Animação */
+@keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+        
     </div>
 
 </body>
