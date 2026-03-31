@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rally Baja - Motorsportverso</title>
+    <title>Rally Baja-Motorsportverso</title>
     <style>
         body { margin: 0; font-family: Arial, sans-serif; background-color: #f4f4f4; }
 
@@ -20,10 +20,8 @@
             justify-content: center;
             gap: 20px;
         }
-            font-size: 14px;
-            transition: color 0.3s;
- 
-       li a {
+
+        li a {
             color: white;
             text-decoration: none;
             font-weight: bold;
@@ -34,7 +32,7 @@
 
         li a:hover { color: #ffcc00; }
 
-        /* --- ESTILO DA BARRA DE NOTÍCIAS (CORRIGIDO) --- */
+        /* --- ESTILO DA BARRA DE NOTÍCIAS --- */
         .ticker-wrapper {
             display: flex;
             background: #d32f2f;
@@ -45,6 +43,7 @@
             font-size: 14px;
             font-weight: bold;
         }
+
         .ticker-title {
             background: #1a1a1a;
             padding: 0 20px;
@@ -62,7 +61,7 @@
             display: inline-block;
             white-space: nowrap;
             padding-left: 100%;
-            animation: ticker 25s linear infinite;
+            animation: ticker 30s linear infinite;
         }
 
         .ticker-text span { padding-right: 50px; }
@@ -71,9 +70,7 @@
 
         @keyframes ticker {
             0% { transform: translateX(0); }
-        @media (max-width: 600px) {
-            ul { flex-direction: column; align-items: center; }
-        } 100% { transform: translateX(-100%); }
+            100% { transform: translateX(-100%); }
         }
 
         /* --- CONTEÚDO PRINCIPAL --- */
@@ -98,6 +95,8 @@
         strong { color: #d32f2f; }
 
         @media (max-width: 600px) {
+            ul { flex-direction: column; align-items: center; }
+        }
     </style>
 </head>
 <body>
@@ -111,7 +110,7 @@
         </ul>
     </nav>
 
-    <!-- Barra de Notícias logo abaixo do Menu -->
+    <!-- Barra de Notícias -->
     <div class="ticker-wrapper">
         <div class="ticker-title">ÚLTIMAS NOTÍCIAS</div>
         <div class="ticker-content">
@@ -121,23 +120,19 @@
                 <span>🏆 Helena Dayama vence na categoria UTV Feminino.</span>
                 <span>📅 Próxima etapa do UTV Rally Cup em breve...</span>
             </div>
-    </style>
-</head>
-<body>
+        </div>
+    </div>
 
-     <div class="conteudo-principal">
+    <div class="conteudo-principal">
         <div class="descricao">
-            <p>O rally Baja pelo formato FIA é um rally com veículos Off-Road que repete trechos com quilometragem média.</p>
+            <p>O rally Baja pelo formato FIA é um rally com veículos Off-Road que repete trechos com quilometragem média em relação a rallys mais longos de raid, como o Dakar Rally e o Rally dos Sertões.</p>
         </div>
 
         <hr>
 
         <h2>Resultado Etapa 1 - UTV Rally Cup Paulista-Arboville</h2>
-        <img src="imagem_2026-03-31_004623684.png" alt="UTV Cup" width="300">
-        <hr>
-
-        <h2>Resultado Etapa 1 - UTV Rally Cup Paulista-Arboville</h2>
         <img src="imagem_2026-03-31_004623684.png" alt="UTV Cup" width="300">      
+        
         <div class="lista-resultados">
             <p><strong>Top 3 UTV Ultimate</strong></p>
             <p>1.3-Pedro Biamor-Can-am Maverick R-78 PTS</p>
@@ -189,20 +184,13 @@
             <p>2-29-Denisio Do Nascimento-Can-am Maverick R-22:21.59</p>
             <p>3.5-Davidson Mantovani-Can-am Maverick R-22:24.25</p>
         </div>
-
-
-
-        
     </div>
 
 </body>
 </html>
 
+ 
 
-        
-        <p></p>
-    </div>
+         
 
-</body>
-</html>
 
