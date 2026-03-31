@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rally Baja-Motorsportverso</title>
     <style>
-        body { margin: 0; font-family: Arial, sans-serif; }
+        body { margin: 0; font-family: Arial, sans-serif; background-color: #f4f4f4; }
 
         nav {
             background-color: #1a1a1a;
@@ -34,15 +34,27 @@
             color: #ffcc00;
         }
 
-        /* Estilo para o texto explicativo fora do menu */
-        .conteudo {
+        /* Container centralizado para todo o conteúdo */
+        .conteudo-principal {
             max-width: 800px;
             margin: 20px auto;
-            padding: 0 20px;
+            padding: 20px;
+            background-color: white; /* Fundo branco para destacar o texto */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center; /* Centraliza títulos e textos simples */
             line-height: 1.6;
-            color: #333;
-            text-align: center;
         }
+
+        /* Alinha as listas de resultados à esquerda dentro do bloco central */
+        .lista-resultados {
+            text-align: left;
+            display: inline-block; /* Mantém o bloco centralizado mas o texto alinhado à esquerda */
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h2 { color: #1a1a1a; margin-top: 30px; }
+        strong { color: #d32f2f; } /* Cor de destaque para os títulos das categorias */
 
         @media (max-width: 600px) {
             ul { flex-direction: column; align-items: center; }
@@ -60,54 +72,56 @@
         </ul>
     </nav>
 
-    <!-- O texto deve ficar em uma seção separada do menu -->
-    <div class="conteudo">
-        <p>O rally Baja pelo formato FIA é um rally com veículos Off-Road que repete trechos com quilometragem média em relação a rallys mais longos de raid, como o Dakar Rally e o Rally dos Sertões.</p>
+    <div class="conteudo-principal">
+        <div class="descricao">
+            <p>O rally Baja pelo formato FIA é um rally com veículos Off-Road que repete trechos com quilometragem média em relação a rallys mais longos de raid, como o Dakar Rally e o Rally dos Sertões.</p>
+        </div>
+
+        <hr>
+
+        <h2>Resultado Etapa 1 - UTV Rally Cup Paulista</h2>
+        
+        <div class="lista-resultados">
+            <p><strong>Top 3 UTV Ultimate</strong></p>
+            <p>1.3-Pedro Biamor-Can-am Maverick R-78 PTS</p>
+            <p>2.29-Denisio do Nascimento-Can-am Maverick R-67 PTS</p>
+            <p>3.5-Davidsson Mantovani-Can-am Maverick R-67 PTS</p>
+            
+            <p><strong>Top 3 UTV1</strong></p>
+            <p>1.22-André Hort-Can-am Maverick R-78 PTS</p>
+            <p>2.20-Ricardo Sarti-Can-am Maverick R-67 PTS</p>
+            <p>3.28-Lino Kohler-Can-am Maverick R-63 PTS</p>
+            
+            <p><strong>Top 3 UTV2</strong></p>
+            <p>1.15-Murilo Colatrelli-Can-am Maverick R-78 PTS</p>
+            <p>2.10-Vanderlei Rabi-Can-am Maverick X3-1 PT</p>
+            
+            <p><strong>Top 3 UTV3</strong></p>
+            <p>1.31-João Ayla-Can-am Maverick X3-78 PTS</p>
+            <p>2.36-Pedro Azevedo-Can-am Maverick X3-67 PTS</p>
+            <p>3.27-Heitor Vargas-Can-am Maverick X3-65 PTS</p>
+                  
+            <p><strong>UTV Double</strong></p>
+            <p>1.14-Javier Casanova / Tulio Taniguchi-71 PTS</p>
+            <p>2.25-Rubens Salin / Adeillton Dos Santos-68 PTS</p>
+            <p>3.32-Acaio luiz / Rafael Espindola-61 PTS</p>
+            <p>4.34-Peter Gottshalk / Lourival Roldam-55 PTS</p>    
+            <p>5.7-Rodrigo Noll / Fred Zettel-47 PTS</p>      
+
+            <p><strong>UTV Double Master</strong></p>
+            <p>1.35-José Bergel / Douglas Sozua-78 PTS</p>
+
+            <p><strong>UTV Feminino</strong></p>
+            <p>1.21-Helena Dayama-Can-am Maverick R-78 PTS</p>
+            
+            <p><strong>UTV Start</strong></p>
+            <p>1.19-Tiago Paegle / Gunnar Dums-78 PTS</p>
+        </div>
     </div>
 
-    
-    <h2><strong>Resultado etapa 1 UTV Rally Cup Paulista.</strong></h2>
-    <p>Resultado etapa 1 UTV Rally Cup Paulista.</p>
-    
-    <p><strong>Top 3 UTV Ultimate</strong></p>
-    <p>1.3-Pedro Biamor-Can-am Maverick R-Forfun Racing-78 PTS</p>
-    <p>2.29-Denisio do Nascimento-Can-am Maverick R-Bompack Racing-67 PTS</p>
-    <p>3.5-Davidsson Mantovani-Can-am Maverick R-HPS Racing-67 PTS</p>
-    
-    <p><strong>Top 3 UTV1</strong></p>
-    <p>1.22-André Hort-Can-am Maverick R-MH Racing\Cotton Racing-78 PTS</p>
-    <p>2.20-Ricardo Sarti-Can-am Maverick R-HPS Racing-67 PTS</p>
-    <p>3.28-Lino Kohler-Can-am Maverick R-Tex Kohler Malharia-63 PTS</p>
-    
-    <p><strong>Top 3 UTV2</strong></p>
-    <p>1.15-Murilo Colatrelli-Can-am Maverick R-Colatrelli Racing-78 PTS</p>
-    <p>2.10-Vanderlei Rabi-Can-am Maverick X3-Cotton Racing-1 PT</p>
-    
-    <p><strong>Top 3 UTV3</strong></p>
-    <p>1.31-João Ayla-Can-am Maverick X3-Rally Brasil Racing-78 PTS</p>
-    <p>2.36-Pedro Azevedo-Can-am Maverick X3-Rally Brasil Racing-67 PTS</p>
-    <p>3.27-Heitor Vargas-Can-am Maverick X3-65 PTS</p>
-          
- <p><strong>UTV Double</strong></p>
-    <p>1.14-Javier Casanova(ARG)\Tulio Taniguchi-Can-am Maverick R-Rally Brasil Racing-71 PTS</p>
-    <p>2.25-Rubens Salin\Adeillton Dos Santos-Can-am Maverick X3-Cotton  Racing-68 PTS</p>
-    <p>3.32-Acaio luiz\Rafael Espindola-Can-am Maverick R-Cotton Racing-61 PTS</p>
-    <p>4.34-Peter Gottshalk\Lourival Roldam-Can-am Maverick X3-Bianchini Rally-55 PTS</p>    
-    <p>5.7-Rodrigo Noll\Fred Zettel-Can-am Maverick X3-Cotton Racing-47 PTS</p>      
+</body>
+</html>
 
- <p><strong>UTV Double Master</strong></p>
-    <p>1.35-José Bergel\Douglas Sozua-Can-am Maverick X3-GC Rally Team-78 PTS</p>
-
-    <p><strong>UTV Femininar</strong></p>
-    <p>1.21-Helena Dayama-Can-am Maverick R-Rally Brasil Racing-78 PTS</p>
-    
-    <p><strong>UTV Start</strong></p>
-    <p>1.19-Tiago Paegle\Gunnar Dums-Can-am Maverick R-Bompack Racing-78 PTS</p>
-    
-    
-</div>
-    
-</div>
 
         
         <p></p>
