@@ -4,54 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado UTV Cup-Arboville 2026</title>
-    
     <style>
-        /* Centraliza todo o corpo da página */
+        /* Reset básico e centralização do layout */
         body {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centraliza horizontalmente */
-            text-align: center;  /* Centraliza o texto interno */
-            font-family: sans-serif;
-            line-height: 1.6;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
             margin: 0;
             padding: 20px;
+            display: flex;
+            justify-content: center;
         }
 
         .container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-width: 600px;
+            background-color: #ffffff;
+            max-width: 700px;
             width: 100%;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center; /* Centraliza todo o texto e imagens */
+        }
+
+        h2 {
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
         }
 
         img {
-            display: block;
-            margin: 20px auto;
-            border-radius: 5px;
             max-width: 100%;
             height: auto;
+            border-radius: 8px;
+            margin-bottom: 25px;
         }
 
         .lista-resultados {
-            text-align: center; /* Mantém a lista centralizada */
-            margin-top: 20px;
+            width: 100%;
         }
 
+        /* Estilização das Categorias */
         strong {
             display: block;
-            margin-top: 15px;
-            color: #333;
+            background-color: #333;
+            color: #fff;
+            padding: 8px;
+            margin: 25px auto 10px auto;
+            border-radius: 4px;
+            width: fit-content; /* Centraliza o fundo preto da categoria */
+            min-width: 200px;
             text-transform: uppercase;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
+        /* Estilização das linhas de resultado */
         p {
-            margin: 5px 0;
-            color: #555;
+            margin: 6px 0;
+            color: #444;
+            font-size: 1rem;
+            border-bottom: 1px dotted #ddd;
+            padding-bottom: 4px;
+        }
+
+        /* Remove a linha pontilhada do último parágrafo de cada bloco */
+        p:last-of-type {
+            border-bottom: none;
         }
     </style>
 </head>
@@ -64,22 +82,48 @@
         
         <div class="lista-resultados">
             <p><strong>Top 3 UTV Ultimate</strong></p>
-            <p>1.3-Pedro Biamor-Can-am Maverick R-78 PTS</p>
-            <p>2.29-Denisio do Nascimento-Can-am Maverick R-67 PTS</p>
-            <p>3.5-Davidsson Mantovani-Can-am Maverick R-67 PTS</p>
+            <p>1.3 - Pedro Biamor - Can-am Maverick R - 78 PTS</p>
+            <p>2.29 - Denisio do Nascimento - Can-am Maverick R - 67 PTS</p>
+            <p>3.28 - Lino Kohler - Can-am Maverick R - 63 PTS</p>
             
-            <p><strong>Top 3 UTV1</strong></p>
-            <p>1.22-André Hort-Can-am Maverick R-78 PTS</p>
-            <p>2.20-Ricardo Sarti-Can-am Maverick R-67 PTS</p>
-            <p>3.28-Lino Kohler-Can-am Maverick R-63 PTS</p>
+            <p><strong>Top 3 UTV2</strong></p>
+            <p>1.15 - Murilo Colatrelli - Can-am Maverick R - 78 PTS</p>
+            <p>2.10 - Vanderlei Rabi - Can-am Maverick X3 - 1 PT</p>
             
-            <!-- ... o restante dos seus resultados continua aqui ... -->
-             <p><strong>UTV Feminino</strong></p>
-            <p>1.21-Helena Dayama-Can-am Maverick R-78 PTS</p>
+            <p><strong>Top 3 UTV3</strong></p>
+            <p>1.31 - João Ayla - Can-am Maverick X3 - 78 PTS</p>
+            <p>2.36 - Pedro Azevedo - Can-am Maverick X3 - 67 PTS</p>
+
+            <p><strong>UTV Double</strong></p>
+            <p>1.14 - Javier Casanova / Tulio Taniguchi - 71 PTS</p>
+            <p>2.25 - Rubens Salin / Adeillton Dos Santos - 68 PTS</p>
+            <p>3.32 - Acaio Luiz / Rafael Espindola - 61 PTS</p>
+            <p>4.34 - Peter Gottshalk / Lourival Roldam - 55 PTS</p>    
+            <p>5.7 - Rodrigo Noll / Fred Zettel - 47 PTS</p>      
+
+            <p><strong>UTV Double Master</strong></p>
+            <p>1.35 - José Bergel / Douglas Souza - 78 PTS</p>
+
+            <p><strong>UTV Feminino</strong></p>
+            <p>1.21 - Helena Dayama - 78 PTS</p>
             
+            <p><strong>UTV Start</strong></p>
+            <p>1.19 - Tiago Paegle / Gunnar Dums - 78 PTS</p>
+
             <p><strong>Top 3 SS1</strong></p>
-            <p>1.3-Pedro Biamor-Can-am Maverick R-22:06.24</p>
-            <p>2.14-Javier Casanova / Tulio Taniguchi-Can-am Maverick R-22:37.14</p>
+            <p>1.3 - Pedro Biamor - 22:06.24</p>
+            <p>2.14 - Javier Casanova / Tulio Taniguchi - 22:37.14</p>
+            <p>3.5 - Davidsson Mantovani - 22:41.06</p>
+
+            <p><strong>Top 3 SS2</strong></p>
+            <p>1.3 - Pedro Biamor - 22:11.97</p>
+            <p>2.14 - Javier Casanova / Tulio Taniguchi - 22:23.89</p>
+            <p>3.29 - Denisio Do Nascimento - 22:41.06</p>
+
+            <p><strong>Top 3 SS3</strong></p>
+            <p>1.3 - Pedro Biamor - 22:04.04</p>
+            <p>2.29 - Denisio Do Nascimento - 22:21.59</p>
+            <p>3.5 - Davidson Mantovani - 22:24.25</p>
         </div>
     </div>
 
