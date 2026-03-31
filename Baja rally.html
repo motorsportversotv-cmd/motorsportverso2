@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rally Baja-Motorsportverso</title>
+    <title>Rally Baja - Motorsportverso</title>
     <style>
         body { margin: 0; font-family: Arial, sans-serif; background-color: #f4f4f4; }
 
@@ -20,8 +20,10 @@
             justify-content: center;
             gap: 20px;
         }
-
-        li a {
+            font-size: 14px;
+            transition: color 0.3s;
+ 
+       li a {
             color: white;
             text-decoration: none;
             font-weight: bold;
@@ -30,35 +32,72 @@
             transition: color 0.3s;
         }
 
-        li a:hover {
-            color: #ffcc00;
+        li a:hover { color: #ffcc00; }
+
+        /* --- ESTILO DA BARRA DE NOTÍCIAS (CORRIGIDO) --- */
+        .ticker-wrapper {
+            display: flex;
+            background: #d32f2f;
+            color: white;
+            overflow: hidden;
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .ticker-title {
+            background: #1a1a1a;
+            padding: 0 20px;
+            z-index: 2;
+            white-space: nowrap;
         }
 
-        /* Container centralizado para todo o conteúdo */
+        .ticker-content {
+            overflow: hidden;
+            white-space: nowrap;
+            flex-grow: 1;
+        }
+
+        .ticker-text {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: ticker 25s linear infinite;
+        }
+
+        .ticker-text span { padding-right: 50px; }
+
+        .ticker-wrapper:hover .ticker-text { animation-play-state: paused; }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+        @media (max-width: 600px) {
+            ul { flex-direction: column; align-items: center; }
+        } 100% { transform: translateX(-100%); }
+        }
+
+        /* --- CONTEÚDO PRINCIPAL --- */
         .conteudo-principal {
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background-color: white; /* Fundo branco para destacar o texto */
+            background-color: white;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            text-align: center; /* Centraliza títulos e textos simples */
+            text-align: center;
             line-height: 1.6;
         }
 
-        /* Alinha as listas de resultados à esquerda dentro do bloco central */
         .lista-resultados {
             text-align: left;
-            display: inline-block; /* Mantém o bloco centralizado mas o texto alinhado à esquerda */
+            display: inline-block;
             width: 100%;
             max-width: 600px;
         }
 
         h2 { color: #1a1a1a; margin-top: 30px; }
-        strong { color: #d32f2f; } /* Cor de destaque para os títulos das categorias */
+        strong { color: #d32f2f; }
 
         @media (max-width: 600px) {
-            ul { flex-direction: column; align-items: center; }
-        }
     </style>
 </head>
 <body>
@@ -71,6 +110,20 @@
             <li><a href="#">UTV CUP</a></li>
         </ul>
     </nav>
+
+    <!-- Barra de Notícias logo abaixo do Menu -->
+    <div class="ticker-wrapper">
+        <div class="ticker-title">ÚLTIMAS NOTÍCIAS</div>
+        <div class="ticker-content">
+            <div class="ticker-text">
+                <span>🏁 Pedro Biamor domina a Etapa 1 com 78 pontos!</span>
+                <span>🚗 Can-am Maverick R lidera as principais categorias.</span>
+                <span>🏆 Helena Dayama vence na categoria UTV Feminino.</span>
+                <span>📅 Próxima etapa do UTV Rally Cup em breve...</span>
+            </div>
+    </style>
+</head>
+<body>
 
     <div class="conteudo-principal">
         <div class="descricao">
@@ -133,68 +186,7 @@
             <p>3.5-Davidson Mantovani-Can-am Maverick R-22:24.25</p>
         </div>
 
-<!-- Barra de Notícias -->
-<div class="ticker-wrapper">
-    <div class="ticker-title">ÚLTIMAS NOTÍCIAS</div>
-    <div class="ticker-content">
-        <div class="ticker-text">
-            <span>🏁 Pedro Biamor domina a Etapa 1 com 78 pontos!</span>
-            <span>🚗 Can-am Maverick R lidera as principais categorias.</span>
-            <span>🏆 Helena Dayama vence na categoria UTV Feminino.</span>
-            <span>📅 Próxima etapa do UTV Rally Cup em breve...</span>
-            <!-- Repita o primeiro item para um loop infinito suave -->
-            <span>🏁 Pedro Biamor domina a Etapa 1 com 78 pontos!</span>
-        </div>
-    </div>
-</div>
 
-/* Container da Barra */
-.ticker-wrapper {
-    display: flex;
-    background: #d32f2f; /* Vermelho destaque */
-    color: white;
-    overflow: hidden;
-    height: 40px;
-    line-height: 40px;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-/* Título Fixo */
-.ticker-title {
-    background: #1a1a1a;
-    padding: 0 20px;
-    z-index: 2;
-    position: relative;
-}
-
-/* Área do texto que rola */
-.ticker-content {
-    overflow: hidden;
-    white-space: nowrap;
-    display: flex;
-}
-
-.ticker-text {
-    display: inline-block;
-    padding-left: 100%;
-    animation: ticker 25s linear infinite;
-}
-
-.ticker-text span {
-    padding-right: 50px;
-}
-
-/* Efeito de pausa ao passar o mouse */
-.ticker-wrapper:hover .ticker-text {
-    animation-play-state: paused;
-}
-
-/* Animação */
-@keyframes ticker {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-}
 
         
     </div>
