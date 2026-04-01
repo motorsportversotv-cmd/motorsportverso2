@@ -149,7 +149,19 @@
 </article>
 
         <hr>
-
+add_filter('the_tags', 'exibir_contagem_nas_tags');
+function exibir_contagem_nas_tags($tags) {
+    global $post;
+    $post_tags = get_the_tags($post->ID);
+    if ($post_tags) {
+        $output = 'Marcadores: ';
+        foreach($post_tags as $tag) {
+            $output .= '<a href="' . get_tag_link($tag->term_id) . '">' . $tag->name . ' (' . $tag->count . ')</a>, ';
+        }
+        return rtrim($output, ', ');
+    }
+    return $tags;
+}
        
        
         </div>
