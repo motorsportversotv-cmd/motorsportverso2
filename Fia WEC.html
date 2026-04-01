@@ -1,88 +1,174 @@
-    <main class="container">
-        <!-- CONTAGEM REGRESSIVA -->
-        <section class="countdown-container">
-            <h2 style="color: white; margin-bottom: 15px;">Próxima Corrida: 6 Horas de Ímola</h2>
-            <div id="timer">
-                <div class="time-block"><span id="months">00</span><p>Meses</p></div>
-                <div class="time-block"><span id="days">00</span><p>Dias</p></div>
-                <div class="time-block"><span id="hours">00</span><p>Horas</p></div>
-                <div class="time-block"><span id="minutes">00</span><p>Minutos</p></div>
-            </div>
-        </section>
+ <style>
+    :root {
+        --azul-endurance: #002b5c; /* Azul Escuro */
+        --azul-destaque: #004a99;
+        --vermelho-wec: #e10600;
+        --branco: #ffffff;
+    }
 
-        <style>
-            .countdown-container {
-                background: #1a1a1a;
-                padding: 30px;
-                border-radius: 12px;
-                margin-bottom: 40px;
-                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            }
-            #timer { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-            .time-block { background: var(--azul-claro); padding: 15px; border-radius: 8px; min-width: 90px; color: white; }
-            .time-block span { font-size: 2rem; font-weight: 900; display: block; }
-            .time-block p { font-size: 0.7rem; text-transform: uppercase; margin: 0; font-weight: bold; }
-        </style>
+    .container {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-        <h1>Acompanhe o Mundial de Endurance</h1>
-        <p class="subtitle">Detalhes técnicos das categorias oficiais</p>
+    /* SEÇÃO DE CONTAGEM (FUNDO AZUL) */
+    .countdown-container {
+        background: var(--azul-endurance);
+        padding: 40px;
+        border-radius: 15px;
+        margin-bottom: 40px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        text-align: center;
+        border-bottom: 5px solid var(--vermelho-wec);
+    }
 
-        <!-- GRID DE CATEGORIAS (Corrigido para ficarem lado a lado) -->
-        <div class="grid-categorias">
-            <!-- Hypercar LMH -->
-            <div class="card">
-                <div class="card-header">HYPERCAR (LMH)</div>
-                <div class="card-body">
-                    <p><strong>Regulamento:</strong> Protótipos com sistema híbrido opcional nas 4 rodas.</p>
-                    <div class="marcas">Fabricantes: Ferrari, Peugeot, Toyota, Aston Martin.</div>
-                    <img src="images (5).jpg" alt="Hypercar LMH" style="width: 100%; height: auto; border-radius: 8px; margin-top: 15px;">
-                </div>
-            </div>
+    #timer { 
+        display: flex; 
+        justify-content: center; 
+        gap: 20px; 
+        flex-wrap: wrap; 
+    }
 
-            <!-- Hypercar LMDh -->
-            <div class="card">
-                <div class="card-header">HYPERCAR (LMDh)</div>
-                <div class="card-body">
-                    <p><strong>Regulamento:</strong> Sistema híbrido padrão e chassis base LMP2.</p>
-                    <div class="marcas">Fabricantes: Genesis, Alpine, BMW, Cadillac.</div>
-                    <img src="cadillac jota.jpg" alt="HYPERCAR (LMDh)" style="width: 100%; height: auto; border-radius: 8px; margin-top: 15px;">
-                </div>
-            </div>
+    .time-block { 
+        background: rgba(255, 255, 255, 0.1); 
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 20px; 
+        border-radius: 10px; 
+        min-width: 100px; 
+        color: white; 
+    }
 
-            <!-- LMGT3 -->
-            <div class="card">
-                <div class="card-header">LMGT3</div>
-                <div class="card-body">
-                    <p><strong>Regulamento:</strong> Padrão FIA GT3. Apenas equipes clientes com 2 carros por marca.</p>
-                    <div class="marcas">Fabricantes: Ferrari, BMW, Porsche, Ford, Corvette.</div>
-                    <img src="images (6).jpg" alt="LMGT3" style="width: 100%; height: auto; border-radius: 8px; margin-top: 15px;">
-                </div>
+    .time-block span { font-size: 2.5rem; font-weight: 900; display: block; line-height: 1; }
+    .time-block p { font-size: 0.8rem; text-transform: uppercase; margin-top: 5px; opacity: 0.8; }
+
+    /* TEXTOS PRINCIPAIS */
+    h1 { color: var(--azul-endurance); text-align: center; margin-top: 0; }
+    .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
+
+    /* GRID DE CATEGORIAS */
+    .grid-categorias {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border: 1px solid #eee;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover { transform: translateY(-10px); }
+
+    /* AJUSTE NOS TÍTULOS DOS CARDS PARA AZUL */
+    .card-header {
+        background: var(--azul-endurance);
+        color: white;
+        padding: 15px;
+        font-weight: 800;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+
+    .card-body { padding: 20px; }
+    
+    .marcas {
+        font-size: 0.85rem;
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 6px;
+        margin-top: 10px;
+        color: #444;
+        border-left: 3px solid var(--azul-destaque);
+    }
+
+    .card-body img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-top: 15px;
+    }
+</style>
+
+<main class="container">
+    <!-- CONTAGEM REGRESSIVA -->
+    <section class="countdown-container">
+        <h2 style="color: white; margin-bottom: 25px; font-weight: 300;">PRÓXIMA CORRIDA: <span style="font-weight: 800;">6 Horas de Ímola</span></h2>
+        <div id="timer">
+            <div class="time-block"><span id="months">00</span><p>Meses</p></div>
+            <div class="time-block"><span id="days">00</span><p>Dias</p></div>
+            <div class="time-block"><span id="hours">00</span><p>Horas</p></div>
+            <div class="time-block"><span id="minutes">00</span><p>Minutos</p></div>
+        </div>
+    </section>
+
+    <h1>Mundial de Endurance (WEC)</h1>
+    <p class="subtitle">Conheça as especificações das máquinas da temporada</p>
+
+    <div class="grid-categorias">
+        <!-- Hypercar LMH -->
+        <div class="card">
+            <div class="card-header">HYPERCAR (LMH)</div>
+            <div class="card-body">
+                <p><strong>Regulamento:</strong> Protótipos puros com sistema híbrido opcional no eixo dianteiro.</p>
+                <div class="marcas"><strong>Equipes:</strong> Ferrari, Toyota, Peugeot.</div>
+                <img src="https://placeholder.com" alt="Hypercar LMH">
             </div>
         </div>
-    </main>
 
-    <!-- SCRIPT DA CONTAGEM (Coloque antes de fechar o </body>) -->
-    <script>
-        function updateTimer() {
-            const raceDate = new Date("April 19, 2026 08:00:00").getTime();
-            const now = new Date().getTime();
-            const diff = raceDate - now;
+        <!-- Hypercar LMDh -->
+        <div class="card">
+            <div class="card-header">HYPERCAR (LMDh)</div>
+            <div class="card-body">
+                <p><strong>Regulamento:</strong> Sistema híbrido padrão (Bosch/Williams) e chassis base LMP2.</p>
+                <div class="marcas"><strong>Equipes:</strong> Porsche, Cadillac, BMW, Alpine.</div>
+                <img src="https://placeholder.com" alt="HYPERCAR (LMDh)">
+            </div>
+        </div>
 
-            if (diff <= 0) {
-                document.getElementById("timer").innerHTML = "<h2>A CORRIDA COMEÇOU!</h2>";
-                return;
-            }
+        <!-- LMGT3 -->
+        <div class="card">
+            <div class="card-header">LMGT3</div>
+            <div class="card-body">
+                <p><strong>Regulamento:</strong> Baseados em carros de rua com kit aerodinâmico GT3 da FIA.</p>
+                <div class="marcas"><strong>Equipes:</strong> Corvette, Aston Martin, Porsche, BMW.</div>
+                <img src="https://placeholder.com" alt="LMGT3">
+            </div>
+        </div>
+    </div>
+</main>
 
-            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
-            const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+<script>
+    function updateTimer() {
+        // Data da corrida (Abril de 2026 como exemplo)
+        const raceDate = new Date("April 19, 2026 08:00:00").getTime();
+        const now = new Date().getTime();
+        const diff = raceDate - now;
 
-            document.getElementById("months").innerText = String(months).padStart(2, '0');
-            document.getElementById("days").innerText = String(days).padStart(2, '0');
-            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
-            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+        if (diff <= 0) {
+            document.getElementById("timer").innerHTML = "<h2 style='color:white'>A CORRIDA ESTÁ EM ANDAMENTO!</h2>";
+            return;
         }
-        setInterval(updateTimer, 1000);
-        updateTimer();
-    </script>
+
+        const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
+        const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+        document.getElementById("months").innerText = String(months).padStart(2, '0');
+        document.getElementById("days").innerText = String(days).padStart(2, '0');
+        document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+        document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
+</script>
+
+  
