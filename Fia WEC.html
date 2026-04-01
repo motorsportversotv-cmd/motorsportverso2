@@ -1,98 +1,51 @@
- <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Endurance Hub - WEC</title>
-    <style>
-        :root {
-            --azul-claro: #00B4FF;
-            --azul-hover: #0081B4;
-            --branco: #FFFFFF;
-            --fundo: #F4F7F9;
-            --texto: #333;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--fundo); color: var(--texto); }
-
-        /* NAVBAR CORRIGIDA */
-        .navbar {
-            background: var(--branco);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5%;
-            height: 80px;
-            border-bottom: 4px solid var(--azul-claro);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo { font-size: 22px; font-weight: 900; color: var(--azul-claro); text-decoration: none; text-transform: uppercase; }
-
-        .nav-links { display: flex; list-style: none; align-items: center; }
-        .nav-links li { padding: 0 15px; position: relative; }
-        .nav-links a { text-decoration: none; color: var(--texto); font-weight: 700; font-size: 13px; text-transform: uppercase; transition: 0.3s; }
-        .nav-links a:hover { color: var(--azul-claro); }
-
-        /* BOTÃO DESTAQUE */
-        .btn-lemans { background: var(--azul-claro); color: white !important; padding: 10px 15px; border-radius: 4px; }
-
-        /* CONTEÚDO PRINCIPAL */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; text-align: center; }
-        h1 { margin-bottom: 10px; color: var(--azul-hover); }
-        .subtitle { margin-bottom: 40px; color: #666; }
-
-        /* GRID DE CATEGORIAS */
-        .grid-categorias { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; text-align: left; }
-        
-        .card { background: var(--branco); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--azul-claro); }
-        .card-header { background: #f8f9fa; padding: 15px; font-weight: 800; border-bottom: 1px solid #eee; color: var(--azul-hover); }
-        .card-body { padding: 20px; font-size: 14px; line-height: 1.6; }
-        .marcas { margin-top: 15px; padding-top: 10px; border-top: 1px solid #f0f0f0; font-weight: bold; color: #555; }
-        .ausentes { font-size: 12px; color: #999; font-style: italic; margin-top: 10px; display: block; }
-    </style>
-</head>
-<body>
-
-    <nav class="navbar">
-        <a href="#" class="logo">Endurance Hub</a>
-        <ul class="nav-links">
-            <li><a href="#">WEC</a></li>
-            <li><a href="#">Calendário</a></li>
-            <li><a href="Asia Le Mans Series.html">Asian Le Mans</a></li>
-            <li><a href="#">Notícias</a></li>
-            <li><a href="#" class="btn-lemans">24H LE MANS</a></li>
-        </ul>
-    </nav>
-
     <main class="container">
+        <!-- CONTAGEM REGRESSIVA -->
+        <section class="countdown-container">
+            <h2 style="color: white; margin-bottom: 15px;">Próxima Corrida: 6 Horas de Ímola</h2>
+            <div id="timer">
+                <div class="time-block"><span id="months">00</span><p>Meses</p></div>
+                <div class="time-block"><span id="days">00</span><p>Dias</p></div>
+                <div class="time-block"><span id="hours">00</span><p>Horas</p></div>
+                <div class="time-block"><span id="minutes">00</span><p>Minutos</p></div>
+            </div>
+        </section>
+
+        <style>
+            .countdown-container {
+                background: #1a1a1a;
+                padding: 30px;
+                border-radius: 12px;
+                margin-bottom: 40px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            }
+            #timer { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+            .time-block { background: var(--azul-claro); padding: 15px; border-radius: 8px; min-width: 90px; color: white; }
+            .time-block span { font-size: 2rem; font-weight: 900; display: block; }
+            .time-block p { font-size: 0.7rem; text-transform: uppercase; margin: 0; font-weight: bold; }
+        </style>
+
         <h1>Acompanhe o Mundial de Endurance</h1>
         <p class="subtitle">Detalhes técnicos das categorias oficiais</p>
 
-        <div class="card">
-    <div class="card-header">HYPERCAR (LMH)</div>
-    <div class="card-body">
-        <p><strong>Regulamento:</strong> Protótipos com sistema híbrido opcional nas 4 rodas.</p>
-        <div class="marcas">Fabricantes: Ferrari, Peugeot, Toyota, Aston Martin.</div>
-        
-        <!-- A correção está nesta linha abaixo -->
-        <img src="images (5).jpg" alt="Hypercar LMH" style="width: 200px; height: auto; border-radius: 8px;">
-    </div>
-</div>
+        <!-- GRID DE CATEGORIAS (Corrigido para ficarem lado a lado) -->
+        <div class="grid-categorias">
+            <!-- Hypercar LMH -->
+            <div class="card">
+                <div class="card-header">HYPERCAR (LMH)</div>
+                <div class="card-body">
+                    <p><strong>Regulamento:</strong> Protótipos com sistema híbrido opcional nas 4 rodas.</p>
+                    <div class="marcas">Fabricantes: Ferrari, Peugeot, Toyota, Aston Martin.</div>
+                    <img src="images (5).jpg" alt="Hypercar LMH" style="width: 100%; height: auto; border-radius: 8px; margin-top: 15px;">
+                </div>
+            </div>
 
             <!-- Hypercar LMDh -->
             <div class="card">
                 <div class="card-header">HYPERCAR (LMDh)</div>
                 <div class="card-body">
-                    <p><strong>Regulamento:</strong> Sistema híbrido padrão e chassis base LMP2 (Oreca, Ligier, Dallara, Multimatic).</p>
+                    <p><strong>Regulamento:</strong> Sistema híbrido padrão e chassis base LMP2.</p>
                     <div class="marcas">Fabricantes: Genesis, Alpine, BMW, Cadillac.</div>
-                  <!-- A correção está nesta linha abaixo -->
-        <img src="cadillac jota.jpg" alt="HYPERCAR (LMDh)" style="width: 200px; height: auto; border-radius: 8px;">
-    </div>
-</div>
+                    <img src="cadillac jota.jpg" alt="HYPERCAR (LMDh)" style="width: 100%; height: auto; border-radius: 8px; margin-top: 15px;">
                 </div>
             </div>
 
@@ -101,106 +54,35 @@
                 <div class="card-header">LMGT3</div>
                 <div class="card-body">
                     <p><strong>Regulamento:</strong> Padrão FIA GT3. Apenas equipes clientes com 2 carros por marca.</p>
-                    <div class="marcas">Fabricantes: Ferrari, BMW, Porsche, Ford, Corvette, Aston Martin, Mercedes, Lexus.</div>
-                    <span class="ausentes">*Sem participação: Lamborghini, Audi, Honda,Nissan e Bentley.</span>
-                  <!-- A correção está nesta linha abaixo -->
-        <img src="images (6).jpg" alt="LMGT3" style="width: 200px; height: auto; border-radius: 8px;">
-    </div>
-</div>
+                    <div class="marcas">Fabricantes: Ferrari, BMW, Porsche, Ford, Corvette.</div>
+                    <img src="images (6).jpg" alt="LMGT3" style="width: 100%; height: auto; border-radius: 8px; margin-top: 15px;">
                 </div>
             </div>
         </div>
     </main>
 
-       
-       <section class="noticias-section">
-    <h2>Últimas Notícias</h2>
-    <div class="lista-noticias">
-        <article class="news-card">
-            <!-- Largura reduzida para 150px e altura para 90px -->
-            <div class="news-image" style="
-                background-image: url('download.jpg'); 
-                height: 90px; 
-                width: 150px; 
-                margin: 0 auto;
-                background-size: cover; 
-                background-position: center; 
-                border-radius: 8px;">
-            </div>
-          <style>
-    /* Este CSS garante que os posts fiquem lado a lado */
-    .news-container {
-        display: flex;
-        flex-wrap: wrap; /* Permite quebrar linha se a tela for pequena */
-        gap: 20px;       /* Espaço entre os posts */
-        justify-content: center;
-        align-items: flex-start;
-    }
+    <!-- SCRIPT DA CONTAGEM (Coloque antes de fechar o </body>) -->
+    <script>
+        function updateTimer() {
+            const raceDate = new Date("April 19, 2026 08:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = raceDate - now;
 
-    article {
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        width: 350px; /* Largura de cada post */
-        padding: 15px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
+            if (diff <= 0) {
+                document.getElementById("timer").innerHTML = "<h2>A CORRIDA COMEÇOU!</h2>";
+                return;
+            }
 
-    .tag { background: #e74c3c; color: white; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
-    .read-more { display: block; margin-top: 10px; color: #cc0000; text-decoration: none; font-weight: bold; }
-</style>
+            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
+            const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
-<section>
-    <div class="news-container">
-        
-        <!-- Post 1 (BYD) -->
-        <article>
-            <div class="news-content" style="text-align: center;">
-                <span class="tag tag-wec">WEC</span>
-                <h3>BYD analisa entrada no FIA WEC</h3>
-                <p>A marca chinesa analisa entrada no FIA WEC e nas 24h de Le Mans.</p>
-                <a href="noticia-byd.html" class="read-more">Ler mais →</a>
-            </div>
-        </article>
-
-        <!-- Post 2 (Joven Pan) -->
-        <article>
-            <div class="news-content" style="text-align: center;">
-                <span class="tag tag-wec">WEC</span>
-                <h3>Joven Pan transmitirá o WEC em 2026</h3>
-                <p>Acompanhe todas as emoções do mundial de endurance gratuitamente.</p>
-                <a href="Joven Pan transmite o wec em 2026.html" class="read-more">Ler mais →</a>
-
-                <div class="links" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
-                    <p>📸 <a href="https://www.instagram.com" target="_blank">@motorsportverso</a></p>
-                    <!-- O script do Instagram deve ser carregado apenas uma vez no final da página -->
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DVzOE1eCit5/" data-instgrm-version="14" style="width:100%;"></blockquote>
-                </div>
-            </div>
-        </article>
-
-        <!-- Post 3 (Ferrari Asia) -->
-        <article>
-            <div class="news-content" style="text-align: center;">
-                <span class="tag tag-wec">Asia Lemans Series</span>
-                <h3>Ferrari expande operações na Ásia</h3>
-                <p>Poderá de 2 a 3 499P no Àsia Le Mans Series.</p>
-                <a href="Ferrari-no-asia-lemans-series-hypercar.html" class="read-more">Ler mais →</a>
-            </div>
-        </article>
-
-    <h3>🎬 Trailer 24h no limite Felipe Nasr</h3>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe 
-    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-    src="https://www.youtube.com/embed/kOhk5jsJ6A" 
-    title="2DIE4 - 24 Hours No Limit | Official Trailer" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-    allowfullscreen>
-  </iframe>
-</div>
-
-
-    </div> <!-- Fim da news-container -->
-</section>
+            document.getElementById("months").innerText = String(months).padStart(2, '0');
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
