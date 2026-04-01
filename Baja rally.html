@@ -148,21 +148,23 @@
     </div>
 </article>
 
-        <hr>
-add_filter('the_tags', 'exibir_contagem_nas_tags');
-function exibir_contagem_nas_tags($tags) {
-    global $post;
-    $post_tags = get_the_tags($post->ID);
-    if ($post_tags) {
-        $output = 'Marcadores: ';
-        foreach($post_tags as $tag) {
-            $output .= '<a href="' . get_tag_link($tag->term_id) . '">' . $tag->name . ' (' . $tag->count . ')</a>, ';
-        }
-        return rtrim($output, ', ');
-    }
-    return $tags;
-}
-       
+       <!-- Estilo CSS simples para parecer com a sua imagem -->
+<style>
+  .post-tags { font-family: sans-serif; color: #999; font-size: 14px; }
+  .tag-label { font-weight: bold; margin-right: 8px; }
+  .tag-item { color: #999; text-decoration: none; margin-right: 12px; }
+  .tag-count { font-size: 11px; vertical-align: super; margin-left: 2px; }
+</style>
+
+<div class="post-tags">
+  <span class="tag-label">Marcadores</span>
+  {% for tag in page.tags %}
+    <a href="/tags#{{ tag | slugify }}" class="tag-item">
+      {{ tag }}<span class="tag-count">({{ site.tags[tag].size }})</span>{% unless forloop.last %}, {% endunless %}
+    </a>
+  {% endfor %}
+</div>
+
        
         </div>
     </div>
