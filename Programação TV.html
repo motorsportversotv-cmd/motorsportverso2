@@ -45,8 +45,70 @@
 </head>
 <body>
 
-<!-- Tabela Corrigida -->
-<table>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
+
+        /* Estilo do Campo de Filtro */
+        .filter-container {
+            margin-bottom: 15px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #filterInput {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e20613;
+            border-radius: 5px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        /* --- TABELA COM BORDAS --- */
+        table {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: white;
+            /* Borda externa da tabela */
+            border: 2px solid #333; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background-color: #e20613;
+            color: white;
+            text-transform: uppercase;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #333; /* Borda nas células do cabeçalho */
+        }
+
+        td {
+            padding: 10px;
+            color: #333;
+            /* Borda nas células de dados */
+            border: 1px solid #ccc; 
+        }
+
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        tr:hover { background-color: #fff9e6; } /* Destaque ao passar o mouse */
+
+    </style>
+</head>
+<body>
+
+<div class="filter-container">
+    <input type="text" id="filterInput" onkeyup="filterTable()" placeholder="🔍 Filtrar por descrição, local ou dia...">
+</div>
+
+<table id="raceTable">
     <thead>
         <tr>
             <th>Dia</th>
@@ -56,21 +118,19 @@
         </tr>
     </thead>
     <tbody>
- <tr>
+        <tr>
             <td>06/04</td>
             <td>TC France-corrida\race\course-race 3</td>
-            <td>Lyden Hill</td>
+            <td>Nogaro</td>
             <td>04:00</td>
         </tr>
-        
         <tr>
             <td>06/04</td>
             <td>Rallycross 5 Nations-etapa 2</td>
             <td>Lyden Hill</td>
             <td>06:20</td>
         </tr>
-
-              <tr>
+        <tr>
             <td>06/04</td>
             <td>Renault Clio Cup France-race 2</td>
             <td>Nogaro</td>
@@ -82,17 +142,43 @@
             <td>Nogaro</td>
             <td>10:00</td>
         </tr>
-
-         <tr>
+        <tr>
             <td>06/04</td>
             <td>TC France-race 4</td>
             <td>Nogaro</td>
             <td>11:25</td>
         </tr>
-
-       
     </tbody>
 </table>
+
+<script>
+function filterTable() {
+    var input, filter, table, tr, td, i, j, txtValue, found;
+    input = document.getElementById("filterInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("raceTable");
+    tr = table.getElementsByTagName("tr");
+
+    // Começa do 1 para pular o cabeçalho (th)
+    for (i = 1; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td");
+        found = false;
+        for (j = 0; j < td.length; j++) {
+            if (td[j]) {
+                txtValue = td[j].textContent || td[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+        tr[i].style.display = found ? "" : "none";
+    }
+}
+</script>
+
+</body>
+</html>
 
 
 
