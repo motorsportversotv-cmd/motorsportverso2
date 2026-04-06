@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         /* Estilo da Barra de Notícias */
         .news-ticker {
@@ -11,7 +12,8 @@
             font-family: Arial, sans-serif;
             overflow: hidden;
             white-space: nowrap;
-            border-bottom: 3px solid #e20613; /* Cor temática Rally */
+            border-bottom: 3px solid #e20613;
+            margin-bottom: 20px;
         }
 
         .ticker-wrapper {
@@ -31,20 +33,65 @@
             text-transform: uppercase;
         }
 
-        /* Animação de movimento */
         @keyframes ticker {
             0% { transform: translate3d(0, 0, 0); }
             100% { transform: translate3d(-100%, 0, 0); }
         }
 
-        /* Pausar ao passar o mouse */
         .news-ticker:hover .ticker-wrapper {
             animation-play-state: paused;
         }
+
+        /* Estilo do Card de Notícia */
+        article {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .news-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tag {
+            background: #e20613;
+            color: white;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+
+        .tag-wec { background: #000; }
+
+        h3 { margin: 10px 0; font-size: 18px; color: #333; }
+
+        .label { font-size: 12px; color: #777; margin-right: 5px; }
+
+        .read-more {
+            margin-top: 15px;
+            color: #e20613;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .read-more:hover { text-decoration: underline; }
+
+        img { border-radius: 4px; }
     </style>
 </head>
 <body>
 
+<!-- Barra de Resultados -->
 <div class="news-ticker">
     <div class="ticker-wrapper">
         <div class="ticker-item"><strong>W2RC Portugal 2026 (T1+):</strong> 1º Loeb (Dacia) 10:58:52</div>
@@ -58,22 +105,26 @@
     </div>
 </div>
 
-article>
-    <div class="news-content" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+<!-- Conteúdo da Notícia -->
+<article>
+    <div class="news-content">
         <span class="tag tag-wec">Rally Raid</span>
-        <h3>KTM desenvolve UTV para a categoria SSV de produção</h3></h3>
+        <h3>KTM desenvolve UTV para a categoria SSV de produção</h3>
 
         <div class="tags-container">
-  <span class="label">Marcadores</span>
-  <a href="#" class="tag">UTVs</a>
+            <span class="label">Marcadores:</span>
+            <a href="#" class="tag" style="background:#666;">UTVs</a>
+        </div>
         
-        <!-- Adicionei display block e margem -->
-        <img src="imagem_2026-04-03_013610989.png" alt="Honda Civic Type R Friends Hill Climb" width="200" style="display: block; margin-bottom: 10px;">
+        <img src="imagem_2026-04-03_013610989.png" alt="KTM UTV SSV" width="250" style="display: block; margin: 15px 0;">
         
-        <!-- O link agora cairá naturalmente para baixo -->
         <a href="programacao-friends-hill-climb-campolargo-26.html" class="read-more">Ler mais →</a>
     </div>
 </article>
+
+</body>
+</html>
+
             
 
     
