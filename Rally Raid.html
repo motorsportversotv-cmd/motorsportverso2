@@ -3,16 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motorsportverso-Portal Rally Raid</title>
     <style>
-        /* Estilo da Barra de Notícias */
+        /* 1. Fundo da tela branco e texto geral cinza */
+        body {
+            background-color: #ffffff !important;
+            color: #666666; /* Cinza padrão para leitura */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 2. Barra de Notícias (Agora com fundo branco) */
         .news-ticker {
-            background: #222;
-            color: #fff;
-            padding: 10px 0;
+            background: #ffffff; 
+            color: #666666;
+            padding: 15px 0;
             font-family: Arial, sans-serif;
             overflow: hidden;
             white-space: nowrap;
-            border-bottom: 3px solid #e20613;
+            border-bottom: 1px solid #eeeeee; /* Linha divisória sutil */
             margin-bottom: 20px;
         }
 
@@ -29,7 +39,7 @@
         }
 
         .ticker-item strong {
-            color: #ffcc00;
+            color: #333333; /* Cinza escuro para destaque */
             text-transform: uppercase;
         }
 
@@ -42,15 +52,15 @@
             animation-play-state: paused;
         }
 
-        /* Estilo do Card de Notícia */
+        /* 3. Card de Notícia */
         article {
-            font-family: Arial, sans-serif;
-            max-width: 400px;
+            max-width: 450px;
             margin: 20px auto;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #f0f0f0; /* Borda bem clara */
+            padding: 20px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Sombra suave */
         }
 
         .news-content {
@@ -60,74 +70,85 @@
             align-items: center;
         }
 
+        /* Tags e Marcadores */
         .tag {
-            background: #e20613;
-            color: white;
-            padding: 4px 10px;
-            font-size: 12px;
+            background: #888888; /* Cinza médio para as tags */
+            color: #ffffff;
+            padding: 5px 12px;
+            font-size: 11px;
             font-weight: bold;
             border-radius: 4px;
             text-decoration: none;
             margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
-        .tag-wec { background: #000; }
+        .tag-raid { background: #444444; } /* Cinza escuro */
 
-        h3 { margin: 10px 0; font-size: 18px; color: #333; }
+        h3 { 
+            margin: 15px 0; 
+            font-size: 20px; 
+            color: #333333; /* Título em cinza quase preto */
+            line-height: 1.3;
+        }
 
-        .label { font-size: 12px; color: #777; margin-right: 5px; }
+        .label { font-size: 12px; color: #999999; margin-right: 5px; }
 
+        /* Botão Ler Mais */
         .read-more {
-            margin-top: 15px;
-            color: #e20613;
+            margin-top: 20px;
+            color: #666666;
             text-decoration: none;
             font-weight: bold;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
         }
 
-        .read-more:hover { text-decoration: underline; }
+        .read-more:hover { 
+            color: #333333;
+            border-bottom: 2px solid #333333;
+        }
 
-        img { border-radius: 4px; }
+        img { 
+            border-radius: 8px; 
+            max-width: 100%; 
+            height: auto; 
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
 
-<!-- Barra de Resultados -->
+<!-- Barra de Resultados (Branca com texto cinza) -->
 <div class="news-ticker">
     <div class="ticker-wrapper">
-        <div class="ticker-item"><strong>KTM desenvolve UTV SSV</strong>
+        <div class="ticker-item"><strong>KTM desenvolve UTV SSV</strong></div>
         <div class="ticker-item"><strong>W2RC Portugal 2026 (T1+):</strong> 1º Loeb (Dacia) 10:58:52</div>
         <div class="ticker-item">2º Quinteiro (Toyota) +02:46</div>
         <div class="ticker-item">3º Ferreira (Toyota) +03:37</div>
         <div class="ticker-item">4º Moraes (Dacia) +04:36</div>
         <div class="ticker-item">5º Boterril (Toyota) +05:27</div>
         <div class="ticker-item"><strong>Categoria Stock:</strong> 1º Peterhansel (Land Rover) 11:57:33</div>
-        <div class="ticker-item">2º Baciuska (Land Rover) 12:00:02</div>
-        <div class="ticker-item">3º Price (Land Rover) 13:09:58</div>
     </div>
 </div>
 
 <!-- Conteúdo da Notícia -->
 <article>
     <div class="news-content">
-        <span class="tag tag-wec">Rally Raid</span>
+        <span class="tag tag-raid">Rally Raid</span>
         <h3>KTM desenvolve UTV para a categoria SSV de produção</h3>
 
         <div class="tags-container">
             <span class="label">Marcadores:</span>
-            <a href="#" class="tag" style="background:#666;">UTVs</a>
+            <a href="#" class="tag" style="background:#bbbbbb; color:#333;">UTVs</a>
         </div>
         
-        <img src="KTM X-BOW SSV.jpg" alt="KTM UTV SSV" width="250" style="display: block; margin: 15px 0;">
+        <!-- Certifique-se de que a imagem está na mesma pasta do código -->
+        <img src="KTM X-BOW SSV.jpg" alt="KTM UTV SSV">
         
         <a href="KTM_desenvolve-utv-ssv.html" class="read-more">Ler mais →</a>
     </div>
 </article>
 
-</body>
-</html>
-
-            
-
-    
 </body>
 </html>
