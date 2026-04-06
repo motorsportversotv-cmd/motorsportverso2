@@ -1,73 +1,67 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <style>
-        body { font-family: sans-serif; }
-        #meuInput { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f6f8fa; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
+        /* Estilo da Barra de Notícias */
+        .news-ticker {
+            background: #222;
+            color: #fff;
+            padding: 10px 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            white-space: nowrap;
+            border-bottom: 3px solid #e20613; /* Cor temática Rally */
+        }
+
+        .ticker-wrapper {
+            display: inline-block;
+            padding-left: 100%;
+            animation: ticker 30s linear infinite;
+        }
+
+        .ticker-item {
+            display: inline-block;
+            padding: 0 30px;
+            font-size: 14px;
+        }
+
+        .ticker-item strong {
+            color: #ffcc00;
+            text-transform: uppercase;
+        }
+
+        /* Animação de movimento */
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* Pausar ao passar o mouse */
+        .news-ticker:hover .ticker-wrapper {
+            animation-play-state: paused;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Campo de Busca -->
-    <input type="text" id="meuInput" onkeyup="filtrarTabela()" placeholder="Pesquise por programa, canal, local...">
-
-    <table id="minhaTabela">
-        <thead>
-            <tr>
-                <th>Dia</th>
-                <th>Hora</th>
-                <th>Programa</th>
-                <th>Local</th>
-                <th>Canal</th>
-            </tr>
-        </thead>
-        <tbody>
-           
-            <tr><td>04/04</td><td>03:00</td><td>GTWC Asia-Race 1</td><td>Sepang</td><td>Youtube/Youtube GP</td></tr>
-            <tr><td>04/04</td><td>08:00</td><td>British Truck</td><td>Brands Hatch</td><td>Youtube/Youtube High Speed TV</td></tr>
-            <tr><td>04/04</td><td>09:30</td><td>British Pick Up Racing</td><td>Brands Hatch</td><td>Youtube</td></tr>
-            <tr><td>06/04</td><td>06:20</td><td>5 Nations Rallycross-etapa 2</td><td>Lyden Hill</td><td>Youtube</td></tr>
-            
-            <P>Atualizado em 22\03 as  15:12</P>
-            
-        </tbody>
-    </table>
-
-    <script>
-    function filtrarTabela() {
-        const input = document.getElementById("meuInput");
-        const filter = input.value.toUpperCase();
-        const table = document.getElementById("minhaTabela");
-        const tr = table.getElementsByTagName("tr");
-
-        // Começa em 1 para pular o cabeçalho
-        for (let i = 1; i < tr.length; i++) {
-            let visible = false;
-            const tds = tr[i].getElementsByTagName("td");
-            
-            // Percorre todas as colunas da linha atual
-            for (let j = 0; j < tds.length; j++) {
-                if (tds[j]) {
-                    const txtValue = tds[j].textContent || tds[j].innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        visible = true;
-                        break; // Se achou em uma coluna, não precisa olhar as outras
-                    }
-                }
-            }
-            tr[i].style.display = visible ? "" : "none";
-        }
-    }
-    </script>
+<div class="news-ticker">
+    <div class="ticker-wrapper">
+        <div class="ticker-item"><strong>W2RC Portugal 2026 (T1+):</strong> 1º Loeb (Dacia) 10:58:52</div>
+        <div class="ticker-item">2º Quinteiro (Toyota) +02:46</div>
+        <div class="ticker-item">3º Ferreira (Toyota) +03:37</div>
+        <div class="ticker-item">4º Moraes (Dacia) +04:36</div>
+        <div class="ticker-item">5º Boterril (Toyota) +05:27</div>
+        <div class="ticker-item"><strong>Categoria Stock:</strong> 1º Peterhansel (Land Rover) 11:57:33</div>
+        <div class="ticker-item">2º Baciuska (Land Rover) 12:00:02</div>
+        <div class="ticker-item">3º Price (Land Rover) 13:09:58</div>
+    </div>
+</div>
 
 </body>
 </html>
 
+
+        
 
 
