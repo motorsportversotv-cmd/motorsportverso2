@@ -2,188 +2,179 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
             --nascar-red: #e10600;
-            --dark-bg: #121212;
-            --card-bg: #1e1e1e;
+            --dark-bg: #1a1a1a;
+            --card-bg: #262626;
             --chevy-blue: #0099ff;
-            --ford-blue: #113b8c;
-            --accent-gold: #ffcc00;
+            --ford-green: #33cc33;
             --text-light: #f4f4f4;
+            --accent-gold: #ffcc00;
         }
 
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
+        body { background-color: var(--dark-bg); color: var(--text-light); font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 20px; }
 
-        .grid-header {
-            text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 2px solid var(--nascar-red);
-            padding-bottom: 10px;
-        }
-
-        .grid-equipes {
+        .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
         }
 
-        .team-card {
+        .news-card {
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 20px;
-            position: relative;
-            transition: all 0.3s ease;
-            border: 1px solid #333;
+            overflow: hidden;
+            border-bottom: 4px solid var(--nascar-red);
+            transition: transform 0.3s ease;
             display: flex;
             flex-direction: column;
+            border: 1px solid #333;
         }
 
-        .team-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(225, 6, 0, 0.2);
-            border-color: var(--nascar-red);
+        .news-card:hover { transform: translateY(-5px); border-color: var(--nascar-red); }
+
+        .card-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .brand-stripe {
-            height: 4px;
-            width: 50px;
-            margin-bottom: 15px;
-            border-radius: 2px;
-        }
-
-        .bg-chevy { background-color: var(--chevy-blue); box-shadow: 0 0 10px var(--chevy-blue); }
-        .bg-ford { background-color: var(--ford-blue); box-shadow: 0 0 10px var(--ford-blue); }
-
-        .team-name {
-            font-size: 1.4rem;
-            font-weight: 800;
-            margin-bottom: 15px;
+        .brand-badge {
+            font-size: 0.7rem;
+            font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid;
         }
 
-        .driver-list {
-            margin-top: auto;
+        .chevy { color: var(--chevy-blue); border-color: var(--chevy-blue); background: rgba(0, 153, 255, 0.1); }
+        .ford { color: var(--ford-green); border-color: var(--ford-green); background: rgba(51, 204, 51, 0.1); }
+
+        .card-content { padding: 0 20px 20px 20px; flex-grow: 1; }
+
+        .team-title {
+            color: white;
+            font-size: 1.4rem;
+            margin: 0 0 15px 0;
+            font-weight: 800;
+            text-transform: uppercase;
         }
 
-        .driver-item {
+        .driver-row {
             display: flex;
             align-items: center;
-            background: rgba(255,255,255,0.05);
             margin-bottom: 8px;
-            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            padding: 8px;
             border-radius: 6px;
         }
 
         .car-number {
-            font-family: 'Arial Black', sans-serif;
-            font-size: 1.2rem;
             color: var(--accent-gold);
-            margin-right: 15px;
-            min-width: 40px;
-            text-align: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+            margin-right: 12px;
+            min-width: 35px;
             font-style: italic;
         }
 
-        .driver-name {
-            font-weight: 500;
-            font-size: 1rem;
+        .insta-embed-container {
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            max-height: 350px;
+            overflow-y: auto;
         }
 
-        .tag-new {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--nascar-red);
-            color: white;
-            font-size: 0.6rem;
-            font-weight: bold;
-            padding: 3px 8px;
-            border-radius: 4px;
-        }
+        .insta-embed-container::-webkit-scrollbar { width: 4px; }
+        .insta-embed-container::-webkit-scrollbar-thumb { background: var(--nascar-red); }
     </style>
 </head>
 <body>
 
-<div class="grid-header">
-    <h1>NASCAR Brasil 2026: Grid Confirmado</h1>
+<div class="news-grid">
+    <!-- Card SG28 Racing (Foco Mídia) -->
+    <article class="news-card">
+        <div class="card-header">
+            <span class="brand-badge ford">Ford</span>
+            <span style="color: var(--nascar-red); font-weight: bold; font-size: 0.7rem;">NOVA EQUIPE</span>
+        </div>
+        <div class="card-content">
+            <h3 class="team-title">SG28 Racing</h3>
+            <div class="driver-row"><span class="car-number">#25</span><span>Tatiana Calderón</span></div>
+            <div class="driver-row"><span class="car-number">#91</span><span>Bruna Tomaselli</span></div>
+            <div class="driver-row"><span class="car-number">#28</span><span>Sérgio Ramalho / Gui Backes</span></div>
+            <div class="insta-embed-container">
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DW1Is8mFfW4/" data-instgrm-version="14" style="width:100%; margin:0; border:0;"></blockquote>
+            </div>
+        </div>
+    </article>
+
+    <!-- Card Team RC -->
+    <article class="news-card">
+        <div class="card-header">
+            <span class="brand-badge chevy">Chevrolet</span>
+        </div>
+        <div class="card-content">
+            <h3 class="team-title">Team RC</h3>
+            <div class="driver-row"><span class="car-number">#0</span><span>Cacá Bueno</span></div>
+            <div class="driver-row"><span class="car-number">#11</span><span>Witold Ramasaukas</span></div>
+            <div class="driver-row"><span class="car-number">#57</span><span>Felipe Tozzo</span></div>
+        </div>
+    </article>
+
+    <!-- Card Cavaleiro Sports / Pole -->
+    <article class="news-card">
+        <div class="card-header">
+            <span class="brand-badge chevy">Chevrolet</span>
+        </div>
+        <div class="card-content">
+            <h3 class="team-title">Cavaleiro Sports</h3>
+            <div class="driver-row"><span class="car-number">#90</span><span>Ricardo Maurício</span></div>
+            <div class="driver-row"><span class="car-number">#5</span><span>Denis Navarro</span></div>
+            <div class="driver-row"><span class="car-number">#9</span><span>Arthur Gama</span></div>
+        </div>
+    </article>
+
+    <!-- Card Full Time Sports -->
+    <article class="news-card">
+        <div class="card-header">
+            <span class="brand-badge ford">Ford</span>
+        </div>
+        <div class="card-content">
+            <h3 class="team-title">Full Time Sports</h3>
+            <div class="driver-row"><span class="car-number">#46</span><span>Vitor Genz</span></div>
+            <div class="driver-row"><span class="car-number">#8</span><span>Alfredinho Ibiapina</span></div>
+        </div>
+    </article>
+
+    <!-- Card AMattheis Vogel -->
+    <article class="news-card">
+        <div class="card-header">
+            <span class="brand-badge chevy">Chevrolet</span>
+        </div>
+        <div class="card-content">
+            <h3 class="team-title">AMattheis Vogel</h3>
+            <div class="driver-row"><span class="car-number">#69</span><span>Nicolas Costa</span></div>
+        </div>
+    </article>
+
+    <!-- Card Pole Motorsport -->
+    <article class="news-card">
+        <div class="card-header">
+            <span class="brand-badge ford">Ford</span>
+        </div>
+        <div class="card-content">
+            <h3 class="team-title">Pole Motorsport</h3>
+            <div class="driver-row"><span class="car-number">#34</span><span>Dudu Castroneves</span></div>
+        </div>
+    </article>
 </div>
 
-<div class="grid-equipes">
-    
-    <!-- Team RC -->
-    <div class="team-card">
-        <div class="brand-stripe bg-chevy"></div>
-        <div class="team-name">Team RC</div>
-        <div class="driver-list">
-            <div class="driver-item"><span class="car-number">#0</span><span class="driver-name">Cacá Bueno</span></div>
-            <div class="driver-item"><span class="car-number">#11</span><span class="driver-name">Witold Ramasaukas</span></div>
-            <div class="driver-item"><span class="car-number">#57</span><span class="driver-name">Felipe Tozzo</span></div>
-        </div>
-    </div>
-
-    <!-- SG28 by Pole -->
-    <div class="team-card">
-        <span class="tag-new">ESTREIA</span>
-        <div class="brand-stripe bg-ford"></div>
-        <div class="team-name">SG28 Racing</div>
-        <div class="driver-list">
-            <div class="driver-item"><span class="car-number">#25</span><span class="driver-name">Tatiana Calderón</span></div>
-            <div class="driver-item"><span class="car-number">#91</span><span class="driver-name">Bruna Tomaselli</span></div>
-            <div class="driver-item"><span class="car-number">#28</span><span class="driver-name">Sérgio Ramalho / Gui Backes</span></div>
-        </div>
-    </div>
-
-    <!-- Cavaleiro by Pole -->
-    <div class="team-card">
-        <div class="brand-stripe bg-chevy"></div>
-        <div class="team-name">Cavaleiro Sports</div>
-        <div class="driver-list">
-            <div class="driver-item"><span class="car-number">#90</span><span class="driver-name">Ricardo Maurício</span></div>
-            <div class="driver-item"><span class="car-number">#5</span><span class="driver-name">Denis Navarro</span></div>
-            <div class="driver-item"><span class="car-number">#9</span><span class="driver-name">Arthur Gama</span></div>
-        </div>
-    </div>
-
-    <!-- Full Time Sports -->
-    <div class="team-card">
-        <div class="brand-stripe bg-ford"></div>
-        <div class="team-name">Full Time Sports</div>
-        <div class="driver-list">
-            <div class="driver-item"><span class="car-number">#46</span><span class="driver-name">Vitor Genz</span></div>
-            <div class="driver-item"><span class="car-number">#8</span><span class="driver-name">Alfredinho Ibiapina</span></div>
-        </div>
-    </div>
-
-    <!-- AMattheis Vogel -->
-    <div class="team-card">
-        <div class="brand-stripe bg-chevy"></div>
-        <div class="team-name">AMattheis Vogel</div>
-        <div class="driver-list">
-            <div class="driver-item"><span class="car-number">#69</span><span class="driver-name">Nicolas Costa</span></div>
-        </div>
-    </div>
-
-    <!-- Pole Motorsport -->
-    <div class="team-card">
-        <div class="brand-stripe bg-ford"></div>
-        <div class="team-name">Pole Motorsport</div>
-        <div class="driver-list">
-            <div class="driver-item"><span class="car-number">#34</span><span class="driver-name">Dudu Castroneves</span></div>
-        </div>
-    </div>
-
-</div>
+<script async src="//://instagram.com"></script>
 
 </body>
 </html>
