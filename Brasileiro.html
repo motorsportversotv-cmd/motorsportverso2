@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -6,9 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brasileiro de Rally Cross Country</title>
     <style>
-        /* ESTILOS GERAIS E MENU */
-        body { font-family: sans-serif; background-color: #fdfae6; margin: 0; padding: 20px; }
+        /* ESTILOS GERAIS */
+        body { font-family: sans-serif; background-color: #fdfae6; margin: 0; padding: 0; }
         
+        /* BARRA DE COBERTURA RN 1500 */
+        .barra-cobertura {
+            background: linear-gradient(90deg, #ff6f00 0%, #ffca28 100%);
+            color: #000;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid #3e2723;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge-live {
+            background-color: #d32f2f;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            animation: blinker 1.5s linear infinite;
+        }
+
+        @keyframes blinker { 50% { opacity: 0; } }
+
+        /* MENU ESTILO GITHUB */
         .github-menu {
             background-color: #3e2723;
             padding: 10px 10px 0 10px;
@@ -25,14 +55,12 @@
             border-radius: 8px 8px 0 0;
             cursor: pointer;
             transition: 0.3s;
+            border: none;
+            background: none;
         }
 
         .menu-item:hover { background-color: #5d4037; }
-
-        .menu-item.active {
-            background-color: #ffca28;
-            color: #3e2723;
-        }
+        .menu-item.active { background-color: #ffca28; color: #3e2723; }
 
         .counter {
             background-color: #5d4037;
@@ -44,204 +72,129 @@
             color: #ffca28;
         }
 
-        /* CONTROLE DE CONTEÚDO */
+        /* CONTEÚDO */
         .content {
             padding: 20px;
             background: #fff;
             display: none; 
             border: 1px solid #ffca28;
-            border-top: none;
+            margin: 20px;
         }
         
         .content.show { display: block; }
 
-        /* ESTILO DA TABELA */
+        /* TABELA E BUSCA */
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th { background-color: #3e2723; color: #ffca28; padding: 12px; text-align: left; }
         td { padding: 10px; border: 1px solid #ddd; }
         tr:nth-child(even) { background-color: #f9f9f9; }
-        tr:hover { background-color: #fff1c1; }
-
+        
         #meuInput { 
             width: 100%; padding: 12px; margin-bottom: 15px; 
             box-sizing: border-box; border: 2px solid #3e2723; border-radius: 4px;
         }
 
-        /* ESTILO DOS CARDS */
+        /* CARDS CATEGORIAS */
         .card-categoria {
             background: white;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 15px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border-left: 8px solid;
+            border-left: 8px solid #3e2723;
         }
-        .card-categoria h3 { margin-top: 0; font-size: 1.3rem; }
-        .card-categoria p { line-height: 1.5; color: #444; margin-bottom: 0; }
 
-        /* CORES POR CATEGORIA */
-        .cat-t1plus { border-left-color: #2196F3; }
-        .cat-t1plus h3 { color: #2196F3; }
-        .cat-t1-1 { border-left-color: #4CAF50; }
-        .cat-t1-1 h3 { color: #4CAF50; }
-        .cat-ult-br { border-left-color: #FF9800; }
-        .cat-ult-br h3 { color: #FF9800; }
-        .cat-ult-sp { border-left-color: #F44336; }
-        .cat-ult-sp h3 { color: #F44336; }
-        .cat-stock { border-left-color: #9C27B0; }
-        .cat-stock h3 { color: #9C27B0; }
-        .cat-utv-challenger { border-left-color: #00BCD4; }
-        .cat-utv-challenger h3 { color: #00BCD4; }
-        .cat-utv-ssv { border-left-color: #795548; }
-        .cat-utv-ssv h3 { color: #795548; }
+        /* NOTÍCIAS */
+        .noticias-section { padding: 20px; }
+        .news-card { background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd; text-align: center; }
+        .tag { background: #ffca28; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
     </style>
 </head>
 <body>
-<body>
 
-    <div class="news-ticker">
-    <div class="ticker-wrapper">
-        <div class="ticker-item"><span>[NOTÍCIA]</span> Pilotos se preparam para o Rally Poeira em Araçatuba</div>
-    </div>
-</div>
-
-<nav class="github-menu">
-    <a class="menu-item active" onclick="trocarAba(this, 'aba-barretos')">
-        Barretos <span class="counter">5</span>
-    </a>
-    <a class="menu-item" onclick="trocarAba(this, 'aba-categorias')">Categorias</a>
-</nav>
-
-<!-- CONTEÚDO: BARRETOS -->
-<div id="aba-barretos" class="content show">
-    <h2>Inscritos - Rally Barretos</h2>
-    <input type="text" id="meuInput" onkeyup="filtrarTabela()" placeholder="Pesquise por piloto, equipe, carro ou categoria...">
-    
-    <table id="minhaTabela">
-        <thead>
-            <tr>
-                <th>Piloto / Navegador</th>
-                <th>Equipe</th>
-                <th>Modelo</th>
-                <th>Categoria</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td>Marcos Baumgart / Kleber Cincea</td><td>Szimic Racing</td><td>Ford Ranger</td><td>ULT.BR</td></tr>
-            <tr><td>Gunter Hinkelmann / Thiago Osternack</td><td>MSL Motorsport</td><td>Ford Ranger</td><td>T1.1</td></tr>
-            <tr><td>Alessandro Tozoni / Christina Xavier</td><td>Faster Rally</td><td>MEM T-Rex</td><td>ULT.BR</td></tr>
-            <tr><td>Luiz Barros / Rogerio Palmegiano</td><td>Braço Curto</td><td>Mitsubishi L200 Evo</td><td>ULT.BR</td></tr>
-            <tr><td>Mario Marcondes / Artemio Pauluci</td><td>Braço Curto</td><td>Ford Ranger</td><td>ULT.BR</td></tr>
-        </tbody>
-    </table>
-</div>
-
-<!-- CONTEÚDO: CATEGORIAS -->
-<div id="aba-categorias" class="content">
-    <h2>Categorias do Rally</h2>
-    
-    <div class="card-categoria cat-t1plus">
-        <h3>Categoria Ultimate T1+</h3>
-        <p>Carros protótipos 4x4 FIA a partir de 2022. No Brasil: <strong>Mitsubishi Triton Ultimate Racing T1+, Century CR7 T1+ e Toyota GR Hilux T1+</strong>.</p>
-    </div>
-    
-    <div class="card-categoria cat-t1-1">
-        <h3>Categoria T1.1</h3>
-        <p>Protótipos 4x4 e 4x2 de gerações anteriores, como o <strong>Ford Ranger, Mitsubishi ASX Racing</strong> e outros modelos de alto desempenho.</p>
-    </div>
-    
-    <div class="card-categoria cat-ult-br">
-        <h3>Categoria ULT.BR</h3>
-        <p>Protótipos 4x4 e 4x2 nacionais (ex: <strong>Mem T-Rex e Buggy Giaffone V8</strong>) e importados. Diferencial: uso obrigatório de <strong>etanol</strong>.</p>
-    </div>
-    
-    <div class="card-categoria cat-ult-sp">
-        <h3>Categoria ULT.SP</h3>
-        <p>Protótipos 4x4 e pick-ups de super produção nacional, como <strong>Mitsubishi Triton ER e Chevrolet S10</strong>.</p>
+    <!-- BARRA DE COBERTURA -->
+    <div class="barra-cobertura">
+        <span class="badge-live">AO VIVO</span>
+        Cobertura Especial: Rally RN 1500 - 2026-dias 14-19\04
     </div>
 
-    <div class="card-categoria cat-stock">
-        <h3>Categoria Stock</h3>
-        <p>Carros de produção 4x4 (série), como <strong>Mitsubishi Triton Sport, Chevrolet S10 e Ford Ranger Raptor</strong>.</p>
+    <!-- MENU -->
+    <nav class="github-menu">
+        <button class="menu-item active" onclick="trocarAba(this, 'aba-barretos')">
+            Barretos <span class="counter">5</span>
+        </button>
+        <button class="menu-item" onclick="trocarAba(this, 'aba-categorias')">Categorias</button>
+    </nav>
+
+    <!-- ABA: BARRETOS -->
+    <div id="aba-barretos" class="content show">
+        <h2>Inscritos - Rally Barretos</h2>
+        <input type="text" id="meuInput" onkeyup="filtrarTabela()" placeholder="Pesquise por piloto, equipe, categoria...">
+        
+        <table id="minhaTabela">
+            <thead>
+                <tr>
+                    <th>Piloto / Navegador</th>
+                    <th>Equipe</th>
+                    <th>Modelo</th>
+                    <th>Categoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Marcos Baumgart / Kleber Cincea</td><td>Szimic Racing</td><td>Ford Ranger</td><td>ULT.BR</td></tr>
+                <tr><td>Gunter Hinkelmann / Thiago Osternack</td><td>MSL Motorsport</td><td>Ford Ranger</td><td>T1.1</td></tr>
+                <tr><td>Alessandro Tozoni / Christina Xavier</td><td>Faster Rally</td><td>MEM T-Rex</td><td>ULT.BR</td></tr>
+                <tr><td>Luiz Barros / Rogerio Palmegiano</td><td>Braço Curto</td><td>Mitsubishi L200 Evo</td><td>ULT.BR</td></tr>
+                <tr><td>Mario Marcondes / Artemio Pauluci</td><td>Braço Curto</td><td>Ford Ranger</td><td>ULT.BR</td></tr>
+            </tbody>
+        </table>
     </div>
 
-    <div class="card-categoria cat-utv-challenger">
-        <h3>Categoria UTVs Challenger</h3>
-        <p>UTVs protótipo de alta performance.</p>
+    <!-- ABA: CATEGORIAS -->
+    <div id="aba-categorias" class="content">
+        <h2>Categorias do Rally</h2>
+        <div class="card-categoria">
+            <h3>Ultimate T1+</h3>
+            <p>Carros protótipos 4x4 FIA modernos como Toyota Hilux e Hunter.</p>
+        </div>
+        <div class="card-categoria">
+            <h3>ULT.BR</h3>
+            <p>Protótipos nacionais focados em alta performance com etanol.</p>
+        </div>
     </div>
 
-    <div class="card-categoria cat-utv-ssv">
-        <h3>Categoria UTVs SSV</h3>
-        <p>UTVs de produção com modificações de segurança.</p>
-    </div>
-</div>
-
-<section class="noticias-section">
-    <h2>Últimas Notícias</h2>
-    <div class="lista-noticias">
+    <!-- SEÇÃO NOTÍCIAS -->
+    <section class="noticias-section">
+        <h2>Últimas Notícias</h2>
         <article class="news-card">
-            <!-- Largura reduzida para 150px e altura para 90px -->
-            <div class="news-image" style="
-                background-image: url(Capturar.JPG); 
-                height: 90px; 
-                width: 150px; 
-                margin: 0 auto;
-                background-size: cover; 
-                background-position: center; 
-                border-radius: 8px;">
-            </div>
-          
-<section>
-    <div class="news-container">
-        <!-- Inscritos Rally de Erechim 2026 -->
-        <article>
-            <div class="news-content" style="text-align: center;">
-                <span class="tag tag-wec">Erechim </span>
-                <h3>Inscritos rally de Erechim 2026</h3>
-                <a href="resultados rally de barretos 2016 dia.html" class="read-more">Ler mais →</a>
+            <div style="background-image: url('Capturar.JPG'); height: 90px; width: 150px; margin: 0 auto; background-size: cover; border-radius: 8px;"></div>
+            <div style="margin-top: 10px;">
+                <span class="tag">Erechim</span>
+                <h3>Inscritos Rally de Erechim 2026</h3>
+                <a href="#" style="color: #3e2723; font-weight: bold; text-decoration: none;">Ler mais →</a>
             </div>
         </article>
+    </section>
 
-    
-<script>
-    function trocarAba(elemento, idConteudo) {
-        // Remove active de todos
-        document.querySelectorAll('.menu-item').forEach(aba => aba.classList.remove('active'));
-        // Esconde todos os conteúdos
-        document.querySelectorAll('.content').forEach(cont => {
-            cont.classList.remove('show');
-            cont.style.display = 'none';
-        });
-        
-        // Ativa o atual
-        elemento.classList.add('active');
-        const alvo = document.getElementById(idConteudo);
-        if (alvo) {
-            alvo.classList.add('show');
-            alvo.style.display = 'block';
+    <script>
+        function trocarAba(elemento, idConteudo) {
+            document.querySelectorAll('.menu-item').forEach(aba => aba.classList.remove('active'));
+            document.querySelectorAll('.content').forEach(cont => cont.classList.remove('show'));
+            
+            elemento.classList.add('active');
+            document.getElementById(idConteudo).classList.add('show');
         }
-    }
 
-    function filtrarTabela() {
-        var input, filter, table, tr, td, i, j, txtValue;
-        input = document.getElementById("meuInput");
-        if (!input) return;
-        
-        filter = input.value.toUpperCase();
-        table = document.getElementById("minhaTabela");
-        tr = table.getElementsByTagName("tr");
+        function filtrarTabela() {
+            let filter = document.getElementById("meuInput").value.toUpperCase();
+            let tr = document.getElementById("minhaTabela").getElementsByTagName("tr");
 
-        for (i = 1; i < tr.length; i++) {
-            tr[i].style.display = "none";
-            td = tr[i].getElementsByTagName("td");
-            for (j = 0; j < td.length; j++) {
-                if (td[j]) {
-                    txtValue = td[j].textContent || td[j].innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                        break;
-                    }
-                }
+            for (let i = 1; i < tr.length; i++) {
+                let txtValue = tr[i].textContent || tr[i].innerText;
+                tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
             }
         }
-    }
+    </script>
+</body>
+</html>
+
