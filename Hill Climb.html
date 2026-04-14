@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motorsportverso-Universo Hill Climb</title>
+    <title>Motorsportverso - Universo Hill Climb</title>
     <style>
         :root {
             --laranja: #ff6600;
@@ -21,7 +21,6 @@
             color: #333;
         }
 
-        /* Menu */
         header {
             background-color: var(--preto);
             color: var(--branco);
@@ -52,11 +51,8 @@
             transition: color 0.3s;
         }
 
-        nav a:hover {
-            color: var(--laranja);
-        }
+        nav a:hover { color: var(--laranja); }
 
-        /* Hero */
         .hero {
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #333;
             color: var(--branco);
@@ -64,66 +60,62 @@
             padding: 100px 20px;
         }
 
-        .hero h1 {
-            color: var(--laranja);
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
+        .hero h1 { color: var(--laranja); font-size: 3rem; margin-bottom: 10px; }
 
-        /* Seções */
-        section {
-            padding: 60px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+        section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; }
 
-        h2 {
-            color: var(--preto);
-            border-left: 5px solid var(--laranja);
-            padding-left: 10px;
-            margin-bottom: 20px;
-        }
+        h2 { color: var(--preto); border-left: 5px solid var(--laranja); padding-left: 10px; margin-bottom: 20px; }
 
         .content-box {
             background: var(--branco);
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
 
         .content-box img {
             max-width: 100%;
             border-radius: 8px;
-            margin-top: 15px;
+            margin: 15px 0;
+            display: block;
         }
 
-        /* GRID DE VÍDEOS (IGUAL À IMAGEM) */
-        .video-wrapper {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 colunas */
-            gap: 20px;
+        /* Estilo da Barra de Pesquisa */
+        .search-container {
             margin-top: 20px;
+            margin-bottom: 15px;
         }
 
-        .video-item {
-            position: relative;
-            padding-bottom: 56.25%; /* Proporção 16:9 */
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .video-item iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+        #inputBusca {
             width: 100%;
-            height: 100%;
-            border: none;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
         }
 
-        /* Rodapé */
+        #inputBusca:focus {
+            border-color: var(--laranja);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th { background-color: var(--laranja); color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+
         footer {
             background-color: var(--preto);
             color: var(--branco);
@@ -132,11 +124,9 @@
             margin-top: 40px;
         }
 
-        /* Responsividade */
         @media (max-width: 768px) {
             nav { flex-direction: column; align-items: center; }
             .hero h1 { font-size: 2rem; }
-            .video-wrapper { grid-template-columns: 1fr; } /* 1 coluna no celular */
         }
     </style>
 </head>
@@ -161,211 +151,83 @@
         <div class="content-box">
             <h2>O que é Hill Climb?</h2>
             <p>Conhecida como subida de montanha, é uma modalidade automobilística onde pilotos competem individualmente contra o relógio, buscando o menor tempo em trajetos sinuosos de subida.</p>
-            <img src="loeb pikes peak.jpg" alt="Loeb Pikes Peak" 
+            <img src="loeb-pikes-peak.jpg" alt="Loeb Pikes Peak">
+        </div>
     </section>
 
     <section id="friends">
         <div class="content-box">
             <h2>Friends Hill Climb</h2>
-            <img src="friends hill climb.jpg" alt="Friends Hill Climb" 
-
-     <p> Edição  Eventos focados em confraternização, permitindo a entusiastas e amigos 
-        subirem montanhas em um ambiente controlado.</p>
-    <p> Edição Campo Largo-2026. </p>
-            Inscritos 
-           
-               <h3>Edição Campo Largo-2026</h3>
-
-<style>
-    table {
-        border-collapse: collapse; /* Faz as bordas ficarem juntas (linha única) */
-        width: 100%;
-    }
-    th, td {
-        border: 1px solid black; /* Define a espessura e cor da borda */
-        padding: 8px; /* Espaço interno para o texto não encostar na linha */
-        text-align: left;
-    }
-    th {
-        background-color: #f2f2f2; /* Cor de fundo para o cabeçalho */
-    }
-</style>
-
-<h3>Edição Campo Largo-2026</h3>
-<table>
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Piloto</th>
-            <th>Modelo</th>
-            <th>Categoria</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>444</td>
-            <td>André</td>
-            <td>Subaru Impreza GT</td>
-            <td>Pro Stock Turbo</td>
-        </tr>
-        <tr>
-            <td>33</td>
-            <td>Tico</td>
-            <td>Renault Sandero RS</td>
-            <td>Pro Stock Aspro-B</td>
-        </tr>
-        <tr>
-            <td>48</td>
-            <td>Mauricio Law</td>
-            <td>Porsche 992 Carrera S</td>
-            <td>Super Sport Plus</td>
-        </tr>
-        <tr>
-            <td>22</td>
-            <td>Cleversson</td>
-            <td>Subaru Impreza</td>
-            <td>Pro Stock Turbo</td>
-        </tr>
-
-         <tr>
-            <td>73</td>
-            <td>Valeski</td>
-            <td>VW Beetle</td>
-            <td>Pro Stock Turbo-B</td>
-
-           <tr>
-            <td>777</td>
-            <td>Marcel Triska</td>
-            <td>Subaru Impreza</td>
-            <td>Street Turbo</td>   
-        </tr>
-
-         <tr>
-            <td>7</td>
-            <td>Pilha Palito</td>
-            <td>GWM Ora</td>
-            <td>Street Eletric</td>   
-        </tr>
-
-          <tr>
-            <td>7</td>
-            <td>Fabio Say</td>
-            <td>Subaru Impreza WRX</td>
-            <td>Street Aspro</td>   
-         </tr>
-       <tr>
-            <td>18</td>
-            <td>Esquilo</td>
-            <td>VW Fusca</td>
-            <td>Street Turbo</td>   
-         </tr>
-         <tr>
-            <td>11</td>
-            <td>Antony</td>
-            <td>Chevrolet Astra</td>
-            <td>Street Aspro</td>   
-         </tr>
- <tr>
-            <td>11</td>
-            <td>Iures Delfino</td>
-            <td>Mitsubishi Lancer Evo X</td>
-            <td>Extreme</td>   
-         </tr>
-        <td>45</td>
-            <td>A.BOSS</td>
-            <td>Porsche 992 Turbo</td>
-            <td>Super Sport Plus</td>   
-         </tr>
-           <td>1</td>
-            <td>Michael MMA</td>
-            <td>Porsche Cayman S</td>
-            <td>Super Sport</td>   
-         </tr>
-        </tr>
-           <td>20</td>
-            <td>Michael MMA</td>
-            <td>Mercedes GLE </td>
-            <td>Super Sport</td>   
-         </tr>
-        </tr>
-           <td>9</td>
-            <td>Henrique</td>
-            <td>BMW M2 Track </td>
-            <td>Super Sport Plus</td>   
-        </tr>
-      </tr>
-           <td>90</td>
-            <td>A.Boss</td>
-            <td>VW SP2 </td>
-            <td>Street Aspro</td>   
-        </tr>
-    
-
-
-</tbody>
-</table>
-
-                
-            </table>
-            <!-- Script do Instagram (Necessário para o Reel aparecer) -->
-            <script async src="//://www.instagram.com"></script>
-        </div>
-    </section>
-
-           
-<article>
-    <div class="news-content" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
-        <span class="tag tag-wec">Friends Hill Climb</span>
-        <h3>Friends Hill Climb Campo Largo</h3>
-
-        <div class="tags-container">
-  <span class="label">Marcadores</span>
-  <a href="#" class="tag">Friends Hill Climb</a>
-        
-        <!-- Adicionei display block e margem -->
-        <img src="imagem_2026-04-03_013610989.png" alt="Honda Civic Type R Friends Hill Climb" width="200" style="display: block; margin-bottom: 10px;">
-        
-        <!-- O link agora cairá naturalmente para baixo -->
-        <a href="programacao-friends-hill-climb-campolargo-26.html" class="read-more">Ler mais →</a>
-    </div>
-</article>
+            <img src="friends-hill-climb.jpg" alt="Friends Hill Climb">
+            <p>Eventos focados em confraternização, permitindo a entusiastas e amigos subirem montanhas em um ambiente controlado.</p>
             
+            <h3>Inscritos - Edição Campo Largo 2026</h3>
 
-    <section id="videos">
-        <div class="content-box">
-            <h2>Videos</h2>
-            <div class="video-wrapper">
-               
-                 <!-- ESTE É O VÍDEO QUE VOCÊ ENVIOU AGORA (CORRIGIDO) -->
-      <div class="video-item">
-        <iframe src="https://www.youtube.com/embed/cucOa1svUIU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-                <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/tc4_rmQilLA?si=6QghMA7bPsEoC_f title="YouTube video player frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
-                <div class="video-item">
-                    <iframe  src="https://www.youtube.com/embed/1zUAMCbJlmA?si=mNrvphaTQ3Ean5sK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>" allowfullscreen></iframe>
-                </div>
-                <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/UKvZe4XVQ9g" allowfullscreen></iframe>
-                </div>
-                <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/ypDVcSgjYlc" allowfullscreen></iframe>
-                </div>
-
-                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/fg-By8sCYO0" allowfullscreen></iframe>
-                </div>
+            <!-- BARRA DE PESQUISA -->
+            <div class="search-container">
+                <input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="🔍 Pesquise por piloto, carro ou categoria...">
             </div>
+
+            <table id="tabelaInscritos">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Piloto</th>
+                        <th>Modelo</th>
+                        <th>Categoria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>444</td><td>André</td><td>Subaru Impreza GT</td><td>Pro Stock Turbo</td></tr>
+                    <tr><td>33</td><td>Tico</td><td>Renault Sandero RS</td><td>Pro Stock Aspro-B</td></tr>
+                    <tr><td>48</td><td>Mauricio Law</td><td>Porsche 992 Carrera S</td><td>Super Sport Plus</td></tr>
+                    <tr><td>22</td><td>Cleversson</td><td>Subaru Impreza</td><td>Pro Stock Turbo</td></tr>
+                    <tr><td>73</td><td>Valeski</td><td>VW Beetle</td><td>Pro Stock Turbo-B</td></tr>
+                    <tr><td>777</td><td>Marcel Triska</td><td>Subaru Impreza</td><td>Street Turbo</td></tr>
+                    <tr><td>7</td><td>Pilha Palito</td><td>GWM Ora</td><td>Street Eletric</td></tr>
+                    <tr><td>7</td><td>Fabio Say</td><td>Subaru Impreza WRX</td><td>Street Aspro</td></tr>
+                    <tr><td>18</td><td>Esquilo</td><td>VW Fusca</td><td>Street Turbo</td></tr>
+                    <tr><td>11</td><td>Antony</td><td>Chevrolet Astra</td><td>Street Aspro</td></tr>
+                    <tr><td>11</td><td>Iures Delfino</td><td>Mitsubishi Lancer Evo X</td><td>Extreme</td></tr>
+                    <tr><td>45</td><td>A.BOSS</td><td>Porsche 992 Turbo</td><td>Super Sport Plus</td></tr>
+                    <tr><td>1</td><td>Michael MMA</td><td>Porsche Cayman S</td><td>Super Sport</td></tr>
+                    <tr><td>20</td><td>Michael MMA</td><td>Mercedes GLE</td><td>Super Sport</td></tr>
+                    <tr><td>9</td><td>Henrique</td><td>BMW M2 Track</td><td>Super Sport Plus</td></tr>
+                    <tr><td>90</td><td>A.Boss</td><td>VW SP2</td><td>Street Aspro</td></tr>
+                </tbody>
+            </table>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Universo Hill Climb - Motorsportverso</p>
+        <p>&copy; 2024 Motorsportverso - Hill Climb Edition</p>
     </footer>
+
+    <!-- SCRIPT DE FILTRO -->
+    <script>
+    function filtrarTabela() {
+        const input = document.getElementById("inputBusca");
+        const filter = input.value.toLowerCase();
+        const table = document.getElementById("tabelaInscritos");
+        const tr = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < tr.length; i++) {
+            let visible = false;
+            const td = tr[i].getElementsByTagName("td");
+            for (let j = 0; j < td.length; j++) {
+                if (td[j] && td[j].innerText.toLowerCase().includes(filter)) {
+                    visible = true;
+                    break;
+                }
+            }
+            tr[i].style.display = visible ? "" : "none";
+        }
+    }
+    </script>
 
 </body>
 </html>
+
 
 
       
