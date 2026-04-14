@@ -192,36 +192,48 @@
             </table>
         </div>
     </section>
-<section id="noticias">
-    <h2>Notícias do Motorsportverso</h2>
-    <div class="news-grid">
-        <!-- Card 1 -->
-        <article class="news-card">
-            <div class="news-card-content">
-                <span class="news-card-tag">Evento</span>
-                <h3>Friends HIll Climb</h3>
-                <p>As inscrições estão batendo recordes! Confira a lista atualizada de pilotos confirmados para a subida.</p>
-            </div>
-        </article>
+<article>
+    <div class="news-content" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <span class="tag tag-wec">UTV Cup</span>
+        <h3>Programação Friends Hill Climb Campo Largo</h3>
 
-        <!-- Card 2 -->
-        <article class="news-card">
-            <div class="news-card-content">
-                <span class="news-card-tag">Tecnologia</span>
-                <h3>Elétricos na Montanha</h3>
-                <p>Como os novos motores elétricos estão desafiando os recordes de combustão em Pikes Peak.</p>
-            </div>
-        </article>
-
-        <!-- Card 3 -->
-        <article class="news-card">
-            <div class="news-card-content">
-                <span class="news-card-tag">Destaque</span>
-                <h3>Preparação de Motores</h3>
-                <p>Dicas essenciais de mecânica para garantir que seu carro suporte a pressão de uma subida de montanha.</p>
-            </div>
-        </article>
+        <div class="tags-container">
+  <span class="label">Marcadores</span>
+  <a href="#" class="tag">Friends Hill Climb</a>
+        
+        <!-- Adicionei display block e margem -->
+        <img src="imagem_2026-03-31_004623684.png" alt="UTV Cup" width="200" style="display: block; margin-bottom: 10px;">
+        
+        <!-- O link agora cairá naturalmente para baixo -->
+        <a href="programacao-friends-hill-climb-campolargo-26.html" class="read-more">Ler mais →</a>
     </div>
+</article>
+
+       <!-- Estilo CSS simples para parecer com a sua imagem -->
+<style>
+  .post-tags { font-family: sans-serif; color: #999; font-size: 14px; }
+  .tag-label { font-weight: bold; margin-right: 8px; }
+  .tag-item { color: #999; text-decoration: none; margin-right: 12px; }
+  .tag-count { font-size: 11px; vertical-align: super; margin-left: 2px; }
+</style>
+
+<div class="post-tags">
+  <span class="tag-label">Marcadores</span>
+  {% for tag in page.tags %}
+    <a href="/tags#{{ tag | slugify }}" class="tag-item">
+      {{ tag }}<span class="tag-count">({{ site.tags[tag].size }})</span>{% unless forloop.last %}, {% endunless %}
+    </a>
+  {% endfor %}
+</div>
+
+       
+        </div>
+    </div>
+
+</body>
+</html>
+
+ 
 </section>
 
     <footer>
