@@ -81,23 +81,19 @@
             display: block;
         }
 
-        /* Estilo da Barra de Pesquisa */
-        .search-container {
-            margin-top: 20px;
-            margin-bottom: 15px;
-        }
-
-        #inputBusca {
+        /* Estilização da Barra de Pesquisa */
+        .search-box {
             width: 100%;
-            padding: 12px 15px;
+            padding: 12px;
+            margin: 20px 0;
             border: 2px solid #ddd;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 16px;
             outline: none;
             transition: border-color 0.3s;
         }
 
-        #inputBusca:focus {
+        .search-box:focus {
             border-color: var(--laranja);
         }
 
@@ -162,11 +158,9 @@
             <p>Eventos focados em confraternização, permitindo a entusiastas e amigos subirem montanhas em um ambiente controlado.</p>
             
             <h3>Inscritos - Edição Campo Largo 2026</h3>
-
-            <!-- BARRA DE PESQUISA -->
-            <div class="search-container">
-                <input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="🔍 Pesquise por piloto, carro ou categoria...">
-            </div>
+            
+            <!-- Barra de Pesquisa -->
+            <input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="🔍 Pesquisar piloto, carro ou categoria..." class="search-box">
 
             <table id="tabelaInscritos">
                 <thead>
@@ -203,35 +197,31 @@
         <p>&copy; 2024 Motorsportverso - Hill Climb Edition</p>
     </footer>
 
-    <!-- SCRIPT DE FILTRO -->
     <script>
-    function filtrarTabela() {
-        const input = document.getElementById("inputBusca");
-        const filter = input.value.toLowerCase();
-        const table = document.getElementById("tabelaInscritos");
-        const tr = table.getElementsByTagName("tr");
+        function filtrarTabela() {
+            var input, filter, table, tr, td, i, j, txtValue, found;
+            input = document.getElementById("inputBusca");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("tabelaInscritos");
+            tr = table.getElementsByTagName("tr");
 
-        for (let i = 1; i < tr.length; i++) {
-            let visible = false;
-            const td = tr[i].getElementsByTagName("td");
-            for (let j = 0; j < td.length; j++) {
-                if (td[j] && td[j].innerText.toLowerCase().includes(filter)) {
-                    visible = true;
-                    break;
+            for (i = 1; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td");
+                found = false;
+                for (j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
                 }
+                tr[i].style.display = found ? "" : "none";
             }
-            tr[i].style.display = visible ? "" : "none";
         }
-    }
     </script>
-
 </body>
 </html>
 
-
-
-      
-    
-
-
-     
+       
