@@ -100,17 +100,50 @@
         <p>Acompanhe as últimas notícias das pistas</p>
     </header>
 
-    <main class="noticias-container">
+  <main class="noticias-container">
+    <!-- Notícia 1 -->
+    <article class="card">
+        <!-- Verifique se a extensão é .jpg ou .png -->
+        <img src="WhatsApp-Image-2026-04-20-at-09.16.53.jpg" alt="Toyota GR Corolla Rally 2">
         
-        <!-- Notícia 1 -->
-        <article class="card">
-            <img src="WhatsApp Image 2026-04-20 at 09.16.53" alt="Toyota GR Corolla Rally 2">
-            <div class="card-body">
-                <h3>ARA Rally Olimpos Rally</h3>
-                <p>1a Vitoria do Toyota GR Corolla RALLY 2 em dobradinha </p>
-                <a href="#" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
+        <div class="card-body">
+            <h3>ARA Olympus Rally</h3>
+            <p>1ª Vitória do Toyota GR Corolla RALLY 2 em dobradinha</p>
+            <a href="#" class="btn-ler">Leia mais →</a>
+        </div>
+    </article>
+</main>
+
+<style>
+    /* Estilo básico para o card aparecer corretamente */
+    .noticias-container {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+    }
+    .card {
+        width: 300px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        font-family: sans-serif;
+    }
+    .card img {
+        width: 100%;
+        height: auto;
+    }
+    .card-body {
+        padding: 15px;
+    }
+    .btn-ler {
+        color: red;
+        text-decoration: none;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+</style>
+
 
         <!-- Notícia 2 -->
         <article class="card">
