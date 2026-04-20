@@ -7,5 +7,136 @@
 <body>
     <h1>Olá, Mundo!</h1>
     <p>Este é o meu primeiro arquivo HTML.</p>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rally News</title>
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            color: #ffcc00;
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom: 4px solid #cc0000;
+        }
+
+        /* Container dos Cards */
+        .noticias-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        /* Estilo do Card */
+        .card {
+            background: #fff;
+            width: 320px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-body h3 {
+            margin: 0 0 10px;
+            font-size: 1.25rem;
+            color: #222;
+        }
+
+        .card-body p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .btn-ler {
+            display: inline-block;
+            margin-top: 15px;
+            color: #cc0000;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .btn-ler:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>RALLY</h1>
+        <p>Acompanhe as últimas notícias das pistas</p>
+    </header>
+
+    <main class="noticias-container">
+        
+        <!-- Notícia 1 -->
+        <article class="card">
+            <img src="https://unsplash.com" alt="Carro de Rally">
+            <div class="card-body">
+                <h3>ARA Rally Olimpos Rally</h3>
+                <p>1a Vitoria do Toyota GR Corolla RALLY 2 em dobradinha </p>
+                <a href="#" class="btn-ler">Leia mais →</a>
+            </div>
+        </article>
+
+        <!-- Notícia 2 -->
+        <article class="card">
+            <img src="https://unsplash.com" alt="Lama e Rally">
+            <div class="card-body">
+                <h3>Trilhas na Lama</h3>
+                <p>O guia definitivo para pneus de alta performance em terrenos úmidos.</p>
+                <a href="#" class="btn-ler">Leia mais →</a>
+            </div>
+        </article>
+
+        <!-- Notícia 3 -->
+        <article class="card">
+            <img src="https://unsplash.com" alt="Volante">
+            <div class="card-body">
+                <h3>Novas Tecnologias</h3>
+                <p>Como o sistema híbrido está mudando a velocidade final nos trechos cronometrados.</p>
+                <a href="#" class="btn-ler">Leia mais →</a>
+            </div>
+        </article>
+
+    </main>
+
+</body>
+</html>
+
+    
 </body>
 </html>
