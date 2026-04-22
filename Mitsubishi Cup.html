@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitsubishi Cup - Motorsportverso2</title>
+    <style>
+        /* Estilos Gerais - Paleta Dark */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000; /* Fundo Preto */
+            color: #ffffff; /* Texto Geral Branco */
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Cabeçalho com Estilo de Corrida */
+        .header-cup {
+            background-color: #d71920; /* Vermelho Mitsubishi */
+            color: white;
+            padding: 20px;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            border-left: 8px solid #ffffff; /* Detalhe Branco */
+            transform: skewX(-5deg); /* Inclinação dinâmica */
+            box-shadow: 5px 5px 0px #555;
+        }
+
+        /* Container Principal */
+        .container {
+            background: #111111; /* Cinza muito escuro */
+            padding: 30px;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+
+        h1 { 
+            color: #ffffff; 
+            margin-top: 0; 
+            text-transform: uppercase;
+            border-bottom: 2px solid #d71920;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        p { 
+            line-height: 1.6; 
+            color: #cccccc; /* Cinza claro para leitura */
+        }
+
+        /* Grid de Cards */
+        .formato-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        /* Cards de Informação */
+        .card-etapa {
+            border: 1px solid #222;
+            background: #1a1a1a;
+            padding: 20px;
+            border-bottom: 4px solid #d71920; /* Detalhe em Vermelho */
+            transition: all 0.3s ease;
+        }
+
+        .card-etapa:hover {
+            transform: translateY(-10px);
+            background: #252525;
+            border-bottom-color: #ffffff; /* Muda para branco no hover */
+        }
+
+        .card-etapa h3 { 
+            margin-top: 0; 
+            color: #d71920; /* Títulos dos cards em Vermelho */
+            text-transform: uppercase;
+            font-size: 1.1rem;
+        }
+
+        .card-etapa p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* Ajuste para remover a inclinação do texto dentro do header */
+        .header-cup span {
+            display: block;
+            transform: skewX(5deg);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-cup">
+        <span>Mitsubishi Cup - Motorsportverso2</span>
+    </div>
+
+    <div class="container">
+        <h1>Formato da Competição</h1>
+        <p>A Mitsubishi Cup é o rally cross-country de velocidade mais tradicional do Brasil. Conheça como as provas são estruturadas:</p>
+
+        <div class="formato-grid">
+            <div class="card-etapa">
+                <h3>As Provas</h3>
+                <p>Composta por várias etapas ao longo do ano, cada uma geralmente com 3 provas de velocidade no mesmo dia.</p>
+            </div>
+
+            <div class="card-etapa">
+                <h3>Categorias</h3>
+                <p>Veículos divididos entre L200 Triton Sport R, Triton ER, ASX RS e Outlander Sport.</p>
+            </div>
+
+            <div class="card-etapa">
+                <h3>Pontuação</h3>
+                <p>Sistema de pontos acumulativos por prova, onde a regularidade e a velocidade definem o campeão da etapa.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
