@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscritos Rally de Estação 2026</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        #search { margin-bottom: 20px; padding: 10px; width: 100%; max-width: 400px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        tr:hover { background-color: #f1f1f1; }
+    </style>
+</head>
+<body>
+
+    <h1>Inscritos Rally de Estação 2026</h1>
+
+    <!-- Campo de Pesquisa -->
+    <input type="text" id="search" onkeyup="filterTable()" placeholder="Pesquise por nome, carro ou categoria...">
+
+    <!-- Tabela de Inscritos -->
+    <table id="inscritosTable">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Piloto / Navegador</th>
+                <th>Carro</th>
+                <th>Equipe</th>
+                <th>Campeonato</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>216</td>
+                <td>Rodrigo Varela\Vinicios Zavierucka</td>
+                <td>Peugeot 208 Maxxi</td>
+                <td>Varela Rally</td>
+                <td>BR Rally 2\Gaucho Rally 2</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>Ricardo Galli\Vinicios Zavierucka</td>
+                <td>Peugeot 208 Maxxi</td>
+                <td>BRX\Varela Rally</td>
+                <td>BR Rally 2\Gaucho Rally 2</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Juliano e Rafael Sartori</td>
+                <td>VW Polo MR</td>
+                <td>Sartori Rally Team</td>
+                <td>BR Rally 2\Gaucho Rally 2</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function filterTable() {
+            const input = document.getElementById("search");
+            const filter = input.value.toUpperCase();
+            const table = document.getElementById("inscritosTable");
+            const tr = table.getElementsByTagName("tr");
+
+            // Loop por todas as linhas da tabela (exceto o cabeçalho)
+            for (let i = 1; i < tr.length; i++) {
+                let showRow = false;
+                const tds = tr[i].getElementsByTagName("td");
+                
+                // Verifica cada célula da linha para ver se o termo pesquisado existe ali
+                for (let j = 0; j < tds.length; j++) {
+                    if (tds[j].innerText.toUpperCase().indexOf(filter) > -1) {
+                        showRow = true;
+                        break;
+                    }
+                }
+                tr[i].style.display = showRow ? "" : "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
