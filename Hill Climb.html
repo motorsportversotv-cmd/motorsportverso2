@@ -224,6 +224,26 @@
 
 <div class="container-artigos">
 
+    <style>
+    .container-artigos {
+        display: flex;       /* Ativa o modo de colunas */
+        flex-wrap: wrap;    /* Permite que as notícias quebrem para a linha de baixo se não couberem */
+        gap: 20px;          /* Espaço entre cada notícia */
+        justify-content: center; /* Centraliza as notícias na tela */
+        padding: 20px;
+    }
+
+    .container-artigos article {
+        width: 250px;       /* Largura de cada coluna */
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #fff;
+    }
+</style>
+
+<div class="container-artigos">
+
     <!-- Post 1 -->
     <article>
         <div class="news-content" style="text-align: center; display: flex; flex-direction: column; align-items: center; height: 100%;">
@@ -254,7 +274,7 @@
         </div>
     </article>
 
-    <!-- Post 4 (CORRIGIDO) -->
+    <!-- Post 4 -->
     <article>
         <div class="news-content" style="text-align: center; display: flex; flex-direction: column; align-items: center; height: 100%;">
             <span class="tag tag-wec">Friends Hill Climb</span>
@@ -273,6 +293,9 @@
             <a href="Results_Simola_classic_hill_climb_2026.html" class="read-more">Ler mais →</a>
         </div>
     </article>
+
+</div>
+
 
 </div>
 
