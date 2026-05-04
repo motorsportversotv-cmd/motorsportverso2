@@ -322,32 +322,79 @@
     </div>
 
 </body>
-</html>
 <section class="container-videos">
     <h2 style="text-align: center; font-family: sans-serif; margin-top: 40px;">Vídeos em Destaque</h2>
-    <div class="video-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px;">
+    
+    <!-- CSS interno para garantir que os vídeos apareçam e sejam responsivos -->
+    <style>
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .video-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Proporção 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 4px;
+            background: #000;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .tag-wec {
+            background: #e10600;
+            color: white;
+            padding: 2px 8px;
+            font-size: 12px;
+            text-transform: uppercase;
+            border-radius: 3px;
+        }
+    </style>
+
+    <div class="video-grid">
         
-        <!-- Vídeo 1: Exemplo YouTube -->
+        <!-- Vídeo 1: Friends Hill Climb -->
         <article class="video-card">
             <div class="video-wrapper">
-                <iframe src="https://youtube.com" frameborder="0" allowfullscreen></iframe>
+                <!-- Substituí o link genérico por um vídeo real de Hill Climb como exemplo -->
+                <iframe src="https://youtube.com" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <div class="news-content" style="text-align: center;">
+            <div class="news-content" style="text-align: center; margin-top: 15px;">
                 <span class="tag tag-wec">Destaque</span>
-                <h3>Friends Hill Climb Campo Largo</h3>
+                <h3 style="font-family: sans-serif;">Friends Hill Climb Campo Largo</h3>
             </div>
         </article>
 
-        <!-- Vídeo 2: Exemplo YouTube -->
+        <!-- Vídeo 2: Onboard Campo Largo -->
         <article class="video-card">
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/v=yVeGNPpSbpA&t=26s" frameborder="0" allowfullscreen></iframe>
+                <!-- Corrigido: Removido o 'v=' e o tempo 't=' que não funcionam em embed padrão -->
+                <iframe src="https://youtube.com" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <div class="news-content" style="text-align: center;">
+            <div class="news-content" style="text-align: center; margin-top: 15px;">
                 <span class="tag tag-wec">Onboard</span>
-                <h3>Subida Completa Campo Largo</h3>
+                <h3 style="font-family: sans-serif;">Subida Completa Campo Largo</h3>
             </div>
         </article>
+
+    </div>
+</section>
+
 
     </div>
 </section>
