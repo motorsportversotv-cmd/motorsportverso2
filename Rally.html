@@ -2,91 +2,115 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Rally</title>
-</head>
-<body>
-   
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rally News</title>
+    <title>Rally News - Notícias</title>
     <style>
-        /* Estilos Gerais */
+        :root {
+            --vermelho-rally: #cc0000;
+            --preto-asfalto: #1a1a1a;
+            --amarelo-destaque: #ffcc00;
+            --cinza-fundo: #f4f4f4;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
+            background-color: var(--cinza-fundo);
             margin: 0;
             padding: 0;
         }
 
         header {
-            background-color: #1a1a1a;
-            color: #ffcc00;
+            background-color: var(--preto-asfalto);
+            color: var(--amarelo-destaque);
             text-align: center;
-            padding: 2rem 0;
-            border-bottom: 4px solid #cc0000;
+            padding: 3rem 1rem;
+            border-bottom: 5px solid var(--vermelho-rally);
         }
 
-        /* Container dos Cards */
+        /* Container Principal */
         .noticias-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
-            justify-content: center;
-            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 40px auto;
+            display: grid;
+            /* Cria colunas responsivas: mínimo 300px, máximo 1 fração do espaço */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
         }
 
-        /* Estilo do Card */
+        /* Card de Notícia */
         .card {
             background: #fff;
-            width: 320px;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+            transform: translateY(-8px);
+        }
+
+        .image-container {
+            position: relative;
+            height: 200px;
         }
 
         .card img {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
+        }
+
+        .tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--vermelho-rally);
+            color: white;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
         }
 
         .card-body {
             padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .card-body h3 {
-            margin: 0 0 10px;
-            font-size: 1.25rem;
+            margin: 0 0 12px 0;
+            font-size: 1.3rem;
             color: #222;
+            line-height: 1.3;
         }
 
         .card-body p {
-            color: #555;
+            color: #666;
             font-size: 0.95rem;
             line-height: 1.6;
+            margin-bottom: 20px;
         }
 
         .btn-ler {
-            display: inline-block;
-            margin-top: 15px;
-            color: #cc0000;
+            margin-top: auto;
+            color: var(--vermelho-rally);
             text-decoration: none;
             font-weight: bold;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 13px;
+            letter-spacing: 1px;
+            transition: 0.2s;
         }
 
         .btn-ler:hover {
+            letter-spacing: 2px;
             text-decoration: underline;
         }
     </style>
@@ -94,221 +118,60 @@
 <body>
 
     <header>
-        <h1>RALLY</h1>
-        <p>Acompanhe as últimas notícias das pistas</p>
+        <h1>MUNDO RALLY</h1>
+        <p>A velocidade máxima em qualquer terreno</p>
     </header>
-    
-<article class="card">
-    <div class="image-container">
-        <img src="tour-auto-1524813481.jpg" alt="Tour Auto">
-        <!-- Tag de categoria -->
-        <span class="tag">Tour Auto</span>
-    </div>
-    
-    <div class="card-body">
-        <h3>Resultado dia 1 - Tour Auto 2026</h3>
-        <p>Liderança de um Ford GT40 MKII no final do dia 1.</p>
-        <a href="results_tour_auto_2026.html" class="btn-ler">Leia mais →</a>
-    </div>
-</article>
-<article class="card">
-    <div class="image-container">
-        <img src="tour-auto-1524813481.jpg" alt="Tour Auto">
-        <!-- Tag de categoria -->
-        <span class="tag">Brasil</span>
-    </div>
-    
-    <div class="card-body">
-        <h3>Resultado de rally Estação 2026</h3>
-        <p>Vitorias de Rodrigo varela com Peugeot 208 Maxxi Rally</p>
-        <a href="resultado_dia_1_rally_de_estacao_26.html" class="btn-ler">Leia mais →</a>
-    </div>
-</article>
 
-<style>
-    .noticias-container {
-        display: flex;
-        justify-content: center;
-        padding: 20px;
-        background-color: #f4f4f4;
-    }
-    .card {
-        width: 350px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        overflow: hidden;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .card img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover; /* Ajusta a imagem sem distorcer */
-    }
-    .card-body {
-        padding: 20px;
-    }
-    .card-body h3 {
-        margin: 0 0 10px;
-        color: #333;
-    }
-    .card-body p {
-        font-size: 14px;
-        color: #666;
-        line-height: 1.5;
-        margin-bottom: 20px;
-    }
-    .btn-ler {
-        color: #d71920; /* Vermelho Toyota */
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 14px;
-        text-transform: uppercase;
-    }
-    .btn-ler:hover {
-        text-decoration: underline;
-    }
-</style>
-
-<style>
-    /* Estilo básico para o card aparecer corretamente */
-    .noticias-container {
-        display: flex;
-        justify-content: center;
-        padding: 20px;
-    }
-    .card {
-        width: 300px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
-        font-family: sans-serif;
-    }
-    .card img {
-        width: 100%;
-        height: auto;
-    }
-    .card-body {
-        padding: 15px;
-    }
-    .btn-ler {
-        color: red;
-        text-decoration: none;
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 14px;
-    }
-</style>
-<main class="noticias-container">
-    <!-- Notícia 1 -->
-    <article class="card">
-        <!-- Usei um link de exemplo que remete ao evento. 
-             Se tiver a imagem no seu PC, use: src="nome-da-foto.jpg" -->
-        <img src="latvala.jpg" alt="Toyota GR Corolla Rally 2 no Olympus Rally">
+    <main class="noticias-container">
         
-        <div class="card-body">
-            <h3>ARA Olympus Rally 2026</h3>
-            <p>1ª Vitória histórica do Toyota GR Corolla RALLY 2 em dobradinha com Jari-Matti Latvala.</p>
-            <a href="#" class="btn-ler">Leia mais →</a>
-        </div>
-    </article>
-</main>
-
-<style>
-    .noticias-container {
-        display: flex;
-        justify-content: center;
-        padding: 20px;
-        background-color: #f4f4f4;
-    }
-    .card {
-        width: 350px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        overflow: hidden;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .card img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover; /* Ajusta a imagem sem distorcer */
-    }
-    .card-body {
-        padding: 20px;
-    }
-    .card-body h3 {
-        margin: 0 0 10px;
-        color: #333;
-    }
-    .card-body p {
-        font-size: 14px;
-        color: #666;
-        line-height: 1.5;
-        margin-bottom: 20px;
-    }
-    .btn-ler {
-        color: #d71920; /* Vermelho Toyota */
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 14px;
-        text-transform: uppercase;
-    }
-    .btn-ler:hover {
-        text-decoration: underline;
-    }
-</style>
-
-        
-        
-
-<style>
-    /* Estilo básico para o card aparecer corretamente */
-    .noticias-container {
-        display: flex;
-        justify-content: center;
-        padding: 20px;
-    }
-    .card {
-        width: 300px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
-        font-family: sans-serif;
-    }
-    .card img {
-        width: 100%;
-        height: auto;
-    }
-    .card-body {
-        padding: 15px;
-    }
-    .btn-ler {
-        color: red;
-        text-decoration: none;
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 14px;
-    }
-</style>
-
+        <!-- Notícia 1 -->
+        <article class="card">
+            <div class="image-container">
+                <span class="tag">Tour Auto</span>
+                <img src="tour-auto-1524813481.jpg" alt="Ford GT40">
+            </div>
+            <div class="card-body">
+                <h3>Resultado Dia 1 - Tour Auto 2026</h3>
+                <p>Liderança impressionante do Ford GT40 MKII ao fim da primeira etapa cronometrada.</p>
+                <a href="results_tour_auto_2026.html" class="btn-ler">Leia mais →</a>
+            </div>
+        </article>
 
         <!-- Notícia 2 -->
         <article class="card">
-            <img src="https://unsplash.com" alt="Lama e Rally">
+            <div class="image-container">
+                <span class="tag">Brasil</span>
+                <img src="https://unsplash.com" alt="Peugeot 208 Rally">
+            </div>
             <div class="card-body">
-                <h3>Trilhas na Lama</h3>
-                <p>O guia definitivo para pneus de alta performance em terrenos úmidos.</p>
-                <a href="#" class="btn-ler">Leia mais →</a>
+                <h3>Rally Estação 2026</h3>
+                <p>Rodrigo Varela domina as especiais com o Peugeot 208 Maxi Rally e garante a vitória.</p>
+                <a href="resultado_dia_1_rally_de_estacao_26.html" class="btn-ler">Leia mais →</a>
             </div>
         </article>
 
         <!-- Notícia 3 -->
         <article class="card">
-            <img src="https://unsplash.com" alt="Volante">
+            <div class="image-container">
+                <span class="tag">Histórico</span>
+                <img src="latvala.jpg" alt="Toyota GR Corolla">
+            </div>
             <div class="card-body">
-                <h3>Novas Tecnologias</h3>
-                <p>Como o sistema híbrido está mudando a velocidade final nos trechos cronometrados.</p>
+                <h3>ARA Olympus Rally 2026</h3>
+                <p>1ª Vitória histórica do Toyota GR Corolla RALLY 2 em dobradinha com Jari-Matti Latvala.</p>
+                <a href="#" class="btn-ler">Leia mais →</a>
+            </div>
+        </article>
+
+        <!-- Notícia 4 -->
+        <article class="card">
+            <div class="image-container">
+                <span class="tag">Técnica</span>
+                <img src="https://unsplash.com" alt="Lama">
+            </div>
+            <div class="card-body">
+                <h3>Trilhas na Lama</h3>
+                <p>O guia definitivo para escolha de pneus de alta performance em terrenos úmidos.</p>
                 <a href="#" class="btn-ler">Leia mais →</a>
             </div>
         </article>
@@ -318,6 +181,3 @@
 </body>
 </html>
 
-    
-</body>
-</html>
