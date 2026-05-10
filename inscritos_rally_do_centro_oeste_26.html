@@ -2,85 +2,105 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Inscritos rally do Centro Oeste 2026</title>
+    <title>Inscritos Rally do Centro Oeste 2026</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #filtro { margin-bottom: 10px; padding: 10px; width: 100%; max-width: 400px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+    </style>
 </head>
 <body>
-    <h3>Inscritos rally do Centro Oeste 2026</h3>
-    <p>Inscritos rally do Centro Oeste 2026</p>
-    <input type="text" id="filtro" onkeyup="filtrarTabela()" placeholder="Pesquise por nomes...">
 
-<table id="minhaTabela" border="1">
-    <table border="1">
-  <thead>
-    <tr>
-      <th>No</th>
-      <th>Piloto\Navegador</th>
-      <th>Marca\Modelo</th>
-      <th>Equipe</th>
-      <th>Categoria</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>21</td>
-      <td>Marcio Cedraz\Gilson Rocha</td>
-      <td>Peugeot 207</td>
-      <td>Gulf</td>
-      <td>4x2 Super</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Ronaldo e Edna Paske</td>
-      <td>Peugeot 206</td>
-      <TD>Psk Rally Team</TD>
-      <td>4x2 Super</td>
-    </tr>
+    <h3>Inscritos Rally do Centro Oeste 2026</h3>
+    
+    <!-- BARRA DE PESQUISA -->
+    <input type="text" id="filtro" onkeyup="filtrarTabela()" placeholder="Pesquise por piloto, número ou equipe...">
 
-   <tr>
-      <td>777</td>
-      <td>Perci Hultmann\Juliano Zerbinatto</td>
-      <td>Peugeot 207</td>
-      <TD>ProMacchina</TD>
-      <td>4x2 Super</td>
-    </tr>
+    <!-- TABELA ÚNICA COM ID CORRETO -->
+    <table id="minhaTabela">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Piloto\Navegador</th>
+          <th>Marca\Modelo</th>
+          <th>Equipe</th>
+          <th>Categoria</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>21</td>
+          <td>Marcio Cedraz\Gilson Rocha</td>
+          <td>Peugeot 207</td>
+          <td>Gulf</td>
+          <td>4x2 Super</td>
+        </tr>
+        <tr>
+          <td>14</td>
+          <td>Ronaldo e Edna Paske</td>
+          <td>Peugeot 206</td>
+          <td>Psk Rally Team</td>
+          <td>4x2 Super</td>
+        </tr>
+        <tr>
+          <td>777</td>
+          <td>Perci Hultmann\Juliano Zerbinatto</td>
+          <td>Peugeot 207</td>
+          <td>ProMacchina</td>
+          <td>4x2 Super</td>
+        </tr>
+        <tr>
+          <td>36</td>
+          <td>Andersson e Helena Linzmeyer</td>
+          <td>Peugeot 207</td>
+          <td>Linzmeyer Team</td>
+          <td>4x2 Super</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Adib Sada\Albert Oliveira Filho</td>
+          <td>Ford Ká</td>
+          <td>ASTJ</td>
+          <td>4x2 Pró</td>
+        </tr>
+      </tbody>
+    </table>
 
-    <tr>
-      <td>36</td>
-      <td>Andersson e Helena Linzmeyer</td>
-      <td>Peugeot 207</td>
-      <TD>Linzmeyer Team</TD>
-      <td>4x2 Super</td>
-    </tr>
+    <script>
+    function filtrarTabela() {
+      // 1. Pega o que o usuário digitou
+      var input = document.getElementById("filtro");
+      var filter = input.value.toUpperCase();
+      
+      // 2. Pega a tabela e as linhas de dados (tr)
+      var table = document.getElementById("minhaTabela");
+      var tr = table.getElementsByTagName("tr");
 
-
-
-   <tr>
-      <td>10</td>
-      <td>Adib Sada\Albert Oliveira Filho</td>
-      <td>Ford Ká</td>
-      <td>ASTJ</td>
-      <td>4x2 Pró</td>
-    </tr>
-
-  </tbody>
-</table>
-
-<script>
-function filtrarTabela() {
-  const input = document.getElementById("filtro");
-  const filter = input.value.toUpperCase();
-  const table = document.getElementById("minhaTabela");
-  const tr = table.getElementsByTagName("tr");
-// Começa do 1 pular o cabeçalho (th) 
-for (let j = 0;j< tds.length; j++) {
-    if(tds[j]){ 
-    let texto =tds[j].text.Content || tds[j].innerText;
-        if (texto.toUpperCase().indexOf(filter) > -1) {
-          visivel = true;
-          break; // Se achou em uma coluna, já pode mostrar a linha
+      // 3. Percorre cada linha (começa no 1 para pular o cabeçalho)
+      for (var i = 1; i < tr.length; i++) {
+        var mostrarLinha = false;
+        var tds = tr[i].getElementsByTagName("td");
+        
+        // Verifica cada célula da linha para ver se o texto bate
+        for (var j = 0; j < tds.length; j++) {
+          var td = tds[j];
+          if (td) {
+            var textoCélula = td.textContent || td.innerText;
+            if (textoCélula.toUpperCase().indexOf(filter) > -1) {
+              mostrarLinha = true; // Se achou o texto em qualquer coluna, marca como visível
+              break; 
+            }
+          }
         }
+        
+        // 4. Mostra ou esconde a linha baseada no resultado
+        tr[i].style.display = mostrarLinha ? "" : "none";
       }
     }
+    </script>
 
 </body>
 </html>
+
