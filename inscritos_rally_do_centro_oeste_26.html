@@ -64,27 +64,23 @@
 
   </tbody>
 </table>
+
 <script>
 function filtrarTabela() {
   const input = document.getElementById("filtro");
   const filter = input.value.toUpperCase();
   const table = document.getElementById("minhaTabela");
   const tr = table.getElementsByTagName("tr");
-
-  // Percorre todas as linhas da tabela (exceto o cabeçalho)
-  for (let i = 1; i < tr.length; i++) {
-    let td = tr[i].getElementsByTagName("td")[0]; // Filtra pela primeira coluna (Nome)
-    if (td) {
-      let texto = td.textContent || td.innerText;
-      if (texto.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+// Começa do 1 pular o cabeçalho (th) 
+for (let j = 0;j< tds.length; j++) {
+    if(tds[j]){ 
+    let texto =tds[j].text.Content || tds[j].innerText;
+        if (texto.toUpperCase().indexOf(filter) > -1) {
+          visivel = true;
+          break; // Se achou em uma coluna, já pode mostrar a linha
+        }
       }
     }
-  }
-}
-</script>
 
 </body>
 </html>
