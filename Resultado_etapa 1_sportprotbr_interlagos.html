@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Página Moderna</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .bloco {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        button {
+            background: #00f2fe;
+            color: #333;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            transform: scale(1.05);
+            background: #4facfe;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bloco">
+        <h1>Nova Página</h1>
+        <p>Clique abaixo para ver a mágica acontecer.</p>
+        <button onclick="clique()">Ativar</button>
+    </div>
+
+    <script>
+        function clique() {
+            alert('Código funcionando perfeitamente!');
+        }
+    </script>
+
+</body>
+</html>
