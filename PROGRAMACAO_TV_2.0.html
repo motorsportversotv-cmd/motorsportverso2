@@ -1,47 +1,159 @@
-<!DOCTYPE html>
+
+
+-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Primeira Página</title>
+    <title>Programação TV & Streaming - Motorsports</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 50px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #121214;
+            color: #e1e1e6;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
         h1 {
-            color: #333;
+            color: #ff3e3e;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            text-align: center;
         }
-        p {
-            color: #666;
+
+        .table-container {
+            width: 100%;
+            max-width: 1200px;
+            overflow-x: auto;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #202024;
+            text-align: left;
+            min-width: 800px;
+        }
+
+        th {
+            background-color: #ff3e3e;
+            color: #ffffff;
+            padding: 14px 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #323238;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        tr:hover {
+            background-color: #29292e;
+        }
+
+        .categoria-destaque {
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .nao-possui {
+            color: #7c7c8a;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
 
-    <h3>Olá, Mundo!</h3>
-    <p>-- 1. Criação da tabela
-CREATE TABLE programacao_motorsports (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    categoria VARCHAR(50) NOT NULL,
-    tv_aberta VARCHAR(100) DEFAULT 'Não possui',
-    tv_fechada VARCHAR(100) DEFAULT 'Não possui',
-    streaming VARCHAR(150) NOT NULL,
-    observacoes TEXT
-);
+    <h1>Programação TV & Streaming - Motorsports</h1>
 
--- 2. Inserção dos dados de transmissão
-INSERT INTO programacao_motorsports (categoria, tv_aberta, tv_fechada, streaming, observacoes) VALUES
-('Fórmula 1', 'Rede Globo', 'SporTV', 'Globoplay / F1 TV Pro', 'Treinos livres e classificação no SporTV/Globoplay; Corridas na Globo.'),
-('Fórmula Indy', 'Band', 'ESPN', 'Disney+ / IndyCar Live', 'A Band exibe grandes eventos ao vivo (como as 500 Milhas), alternando com compactos em outras etapas.'),
-('MotoGP', 'Não possui', 'ESPN', 'Disney+', 'Cobre também as categorias de acesso Moto2 e Moto3.'),
-('Fórmula E', 'Band', 'Bandsports', 'Max / YouTube da categoria', 'Algumas etapas são transmitidas na íntegra no canal oficial do YouTube.'),
-('WEC (Mundial de Endurance)', 'Não possui', 'Bandsports', 'Max / YouTube (pistas específicas)', 'A Max centraliza a melhor cobertura ao vivo com sinal limpo.'),
-('NASCAR', 'Não possui', 'Bandsports', 'Disney+ / NASCAR TrackPass', 'Divisão principal (Cup Series) transmitida majoritariamente na TV fechada.'),
-('Stock Car Pro Series', 'Band', 'Bandsports', 'YouTube (Canal Oficial)', 'Transmissão gratuita e completa de todas as etapas via YouTube.'),
-('IMSA (Endurance Americano)', 'Não possui', 'Não possui', 'IMSA.tv / YouTube', 'Transmissão gratuita internacional via streaming oficial.');
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>TV Aberta</th>
+                    <th>TV Fechada</th>
+                    <th>Streaming</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="categoria-destaque">Fórmula 1</td>
+                    <td>Rede Globo</td>
+                    <td>SporTV</td>
+                    <td>Globoplay / F1 TV Pro</td>
+                    <td>Treinos livres e classificação no SporTV/Globoplay; Corridas na Globo.</td>
+                </tr>
+                <tr>
+                    <td class="categoria-destaque">Fórmula Indy</td>
+                    <td>Band</td>
+                    <td>ESPN</td>
+                    <td>Disney+ / IndyCar Live</td>
+                    <td>A Band exibe grandes eventos ao vivo (como as 500 Milhas), alternando com compactos em outras etapas.</td>
+                </tr>
+                <tr>
+                    <td class="categoria-destaque">MotoGP</td>
+                    <td class="nao-possui">Não possui</td>
+                    <td>ESPN</td>
+                    <td>Disney+</td>
+                    <td>Cobre também as categorias de acesso Moto2 e Moto3.</td>
+                </tr>
+                <tr>
+                    <td class="categoria-destaque">Fórmula E</td>
+                    <td>Band</td>
+                    <td>Bandsports</td>
+                    <td>Max / YouTube da categoria</td>
+                    <td>Algumas etapas são transmitidas na íntegra no canal oficial do YouTube.</td>
+                </tr>
+                <tr>
+                    <td class="categoria-destaque">WEC (Mundial de Endurance)</td>
+                    <td class="nao-possui">Não possui</td>
+                    <td>Bandsports</td>
+                    <td>Max / YouTube (pistas específicas)</td>
+                    <td>A Max centraliza a melhor cobertura ao vivo com sinal limpo.</td>
+                </tr>
+                <tr>
+                    <td class="categoria-destaque">NASCAR</td>
+                    <td class="nao-possui">Não possui</td>
+                    <td>Bandsports</td>
+                    <td>Disney+ / NASCAR TrackPass</td>
+                    <td>Divisão principal (Cup Series) transmitida majoritariamente na TV fechada.</td>
+                </tr>
+                <tr>
+                    <td class="categoria-destaque">Stock Car Pro Series</td>
+                    <td>Band</td>
+                    <td>Bandsports</td>
+                    <td>YouTube (Canal Oficial)</td>
+                    <td>Transmissão gratuita e completa de todas as etapas via YouTube.</td>
+                </tr>
+                <tr>
+                    <td class="categoria-destaque">IMSA (Endurance Americano)</td>
+                    <td class="nao-possui">Não possui</td>
+                    <td class="nao-possui">Não possui</td>
+                    <td>IMSA.tv / YouTube</td>
+                    <td>Transmissão gratuita internacional via streaming oficial.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
+
 
 -- 3. Exemplo de consulta simples para verificar os dados
 SELECT * FROM programacao_motorsports;
