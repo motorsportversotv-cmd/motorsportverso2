@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Primeira Página</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <h3>Olá, Mundo!</h3>
+    <p>-- 1. Criação da tabela
+CREATE TABLE programacao_motorsports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    categoria VARCHAR(50) NOT NULL,
+    tv_aberta VARCHAR(100) DEFAULT 'Não possui',
+    tv_fechada VARCHAR(100) DEFAULT 'Não possui',
+    streaming VARCHAR(150) NOT NULL,
+    observacoes TEXT
+);
+
+-- 2. Inserção dos dados de transmissão
+INSERT INTO programacao_motorsports (categoria, tv_aberta, tv_fechada, streaming, observacoes) VALUES
+('Fórmula 1', 'Rede Globo', 'SporTV', 'Globoplay / F1 TV Pro', 'Treinos livres e classificação no SporTV/Globoplay; Corridas na Globo.'),
+('Fórmula Indy', 'Band', 'ESPN', 'Disney+ / IndyCar Live', 'A Band exibe grandes eventos ao vivo (como as 500 Milhas), alternando com compactos em outras etapas.'),
+('MotoGP', 'Não possui', 'ESPN', 'Disney+', 'Cobre também as categorias de acesso Moto2 e Moto3.'),
+('Fórmula E', 'Band', 'Bandsports', 'Max / YouTube da categoria', 'Algumas etapas são transmitidas na íntegra no canal oficial do YouTube.'),
+('WEC (Mundial de Endurance)', 'Não possui', 'Bandsports', 'Max / YouTube (pistas específicas)', 'A Max centraliza a melhor cobertura ao vivo com sinal limpo.'),
+('NASCAR', 'Não possui', 'Bandsports', 'Disney+ / NASCAR TrackPass', 'Divisão principal (Cup Series) transmitida majoritariamente na TV fechada.'),
+('Stock Car Pro Series', 'Band', 'Bandsports', 'YouTube (Canal Oficial)', 'Transmissão gratuita e completa de todas as etapas via YouTube.'),
+('IMSA (Endurance Americano)', 'Não possui', 'Não possui', 'IMSA.tv / YouTube', 'Transmissão gratuita internacional via streaming oficial.');
+
+-- 3. Exemplo de consulta simples para verificar os dados
+SELECT * FROM programacao_motorsports;
+</p>
+
+</body>
+</html>
