@@ -14,7 +14,7 @@
             padding: 0;
         }
 
-        /* 2. Barra de Notícias e Resultados */
+        /* 2. Barra de Resultados e Notícias Rotativa */
         .news-ticker {
             background: #ffffff; 
             color: #666666;
@@ -23,7 +23,6 @@
             overflow: hidden;
             white-space: nowrap;
             border-bottom: 1px solid #eeeeee; /* Linha divisória sutil */
-            margin-bottom: 20px;
         }
 
         .ticker-wrapper {
@@ -52,25 +51,108 @@
             animation-play-state: paused;
         }
 
+        /* Banner de Destaque do Cronômetro no Topo */
+        .top-countdown-banner {
+            background-color: #111111;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            border-bottom: 3px solid #d49a17;
+        }
+
+        .countdown-header-title {
+            color: #d49a17;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 0 5px 0;
+        }
+
+        .countdown-header-subtitle {
+            color: #bbbbbb;
+            font-size: 12px;
+            margin: 0 0 15px 0;
+            letter-spacing: 1px;
+        }
+
+        .countdown-title {
+            color: #d49a17; /* Tom dourado/amarelo */
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .countdown-title span {
+            color: #ffffff;
+        }
+
+        .timer-display {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        .time-block {
+            width: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .time-number {
+            background-color: #2d2d2d;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 32px;
+            font-weight: bold;
+            padding: 12px 0;
+            width: 100%;
+            border-radius: 4px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* Destaque branco para o bloco de Dias */
+        .time-block.day-block .time-number {
+            background-color: #ffffff;
+            color: #111111;
+        }
+
+        .time-label {
+            color: #888888;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-top: 6px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
         /* 3. Grade de Notícias (Grid Layout) */
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 40px auto;
             padding: 0 20px;
         }
 
         /* 4. Card de Notícia */
         article {
             border: 1px solid #f0f0f0; /* Borda bem clara */
-            padding: 20px;
+            padding: 25px;
             border-radius: 12px;
             background-color: #ffffff;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Sombra suave */
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
 
         .news-content {
@@ -106,74 +188,12 @@
 
         .tags-container {
             margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .label { font-size: 12px; color: #999999; margin-right: 5px; }
-
-        /* Estilização do Cronômetro Digital */
-        .countdown-container {
-            background-color: #111111;
-            padding: 20px;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 320px;
-            margin: 15px 0;
-            box-sizing: border-box;
-        }
-
-        .countdown-title {
-            color: #d49a17; /* Tom dourado/amarelo */
-            font-size: 13px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-        }
-
-        .countdown-title span {
-            color: #ffffff;
-        }
-
-        .timer-display {
-            display: flex;
-            justify-content: space-between;
-            gap: 6px;
-        }
-
-        .time-block {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .time-number {
-            background-color: #2d2d2d;
-            color: #ffffff;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 28px;
-            font-weight: bold;
-            padding: 10px 0;
-            width: 100%;
-            border-radius: 4px;
-            text-align: center;
-            letter-spacing: 2px;
-        }
-
-        /* Destaque branco para o bloco de Dias */
-        .time-block.day-block .time-number {
-            background-color: #ffffff;
-            color: #111111;
-        }
-
-        .time-label {
-            color: #888888;
-            font-size: 10px;
-            text-transform: uppercase;
-            margin-top: 6px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-        }
 
         /* Botão Ler Mais */
         .read-more {
@@ -215,39 +235,41 @@
         </div>
     </div>
 
-    <!-- Container do Card de Notícia em Grade -->
+    <!-- Banner Superior do Cronômetro Regressivo (Fora dos cards) -->
+    <div class="top-countdown-banner">
+        <div class="countdown-header-title">DESAFÍO RUTA 40 YPF</div>
+        <div class="countdown-header-subtitle">05/24 > 05/29/2026</div>
+        
+        <div class="countdown-title" id="main-timer-title">Prologue <span>Starts In</span></div>
+        <div class="timer-display">
+            <div class="time-block day-block">
+                <div class="time-number" id="days">00</div>
+                <div class="time-label">Day</div>
+            </div>
+            <div class="time-block">
+                <div class="time-number" id="hours">00</div>
+                <div class="time-label">Hour</div>
+            </div>
+            <div class="time-block">
+                <div class="time-number" id="minutes">00</div>
+                <div class="time-label">Minutes</div>
+            </div>
+            <div class="time-block">
+                <div class="time-number" id="seconds">00</div>
+                <div class="time-label">Seconds</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container dos Cards de Notícia em Grade -->
     <main class="news-grid">
         
-        <!-- Card 1: Ruta 40 com Cronômetro Ativo -->
+        <!-- Card 1: Prólogo Ruta 40 -->
         <article>
             <div class="news-content">
                 <span class="tag tag-raid">W2RC</span>
-                <h1>Prólogo do Desafío Ruta 40</h1>
-                <p>A ação começa oficialmente em Albardón. O prólogo de 9,63 km de cascalho definirá a ordem de largada para o primeiro carro e motos.</p>
-                
-                <!-- Cronômetro Estilizado -->
-                <div class="countdown-container">
-                    <div class="countdown-title">Prologue <span>Starts In</span></div>
-                    <div class="timer-display">
-                        <div class="time-block day-block">
-                            <div class="time-number" id="days">00</div>
-                            <div class="time-label">Day</div>
-                        </div>
-                        <div class="time-block">
-                            <div class="time-number" id="hours">00</div>
-                            <div class="time-label">Hour</div>
-                        </div>
-                        <div class="time-block">
-                            <div class="time-number" id="minutes">00</div>
-                            <div class="time-label">Minutes</div>
-                        </div>
-                        <div class="time-block">
-                            <div class="time-number" id="seconds">00</div>
-                            <div class="time-label">Seconds</div>
-                        </div>
-                    </div>
-                </div>
-                
+                <h1>Prólogo do Desafio Ruta 40</h1>
+                <p>A ação começa oficialmente em Albardón. O prólogo de 9,63 km de cascalho definirá a ordem de largada para as categorias principais do mundial.</p>
                 <a href="#" class="read-more">Ver Tempos Ao Vivo →</a>
             </div>
         </article>
@@ -288,64 +310,6 @@
 
     </main>
 
-    <!-- Script de Automação do Cronômetro -->
-    <script>
-        // Define o alvo exato para hoje às 12:00:00
-        const targetDate = new Date("May 24, 2026 12:00:00").getTime();
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const difference = targetDate - now;
-
-            if (difference <= 0) {
-                document.getElementById("days").textContent = "00";
-                document.getElementById("hours").textContent = "00";
-
-                    <!-- Script de Automação do Cronômetro -->
-    <!-- Script de Automação do Cronômetro -->
-    <script>
-        // Define o alvo exato para HOJE (24 de Maio de 2026) às 12:00 Horário Local
-        const targetDate = new Date("2026-05-24T12:00:00").getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const difference = targetDate - now;
-
-            // Quando o cronômetro zerar
-            if (difference <= 0) {
-                document.getElementById("days").textContent = "00";
-                document.getElementById("hours").textContent = "00";
-                document.getElementById("minutes").textContent = "00";
-                document.getElementById("seconds").textContent = "00";
-                
-                // Altera o título para o aviso de largada
-                const titleContainer = document.querySelector(".countdown-title");
-                if (titleContainer) {
-                    titleContainer.innerHTML = "<span style='color: #d49a17;'>LARGADA PRIMEIRO CARRO NO PRÓLOGO</span>";
-                    titleContainer.style.fontSize = "11px";
-                }
-                
-                clearInterval(timerInterval);
-                return;
-            }
-
-            // Cálculos matemáticos para quebra do tempo
-            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((difference % (1000 * 60)) / 1000);
-
-            // Injeta os valores formatados com zero à esquerda nos elementos HTML
-            document.getElementById("days").textContent = d < 10 ? "0" + d : d;
-            document.getElementById("hours").textContent = h < 10 ? "0" + h : h;
-            document.getElementById("minutes").textContent = m < 10 ? "0" + m : m;
-            document.getElementById("seconds").textContent = s < 10 ? "0" + s : s;
-        }
-
-        // Executa imediatamente ao carregar a página
-        updateCountdown();
-        
-        // Atualiza o contador de 1 em 1 segundo de forma contínua
-        const timerInterval = setInterval(updateCountdown, 1000);
-    </script>
+      
 
