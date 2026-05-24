@@ -14,7 +14,7 @@
             padding: 0;
         }
 
-        /* 2. Barra de Notícias (Agora com fundo branco) */
+        /* 2. Barra de Notícias e Resultados */
         .news-ticker {
             background: #ffffff; 
             color: #666666;
@@ -52,15 +52,25 @@
             animation-play-state: paused;
         }
 
-        /* 3. Card de Notícia */
+        /* 3. Grade de Notícias (Grid Layout) */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 4. Card de Notícia */
         article {
-            max-width: 450px;
-            margin: 20px auto;
             border: 1px solid #f0f0f0; /* Borda bem clara */
             padding: 20px;
             border-radius: 12px;
             background-color: #ffffff;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Sombra suave */
+            display: flex;
+            flex-direction: column;
         }
 
         .news-content {
@@ -68,6 +78,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 100%;
+            justify-content: space-between;
         }
 
         /* Tags e Marcadores */
@@ -85,14 +97,83 @@
 
         .tag-raid { background: #444444; } /* Cinza escuro */
 
-        h3 { 
+        h1, h3 { 
             margin: 15px 0; 
             font-size: 20px; 
             color: #333333; /* Título em cinza quase preto */
             line-height: 1.3;
         }
 
+        .tags-container {
+            margin-bottom: 15px;
+        }
+
         .label { font-size: 12px; color: #999999; margin-right: 5px; }
+
+        /* Estilização do Cronômetro Digital */
+        .countdown-container {
+            background-color: #111111;
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 320px;
+            margin: 15px 0;
+            box-sizing: border-box;
+        }
+
+        .countdown-title {
+            color: #d49a17; /* Tom dourado/amarelo */
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .countdown-title span {
+            color: #ffffff;
+        }
+
+        .timer-display {
+            display: flex;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .time-block {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .time-number {
+            background-color: #2d2d2d;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 10px 0;
+            width: 100%;
+            border-radius: 4px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* Destaque branco para o bloco de Dias */
+        .time-block.day-block .time-number {
+            background-color: #ffffff;
+            color: #111111;
+        }
+
+        .time-label {
+            color: #888888;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-top: 6px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
 
         /* Botão Ler Mais */
         .read-more {
@@ -102,6 +183,7 @@
             font-weight: bold;
             border-bottom: 2px solid transparent;
             transition: 0.3s;
+            display: inline-block;
         }
 
         .read-more:hover { 
@@ -115,15 +197,35 @@
             height: auto; 
             margin: 20px 0;
         }
-<!-- Container do Card de Notícia em Grade -->
+    </style>
+</head>
+<body>
+
+    <!-- Barra de Resultados Rotativa -->
+    <div class="news-ticker">
+        <div class="ticker-wrapper">
+            <span class="ticker-item"><strong>Gregory Mevius vence o Merzouga 1000 Classic de 2026 com Nissan de 2003</strong></span>
+            <span class="ticker-item"><strong>KTM desenvolve UTV SSV</strong></span>
+            <span class="ticker-item"><strong>W2RC Portugal 2026 (T1+):</strong> 1º Loeb (Dacia) 10:58:52</span>
+            <span class="ticker-item">2º Quinteiro (Toyota) +02:46</span>
+            <span class="ticker-item">3º Ferreira (Toyota) +03:37</span>
+            <span class="ticker-item">4º Moraes (Dacia) +04:36</span>
+            <span class="ticker-item">5º Boterril (Toyota) +05:27</span>
+            <span class="ticker-item"><strong>Categoria Stock:</strong> 1º Peterhansel (Land Rover) 11:57:33</span>
+        </div>
+    </div>
+
+    <!-- Container do Card de Notícia em Grade -->
     <main class="news-grid">
-        <!-- Card 1: Ruta 40 -->
+        
+        <!-- Card 1: Ruta 40 com Cronômetro Ativo -->
         <article>
             <div class="news-content">
-                <h1>W2RC: Prólogo do Desafío Ruta 40</h1>
+                <span class="tag tag-raid">W2RC</span>
+                <h1>Prólogo do Desafío Ruta 40</h1>
                 <p>A ação começa oficialmente em Albardón. O prólogo de 9,63 km de cascalho definirá a ordem de largada para o primeiro carro e motos.</p>
                 
-                <!-- Cronômetro Estilizado da Imagem -->
+                <!-- Cronômetro Estilizado -->
                 <div class="countdown-container">
                     <div class="countdown-title">Prologue <span>Starts In</span></div>
                     <div class="timer-display">
@@ -139,56 +241,62 @@
                             <div class="time-number" id="minutes">00</div>
                             <div class="time-label">Minutes</div>
                         </div>
-        
-<body>
+                        <div class="time-block">
+                            <div class="time-number" id="seconds">00</div>
+                            <div class="time-label">Seconds</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="#" class="read-more">Ver Tempos Ao Vivo →</a>
+            </div>
+        </article>
 
-<!-- Barra de Resultados (Branca com texto cinza) -->
-<div class="news-ticker">
-    <div class="ticker-wrapper">
-        <div class="ticker-item"><strong>Gregory Mevius vence o Merzeouga 1000 Classic de 2026 com Nissan de 2003</strong></div>
-        <div class="ticker-item"><strong>KTM desenvolve UTV SSV</strong></div>
-        <div class="ticker-item"><strong>W2RC Portugal 2026 (T1+):</strong> 1º Loeb (Dacia) 10:58:52</div>
-        <div class="ticker-item">2º Quinteiro (Toyota) +02:46</div>
-        <div class="ticker-item">3º Ferreira (Toyota) +03:37</div>
-        <div class="ticker-item">4º Moraes (Dacia) +04:36</div>
-        <div class="ticker-item">5º Boterril (Toyota) +05:27</div>
-        <div class="ticker-item"><strong>Categoria Stock:</strong> 1º Peterhansel (Land Rover) 11:57:33</div>
-    </div>
-</div>
+        <!-- Card 2: KTM UTV -->
+        <article>
+            <div class="news-content">
+                <span class="tag tag-raid">Rally Raid</span>
+                <h3>KTM desenvolve UTV para a categoria SSV de produção</h3>
 
-<!-- Conteúdo da Notícia -->
-<article>
-    <div class="news-content">
-        <span class="tag tag-raid">Rally Raid</span>
-        <h3>KTM desenvolve UTV para a categoria SSV de produção</h3>
+                <div class="tags-container">
+                    <span class="label">Marcadores:</span>
+                    <a href="#" class="tag" style="background:#bbbbbb; color:#333;">UTVs</a>
+                </div>
+                
+                <img src="KTM X-BOW SSV.jpg" alt="KTM UTV SSV">
+                
+                <a href="KTM_desenvolve-utv-ssv.html" class="read-more">Ler mais →</a>
+            </div>
+        </article>
 
-        <div class="tags-container">
-            <span class="label">Marcadores:</span>
-            <a href="#" class="tag" style="background:#bbbbbb; color:#333;">UTVs</a>
-        </div>
-        
-        <!-- Certifique-se de que a imagem está na mesma pasta do código -->
-        <img src="KTM X-BOW SSV.jpg" alt="KTM UTV SSV">
-        
-        <a href="KTM_desenvolve-utv-ssv.html" class="read-more">Ler mais →</a>
-    </div>
-</article>
-<article>
-    <div class="news-content">
-        <span class="tag tag-raid">Classic</span>
-        <h3>Resultados Merzouga 1000 Classic 2026</h3>
+        <!-- Card 3: Merzouga Classic -->
+        <article>
+            <div class="news-content">
+                <span class="tag tag-raid">Classic</span>
+                <h3>Resultados Merzouga 1000 Classic 2026</h3>
 
-        <div class="tags-container">
-            <span class="label">Marcadores:</span>
-            <a href="#" class="tag" style="background:#bbbbbb; color:#333;">Classic</a>
-        </div>
-        
-        <!-- Certifique-se de que a imagem está na mesma pasta do código -->
-        <img src="Capturar.JPG" alt="Nissan Frontier">
-        
-        <a href="results_merzouga_1000_classic_2026.html" class="read-more">Ler mais →</a>
-    </div>
-</article>
+                <div class="tags-container">
+                    <span class="label">Marcadores:</span>
+                    <a href="#" class="tag" style="background:#bbbbbb; color:#333;">Classic</a>
+                </div>
+                
+                <img src="Capturar.JPG" alt="Nissan Frontier">
+                
+                <a href="results_merzouga_1000_classic_2026.html" class="read-more">Ler mais →</a>
+            </div>
+        </article>
 
-</body>
-</html>
+    </main>
+
+    <!-- Script de Automação do Cronômetro -->
+    <script>
+        // Define o alvo exato para hoje às 12:00:00
+        const targetDate = new Date("May 24, 2026 12:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference <= 0) {
+                document.getElementById("days").textContent = "00";
+                document.getElementById("hours").textContent = "00";
