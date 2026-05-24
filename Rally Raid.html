@@ -300,3 +300,45 @@
             if (difference <= 0) {
                 document.getElementById("days").textContent = "00";
                 document.getElementById("hours").textContent = "00";
+
+                    <!-- Script de Automação do Cronômetro -->
+    <script>
+        // Define o alvo exato para hoje às 12:00:00
+        const targetDate = new Date("May 24, 2026 12:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference <= 0) {
+                document.getElementById("days").textContent = "00";
+                document.getElementById("hours").textContent = "00";
+                document.getElementById("minutes").textContent = "00";
+                document.getElementById("seconds").textContent = "00";
+                
+                // Altera o título do cronômetro quando o tempo expirar
+                const titleContainer = document.querySelector(".countdown-title");
+                if (titleContainer) {
+                    titleContainer.innerHTML = "<span style='color: #d49a17;'>LARGADA PRIMEIRO CARRO NO PRÓLOGO</span>";
+                    titleContainer.style.fontSize = "11px"; // Ajuste leve para caber no espaço
+                }
+                
+                clearInterval(timerInterval);
+                return;
+            }
+
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("days").textContent = d < 10 ? "0" + d : d;
+            document.getElementById("hours").textContent = h < 10 ? "0" + h : h;
+            document.getElementById("minutes").textContent = m < 10 ? "0" + m : m;
+            document.getElementById("seconds").textContent = s < 10 ? "0" + s : s;
+        }
+
+        updateCountdown();
+        const timerInterval = setInterval(updateCountdown, 1000);
+    </script>
+
