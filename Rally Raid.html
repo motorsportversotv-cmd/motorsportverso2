@@ -302,43 +302,50 @@
                 document.getElementById("hours").textContent = "00";
 
                     <!-- Script de Automação do Cronômetro -->
+    <!-- Script de Automação do Cronômetro -->
     <script>
-        // Define o alvo exato para hoje às 12:00:00
-        const targetDate = new Date("May 24, 2026 12:00:00").getTime();
+        // Define o alvo exato para HOJE (24 de Maio de 2026) às 12:00 Horário Local
+        const targetDate = new Date("2026-05-24T12:00:00").getTime();
 
         function updateCountdown() {
             const now = new Date().getTime();
             const difference = targetDate - now;
 
+            // Quando o cronômetro zerar
             if (difference <= 0) {
                 document.getElementById("days").textContent = "00";
                 document.getElementById("hours").textContent = "00";
                 document.getElementById("minutes").textContent = "00";
                 document.getElementById("seconds").textContent = "00";
                 
-                // Altera o título do cronômetro quando o tempo expirar
+                // Altera o título para o aviso de largada
                 const titleContainer = document.querySelector(".countdown-title");
                 if (titleContainer) {
                     titleContainer.innerHTML = "<span style='color: #d49a17;'>LARGADA PRIMEIRO CARRO NO PRÓLOGO</span>";
-                    titleContainer.style.fontSize = "11px"; // Ajuste leve para caber no espaço
+                    titleContainer.style.fontSize = "11px";
                 }
                 
                 clearInterval(timerInterval);
                 return;
             }
 
+            // Cálculos matemáticos para quebra do tempo
             const d = Math.floor(difference / (1000 * 60 * 60 * 24));
             const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((difference % (1000 * 60)) / 1000);
 
+            // Injeta os valores formatados com zero à esquerda nos elementos HTML
             document.getElementById("days").textContent = d < 10 ? "0" + d : d;
             document.getElementById("hours").textContent = h < 10 ? "0" + h : h;
             document.getElementById("minutes").textContent = m < 10 ? "0" + m : m;
             document.getElementById("seconds").textContent = s < 10 ? "0" + s : s;
         }
 
+        // Executa imediatamente ao carregar a página
         updateCountdown();
+        
+        // Atualiza o contador de 1 em 1 segundo de forma contínua
         const timerInterval = setInterval(updateCountdown, 1000);
     </script>
 
