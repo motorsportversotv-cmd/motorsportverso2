@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programação de Corridas do Final de Semana</title>
     <style>
-        /* Estilos básicos para deixar a página bonita e responsiva */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f7f6;
@@ -23,13 +22,31 @@
         }
         h1 {
             text-align: center;
-            color: #e50914; /* Vermelho automobilismo */
-            margin-bottom: 30px;
+            color: #e50914;
+            margin-bottom: 20px;
+        }
+        /* Estilo da Guia/Barra de Pesquisa */
+        .busca-container {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .input-busca {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .input-busca:focus {
+            border-color: #e50914;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 100px;
         }
         th, td {
             padding: 12px 15px;
@@ -65,6 +82,17 @@
 <div class="container">
     <h1>🏁 Programação de Corridas do Final de Semana</h1>
     
+    <!-- GUIA DE PESQUISA ADICIONADA -->
+    <div class="busca-container">
+        <input 
+            type="text" 
+            id="campoBusca" 
+            class="input-busca" 
+            placeholder="Pesquise por categoria ou pista... (ex: MotoGP, EUA)"
+            onkeyup="filtrarCorridas()"
+        >
+    </div>
+    
     <table>
         <thead>
             <tr>
@@ -77,13 +105,13 @@
             </tr>
         </thead>
         <tbody id="tabela-corridas">
-            <!-- Os dados do JavaScript serão inseridos aqui automaticamente -->
+            <!-- Inserção via JavaScript -->
         </tbody>
     </table>
 </div>
 
 <script>
-    // 1. Simulando a leitura do nosso Banco de Dados JSON criado no passo anterior
+    // Dados do banco simulado
     const dadosCorridas = [
         {
             "categoria": "MotoGP",
@@ -132,16 +160,13 @@
         }
     ];
 
-    // 2. Função JavaScript que lê a lista e monta as linhas da tabela HTML
-    function carregarTabela() {
+    // Renderiza a lista na tabela
+    function carregarTabela(lista) {
         const corpoTabela = document.getElementById('tabela-corridas');
-        corpoTabela.innerHTML = ''; // Limpa a tabela antes de carregar
+        corpoTabela.innerHTML = ''; 
 
-        dadosCorridas.forEach(corrida => {
-            // Cria uma nova linha no HTML
+        lista.forEach(corrida => {
             const linha = document.createElement('tr');
-
-            // Insere as colunas com as propriedades do objeto JSON
             linha.innerHTML = `
                 <td><strong>${corrida.categoria}</strong></td>
                 <td>${corrida.sessao}</td>
@@ -154,17 +179,32 @@
                     </a>
                 </td>
             `;
-
-            // Adiciona a linha preenchida dentro do corpo da tabela
             corpoTabela.appendChild(linha);
         });
     }
 
-    // Executa a função assim que a página carrega
-    window.onload = carregarTabela;
+    // FUNÇÃO DE FILTRO DA GUIA DE PESQUISA
+    function filtrarCorridas() {
+        // Pega o texto digitado e transforma em letras minúsculas
+        const termoBusca = document.getElementById('campoBusca').value.toLowerCase();
+        
+        // Filtra o array de dados comparando com Categoria ou Pista
+        const dadosFiltrados = dadosCorridas.filter(corrida => {
+            return corrida.categoria.toLowerCase().includes(termoBusca) || 
+                   corrida.pista.toLowerCase().includes(termoBusca);
+        });
+
+        // Recarrega a tabela apenas com as corridas encontradas
+        carregarTabela(dadosFiltrados);
+    }
+
+    // Inicializa a página com todos os dados
+    window.onload = () => carregarTabela(dadosCorridas);
 </script>
 
 </body>
 </html>
+
+
 
 
