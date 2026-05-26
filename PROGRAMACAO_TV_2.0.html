@@ -1,163 +1,170 @@
-
-
--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programação TV & Streaming - Motorsports</title>
+    <title>Programação de Corridas do Final de Semana</title>
     <style>
+        /* Estilos básicos para deixar a página bonita e responsiva */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #121214;
-            color: #e1e1e6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
             margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 20px;
+            color: #333;
         }
-
-        h1 {
-            color: #ff3e3e;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 30px;
-            font-size: 1.8rem;
-            text-align: center;
-        }
-
-        .table-container {
-            width: 100%;
-            max-width: 1200px;
-            overflow-x: auto;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
             border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
+        h1 {
+            text-align: center;
+            color: #e50914; /* Vermelho automobilismo */
+            margin-bottom: 30px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: #202024;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
             text-align: left;
-            min-width: 800px;
+            border-bottom: 1px solid #ddd;
         }
-
         th {
-            background-color: #ff3e3e;
-            color: #ffffff;
-            padding: 14px 16px;
-            font-weight: bold;
+            background-color: #222;
+            color: white;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
+            font-size: 14px;
         }
-
-        td {
-            padding: 14px 16px;
-            border-bottom: 1px solid #323238;
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-
         tr:hover {
-            background-color: #29292e;
+            background-color: #f1f1f1;
         }
-
-        .categoria-destaque {
+        .btn-assistir {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
             font-weight: bold;
-            color: #ffffff;
         }
-
-        .nao-possui {
-            color: #7c7c8a;
-            font-style: italic;
+        .btn-assistir:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
 
-    <h1>Programação TV & Streaming - Motorsports</h1>
+<div class="container">
+    <h1>🏁 Programação de Corridas do Final de Semana</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Sessão</th>
+                <th>Pista / Local</th>
+                <th>Data</th>
+                <th>Horário (BRT)</th>
+                <th>Transmissão</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-corridas">
+            <!-- Os dados do JavaScript serão inseridos aqui automaticamente -->
+        </tbody>
+    </table>
+</div>
 
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Categoria</th>
-                    <th>TV Aberta</th>
-                    <th>TV Fechada</th>
-                    <th>Streaming</th>
-                    <th>Observações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="categoria-destaque">Fórmula 1</td>
-                    <td>Rede Globo</td>
-                    <td>SporTV</td>
-                    <td>Globoplay / F1 TV Pro</td>
-                    <td>Treinos livres e classificação no SporTV/Globoplay; Corridas na Globo.</td>
-                </tr>
-                <tr>
-                    <td class="categoria-destaque">Fórmula Indy</td>
-                    <td>Band</td>
-                    <td>ESPN</td>
-                    <td>Disney+ / IndyCar Live</td>
-                    <td>A Band exibe grandes eventos ao vivo (como as 500 Milhas), alternando com compactos em outras etapas.</td>
-                </tr>
-                <tr>
-                    <td class="categoria-destaque">MotoGP</td>
-                    <td class="nao-possui">Não possui</td>
-                    <td>ESPN</td>
-                    <td>Disney+</td>
-                    <td>Cobre também as categorias de acesso Moto2 e Moto3.</td>
-                </tr>
-                <tr>
-                    <td class="categoria-destaque">Fórmula E</td>
-                    <td>Band</td>
-                    <td>Bandsports</td>
-                    <td>Max / YouTube da categoria</td>
-                    <td>Algumas etapas são transmitidas na íntegra no canal oficial do YouTube.</td>
-                </tr>
-                <tr>
-                    <td class="categoria-destaque">WEC (Mundial de Endurance)</td>
-                    <td class="nao-possui">Não possui</td>
-                    <td>Bandsports</td>
-                    <td>Max / YouTube (pistas específicas)</td>
-                    <td>A Max centraliza a melhor cobertura ao vivo com sinal limpo.</td>
-                </tr>
-                <tr>
-                    <td class="categoria-destaque">NASCAR</td>
-                    <td class="nao-possui">Não possui</td>
-                    <td>Bandsports</td>
-                    <td>Disney+ / NASCAR TrackPass</td>
-                    <td>Divisão principal (Cup Series) transmitida majoritariamente na TV fechada.</td>
-                </tr>
-                <tr>
-                    <td class="categoria-destaque">Stock Car Pro Series</td>
-                    <td>Band</td>
-                    <td>Bandsports</td>
-                    <td>YouTube (Canal Oficial)</td>
-                    <td>Transmissão gratuita e completa de todas as etapas via YouTube.</td>
-                </tr>
-                <tr>
-                    <td class="categoria-destaque">IMSA (Endurance Americano)</td>
-                    <td class="nao-possui">Não possui</td>
-                    <td class="nao-possui">Não possui</td>
-                    <td>IMSA.tv / YouTube</td>
-                    <td>Transmissão gratuita internacional via streaming oficial.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<script>
+    // 1. Simulando a leitura do nosso Banco de Dados JSON criado no passo anterior
+    const dadosCorridas = [
+        {
+            "categoria": "MotoGP",
+            "sessao": "Corrida Sprint",
+            "pista": "Mugello (Itália)",
+            "data": "30/05/2026",
+            "horario": "10:00",
+            "onde_assistir": "ESPN 4 / Disney+",
+            "link": "https://disneyplus.com"
+        },
+        {
+            "categoria": "MotoGP",
+            "sessao": "Corrida Principal",
+            "pista": "Mugello (Itália)",
+            "data": "31/05/2026",
+            "horario": "09:00",
+            "onde_assistir": "ESPN 4 / Disney+",
+            "link": "https://disneyplus.com"
+        },
+        {
+            "categoria": "NASCAR Cup Series",
+            "sessao": "Corrida",
+            "pista": "Nashville (EUA)",
+            "data": "31/05/2026",
+            "horario": "20:00",
+            "onde_assistir": "Disney+",
+            "link": "https://disneyplus.com"
+        },
+        {
+            "categoria": "IMSA SportsCar",
+            "sessao": "Corrida",
+            "pista": "Detroit (EUA)",
+            "data": "30/05/2026",
+            "horario": "17:00",
+            "onde_assistir": "YouTube Grande Prêmio",
+            "link": "https://youtube.com"
+        },
+        {
+            "categoria": "GT World Challenge Europe",
+            "sessao": "Corrida",
+            "pista": "Monza (Itália)",
+            "data": "31/05/2026",
+            "horario": "10:30",
+            "onde_assistir": "YouTube GTWorld",
+            "link": "https://youtube.com"
+        }
+    ];
+
+    // 2. Função JavaScript que lê a lista e monta as linhas da tabela HTML
+    function carregarTabela() {
+        const corpoTabela = document.getElementById('tabela-corridas');
+        corpoTabela.innerHTML = ''; // Limpa a tabela antes de carregar
+
+        dadosCorridas.forEach(corrida => {
+            // Cria uma nova linha no HTML
+            const linha = document.createElement('tr');
+
+            // Insere as colunas com as propriedades do objeto JSON
+            linha.innerHTML = `
+                <td><strong>${corrida.categoria}</strong></td>
+                <td>${corrida.sessao}</td>
+                <td>${corrida.pista}</td>
+                <td>${corrida.data}</td>
+                <td>${corrida.horario}</td>
+                <td>
+                    <a href="${corrida.link}" target="_blank" class="btn-assistir">
+                        ${corrida.onde_assistir}
+                    </a>
+                </td>
+            `;
+
+            // Adiciona a linha preenchida dentro do corpo da tabela
+            corpoTabela.appendChild(linha);
+        });
+    }
+
+    // Executa a função assim que a página carrega
+    window.onload = carregarTabela;
+</script>
 
 </body>
 </html>
 
 
--- 3. Exemplo de consulta simples para verificar os dados
-SELECT * FROM programacao_motorsports;
-</p>
-
-</body>
-</html>
