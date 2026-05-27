@@ -231,114 +231,21 @@
         <p>Rally da Graciosa em julho em Quatro Barras, do campeonato Paranaense terá novamente subida da montanha dentro da sua programação.</p>
         <a href="rally-da_graciosa_tera_subida da montanha_pelo_segundo ano_consecutivo_em 2026.html" class="read-more">LEIA MAIS →</a>
 
-       
+       <!-- Post 6 -->
+<div class="card">
+    <div class="image-container">
+        <!-- Tag Vermelha adicionada aqui -->
+        <span class="tag">Fia Codassur\Sttelantis SA Rally Cup</span> 
+        <img src="WhatsApp Image 2026-05-20 at 23.00.55.jpeg" alt="Rally da Graciosa">
     </div>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Nova Postagem</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f4f4f9; }
-        form { background: white; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 30px; }
-        label { display: block; margin-top: 15px; font-weight: bold; }
-        input[type="text"], textarea { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        textarea { height: 150px; }
-        button { margin-top: 20px; padding: 10px 15px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; width: 100%; }
-        button:hover { background: #0056b3; }
-        
-        /* Estilos do painel de estatísticas e posts */
-        .painel-estatisticas { background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 30px; }
-        .item-estatistica { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dashed #eee; }
-        .total-geral { font-weight: bold; font-size: 1.1em; color: #007BFF; margin-bottom: 10px; }
-        .post { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .tags-container { margin-top: 10px; }
-        .tag { background: #e0e0e0; color: #333; padding: 4px 8px; margin-right: 5px; border-radius: 16px; font-size: 0.85em; display: inline-block; }
-    </style>
-</head>
-<body>
+    <div class="card-content">
+        <h2>Brasileiros competirão no rally del Guiara no Paraguay do Fia Codassur</h2>
+        <p>Os Brasileiros que vai disputar o Fia Codassur no Paraguai (também valida pelo Sttelantis SA Rally Cup),Fernando Rosset/Marcelo Hasseyema,VW Polo GTI R5, 
+            Adroaldo Whiesneier/Armando Miranda, Toyota GR Yaris Rally 2,Luis Stedile/Murilo Spironelo, Peugeot 208 Rally 4, 
+            Ulysses Bertholdo/Marcelo Dalmut, Mitsubishi Lancer EVO X.</p>
+        <a href="rally-da_graciosa_tera_subida da montanha_pelo_segundo ano_consecutivo_em 2026.html" class="read-more">LEIA MAIS →</a>
+   
 
-    <h2>Painel de Resumo</h2>
-    <div class="painel-estatisticas">
-        <div class="total-geral">Total de Postagens: <span id="total-geral-posts">0</span></div>
-        <h4>Postagens por Tag:</h4>
-        <div id="lista-agrupada-tags">Carregando dados...</div>
-    </div>
-
-    <h2>Criar Nova Postagem</h2>
-    <form action="/api/posts" method="POST">
-        <label for="title">Título:</label>
-        <input type="text" id="title" name="title" placeholder="Título da postagem" required>
-        
-        <label for="content">Conteúdo:</label>
-        <textarea id="content" name="content" placeholder="Conteúdo da postagem" required></textarea>
-        
-        <label for="tags">Tags:</label>
-        <input type="text" id="tags" name="tags" placeholder="Ex: javascript, html, web">
-        
-        <button type="submit">Publicar</button>
-    </form>
-
-    <h2>Postagens Recentes</h2>
-    <div id="posts-list">Carregando postagens...</div>
-
-    <script>
-        // Carrega e renderiza a lista de postagens completas
-        async function loadPosts() {
-            const response = await fetch('/api/posts');
-            const posts = await response.json();
-            const listContainer = document.getElementById('posts-list');
-            
-            listContainer.innerHTML = posts.length === 0 ? '<p>Nenhuma postagem encontrada.</p>' : '';
-
-            posts.forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.className = 'post';
-                
-                const tagsHtml = post.tags.map(tag => `<span class="tag">#${tag}</span>`).join('');
-
-                postElement.innerHTML = `
-                    <h3>${post.title}</h3>
-                    <p>${post.content}</p>
-                    <div class="tags-container">${tagsHtml}</div>
-                `;
-                listContainer.appendChild(postElement);
-            });
-        }
-
-        // Carrega os dados de soma e agrupamento
-        async function loadStats() {
-            // 1. Busca o total geral
-            const resTotal = await fetch('/api/stats/total');
-            const dataTotal = await resTotal.json();
-            document.getElementById('total-geral-posts').innerText = dataTotal.total_posts;
-
-            // 2. Busca o agrupamento por tags
-            const resTags = await fetch('/api/stats/tags');
-            const tagsAgrupadas = await resTags.json();
-            const containerTags = document.getElementById('lista-agrupada-tags');
-            
-            if (tagsAgrupadas.length === 0) {
-                containerTags.innerHTML = '<p>Nenhuma tag utilizada ainda.</p>';
-                return;
-            }
-
-            containerTags.innerHTML = '';
-            tagsAgrupadas.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'item-estatistica';
-                div.innerHTML = `<span>#${item.tag_name}</span> <strong>${item.total_posts} post(s)</strong>`;
-                containerTags.appendChild(div);
-            });
-        }
-
-        // Executa as funções ao abrir a página
-        loadPosts();
-        loadStats();
-    </script>
-</body>
-</html>
 
 
 
