@@ -246,23 +246,42 @@
         input[type="text"], textarea { width: 100%; padding: 8px; margin-top: 5px; }
         textarea { height: 150px; }
         button { margin-top: 20px; padding: 10px 15px; background: #007bff; color: white; border: none; cursor: pointer; }
+ async function loadStats() {
+    // 1. Busca o total geral
+    const resTotal = await fetch('/api/stats/total');
+    const dataTotal = await resTotal.json();
+    document.getElementById('total-geral-posts').innerText = dataTotal.total_posts;
+
+    // 2. Busca o agrupamento por tags
+    const resTags = await fetch('/api/stats/tags');
+    const tagsAgrupadas = await resTags.json();
+    const containerTags = document.getElementById('lista-agrupada-tags');
+    
+    if (tagsAgrupadas.length === 0) {
+        containerTags.innerHTML = '<p>Nenhuma tag utilizada ainda.</p>';
+        return;
+    }
+
+    containerTags.innerHTML = '';
+    tagsAgrupadas.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'item-estatistica';
+        div.innerHTML = `<span>#${item.tag_name}</span> <strong>${item.total_posts} post(s)</strong>`;
+        containerTags.appendChild(div);
+    });
+}
+
+// Atualiza a chamada inicial para carregar também as estatísticas
+loadPosts();
+loadStats();
+
+
+        
     </style>
 </head>
 <body>
 
-    <h2>Criar Nova Postagem</h2>
-    <!-- Action aponta para o script PHP que vai processar e salvar no banco -->
-    <form action="salvar-post.php" method="POST">
-        <label for="titulo">Título:</label>
-        <input type="text" id="titulo" name="titulo" required>
 
-        <label for="conteudo">Conteúdo:</label>
-        <textarea id="conteudo" name="conteudo" required></textarea>
-
-        <label for="tags">Tags (separadas por vírgula):</label>
-        <input type="text" id="tags" name="tags" placeholder="ex: html, programação, banco de dados">
-
-        <button type="submit">Publicar Post</button>
     </form>
 
 </body>
