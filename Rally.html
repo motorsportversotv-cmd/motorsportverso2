@@ -233,6 +233,41 @@
 
        
     </div>
+
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Nova Postagem</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        form { max-width: 600px; padding: 20px; border: 1px solid #ccc; }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        input[type="text"], textarea { width: 100%; padding: 8px; margin-top: 5px; }
+        textarea { height: 150px; }
+        button { margin-top: 20px; padding: 10px 15px; background: #007bff; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h2>Criar Nova Postagem</h2>
+    <!-- Action aponta para o script PHP que vai processar e salvar no banco -->
+    <form action="salvar-post.php" method="POST">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" required>
+
+        <label for="conteudo">Conteúdo:</label>
+        <textarea id="conteudo" name="conteudo" required></textarea>
+
+        <label for="tags">Tags (separadas por vírgula):</label>
+        <input type="text" id="tags" name="tags" placeholder="ex: html, programação, banco de dados">
+
+        <button type="submit">Publicar Post</button>
+    </form>
+
+</body>
+</html>
+
 </div>
 
 
