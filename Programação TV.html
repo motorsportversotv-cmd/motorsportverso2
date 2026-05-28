@@ -379,30 +379,39 @@
     </tbody>
 </table>
 
-<script>
-function filterTable() {
-    var input, filter, table, tr, td, i, j, txtValue, found;
-    input = document.getElementById("filterInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("raceTable");
-    tr = table.getElementsByTagName("tr");
+<!-- Script de Filtro -->
+    <script>
+    function filterTable() {
+        var input, filter, table, tr, td, i, j, txtValue, found;
+        input = document.getElementById("filterInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("raceTable");
+        tr = table.getElementsByTagName("tr");
 
-    // Começa do 1 para pular o cabeçalho (th)
-    for (i = 1; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td");
-        found = false;
-        for (j = 0; j < td.length; j++) {
-            if (td[j]) {
-                txtValue = td[j].textContent || td[j].innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    found = true;
-                    break;
+        // Começa do 1 para pular o cabeçalho (th)
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            found = false;
+            
+            // Varre todas as colunas da linha atual
+            for (j = 0; j < td.length; j++) {
+                if (td[j]) {
+
+  txtValue = td[j].textContent || td[j].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                        break; // Para o loop se achar o termo em alguma coluna
+                    }
                 }
             }
+            // Mostra ou oculta a linha com base na busca
+            tr[i].style.display = found ? "" : "none";
         }
-        tr[i].style.display = found ? "" : "none";
     }
-}
+    </script>
+
+</body>
+</html>
 </script>
 
 </body>
