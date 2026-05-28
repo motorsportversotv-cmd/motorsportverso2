@@ -2,8 +2,18 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programação de Corridas</title>
     <style>
-        /* Estilo da Barra de Notícias */
+        /* Estilos Gerais da Página */
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background-color: #f4f4f4; 
+            margin: 0;
+        }
+
+        /* Estilo da Barra de Notícias (Ticker) */
         .news-ticker {
             background: #222;
             color: #fff;
@@ -11,7 +21,8 @@
             font-family: Arial, sans-serif;
             overflow: hidden;
             white-space: nowrap;
-            border-bottom: 3px solid #e20613; /* Cor temática Rally */
+            border-bottom: 3px solid #e20613;
+            margin-bottom: 20px;
         }
 
         .ticker-wrapper {
@@ -31,22 +42,194 @@
             text-transform: uppercase;
         }
 
-        /* Animação de movimento */
         @keyframes ticker {
             0% { transform: translate3d(0, 0, 0); }
             100% { transform: translate3d(-100%, 0, 0); }
         }
 
-        /* Pausar ao passar o mouse */
         .news-ticker:hover .ticker-wrapper {
             animation-play-state: paused;
         }
+
+        /* Estilo do Campo de Filtro */
+        .filter-container {
+            margin-bottom: 15px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #filterInput {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e20613;
+            border-radius: 5px;
+            box-sizing: border-box;
+            outline: none;
+            font-size: 16px;
+        }
+
+        /* Estilo da Tabela */
+        table {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: white;
+            border: 2px solid #333; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background-color: #e20613;
+            color: white;
+            text-transform: uppercase;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #333; 
+            font-size: 14px;
+        }
+
+        td {
+            padding: 10px;
+            color: #333;
+            border: 1px solid #ccc; 
+            vertical-align: middle;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        tr:hover { background-color: #fff9e6; } 
     </style>
 </head>
 <body>
 
-<!DOCTYPE html>
-<html lang="pt-br">
+    <!-- BARRA DE NOTÍCIAS -->
+    <div class="news-ticker">
+        <div class="ticker-wrapper">
+            <div class="ticker-item"><strong>Próxima Corrida:</strong> W2RC Argentina às 16:00</div>
+            <div class="ticker-item"><strong>Destaque:</strong> WRC Shakedown no Japão</div>
+            <div class="ticker-item"><strong>Fique ligado:</strong> DTM em Zandvoort neste fim de semana</div>
+        </div>
+    </div>
+
+    <!-- CAMPO DE PESQUISA -->
+    <div class="filter-container">
+        <input type="text" id="filterInput" onkeyup="filterTable()" placeholder="🔍 Filtrar por descrição, local, dia, canal...">
+    </div>
+
+    <!-- TABELA DE CORRIDAS -->
+    <table id="raceTable">
+      <thead>
+        <tr>
+          <th>Dia</th>
+          <th>Descrição</th>
+          <th>Logo Categoria</th>
+          <th>Local</th>
+          <th>Hora</th>
+          <th>Canal</th>
+          <th>Logo Canal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Linha 1 -->
+        <tr>
+          <td>27/05</td>
+          <td>W2RC-etapa 3</td>
+          <td><img src="W2RC.jpg" alt="W2RC" width="75" style="display: block; margin: 0 auto;"></td>
+          <td>Argentina</td>
+          <td>16:00</td>
+          <td>Youtube</td>
+          <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+        </tr>
+        <!-- Linha 2 -->
+        <tr>
+          <td>27/05</td>
+          <td>WRC-Shakedown</td>
+          <td><img src="LOGO WRC.png" alt="WRC" width="75" style="display: block; margin: 0 auto;"></td>
+          <td>Japão</td>
+          <td>20:00</td>
+          <td>Youtube</td>
+          <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+        </tr>
+        <!-- Linha 3 -->
+        <tr>
+          <td>28/05</td>
+          <td>W2RC-etapa 4</td>
+          <td><img src="W2RC.jpg" alt="W2RC" width="75" style="display: block; margin: 0 auto;"></td>
+          <td>Argentina</td>
+          <td>10:00</td>
+          <td>Youtube</td>
+          <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+        </tr>
+        <!-- Linha 4 -->
+        <tr>
+          <td>23/05</td>
+          <td>ERC Rally-SS5</td>
+          <td><img src="Logo erc rally.png" alt="ERC Rally" width="75" style="display: block; margin: 0 auto;"></td>
+          <td>Sweden</td>
+          <td>05:59</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <!-- Linha 5 -->
+        <tr>
+          <td>23/05</td>
+          <td>Le Mans Classic Series-Grupo C-race 1</td>
+          <td><img src="le mans classic series grupo c.jpg" alt="Le Mans Classic Series Grupo C" width="75" style="display: block; margin: 0 auto;"></td>
+          <td>SPA</td>
+          <td>07:47</td>
+          <td>Youtube/Youtube GP/Youtube A Mil Por Hora***</td>
+          <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+        </tr>
+        <!-- Linha 6 -->
+        <tr>
+          <td>23/05</td>
+          <td>DTM-race 1</td>
+          <td><img src="le mans classic series grupo c.jpg" alt="Le Mans Classic Series Grupo C" width="75" style="display: block; margin: 0 auto;"></td>
+          <td>Zandvoort</td>
+          <td>08:30</td>
+          <td>Youtube/ESPN 3 ou 4</td>
+          <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- JAVASCRIPT CORRIGIDO -->
+    <script>
+    function filterTable() {
+        var input, filter, table, tr, td, i, j, txtValue, found;
+        input = document.getElementById("filterInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("raceTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Pula o índice 0 (cabeçalho da tabela)
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            found = false;
+            
+            // Varre todas as colunas da linha
+            for (j = 0; j < td.length; j++) {
+                if (td[j]) {
+                    txtValue = td[j].textContent || td[j].innerText;
+                    // Se encontrar o termo digitado na célula, ativa a flag
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                        break; 
+                    }
+                }
+            }
+            // Exibe ou esconde a linha baseada na pesquisa
+            tr[i].style.display = found ? "" : "none";
+        }
+    }
+    </script>
+
+</body>
+</html>
+
 <head>
     <meta charset="UTF-8">
     <style>
