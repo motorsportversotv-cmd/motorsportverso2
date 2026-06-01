@@ -153,62 +153,57 @@
 </style>
 
 <!-- Bloco HTML da Contagem Regressiva -->
+<!-- CONTAGEM REGRESSIVA -->
 <section class="countdown-container">
-    <h2 style="color: white; margin-bottom: 20px; font-weight: 300; font-size: 1.3rem;">
-        PRÓXIMA CORRIDA: <span style="font-weight: 800; color: #00b4d8;">24 Horas de Le Mans</span>
-    </h2>
+    <h2 style="color: white; margin-bottom: 5px; font-weight: 300;">PRÓXIMA CORRIDA: <span style="font-weight: 800;">24 Horas de Le Mans</span></h2>
+    <!-- DATA FINAL EXIBIDA NO LAYOUT -->
+    <p style="color: #00b4d8; font-size: 0.9rem; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+        Largada: 13 de Junho de 2026 às 11:00h (Horário de Brasília)
+    </p>
+    
     <div id="timer">
-        <div class="time-block"><span id="months">00</span><p>Meses</p></div>
         <div class="time-block"><span id="days">00</span><p>Dias</p></div>
         <div class="time-block"><span id="hours">00</span><p>Horas</p></div>
         <div class="time-block"><span id="minutes">00</span><p>Min.</p></div>
         <div class="time-block" style="border-color: #e10600;"><span id="seconds">00</span><p>Seg.</p></div>
     </div>
 </section>
-<script>
-<script>
-    // Data exata da largada: 13 de Junho às 11:00h da manhã (Horário de Brasília / UTC-3)
+
+   <script>
+    // Data final oficial da largada: 13 de Junho de 2026 às 11:00h (Horário de Brasília)
     const targetDate = new Date('2026-06-13T11:00:00-03:00').getTime();
 
     function updateCountdown() {
         const now = new Date().getTime();
         const difference = targetDate - now;
 
-        // Se o tempo acabar ou a corrida estiver acontecendo
+        // Se a data da corrida já chegou ou passou
         if (difference <= 0) {
             clearInterval(countdownInterval);
-            document.getElementById('timer').innerHTML = "<h3 style='color: #00b4d8; width:100%; text-align:center; font-weight:800; font-size:1.8rem; text-transform:uppercase;'>A CORRIDA COMEÇOU!</h3>";
+            document.getElementById('timer').innerHTML = "<h3 style='color: #00b4d8; width:100%; text-align:center; font-weight:800; font-size:1.8rem;'>A CORRIDA COMEÇOU!</h3>";
             return;
         }
 
-        // Definição exata das grandezas de tempo em milissegundos
-        const msInSecond = 1000;
-        const msInMinute = msInSecond * 60;
-        const msInHour = msInMinute * 60;
-        const msInDay = msInHour * 24;
-        const msInMonth = msInDay * 30.41; // Média exata de dias por mês no calendário
+        // Cálculos de tempo precisos para Dias, Horas, Minutos e Segundos
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-        // Cálculos matemáticos de conversão baseados no tempo restante
-        const months = Math.floor(difference / msInMonth);
-        const days = Math.floor((difference % msInMonth) / msInDay);
-        const hours = Math.floor((difference % msInDay) / msInHour);
-        const minutes = Math.floor((difference % msInHour) / msInMinute);
-        const seconds = Math.floor((difference % msInMinute) / msInSecond);
-
-        // Renderiza na tela injetando os números formatados com dois dígitos (Ex: 02 em vez de 2)
-        document.getElementById('months').innerText = String(months).padStart(2, '0');
+        // Atualiza os valores na tela formatando com dois dígitos (Ex: 05)
         document.getElementById('days').innerText = String(days).padStart(2, '0');
         document.getElementById('hours').innerText = String(hours).padStart(2, '0');
         document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
         document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
     }
 
-    // Executa a função imediatamente ao carregar a página para evitar o "00" estático inicial
+    // Executa a função na hora para sumir com o "00" estático instantaneamente
     updateCountdown();
 
-    // Atualiza o relógio a cada 1 segundo (1000 milissegundos) de forma contínua
+    // Mantém a atualização fluida a cada segundo
     const countdownInterval = setInterval(updateCountdown, 1000);
 </script>
+
 
 
 
