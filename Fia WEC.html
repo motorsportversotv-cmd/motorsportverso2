@@ -1,91 +1,156 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEC - World Endurance Championship</title>
+    <title>24h le mans</title>
     <style>
-        :root {
-            --azul-endurance: #002b5c; 
-            --azul-destaque: #004a99;
-            --vermelho-wec: #e10600;
-            --branco: #ffffff;
-            --cinza-claro: #f4f4f4;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'segoe ui', tahoma, geneva, verdana, sans-serif;
         }
-
-        body { background-color: #fafafa; margin: 0; padding: 0; }
-
+        body {
+            background-color: #0a1128;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            gap: 30px;
+        }
         .container {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
+            background-color: #1c2541;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border-top: 5px solid #00b4d8;
         }
-<!-- CONTAGEM REGRESSIVA -->
-<section class="countdown-container" style="background-color: #1c2541; padding: 30px; border-radius: 12px; max-width: 500px; width: 100%; text-align: center; border-top: 5px solid #e10600; font-family: 'Segoe UI', sans-serif; margin: 0 auto 20px auto;">
-    <h2 style="color: white; margin-bottom: 5px; font-weight: 300; font-size: 1.4rem; text-transform: uppercase;">PRÓXIMA CORRIDA: <span style="font-weight: 800; color: #00b4d8;">24 Horas de Le Mans</span></h2>
-    
-    <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
-        FINAL: 13 DE JUNHO DE 2026
-    </p>
-    
-    <!-- ÁREA DO CRONÔMETRO -->
-    <div id="timer" style="display: flex; justify-content: space-between; gap: 10px;">
-        <div style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #334155;">
-            <span id="days" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
-            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Dias</p>
+        .countdown-container {
+            background-color: #1c2541;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border-top: 5px solid #e10600;
+        }
+        #timer {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .time-block {
+            flex: 1;
+            background-color: #0a1128;
+            padding: 12px 5px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+        .time-block span {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #00b4d8;
+        }
+        .time-block p {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #94a3b8;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+        h1 {
+            color: #00b4d8;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #00b4d8;
+            color: #0a1128;
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #90e0ef;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CONTAGEM REGRESSIVA -->
+    <section class="countdown-container">
+        <h2 style="color: white; margin-bottom: 5px; font-weight: 300; font-size: 1.4rem;">PRÓXIMA CORRIDA: <span style="font-weight: 800; color: #00b4d8;">24 HORAS DE LE MANS</span></h2>
+        <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+            FINAL: 13 DE JUNHO DE 2026
+        </p>
+        
+        <div id="timer">
+            <div class="time-block"><span id="days">00</span><p>Dias</p></div>
+            <div class="time-block"><span id="hours">00</span><p>Horas</p></div>
+            <div class="time-block"><span id="minutes">00</span><p>Min.</p></div>
+            <div class="time-block" style="border-color: #e10600;"><span id="seconds">00</span><p>Seg.</p></div>
         </div>
-        <div style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #334155;">
-            <span id="hours" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
-            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Horas</p>
-        </div>
-        <div style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #334155;">
-            <span id="minutes" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
-            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Min.</p>
-        </div>
-        <div style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #e10600;">
-            <span id="seconds" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
-            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Seg.</p>
-        </div>
+    </section>
+
+    <!-- BLOCO DE INTRODUÇÃO -->
+    <div class="container">
+        <h1>24h le mans</h1>
+        <p>A maior e mais tradicional corrida de resistência do mundo, onde pilotos e máquinas testam seus limites ao extremo por um dia inteiro.</p>
+        <a href="#" class="btn">ver classificação</a>
     </div>
-</section>
-<script>
-    // Define o alvo de forma segura para o dia 13 de Junho de 2026
-    const targetDate = new Date(2026, 5, 13, 11, 0, 0).getTime();
 
-    function updateCountdown() {
-        const now = new Date().getTime();
-        const difference = targetDate - now;
+    <!-- SCRIPT DA CONTAGEM -->
+    <script>
+        const targetDate = new Date(2026, 5, 13, 11, 0, 0).getTime();
 
-        const timerElement = document.getElementById('timer');
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
 
-        // Se a data chegar ou passar, exibe a mensagem de início
-        if (difference <= 0) {
-            clearInterval(countdownInterval);
-            timerElement.innerHTML = "<h3 style='color: #00b4d8; width:100%; text-align:center; font-weight:800; font-size:1.6rem;'>A CORRIDA COMEÇOU!</h3>";
-            return;
+            if (difference <= 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('timer').innerHTML = "<h3 style='color: #00b4d8; width:100%; text-align:center; font-weight:800; font-size:1.6rem;'>A CORRIDA COMEÇOU!</h3>";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
         }
 
-        // Cálculos do tempo restante
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
 
-        // Atualiza os textos internos de forma segura na tela
-        document.getElementById('days').innerText = String(days).padStart(2, '0');
-        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-        document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-        document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
-    }
-
-    // Inicializa imediatamente
-    updateCountdown();
-
-    // Roda a verificação de segundo em segundo
-    const countdownInterval = setInterval(updateCountdown, 1000);
-</script>
-
+</body>
+</html>
 
 
 
