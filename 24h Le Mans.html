@@ -78,6 +78,189 @@
         <p>A maior e mais tradicional corrida de resistência do mundo, onde pilotos e máquinas testam seus limites ao extremo por um dia inteiro.</p>
         <a href="#" class="btn">Ver Classificação</a>
     </div>
+
+    <!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24h le mans</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'segoe ui', tahoma, geneva, verdana, sans-serif;
+        }
+        body {
+            background-color: #0a1128;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            gap: 30px;
+        }
+        .container {
+            background-color: #1c2541;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border-top: 5px solid #00b4d8;
+        }
+        /* Container maior para a tabela caber confortavelmente */
+        .container-table {
+            max-width: 1000px; 
+        }
+        h1 {
+            color: #00b4d8;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #00b4d8;
+            color: #0a1128;
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #90e0ef;
+        }
+        /* Estilos da Tabela Responsiva */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #334155;
+        }
+        th {
+            background-color: #0b132b;
+            color: #00b4d8;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        tr:hover {
+            background-color: #23315a;
+        }
+        .txt-center {
+            text-align: center;
+        }
+        .badge {
+            background-color: #00b4d8;
+            color: #0a1128;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bloco de Introdução -->
+    <div class="container">
+        <h1>24h le mans</h1>
+        <p>A maior e mais tradicional corrida de resistência do mundo, onde pilotos e máquinas testam seus limites ao extremo por um dia inteiro.</p>
+        <a href="#" class="btn">ver classificação</a>
+    </div>
+
+    <!-- Bloco da Lista de Inscritos -->
+    <div class="container container-table">
+        <h1>Entry List</h1>
+        <p>Pilotos e equipes confirmados para o desafio no circuito de de la Sarthe.</p>
+        
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="txt-center">Nº</th>
+                        <th>Pilotos</th>
+                        <th class="txt-center">Nat</th>
+                        <th>Team</th>
+                        <th>Mark</th>
+                        <th>Model</th>
+                        <th class="txt-center">Cat</th>
+                        <th>Série de Entrada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="txt-center"><strong>#7</strong></td>
+                        <td>K. Kobayashi<br>N. de Vries<br>K. Lopez</td>
+                        <td class="txt-center">JPN<br>NLD<br>ARG</td>
+                        <td>Toyota Gazoo Racing</td>
+                        <td>Toyota</td>
+                        <td>GR010 Hybrid</td>
+                        <td class="txt-center"><span class="badge">Hypercar</span></td>
+                        <td>WEC</td>
+                    </tr>
+                    <tr>
+                        <td class="txt-center"><strong>#50</strong></td>
+                        <td>A. Fuoco<br>M. Molina<br>N. Nielsen</td>
+                        <td class="txt-center">ITA<br>ESP<br>DNK</td>
+                        <td>Ferrari AF Corse</td>
+                        <td>Ferrari</td>
+                        <td>499P</td>
+                        <td class="txt-center"><span class="badge">Hypercar</span></td>
+                        <td>WEC</td>
+                    </tr>
+                    <tr>
+                        <td class="txt-center"><strong>#22</strong></td>
+                        <td>O. Jarvis<br>B. Garg<br>N. Siegel</td>
+                        <td class="txt-center">GBR<br>USA<br>USA</td>
+                        <td>United Autosports</td>
+                        <td>ORECA</td>
+                        <td>07 - Gibson</td>
+                        <td class="txt-center"><span class="badge">LMP2</span></td>
+                        <td>ELMS</td>
+                    </tr>
+                    <tr>
+                        <td class="txt-center"><strong>#92</strong></td>
+                        <td>A. Malykhin<br>J. Sturm<br>K. Bachler</td>
+                        <td class="txt-center">KNA<br>DEU<br>AUT</td>
+                        <td>Manthey PureRxcing</td>
+                        <td>Porsche</td>
+                        <td>911 GT3 R (992)</td>
+                        <td class="txt-center"><span class="badge">LMGT3</span></td>
+                        <td>WEC</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
+
 </body>
 </html>
 
