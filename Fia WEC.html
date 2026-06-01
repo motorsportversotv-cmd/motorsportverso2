@@ -152,57 +152,70 @@
     }
 </style>
 
-<!-- Bloco HTML da Contagem Regressiva -->
 <!-- CONTAGEM REGRESSIVA -->
-<section class="countdown-container">
-    <h2 style="color: white; margin-bottom: 5px; font-weight: 300;">PRÓXIMA CORRIDA: <span style="font-weight: 800;">24 Horas de Le Mans</span></h2>
-    <!-- DATA FINAL EXIBIDA NO LAYOUT -->
-    <p style="color: #00b4d8; font-size: 0.9rem; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
-        Largada: 13 de Junho de 2026 às 11:00h (Horário de Brasília)
+<section class="countdown-container" style="background-color: #1c2541; padding: 30px; border-radius: 12px; max-width: 500px; width: 100%; text-align: center; border-top: 5px solid #e10600; font-family: 'Segoe UI', sans-serif;">
+    <h2 style="color: white; margin-bottom: 5px; font-weight: 300; font-size: 1.4rem; text-transform: uppercase;">PRÓXIMA CORRIDA: <span style="font-weight: 800; color: #00b4d8;">24 Horas de Le Mans</span></h2>
+    
+    <!-- DATA FINAL EXIBIDA -->
+    <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+        Final: 13 de Junho de 2026
     </p>
     
-    <div id="timer">
-        <div class="time-block"><span id="days">00</span><p>Dias</p></div>
-        <div class="time-block"><span id="hours">00</span><p>Horas</p></div>
-        <div class="time-block"><span id="minutes">00</span><p>Min.</p></div>
-        <div class="time-block" style="border-color: #e10600;"><span id="seconds">00</span><p>Seg.</p></div>
+    <!-- BLOCOS DO CRONÔMETRO -->
+    <div id="timer" style="display: flex; justify-content: space-between; gap: 10px;">
+        <div class="time-block" style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #334155;">
+            <span id="days" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
+            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Dias</p>
+        </div>
+        <div class="time-block" style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #334155;">
+            <span id="hours" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
+            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Horas</p>
+        </div>
+        <div class="time-block" style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #334155;">
+            <span id="minutes" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
+            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Min.</p>
+        </div>
+        <div class="time-block" style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #e10600;">
+            <span id="seconds" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
+            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Seg.</p>
+        </div>
     </div>
 </section>
-
-   <script>
-    // Data final oficial da largada: 13 de Junho de 2026 às 11:00h (Horário de Brasília)
+<script>
+    // Define a data final para 13 de Junho de 2026 (Horário de Brasília)
     const targetDate = new Date('2026-06-13T11:00:00-03:00').getTime();
 
     function updateCountdown() {
         const now = new Date().getTime();
         const difference = targetDate - now;
 
-        // Se a data da corrida já chegou ou passou
+        // Se a data final chegou ou passou
         if (difference <= 0) {
             clearInterval(countdownInterval);
-            document.getElementById('timer').innerHTML = "<h3 style='color: #00b4d8; width:100%; text-align:center; font-weight:800; font-size:1.8rem;'>A CORRIDA COMEÇOU!</h3>";
+            document.getElementById('timer').innerHTML = "<h3 style='color: #00b4d8; width:100%; text-align:center; font-weight:800; font-size:1.6rem;'>A CORRIDA COMEÇOU!</h3>";
             return;
         }
 
-        // Cálculos de tempo precisos para Dias, Horas, Minutos e Segundos
+        // Cálculos matemáticos para converter milissegundos
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
         const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-        // Atualiza os valores na tela formatando com dois dígitos (Ex: 05)
+        // Injeta os valores atualizados formatando com dois dígitos na tela
         document.getElementById('days').innerText = String(days).padStart(2, '0');
         document.getElementById('hours').innerText = String(hours).padStart(2, '0');
         document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
         document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
     }
 
-    // Executa a função na hora para sumir com o "00" estático instantaneamente
+    // Executa a função imediatamente para evitar atrasos na tela
     updateCountdown();
 
-    // Mantém a atualização fluida a cada segundo
+    // Atualiza o relógio a cada 1 segundo (1000ms)
     const countdownInterval = setInterval(updateCountdown, 1000);
 </script>
+
 
 
 
