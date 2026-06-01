@@ -21,173 +21,68 @@
             margin: 0 auto;
             padding: 20px;
         }
-
-        /* SEÇÃO DE CONTAGEM (FUNDO AZUL) */
-        .countdown-container {
-            background: var(--azul-endurance);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            text-align: center;
-            border-bottom: 6px solid var(--vermelho-wec);
-        }
-
-        #timer { 
-            display: flex; 
-            justify-content: center; 
-            gap: 15px; 
-            flex-wrap: wrap; 
-        }
-
-        .time-block { 
-            background: rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 15px; 
-            border-radius: 10px; 
-            min-width: 80px; 
-            color: white; 
-        }
-
-        .time-block span { font-size: 2rem; font-weight: 900; display: block; line-height: 1; }
-        .time-block p { font-size: 0.7rem; text-transform: uppercase; margin-top: 5px; font-weight: bold; opacity: 0.9; }
-
-        /* TEXTOS PRINCIPAIS */
-        h1 { color: var(--azul-endurance); text-align: center; margin-top: 0; font-size: 2.2rem; }
-        .subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 1.1rem; }
-
-        /* GRID DE CATEGORIAS */
-        .grid-categorias {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            border: 1px solid #eee;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover { transform: translateY(-8px); }
-
-        .card-header {
-            background: var(--azul-endurance);
-            color: white;
-            padding: 12px;
-            font-weight: 800;
-            text-align: center;
-            font-size: 1rem;
-            letter-spacing: 1px;
-        }
-
-        .card-body { padding: 15px; }
-        
-        .card-body p { font-size: 0.95rem; color: #333; line-height: 1.4; }
-
-        .marcas {
-            font-size: 0.85rem;
-            background: #f1f3f5;
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin-top: 10px;
-            color: #444;
-            border-left: 4px solid var(--azul-destaque);
-        }
-
-        /* IMAGENS MENORES */
-        .card-body img {
-            width: 100%;
-            height: 150px; /* Altura reduzida conforme solicitado */
-            object-fit: cover;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-    </style>
-</head>
-<body>
-
-<main class="container">
-<style>
-    /* Estilos da Contagem Regressiva */
-    .countdown-container {
-        background-color: #1c2541;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        max-width: 500px;
-        width: 100%;
-        text-align: center;
-        border-top: 5px solid #e10600; /* Vermelho WEC */
-        margin-bottom: 20px;
-    }
-    #timer {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-    }
-    .time-block {
-        flex: 1;
-        background-color: #0a1128;
-        padding: 12px 5px;
-        border-radius: 8px;
-        border: 1px solid #334155;
-    }
-    .time-block span {
-        display: block;
-        font-size: 1.8rem;
-        font-weight: 800;
-        color: #00b4d8;
-    }
-    .time-block p {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        color: #94a3b8;
-        margin-bottom: 0;
-        letter-spacing: 1px;
-    }
-</style>
-
+<!-- CONTAGEM REGRESSIVA -->
+<section class="countdown-container" style="background-color: #1c2541; padding: 30px; border-radius: 12px; max-width: 500px; width: 100%; text-align: center; border-top: 5px solid #e10600; font-family: 'Segoe UI', sans-serif; margin: 0 auto 20px auto;">
+    <h2 style="color: white; margin-bottom: 5px; font-weight: 300; font-size: 1.4rem; text-transform: uppercase;">PRÓXIMA CORRIDA: <span style="font-weight: 800; color: #00b4d8;">24 Horas de Le Mans</span></h2>
+    
+    <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+        FINAL: 13 DE JUNHO DE 2026
+    </p>
+    
+    <!-- ÁREA DO CRONÔMETRO -->
+    <div id="timer" style="display: flex; justify-content: space-between; gap: 10px;">
+        <div style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #334155;">
+            <span id="days" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
+            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Dias</p>
+        </div>
+        <div style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #334155;">
+            <span id="hours" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
+            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Horas</p>
+        </div>
+        <div style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #334155;">
+            <span id="minutes" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
+            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Min.</p>
+        </div>
+        <div style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #e10600;">
+            <span id="seconds" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
+            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Seg.</p>
+        </div>
+    </div>
+</section>
 <script>
-    // Correção: Criando a data especificando ano, mês (5 é Junho) e dia para evitar erros de fuso horário
-    // No JavaScript, os meses começam em 0 (Janeiro = 0, Fevereiro = 1 ... Junho = 5)
+    // Define o alvo de forma segura para o dia 13 de Junho de 2026
     const targetDate = new Date(2026, 5, 13, 11, 0, 0).getTime();
 
     function updateCountdown() {
         const now = new Date().getTime();
         const difference = targetDate - now;
 
-        // Elemento que contém o timer
         const timerElement = document.getElementById('timer');
 
-        // Se a data final chegou ou passou
+        // Se a data chegar ou passar, exibe a mensagem de início
         if (difference <= 0) {
             clearInterval(countdownInterval);
             timerElement.innerHTML = "<h3 style='color: #00b4d8; width:100%; text-align:center; font-weight:800; font-size:1.6rem;'>A CORRIDA COMEÇOU!</h3>";
             return;
         }
 
-        // Cálculos matemáticos para converter milissegundos restantes
+        // Cálculos do tempo restante
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
         const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-        // Alimenta os blocos HTML formatando com dois dígitos na tela
+        // Atualiza os textos internos de forma segura na tela
         document.getElementById('days').innerText = String(days).padStart(2, '0');
         document.getElementById('hours').innerText = String(hours).padStart(2, '0');
         document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
         document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
     }
 
-    // Executa imediatamente para atualizar os números assim que a página carregar
+    // Inicializa imediatamente
     updateCountdown();
 
-    // Mantém a atualização do relógio a cada 1 segundo (1000ms)
+    // Roda a verificação de segundo em segundo
     const countdownInterval = setInterval(updateCountdown, 1000);
 </script>
 
