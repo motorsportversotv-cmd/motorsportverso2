@@ -112,17 +112,96 @@
 <body>
 
 <main class="container">
-    <!-- CONTAGEM REGRESSIVA -->
-    <section class="countdown-container">
-        <h2 style="color: white; margin-bottom: 20px; font-weight: 300;">PRÓXIMA CORRIDA: <span style="font-weight: 800;">24 Horas de Le Mans</span></h2>
-        <div id="timer">
-            <div class="time-block"><span id="months">00</span><p>Meses</p></div>
-            <div class="time-block"><span id="days">15</span><p>Dias</p></div>
-            <div class="time-block"><span id="hours">00</span><p>Horas</p></div>
-            <div class="time-block"><span id="minutes">00</span><p>Min.</p></div>
-            <div class="time-block" style="border-color: var(--vermelho-wec);"><span id="seconds">00</span><p>Seg.</p></div>
-        </div>
-    </section>
+<style>
+    /* Estilos da Contagem Regressiva */
+    .countdown-container {
+        background-color: #1c2541;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        border-top: 5px solid #e10600; /* Vermelho WEC */
+        margin-bottom: 20px;
+    }
+    #timer {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    .time-block {
+        flex: 1;
+        background-color: #0a1128;
+        padding: 12px 5px;
+        border-radius: 8px;
+        border: 1px solid #334155;
+    }
+    .time-block span {
+        display: block;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #00b4d8;
+    }
+    .time-block p {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #94a3b8;
+        margin-bottom: 0;
+        letter-spacing: 1px;
+    }
+</style>
+
+<!-- Bloco HTML da Contagem Regressiva -->
+<section class="countdown-container">
+    <h2 style="color: white; margin-bottom: 20px; font-weight: 300; font-size: 1.3rem;">
+        PRÓXIMA CORRIDA: <span style="font-weight: 800; color: #00b4d8;">24 Horas de Le Mans</span>
+    </h2>
+    <div id="timer">
+        <div class="time-block"><span id="months">00</span><p>Meses</p></div>
+        <div class="time-block"><span id="days">00</span><p>Dias</p></div>
+        <div class="time-block"><span id="hours">00</span><p>Horas</p></div>
+        <div class="time-block"><span id="minutes">00</span><p>Min.</p></div>
+        <div class="time-block" style="border-color: #e10600;"><span id="seconds">00</span><p>Seg.</p></div>
+    </div>
+</section>
+<script>
+    // Alvo: 14 de Junho de 2026 às 11:00h (Horário de Brasília / UTC-3 equivalente a 16:00h CEST)
+    const targetDate = new Date('2026-06-14T11:00:00-03:00').getTime();
+
+    const countdown = setInterval(function() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference <= 0) {
+            clearInterval(countdown);
+            document.getElementById('timer').innerHTML = "<h3 style='color: #00b4d8; width:100%; text-align:center; font-weight:800;'>A CORRIDA COMEÇOU!</h3>";
+            return;
+        }
+
+        // Cálculos de tempo baseados em milissegundos
+        const msInSecond = 1000;
+        const msInMinute = msInSecond * 60;
+        const msInHour = msInMinute * 60;
+        const msInDay = msInHour * 24;
+        const msInMonth = msInDay * 30.44; // Média de dias por mês
+
+        // Convertendo a diferença total para as unidades individuais
+        const months = Math.floor(difference / msInMonth);
+        const days = Math.floor((difference % msInMonth) / msInDay);
+        const hours = Math.floor((difference % msInDay) / msInHour);
+        const minutes = Math.floor((difference % msInHour) / msInMinute);
+        const seconds = Math.floor((difference % msInMinute) / msInSecond);
+
+        // Atualizando os elementos HTML garantindo dois dígitos na tela
+        document.getElementById('months').innerText = String(months).padStart(2, '0');
+        document.getElementById('days').innerText = String(days).padStart(2, '0');
+        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+    }, 1000);
+</script>
+
 
     <h1>Mundial de Endurance (WEC)</h1>
     <p class="subtitle">Detalhes técnicos das máquinas da temporada</p>
