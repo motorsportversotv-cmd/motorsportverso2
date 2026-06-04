@@ -3,30 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Extreme H-Motorsportverso
-            </div>
-    </title>
+    <title>Extreme H - Motorsportverso</title>
     <style>
         body {
             margin: 0;
             background-color: #f0f0f0;
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* Permite empilhar a barra azul e o conteúdo */
             align-items: center;
             min-height: 100vh;
             font-family: Arial, sans-serif;
         }
 
+        /* Nova Barra Azul Superior */
+        .barra-azul {
+            background-color: #0056b3; /* Tom de azul clássico esportivo */
+            color: #ffffff;
+            width: 100%;
+            text-align: center;
+            padding: 12px 0;
+            font-family: 'Arial Black', Impact, sans-serif;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Container Principal do Conteúdo */
+        .conteudo-principal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
         .container {
             background-color: #ffffff;
             width: 100%;
-            max-width: 600px; /* Reduzido para ajustar o layout vertical */
+            max-width: 600px;
             padding: 40px;
             box-sizing: border-box;
             display: flex;
-            flex-direction: column; /* Alinha os blocos de cima para baixo */
-            align-items: center;    /* Centraliza os blocos horizontalmente */
-            gap: 32px;              /* Espaço entre o título e os dados abaixo */
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+            border-radius: 4px; /* Leve arredondado para acabamento */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
         /* Seção do Título (Acima) */
@@ -41,62 +66,69 @@
             font-size: 2.2rem;
             font-weight: 900;
             text-transform: uppercase;
-            margin: 0 0 8px 0;
+            margin: 0 0 12px 0;
             letter-spacing: 0.5px;
             line-height: 1.2;
         }
 
         .subtitulo {
-            color: #555555;
-            font-size: 1rem;
-            font-style: italic;
+            color: #333333;
+            font-size: 1.1rem;
+            font-weight: bold;
             margin: 0;
+            line-height: 1.4;
         }
 
         /* Seção do Placar e Créditos (Abaixo) */
         .secao-dados {
             width: 100%;
-            max-width: 350px; /* Mantém a lista compacta e alinhada à esquerda internamente */
+            max-width: 450px;
             display: flex;
             flex-direction: column;
             gap: 20px;
-        }
-
-        .placar {
-            color: #000000;
-        }
-
-        .placar-header {
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 2px;
-        }
-
-        .placar-sub {
-            font-size: 0.9rem;
-            margin-bottom: 12px;
-        }
-
-        .lista-posicoes {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            font-weight: bold;
-            font-size: 1rem;
-            line-height: 1.6;
         }
 
         .creditos {
             color: #000000;
             font-weight: bold;
             font-size: 0.85rem;
-            border-top: 1px solid #eeeeee; /* Linha sutil para separar dos dados */
+            border-top: 1px solid #eeeeee;
             padding-top: 15px;
+            text-align: center;
         }
     </style>
 </head>
-    <h3>A edição de 2026 do Fia Extreme H é confirmada para outubro na Arabia Saudita nos dias 29-31</h3>
 <body>
+
+    <!-- Barra Azul Criada no Topo -->
+    <div class="barra-azul">
+        Fia Extreme H
+    </div>
+
+    <!-- Área de Conteúdo Centralizado -->
+    <div class="conteudo-principal">
+        <div class="container">
+            
+            <!-- Bloco de Cima -->
+            <div class="secao-titulo">
+                <h1 class="titulo">VITÓRIA DE<br>RAKALA</h1>
+                <!-- Texto sobre a edição de 2026 organizado aqui como o subtítulo -->
+                <p class="subtitulo">A edição de 2026 do Fia Extreme H é confirmada para outubro na Arábia Saudita nos dias 29-31</p>
+            </div>
+
+            <!-- Bloco de Baixo -->
+            <div class="secao-dados">
+                <div class="creditos">
+                    © 2026 — Extreme H-Motorsportverso
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
+
 
 
             
