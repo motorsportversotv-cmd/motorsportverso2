@@ -3,58 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado RallyX</title>
-    <style>
-        body {
-            background-color: #ffffff;
-            color: #000000;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-        .header {
-            background-color: #1a1a1a;
-            color: #ffffff;
-            text-align: center;
-            padding: 30px 10px;
-            border-bottom: 5px solid #ff0000;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 28px;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-        .header p {
-            margin: 5px 0 0 0;
-            font-style: italic;
-            color: #cccccc;
-        }
-        .content {
-            padding: 20px;
-            line-height: 1.6;
-        }
-        .list-item {
-            margin-bottom: 5px;
-        }
-        .footer {
-            background-color: #1a1a1a;
-            color: #ffffff;
-            text-align: center;
-            padding: 15px;
-            font-size: 12px;
-            margin-top: 40px;
-        }
-    </style>
-</head>
-<body>
-
-   <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banner Vitória</title>
+    <title>Placar de Líderes</title>
     <style>
         body {
             margin: 0;
@@ -62,68 +11,112 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            font-family: 'Arial Black', Impact, sans-serif;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
         }
 
-        .banner {
+        .container {
             background-color: #ffffff;
             width: 100%;
-            max-width: 800px;
-            padding: 40px 20px;
-            text-align: center;
+            max-width: 900px;
+            padding: 40px;
             box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+        }
+
+        /* Seção do Título (Esquerda) */
+        .secao-titulo {
+            flex: 1;
+            text-align: center;
         }
 
         .titulo {
+            font-family: 'Arial Black', Impact, sans-serif;
             color: #000000;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 900;
-            letter-spacing: 1px;
             text-transform: uppercase;
             margin: 0 0 8px 0;
+            letter-spacing: 0.5px;
         }
 
         .subtitulo {
-            color: #000000;
-            font-family: Arial, sans-serif;
+            color: #333333;
             font-size: 1rem;
             font-style: italic;
-            font-weight: normal;
             margin: 0;
+        }
+
+        /* Seção do Placar e Créditos (Direita) */
+        .secao-dados {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .placar {
+            color: #000000;
+        }
+
+        .placar-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .placar-sub {
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .lista-posicoes {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-weight: bold;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .creditos {
+            color: #000000;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
-    <div class="banner">
-        <h3 class="titulo">VITÓRIA DE RAKALA</h3>
-        <p class="subtitulo">Mitsubishi Mirage — Rally X Euro Fin</p>
+    <div class="container">
+        <!-- Lado Esquerdo -->
+        <div class="secao-titulo">
+            <h1 class="titulo">VITÓRIA DE RAKALA</h1>
+            <p class="subtitulo">Mitsubishi Mirage — Rally X Euro Fin</p>
+        </div>
+
+        <!-- Lado Direito -->
+        <div class="secao-dados">
+            <div class="placar">
+                <div class="placar-header">Top 3-Open 4WD</div>
+                <div class="placar-sub">m</div>
+                <ul class="lista-posicoes">
+                    <li>1. Rakala(FIN)-Mitsubishi Mirage</li>
+                    <li>2. Daarbark(DEN)-FC2</li>
+                    <li>3. Romet(EST)-FC2</li>
+                </ul>
+            </div>
+            
+            <div class="creditos">
+                © 2026 — Rallycross-Motorsportverso
+            </div>
+        </div>
     </div>
 
 </body>
 </html>
 
-
-    <div class="content">
-        <p>Top 3-Open 4WD</p>
-        <p>m</p>
-        <div class="list-item">1. Rakala(FIN)-Mitsubishi Mirage</div>
-        <div class="list-item">2. Daarbark(DEN)-FC2</div>
-        <div class="list-item">3. Romet(EST)-FC2</div>
-    </div>
-
-    <div class="footer">
-        &copy; 2026 — Rallycross-Motorsportverso
-    </div>
-
-</body>
-</html>
-
-
-    <footer>
-        <p>&copy; 2026 — Rallycross-Motorsportverso</p>
-    </footer>
-
-</body>
-</html>
