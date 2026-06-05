@@ -1,498 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programação de Corridas</title>
-    <style>
-        /* Estilos Gerais da Página */
-        body { 
-            font-family: Arial, sans-serif; 
-            padding: 20px; 
-            background-color: #f4f4f4; 
-            margin: 0;
-        }
-
-        /* Estilo da Barra de Notícias (Ticker) */
-        .news-ticker {
-            background: #222;
-            color: #fff;
-            padding: 10px 0;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-            white-space: nowrap;
-            border-bottom: 3px solid #e20613;
-            margin-bottom: 20px;
-        }
-
-        .ticker-wrapper {
-            display: inline-block;
-            padding-left: 100%;
-            animation: ticker 30s linear infinite;
-        }
-
-        .ticker-item {
-            display: inline-block;
-            padding: 0 30px;
-            font-size: 14px;
-        }
-
-        .ticker-item strong {
-            color: #ffcc00;
-            text-transform: uppercase;
-        }
-
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-100%, 0, 0); }
-        }
-
-        .news-ticker:hover .ticker-wrapper {
-            animation-play-state: paused;
-        }
-
-        /* Estilo do Campo de Filtro */
-        .filter-container {
-            margin-bottom: 15px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        #filterInput {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e20613;
-            border-radius: 5px;
-            box-sizing: border-box;
-            outline: none;
-            font-size: 16px;
-        }
-
-        /* Estilo da Tabela */
-        table {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            border-collapse: collapse;
-            background-color: white;
-            border: 2px solid #333; 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        th {
-            background-color: #e20613;
-            color: white;
-            text-transform: uppercase;
-            padding: 12px;
-            text-align: center;
-            border: 1px solid #333; 
-            font-size: 14px;
-        }
-
-        td {
-            padding: 10px;
-            color: #333;
-            border: 1px solid #ccc; 
-            vertical-align: middle;
-            text-align: center;
-            font-size: 14px;
-        }
-
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        tr:hover { background-color: #fff9e6; } 
-    </style>
-</head>
-<body>
-
-    <!-- BARRA DE NOTÍCIAS -->
-    <div class="news-ticker">
-        <div class="ticker-wrapper">
-            <div class="ticker-item"><strong>Próxima Corrida:</strong> F2-Monaco-Qualyfing as 10:00</div>
-            <div class="ticker-item"><strong>Destaque:</strong> WRC Shakedown no Japão</div>
-            <div class="ticker-item"><strong>Fique ligado:</strong> DTM em Zandvoort neste fim de semana</div>
-        </div>
-    </div>
-
-    <!-- CAMPO DE PESQUISA -->
-    <div class="filter-container">
-        <input type="text" id="filterInput" onkeyup="filterTable()" placeholder="🔍 Filtrar por descrição, local, dia, canal...">
-    </div>
-<!-- Estrutura do seu letreiro HTML -->
-<div style="background: #111; color: #fff; padding: 10px; font-family: sans-serif;">
-  <span style="color: #ffcc00; font-weight: bold;">PRÓXIMA CORRIDA:</span>
-  <span id="texto-corrida">F2-Monaco-Qualyfing as 10:00</span>
-</div>
-
-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Letreiro Automático</title>
-  <style>
-    /* Estilo idêntico ao da primeira imagem enviada */
-    .barra-letreiro {
-      background-color: #111111;
-      color: #ffffff;
-      padding: 12px 20px;
-      font-family: Arial, sans-serif;
-      font-size: 16px;
-      border-bottom: 3px solid #b30000; /* Linha vermelha inferior */
-    }
-    .destaque-amarelo {
-      color: #ffcc00;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    .texto-evento {
-      margin-left: 5px;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Barra do Letreiro -->
-  <div class="barra-letreiro">
-    <span class="destaque-amarelo">PRÓXIMA CORRIDA:</span>
-    <span id="letreiro-dinamico" class="texto-evento">Buscando próxima transmissão...</span>
-  </div>
-
- <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Letreiro Automático Ordenado</title>
-  <style>
-    .barra-letreiro {
-      background-color: #111111;
-      color: #ffffff;
-      padding: 12px 20px;
-      font-family: Arial, sans-serif;
-      font-size: 16px;
-      border-bottom: 3px solid #b30000;
-    }
-    .destaque-amarelo {
-      color: #ffcc00;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    .texto-evento {
-      margin-left: 5px;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Barra do Letreiro -->
-  <div class="barra-letreiro">
-    <span class="destaque-amarelo">PRÓXIMA CORRIDA:</span>
-    <span id="letreiro-dinamico" class="texto-evento">Buscando próxima transmissão...</span>
-  </div>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Programação Automática</title>
-  <style>
-    /* Estilização da tabela baseada na imagem */
-    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 20px; }
-    table { width: 100%; border-collapse: collapse; background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    th { background-color: #d90429; color: white; padding: 12px; text-transform: uppercase; font-size: 14px; }
-    td { padding: 12px; border: 1px solid #e0e0e0; text-align: center; font-size: 14px; vertical-align: middle; }
-    .descricao { text-align: left; font-weight: bold; width: 30%; }
-    .logo-cat img, .logo-canal img { max-height: 50px; max-width: 100px; display: block; margin: 0 auto; }
-    .destaque-linha { background-color: #fffdf0; } /* Cor amarelada para o primeiro item */
-  </style>
-</head>
-<body>
- <!-- BARRA DE PESQUISA -->
-  <div class="container-busca">
-    <input type="text" id="inputBusca" class="input-busca" placeholder="Digite para buscar (corrida, canal, local...)" onkeyup="filtrarTabela()">
-  </div>
-  <table>
-    <thead>
-      <tr>
-        <th>Dia</th>
-        <th>Descrição</th>
-        <th>Logo Categoria</th>
-        <th>Local</th>
-        <th>Hora</th>
-        <th>Canal</th>
-        <th>Logo Canal</th>
-      </tr>
-    </thead>
-    <tbody id="tabela-eventos">
-      <!-- O JavaScript vai preencher e ordenar as linhas aqui dentro -->
-    </tbody>
-  </table>
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Tabela Ordenada por Hora</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
-    table { width: 100%; border-collapse: collapse; background: #fff; }
-    th { background-color: #d90429; color: white; padding: 10px; text-transform: uppercase; font-size: 13px; }
-    td { padding: 10px; border: 1px solid #e0e0e0; text-align: center; font-size: 14px; }
-    .descricao { text-align: left; font-weight: bold; }
-    .img-container img { max-height: 45px; display: block; margin: 0 auto; }
-  </style>
-</head>
-<body>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Dia</th>
-        <th>Descrição</th>
-        <th>Logo Categoria</th>
-        <th>Local</th>
-        <th>Hora</th>
-        <th>Canal</th>
-        <th>Logo Canal</th>
-      </tr>
-    </thead>
-    <tbody id="tabela-linhas">
-      <!-- Linhas geradas e ordenadas via JavaScript -->
-    </tbody>
-  </table>
-
-  <script>
-    // Lista de eventos exatamente como estão na imagem (desordenados no cadastro)
-    const eventos = [
-      { dia: "04/06", desc: "Isle Of Man TT-Superstock-Melhores momentos", logoCat: "url_link_imagem", local: "UK", hora: "20:00", canal: "Youtube GP", logoCanal: "url_youtube", ano: 2026, mes: 5, diaNum: 4, horaNum: 20, minNum: 0 },
-      { dia: "05/06", desc: "Fenajeep-Desafio Radical 4x4-dia 1", logoCat: "url_link_imagem", local: "Brusque-SC", hora: "14:00", canal: "Youtube", logoCanal: "url_youtube", ano: 2026, mes: 5, diaNum: 5, horaNum: 14, minNum: 0 },
-      { dia: "05/06", desc: "Fenajeep-Indor-Dia 2", logoCat: "url_link_imagem", local: "Brusque-SC", hora: "08:30", canal: "Youtube", logoCanal: "url_youtube", ano: 2026, mes: 5, diaNum: 5, horaNum: 8, minNum: 30 },
-      { dia: "05/06", desc: "GP de Monaco-FP1", logoCat: "url_link_imagem", local: "Monaco", hora: "08:30", canal: "Sportv3", logoCanal: "url_sportv", ano: 2026, mes: 5, diaNum: 5, horaNum: 8, minNum: 30 }
-    ];
-
-    function renderizarTabelaOrdenada() {
-      const tbody = document.getElementById("tabela-linhas");
-      tbody.innerHTML = "";
-
-      // CRIA OBJETO DATA COMPLETO PARA CADA EVENTO E ORDENA CRONOLOGICAMENTE
-      eventos.forEach(ev => {
-        ev.timestamp = new Date(ev.ano, ev.mes, ev.diaNum, ev.horaNum, ev.minNum).getTime();
-      });
-
-      // Ordena do menor timestamp (mais cedo) para o maior (mais tarde)
-      eventos.sort((a, b) => a.timestamp - b.timestamp);
-
-      // Monta as linhas na tela de forma corrigida
-      eventos.forEach(ev => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${ev.dia}</td>
-          <td class="descricao">${ev.desc}</td>
-          <td class="img-container"><img src="${ev.logoCat}" alt="Logo"></td>
-          <td>${ev.local}</td>
-          <td style="font-weight: bold;">${ev.hora}</td>
-          <td>${ev.canal}</td>
-          <td class="img-container"><img src="${ev.logoCanal}" alt="Canal"></td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    // Executa a ordenação e renderização ao abrir o navegador
-    renderizarTabelaOrdenada();
-  </script>
-
-</body>
-</html>
-
-</body>
-</html>
-
-
-</body>
-</html>
-
-</body>
-</html>
-
-    <!-- TABELA DE CORRIDAS -->
-    <table id="raceTable">
-      <thead>
-        <tr>
-          <th>Dia</th>
-          <th>Descrição</th>
-          <th>Logo Categoria</th>
-          <th>Local</th>
-          <th>Hora</th>
-          <th>Canal</th>
-          <th>Logo Canal</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Linha 1 -->
-        <tr>
-          <td>03/06</td>
-          <td>Isle Of Man TT-Qualyfing 1-Melhores momentos</td>
-          <td><img src="Isle of Man TT.jpg" alt="Isle of Man TT" width="75" style="display: block; margin: 0 auto;"></td>
-          <td>UK</td>
-          <td>20:00</td>
-          <td>Youtube GP</td>
-          <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-        </tr>
-        <!-- Linha 2 -->
-        <tr>
-          <td>04/06</td>
-          <td>Fenajeep-Indor-Dia 1</td>
-          <td><img src="Fenajeep_indor.jpg" alt="Fenajeep Indor" width="75" style="display: block; margin: 0 auto;"></td>
-          <td>Brusque-SC</td>
-          <td>09:00</td>
-          <td>Youtube</td>
-          <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-        </tr>
-        <!-- Linha 3 -->
-        <tr>
-          <td>04/06</td>
-          <td>Porsche Supercup-FP</td>
-          <td><img src="logo_porsche supercup.png" alt="Porsche Supercup" width="75" style="display: block; margin: 0 auto;"></td>
-          <td>Monaco</td>
-          <td>11:30</td>
-          <td>Dazn 5 PT</td>
-          <td><img src="logo DAZN.png" alt="DAZN" width="50" style="display: block; margin: 0 auto;"></td>
-        </tr>
-
-  <tr>
-          <td>04/06</td>
-          <td>Isle Of Man TT-Superstock-Melhores momentos</td>
-          <td><img src="Isle of Man TT.jpg" alt="Isle of Man TT" width="75" style="display: block; margin: 0 auto;"></td>
-          <td>UK</td>
-          <td>20:00</td>
-          <td>Youtube GP</td>
-          <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-        </tr>
-
-          
-        <!-- Linha 4 -->
-        <tr>
-          <td>05/06</td>
-          <td>Fenajeep-Desafio Radical 4x4-dia 1</td>
-          <td><img src="Fenajeep_desafio radical.jpg" alt="Fenajeep DEsafio Radical" width="75" style="display: block; margin: 0 auto;"></td>
-          <td>Brusque-SC</td>
-          <td>14:00</td>
-          <td>Youtube</td>
-          <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-        </tr>
-     
-    
-
-<tr>
-          <td>05/06</td>
-          <td>Fenajeep-Indor-Dia 2</td>
-          <td><img src="Fenajeep_indor.jpg" alt="Fenajeep Indor" width="75" style="display: block; margin: 0 auto;"></td>
-          <td>Brusque-SC</td>
-          <td>08:30</td>
-          <td>Youtube</td>
-          <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-        </tr>
-          
-<tr>
-          <tr>
-    <td>05/06</td>
-    <td>GP de Monaco-FP1</td>
-    <td><img src="gp de monaco.jpg" alt="GP de Monaco" width="75" style="display: block; margin: 0 auto;"></td>
-    <td>Monaco</td>
-    <td>08:30</td>
-    <td>Sportv3</td>
-    <td><img src="sportv3.jpg" alt="sportv3" width="50" style="display: block; margin: 0 auto;"></td>
-</tr>
-<tr>
-          <tr>
-    <td>05/06</td>
-    <td>F2-Qualyfing</td>
-    <td><img src="F2.jpg" alt="F2" width="75" style="display: block; margin: 0 auto;"></td>
-    <td>Monaco</td>
-    <td>10:00</td>
-    <td>Sportv3</td>
-    <td><img src="sportv3.jpg" alt="sportv3" width="50" style="display: block; margin: 0 auto;"></td>
-</tr>
-
-        <!-- Linha 6 -->
-        <tr>
-          <td>29/05</td>
-          <td>Rally Del Guira-SS1-Fia Codassur/Stellantis SA Rally Cup</td>
-          <td><img src="Fia Codassur.jpg" alt="Fia Codassur" width="75" style="display: block; margin: 0 auto;"></td>
-          <td>Paraguai</td>
-          <td>20:00</td>
-          <td>Youtube</td>
-          <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-        </tr>
-          <!-- Linha 7 -->
-        <tr>
-          <td>29/05</td>
-          <td>WRC-SS7-SS9</td>
-          <td><img src="LOGO WRC.png" alt="WRC" width="75" style="display: block; margin: 0 auto;"></td>
-          <td>Japão</td>
-          <td>20:30</td>
-          <td>Sportv 4 Portugal</td>
-          <td><img src="LOGO SPORTV4 PORT.png" alt="SPORTV 4 PORTUGAL" width="50" style="display: block; margin: 0 auto;"></td></td>
-        </tr>
-         <!-- Linha 7 -->
-        <tr>
-          <td>30/05</td>
-          <td>Euro RX-Q1</td>
-          <td><img src="logo_euro rx.jpg" alt="Euro RX" width="75" style="display: block; margin: 0 auto;"></td>
-          <td>Hungria</td></td>
-          <td>07:30</td>
-          <td>Youtube</td>
-         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-        </tr>
-        <tr>
-          <td>30/05</td>
-          <td>GT2 European Series-race 1</td>
-          <td><img src="gt2 european.png" alt="GT2 European" width="75" style="display: block; margin: 0 auto;"></td>
-          <td>Monza</td></td>
-          <td>08:30</td>
-          <td>Youtube</td>
-         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-        </tr>
-        <tr>
-          <td>31/05</td>
-          <td>GTWC Europe</td>
-          <td><img src="gwtc europe.png" alt="GTWC Europe" width="75" style="display: block; margin: 0 auto;"></td>
-          <td>Monza</td></td>
-          <td>10:30</td>
-          <td>Youtube</td>
-         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-        </tr>
-           <tr>
-          <td>31/05</td>
-          <td>Copa Truck-races</td>
-          <td><img src="copa truck.jpg" alt="Copa Truck" width="75" style="display: block; margin: 0 auto;"></td>
-          <td>Interlagos</td></td>
-          <td>12:00</td>
-          <td>Youtube/Bandsports\NSports</td>
-         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-        </tr>
-            <tr>
-          <td>31/05</td>
-          <td>Velocity Invicitacional-races</td>
-          <td><img src="velocity invitacional.jpg" alt="velocity invitacional" width="75" style="display: block; margin: 0 auto;"></td>
-          <td>Sonoma</td></td>
-          <td>12:00</td>
-          <td>Youtube</td>
-         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-        </tr>
-       
-   
-        <a href="https://motorsportverso.tumblr.com/post/818274708232568832/programa%C3%A7%C3%A3o-dias-04-07062026">Programação Dias 04-07/06/2026</a>
-      </tbody>
-    </table>
-</body>
-</html>
-
-
-        <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Tabela de Corridas com Busca Automática</title>
+  <title>Tabela de Corridas de Alta Performance</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
     
@@ -513,7 +23,7 @@
       transition: border-color 0.2s;
     }
     .input-busca:focus {
-      border-color: #d90429; /* Cor vermelha combinando com a tabela */
+      border-color: #d90429;
     }
 
     /* Estilização da Tabela */
@@ -522,7 +32,6 @@
     td { padding: 10px; border: 1px solid #e0e0e0; text-align: center; font-size: 14px; vertical-align: middle; }
     td:nth-child(2) { text-align: left; font-weight: bold; }
     
-    /* Mensagem de nenhum resultado encontrado */
     .sem-resultados {
       display: none;
       text-align: center;
@@ -539,6 +48,12 @@
     <input type="text" id="inputBusca" class="input-busca" placeholder="Digite para buscar (corrida, canal, local...)" onkeyup="filtrarTabela()">
   </div>
 
+      <!-- BARRA SUPERIOR FIXA -->
+  <div class="barra-superior">
+    <div><span class="amarelo">PRÓXIMA CORRIDA:</span> F2-Monaco-Qualyfing às 10:00</div>
+    <div><span class="amarelo">DESTAQUE:</span> WRC Shakedown no Japão</div>
+    <div><span class="amarelo">FIQUE LIGADO:</span> DTM em Zandvoort</div>
+  </div>
   <!-- TABELA DE CORRIDAS -->
   <table id="raceTable">
     <thead>
@@ -553,7 +68,6 @@
       </tr>
     </thead>
     <tbody id="raceTableBody">
-      <!-- Linha 1 -->
       <tr>
         <td>03/06</td>
         <td>Isle Of Man TT-Qualyfing 1-Melhores momentos</td>
@@ -563,7 +77,6 @@
         <td>Youtube GP</td>
         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-      <!-- Linha 2 -->
       <tr>
         <td>04/06</td>
         <td>Fenajeep-Indor-Dia 1</td>
@@ -573,7 +86,6 @@
         <td>Youtube</td>
         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-      <!-- Linha 3 -->
       <tr>
         <td>04/06</td>
         <td>Porsche Supercup-FP</td>
@@ -583,7 +95,6 @@
         <td>Dazn 5 PT</td>
         <td><img src="logo DAZN.png" alt="DAZN" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-      <!-- Linha 4 -->
       <tr>
         <td>04/06</td>
         <td>Isle Of Man TT-Superstock-Melhores momentos</td>
@@ -593,7 +104,6 @@
         <td>Youtube GP</td>
         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-      <!-- Linha 5 -->
       <tr>
         <td>05/06</td>
         <td>Fenajeep-Desafio Radical 4x4-dia 1</td>
@@ -603,7 +113,6 @@
         <td>Youtube</td>
         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-      <!-- Linha 6 -->
       <tr>
         <td>05/06</td>
         <td>Fenajeep-Indor-Dia 2</td>
@@ -613,7 +122,6 @@
         <td>Youtube</td>
         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-      <!-- Linha 7 -->
       <tr>
         <td>05/06</td>
         <td>GP de Monaco-FP1</td>
@@ -623,7 +131,6 @@
         <td>Sportv3</td>
         <td><img src="sportv3.jpg" alt="sportv3" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-      <!-- Linha 8 -->
       <tr>
         <td>05/06</td>
         <td>F2-Qualyfing</td>
@@ -633,7 +140,6 @@
         <td>Sportv3</td>
         <td><img src="sportv3.jpg" alt="sportv3" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-      <!-- Linha 9 -->
       <tr>
         <td>29/05</td>
         <td>Rally Del Guira-SS1-Fia Codassur/Stellantis SA Rally Cup</td>
@@ -643,7 +149,6 @@
         <td>Youtube</td>
         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-      <!-- Linha 10 -->
       <tr>
         <td>29/05</td>
         <td>WRC-SS7-SS9</td>
@@ -653,7 +158,6 @@
         <td>Sportv 4 Portugal</td>
         <td><img src="LOGO SPORTV4 PORT.png" alt="SPORTV 4 PORTUGAL" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-      <!-- Linha 11 -->
       <tr>
         <td>30/05</td>
         <td>Euro RX-Q1</td>
@@ -663,7 +167,6 @@
         <td>Youtube</td>
         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-      <!-- Linha 12 -->
       <tr>
         <td>30/05</td>
         <td>GT2 European Series-race 1</td>
@@ -673,7 +176,6 @@
         <td>Youtube</td>
         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-      <!-- Linha 13 -->
       <tr>
         <td>31/05</td>
         <td>GTWC Europe</td>
@@ -683,7 +185,6 @@
         <td>Youtube</td>
         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-      <!-- Linha 14 -->
       <tr>
         <td>31/05</td>
         <td>Copa Truck-races</td>
@@ -698,36 +199,39 @@
   
   <div id="msgSemResultados" class="sem-resultados">Nenhum evento encontrado para a pesquisa feita.</div>
 
-  <!-- JAVASCRIPT: ORDENAÇÃO E FILTRO DE BUSCA -->
+  <!-- CODIGO DE CORREÇÃO -->
   <script>
-    // 1. Função que ordena automaticamente a tabela ao abrir a página
     function ordenarTabelaPorDataHora() {
       const tbody = document.getElementById("raceTableBody");
       const linhas = Array.from(tbody.querySelectorAll("tr"));
+      const anoAtual = new Date().getFullYear();
 
       const listaOrdenada = linhas.map(linha => {
         const colunas = linha.querySelectorAll("td");
-        const textoDia = colunas[0].innerText.trim();
-        const textoHora = colunas[4].innerText.trim();
+        
+        // Correção crítica: lê o conteúdo em formato textual correto das células [0] e [4]
+        const textoDia = colunas[0].innerText || colunas[0].textContent;
+        const textoHora = colunas[4].innerText || colunas[4].textContent;
 
-        const [dia, mes] = textoDia.split("/").map(Number);
-        const [hora, minuto] = textoHora.split(":").map(Number);
+        const [dia, mes] = textoDia.trim().split("/").map(Number);
+        const [hora, minuto] = textoHora.trim().split(":").map(Number);
 
-        // Define ano base 2026 para cálculo cronológico preciso
-        const objetoData = new Date(2026, mes - 1, dia, hora, minuto);
+        // Converte para objeto Date válido
+        const objetoData = new Date(anoAtual, mes - 1, dia, hora, minuto);
 
-        return { elementoHtml: Henry = linha, timestamp: objetoData.getTime() };
+        return { elementoHtml: linha, timestamp: objetoData.getTime() };
       });
 
+      // Ordena cronologicamente
       listaOrdenada.sort((a, b) => a.timestamp - b.timestamp);
 
+      // Limpa e reinsere os elementos na ordem exata
       tbody.innerHTML = "";
       listaOrdenada.forEach(item => {
         tbody.appendChild(item.elementoHtml);
       });
     }
 
-    // 2. Função da barra de pesquisa em tempo real
     function filtrarTabela() {
       const input = document.getElementById("inputBusca");
       const filtro = input.value.toLowerCase();
@@ -736,7 +240,6 @@
       let algumVisivel = false;
 
       for (let i = 0; i < linhas.length; i++) {
-        // Pega o conteúdo de texto de toda a linha para pesquisa ampla
         const textoLinha = linhas[i].textContent || linhas[i].innerText;
         
         if (textoLinha.toLowerCase().indexOf(filtro) > -1) {
@@ -747,12 +250,19 @@
         }
       }
 
-      // Exibe mensagem caso nenhum termo seja encontrado
       const msg = document.getElementById("msgSemResultados");
       msg.style.display = algumVisivel ? "none" : "block";
     }
 
-    // Executa a ordenação inicial assim que o DOM estiver carregado
+    // Inicializa a ordenação imediatamente após o carregamento da página
+    window.onload = function() {
+      ordenarTabelaPorDataHora();
+    };
+  </script>
+
+</body>
+</html>
+
 
 
 
