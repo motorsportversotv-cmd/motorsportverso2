@@ -124,46 +124,78 @@
   <span id="texto-corrida">Carregando programação...</span>
 </div>
 
-<script>
-// 1. Cadastre a lista de corridas em ordem cronológica (Ano, Mês-1, Dia, Hora, Minuto)
-// Nota: O mês no JavaScript começa em 0 (Janeiro = 0, Fevereiro = 1, Junho = 5, etc.)
-const programacao = [
-  { 
-    nome: "Isle Of Man TT - Superstock - Melhores Momentos", 
-    horario: new Date(2026, 5, 5, 10, 0) // Exemplo: 05 de Junho de 2026 às 10:00
-  },
-  { 
-    nome: "Isle Of Man TT - Senior TT - Ao Vivo", 
-    horario: new Date(2026, 5, 5, 13, 30) // Exemplo: 05 de Junho de 2026 às 13:30
-  },
-  { 
-    nome: "MotoGP - Treino Livre", 
-    horario: new Date(2026, 5, 6, 09, 0)  // Exemplo: 06 de Junho de 2026 às 09:00
-  }
-];
-
-function atualizarLetreiro() {
-  const agora = new Date();
-  let proximaCorrida = "Nenhuma corrida agendada";
-
-  // 2. Procura a primeira corrida da lista que ainda vai acontecer
-  for (let i = 0; i < programacao.length; i++) {
-    if (programacao[i].horario > agora) {
-      proximaCorrida = programacao[i].nome;
-      break; 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Letreiro Automático</title>
+  <style>
+    /* Estilo idêntico ao da primeira imagem enviada */
+    .barra-letreiro {
+      background-color: #111111;
+      color: #ffffff;
+      padding: 12px 20px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      border-bottom: 3px solid #b30000; /* Linha vermelha inferior */
     }
-  }
+    .destaque-amarelo {
+      color: #ffcc00;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .texto-evento {
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
 
-  // 3. Aplica o nome da corrida no texto da tela
-  document.getElementById("texto-corrida").innerText = proximaCorrida;
-}
+  <!-- Barra do Letreiro -->
+  <div class="barra-letreiro">
+    <span class="destaque-amarelo">PRÓXIMA CORRIDA:</span>
+    <span id="letreiro-dinamico" class="texto-evento">Buscando próxima transmissão...</span>
+  </div>
 
-// Executa a função assim que a página abre
-atualizarLetreiro();
+  <script>
+    // Lista extraída diretamente da sua tabela de programação
+    // Formato da data: (Ano, Mês-1, Dia, Hora, Minuto) -> Junho é mês 5 no JS
+    const cronograma = [
+      { descricao: "Isle Of Man TT-Qualyfing 1-Melhores momentos", data: new Date(2026, 5, 3, 20, 0) },
+      { descricao: "Fenajeep-Indor-Dia 1", data: new Date(2026, 5, 4, 9, 0) },
+      { descricao: "Porsche Supercup-FP", data: new Date(2026, 5, 4, 11, 30) },
+      { descricao: "Isle Of Man TT-Superstock-Melhores momentos", data: new Date(2026, 5, 4, 20, 0) },
+      { descricao: "Fenajeep-Indor-Dia 2", data: new Date(2026, 5, 5, 8, 30) },
+      { descricao: "GP de Monaco-FP1", data: new Date(2026, 5, 5, 8, 30) },
+      { descricao: "F2-Qualyfing", data: new Date(2026, 5, 5, 10, 0) },
+      { descricao: "Fenajeep-Desafio Radical 4x4-dia 1", data: new Date(2026, 5, 5, 14, 0) }
+    ];
 
-// Atualiza o letreiro automaticamente a cada 30 segundos
-setInterval(atualizarLetreiro, 30000);
-</script>
+    function atualizarProgramacao() {
+      const agora = new Date();
+      let proximoEvento = "Programação encerrada ou sem eventos futuros";
+
+      // Percorre a lista para achar o primeiro evento que a hora atual ainda não ultrapassou
+      for (let i = 0; i < cronograma.length; i++) {
+        if (cronograma[i].data > agora) {
+          proximoEvento = cronograma[i].descricao;
+          break; // Para no primeiro que encontrar (que é o próximo correto)
+        }
+      }
+
+      // Atualiza o texto na tela
+      document.getElementById("letreiro-dinamico").innerText = proximoEvento;
+    }
+
+    // Executa imediatamente ao abrir a página
+    atualizarProgramacao();
+
+    // Recalcula e atualiza de forma invisível a cada 10 segundos
+    setInterval(atualizarProgramacao, 10000);
+  </script>
+
+</body>
+</html>
 
     <!-- TABELA DE CORRIDAS -->
     <table id="raceTable">
