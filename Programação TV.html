@@ -188,47 +188,101 @@
     <span class="destaque-amarelo">PRÓXIMA CORRIDA:</span>
     <span id="letreiro-dinamico" class="texto-evento">Buscando próxima transmissão...</span>
   </div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Programação Automática</title>
+  <style>
+    /* Estilização da tabela baseada na imagem */
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 20px; }
+    table { width: 100%; border-collapse: collapse; background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    th { background-color: #d90429; color: white; padding: 12px; text-transform: uppercase; font-size: 14px; }
+    td { padding: 12px; border: 1px solid #e0e0e0; text-align: center; font-size: 14px; vertical-align: middle; }
+    .descricao { text-align: left; font-weight: bold; width: 30%; }
+    .logo-cat img, .logo-canal img { max-height: 50px; max-width: 100px; display: block; margin: 0 auto; }
+    .destaque-linha { background-color: #fffdf0; } /* Cor amarelada para o primeiro item */
+  </style>
+</head>
+<body>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Dia</th>
+        <th>Descrição</th>
+        <th>Logo Categoria</th>
+        <th>Local</th>
+        <th>Hora</th>
+        <th>Canal</th>
+        <th>Logo Canal</th>
+      </tr>
+    </thead>
+    <tbody id="tabela-eventos">
+      <!-- O JavaScript vai preencher e ordenar as linhas aqui dentro -->
+    </tbody>
+  </table>
 
   <script>
-    // Lista de eventos (Mesmo fora de ordem, o script vai corrigir sozinho)
-    // Nota: O mês no JavaScript começa em 0 (Junho = 5)
-    const cronograma = [
-      { descricao: "Isle Of Man TT-Qualyfing 1-Melhores momentos", data: new Date(2026, 5, 3, 20, 0) },
-      { descricao: "Fenajeep-Indor-Dia 1", data: new Date(2026, 5, 4, 9, 0) },
-      { descricao: "Porsche Supercup-FP", data: new Date(2026, 5, 4, 11, 30) },
-      { descricao: "Isle Of Man TT-Superstock-Melhores momentos", data: new Date(2026, 5, 4, 20, 0) },
-      // Note que estes dois últimos estavam invertidos na tabela original da imagem:
-      { descricao: "Fenajeep-Desafio Radical 4x4-dia 1", data: new Date(2026, 5, 5, 14, 0) }, 
-      { descricao: "Fenajeep-Indor-Dia 2", data: new Date(2026, 5, 5, 8, 30) },
-      { descricao: "GP de Monaco-FP1", data: new Date(2026, 5, 5, 8, 30) },
-      { descricao: "F2-Qualyfing", data: new Date(2026, 5, 5, 10, 0) }
+    // 1. Cadastro dos dados da tabela (Junho no JavaScript é mês 5)
+    // Insira os caminhos corretos das suas imagens em 'imgCategoria' e 'imgCanal'
+    const dadosProgramacao = [
+      { diaExibicao: "05/06", descricao: "Fenajeep-Desafio Radical 4x4-dia 1", imgCategoria: "caminho/da/imagem1.jpg", local: "Brusque-SC", horaExibicao: "14:00", canal: "Youtube", imgCanal: "caminho/do/youtube.jpg", dataObjeto: new Date(2026, 5, 5, 14, 0) },
+      { diaExibicao: "05/06", descricao: "Fenajeep-Indor-Dia 2", imgCategoria: "caminho/da/imagem2.jpg", local: "Brusque-SC", horaExibicao: "08:30", canal: "Youtube", imgCanal: "caminho/do/youtube.jpg", dataObjeto: new Date(2026, 5, 5, 8, 30) },
+      { diaExibicao: "05/06", descricao: "GP de Monaco-FP1", imgCategoria: "caminho/da/imagem3.jpg", local: "Monaco", horaExibicao: "08:30", canal: "Sportv3", imgCanal: "caminho/do/sportv.jpg", dataObjeto: new Date(2026, 5, 5, 8, 30) },
+      { diaExibicao: "05/06", descricao: "F2-Qualyfing", imgCategoria: "caminho/da/imagem4.jpg", local: "Monaco", horaExibicao: "10:00", canal: "Sportv3", imgCanal: "caminho/do/sportv.jpg", dataObjeto: new Date(2026, 5, 5, 10, 0) }
     ];
 
-    // FUNÇÃO QUE ORDENA AUTOMATICAMENTE POR DATA E HORA
-    cronograma.sort((a, b) => a.data - b.data);
-
-    function atualizarProgramacao() {
+    function renderizarTabela() {
       const agora = new Date();
-      let proximoEvento = "Programação encerrada ou sem eventos futuros";
+      const tbody = document.getElementById("tabela-eventos");
+      tbody.innerHTML = ""; // Limpa a tabela para reconstruir
 
-      // Percorre a lista já ordenada para achar o primeiro evento futuro
-      for (let i = 0; i < cronograma.length; i++) {
-        if (cronograma[i].data > agora) {
-          proximoEvento = cronograma[i].descricao;
-          break; 
+      // 2. ORDENAÇÃO AUTOMÁTICA: Organiza os horários do mais antigo ao mais recente
+      dadosProgramacao.sort((a, b) => a.dataObjeto - b.dataObjeto);
+
+      // 3. FILTRAGEM AUTOMÁTICA: Deixa apenas os eventos que ainda NÃO terminaram
+      // Se quiser tolerância (ex: manter na tela por 1 hora após começar), mude para: a.dataObjeto > (agora - 3600000)
+      const eventosFuturos = dadosProgramacao.filter(evento => evento.dataObjeto > agora);
+
+      // 4. CONSTRUÇÃO VISUAL DA TABELA
+      eventosFuturos.forEach((evento, index) => {
+        const linha = document.createElement("tr");
+        
+        // Destaca a primeira linha (próximo evento imediato) com fundo diferente igual à imagem
+        if (index === 0) {
+          linha.classList.add("destaque-linha");
         }
-      }
 
-      // Atualiza o texto na tela
-      document.getElementById("letreiro-dinamico").innerText = proximoEvento;
+        linha.innerHTML = `
+          <td>${evento.diaExibicao}</td>
+          <td class="descricao">${evento.descricao}</td>
+          <td class="logo-cat"><img src="${evento.imgCategoria}" alt="Logo"></td>
+          <td>${evento.local}</td>
+          <td style="font-weight: bold;">${evento.horaExibicao}</td>
+          <td>${evento.canal}</td>
+          <td class="logo-canal"><img src="${evento.imgCanal}" alt="Canal"></td>
+        `;
+        
+        tbody.appendChild(linha);
+      });
+
+      // Mensagem caso todas as transmissões já tenham ocorrido
+      if (eventosFuturos.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="padding: 30px; color: #666;">Nenhuma transmissão agendada para hoje.</td></tr>`;
+      }
     }
 
-    // Executa imediatamente ao carregar
-    atualizarProgramacao();
+    // Executa ao carregar a página
+    renderizarTabela();
 
-    // Monitora o tempo a cada 10 segundos para virar a tela na hora exata
-    setInterval(atualizarProgramacao, 10000);
+    // Atualiza a tabela sozinho a cada 30 segundos (escondendo o que já passou)
+    setInterval(renderizarTabela, 30000);
   </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
