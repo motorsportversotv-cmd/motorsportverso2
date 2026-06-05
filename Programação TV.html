@@ -223,62 +223,82 @@
     </tbody>
   </table>
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabela Ordenada por Hora</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
+    table { width: 100%; border-collapse: collapse; background: #fff; }
+    th { background-color: #d90429; color: white; padding: 10px; text-transform: uppercase; font-size: 13px; }
+    td { padding: 10px; border: 1px solid #e0e0e0; text-align: center; font-size: 14px; }
+    .descricao { text-align: left; font-weight: bold; }
+    .img-container img { max-height: 45px; display: block; margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Dia</th>
+        <th>Descrição</th>
+        <th>Logo Categoria</th>
+        <th>Local</th>
+        <th>Hora</th>
+        <th>Canal</th>
+        <th>Logo Canal</th>
+      </tr>
+    </thead>
+    <tbody id="tabela-linhas">
+      <!-- Linhas geradas e ordenadas via JavaScript -->
+    </tbody>
+  </table>
+
   <script>
-    // 1. Cadastro dos dados da tabela (Junho no JavaScript é mês 5)
-    // Insira os caminhos corretos das suas imagens em 'imgCategoria' e 'imgCanal'
-    const dadosProgramacao = [
-      { diaExibicao: "05/06", descricao: "Fenajeep-Desafio Radical 4x4-dia 1", imgCategoria: "caminho/da/imagem1.jpg", local: "Brusque-SC", horaExibicao: "14:00", canal: "Youtube", imgCanal: "caminho/do/youtube.jpg", dataObjeto: new Date(2026, 5, 5, 14, 0) },
-      { diaExibicao: "05/06", descricao: "Fenajeep-Indor-Dia 2", imgCategoria: "caminho/da/imagem2.jpg", local: "Brusque-SC", horaExibicao: "08:30", canal: "Youtube", imgCanal: "caminho/do/youtube.jpg", dataObjeto: new Date(2026, 5, 5, 8, 30) },
-      { diaExibicao: "05/06", descricao: "GP de Monaco-FP1", imgCategoria: "caminho/da/imagem3.jpg", local: "Monaco", horaExibicao: "08:30", canal: "Sportv3", imgCanal: "caminho/do/sportv.jpg", dataObjeto: new Date(2026, 5, 5, 8, 30) },
-      { diaExibicao: "05/06", descricao: "F2-Qualyfing", imgCategoria: "caminho/da/imagem4.jpg", local: "Monaco", horaExibicao: "10:00", canal: "Sportv3", imgCanal: "caminho/do/sportv.jpg", dataObjeto: new Date(2026, 5, 5, 10, 0) }
+    // Lista de eventos exatamente como estão na imagem (desordenados no cadastro)
+    const eventos = [
+      { dia: "04/06", desc: "Isle Of Man TT-Superstock-Melhores momentos", logoCat: "url_link_imagem", local: "UK", hora: "20:00", canal: "Youtube GP", logoCanal: "url_youtube", ano: 2026, mes: 5, diaNum: 4, horaNum: 20, minNum: 0 },
+      { dia: "05/06", desc: "Fenajeep-Desafio Radical 4x4-dia 1", logoCat: "url_link_imagem", local: "Brusque-SC", hora: "14:00", canal: "Youtube", logoCanal: "url_youtube", ano: 2026, mes: 5, diaNum: 5, horaNum: 14, minNum: 0 },
+      { dia: "05/06", desc: "Fenajeep-Indor-Dia 2", logoCat: "url_link_imagem", local: "Brusque-SC", hora: "08:30", canal: "Youtube", logoCanal: "url_youtube", ano: 2026, mes: 5, diaNum: 5, horaNum: 8, minNum: 30 },
+      { dia: "05/06", desc: "GP de Monaco-FP1", logoCat: "url_link_imagem", local: "Monaco", hora: "08:30", canal: "Sportv3", logoCanal: "url_sportv", ano: 2026, mes: 5, diaNum: 5, horaNum: 8, minNum: 30 }
     ];
 
-    function renderizarTabela() {
-      const agora = new Date();
-      const tbody = document.getElementById("tabela-eventos");
-      tbody.innerHTML = ""; // Limpa a tabela para reconstruir
+    function renderizarTabelaOrdenada() {
+      const tbody = document.getElementById("tabela-linhas");
+      tbody.innerHTML = "";
 
-      // 2. ORDENAÇÃO AUTOMÁTICA: Organiza os horários do mais antigo ao mais recente
-      dadosProgramacao.sort((a, b) => a.dataObjeto - b.dataObjeto);
-
-      // 3. FILTRAGEM AUTOMÁTICA: Deixa apenas os eventos que ainda NÃO terminaram
-      // Se quiser tolerância (ex: manter na tela por 1 hora após começar), mude para: a.dataObjeto > (agora - 3600000)
-      const eventosFuturos = dadosProgramacao.filter(evento => evento.dataObjeto > agora);
-
-      // 4. CONSTRUÇÃO VISUAL DA TABELA
-      eventosFuturos.forEach((evento, index) => {
-        const linha = document.createElement("tr");
-        
-        // Destaca a primeira linha (próximo evento imediato) com fundo diferente igual à imagem
-        if (index === 0) {
-          linha.classList.add("destaque-linha");
-        }
-
-        linha.innerHTML = `
-          <td>${evento.diaExibicao}</td>
-          <td class="descricao">${evento.descricao}</td>
-          <td class="logo-cat"><img src="${evento.imgCategoria}" alt="Logo"></td>
-          <td>${evento.local}</td>
-          <td style="font-weight: bold;">${evento.horaExibicao}</td>
-          <td>${evento.canal}</td>
-          <td class="logo-canal"><img src="${evento.imgCanal}" alt="Canal"></td>
-        `;
-        
-        tbody.appendChild(linha);
+      // CRIA OBJETO DATA COMPLETO PARA CADA EVENTO E ORDENA CRONOLOGICAMENTE
+      eventos.forEach(ev => {
+        ev.timestamp = new Date(ev.ano, ev.mes, ev.diaNum, ev.horaNum, ev.minNum).getTime();
       });
 
-      // Mensagem caso todas as transmissões já tenham ocorrido
-      if (eventosFuturos.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" style="padding: 30px; color: #666;">Nenhuma transmissão agendada para hoje.</td></tr>`;
-      }
+      // Ordena do menor timestamp (mais cedo) para o maior (mais tarde)
+      eventos.sort((a, b) => a.timestamp - b.timestamp);
+
+      // Monta as linhas na tela de forma corrigida
+      eventos.forEach(ev => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${ev.dia}</td>
+          <td class="descricao">${ev.desc}</td>
+          <td class="img-container"><img src="${ev.logoCat}" alt="Logo"></td>
+          <td>${ev.local}</td>
+          <td style="font-weight: bold;">${ev.hora}</td>
+          <td>${ev.canal}</td>
+          <td class="img-container"><img src="${ev.logoCanal}" alt="Canal"></td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
 
-    // Executa ao carregar a página
-    renderizarTabela();
-
-    // Atualiza a tabela sozinho a cada 30 segundos (escondendo o que já passou)
-    setInterval(renderizarTabela, 30000);
+    // Executa a ordenação e renderização ao abrir o navegador
+    renderizarTabelaOrdenada();
   </script>
+
+</body>
+</html>
 
 </body>
 </html>
