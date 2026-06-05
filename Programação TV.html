@@ -157,29 +157,65 @@
     <span id="letreiro-dinamico" class="texto-evento">Buscando próxima transmissão...</span>
   </div>
 
+ <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Letreiro Automático Ordenado</title>
+  <style>
+    .barra-letreiro {
+      background-color: #111111;
+      color: #ffffff;
+      padding: 12px 20px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      border-bottom: 3px solid #b30000;
+    }
+    .destaque-amarelo {
+      color: #ffcc00;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .texto-evento {
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra do Letreiro -->
+  <div class="barra-letreiro">
+    <span class="destaque-amarelo">PRÓXIMA CORRIDA:</span>
+    <span id="letreiro-dinamico" class="texto-evento">Buscando próxima transmissão...</span>
+  </div>
+
   <script>
-    // Lista extraída diretamente da sua tabela de programação
-    // Formato da data: (Ano, Mês-1, Dia, Hora, Minuto) -> Junho é mês 5 no JS
+    // Lista de eventos (Mesmo fora de ordem, o script vai corrigir sozinho)
+    // Nota: O mês no JavaScript começa em 0 (Junho = 5)
     const cronograma = [
       { descricao: "Isle Of Man TT-Qualyfing 1-Melhores momentos", data: new Date(2026, 5, 3, 20, 0) },
       { descricao: "Fenajeep-Indor-Dia 1", data: new Date(2026, 5, 4, 9, 0) },
       { descricao: "Porsche Supercup-FP", data: new Date(2026, 5, 4, 11, 30) },
       { descricao: "Isle Of Man TT-Superstock-Melhores momentos", data: new Date(2026, 5, 4, 20, 0) },
+      // Note que estes dois últimos estavam invertidos na tabela original da imagem:
+      { descricao: "Fenajeep-Desafio Radical 4x4-dia 1", data: new Date(2026, 5, 5, 14, 0) }, 
       { descricao: "Fenajeep-Indor-Dia 2", data: new Date(2026, 5, 5, 8, 30) },
       { descricao: "GP de Monaco-FP1", data: new Date(2026, 5, 5, 8, 30) },
-      { descricao: "F2-Qualyfing", data: new Date(2026, 5, 5, 10, 0) },
-      { descricao: "Fenajeep-Desafio Radical 4x4-dia 1", data: new Date(2026, 5, 5, 14, 0) }
+      { descricao: "F2-Qualyfing", data: new Date(2026, 5, 5, 10, 0) }
     ];
+
+    // FUNÇÃO QUE ORDENA AUTOMATICAMENTE POR DATA E HORA
+    cronograma.sort((a, b) => a.data - b.data);
 
     function atualizarProgramacao() {
       const agora = new Date();
       let proximoEvento = "Programação encerrada ou sem eventos futuros";
 
-      // Percorre a lista para achar o primeiro evento que a hora atual ainda não ultrapassou
+      // Percorre a lista já ordenada para achar o primeiro evento futuro
       for (let i = 0; i < cronograma.length; i++) {
         if (cronograma[i].data > agora) {
           proximoEvento = cronograma[i].descricao;
-          break; // Para no primeiro que encontrar (que é o próximo correto)
+          break; 
         }
       }
 
@@ -187,12 +223,15 @@
       document.getElementById("letreiro-dinamico").innerText = proximoEvento;
     }
 
-    // Executa imediatamente ao abrir a página
+    // Executa imediatamente ao carregar
     atualizarProgramacao();
 
-    // Recalcula e atualiza de forma invisível a cada 10 segundos
+    // Monitora o tempo a cada 10 segundos para virar a tela na hora exata
     setInterval(atualizarProgramacao, 10000);
   </script>
+
+</body>
+</html>
 
 </body>
 </html>
