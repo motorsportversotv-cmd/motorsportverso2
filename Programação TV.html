@@ -485,7 +485,272 @@
 </html>
 
 
+        <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabela de Corridas com Busca Automática</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
+    
+    /* Estilização da Barra de Pesquisa */
+    .container-busca {
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: flex-start;
+    }
+    .input-busca {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px 15px;
+      font-size: 15px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input-busca:focus {
+      border-color: #d90429; /* Cor vermelha combinando com a tabela */
+    }
+
+    /* Estilização da Tabela */
+    table { width: 100%; border-collapse: collapse; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+    th { background-color: #d90429; color: white; padding: 12px 10px; text-transform: uppercase; font-size: 13px; }
+    td { padding: 10px; border: 1px solid #e0e0e0; text-align: center; font-size: 14px; vertical-align: middle; }
+    td:nth-child(2) { text-align: left; font-weight: bold; }
+    
+    /* Mensagem de nenhum resultado encontrado */
+    .sem-resultados {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: #666;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA DE PESQUISA -->
+  <div class="container-busca">
+    <input type="text" id="inputBusca" class="input-busca" placeholder="Digite para buscar (corrida, canal, local...)" onkeyup="filtrarTabela()">
+  </div>
+
+  <!-- TABELA DE CORRIDAS -->
+  <table id="raceTable">
+    <thead>
+      <tr>
+        <th>Dia</th>
+        <th>Descrição</th>
+        <th>Logo Categoria</th>
+        <th>Local</th>
+        <th>Hora</th>
+        <th>Canal</th>
+        <th>Logo Canal</th>
+      </tr>
+    </thead>
+    <tbody id="raceTableBody">
+      <!-- Linha 1 -->
+      <tr>
+        <td>03/06</td>
+        <td>Isle Of Man TT-Qualyfing 1-Melhores momentos</td>
+        <td><img src="Isle of Man TT.jpg" alt="Isle of Man TT" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>UK</td>
+        <td>20:00</td>
+        <td>Youtube GP</td>
+        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+      <!-- Linha 2 -->
+      <tr>
+        <td>04/06</td>
+        <td>Fenajeep-Indor-Dia 1</td>
+        <td><img src="Fenajeep_indor.jpg" alt="Fenajeep Indor" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>Brusque-SC</td>
+        <td>09:00</td>
+        <td>Youtube</td>
+        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+      <!-- Linha 3 -->
+      <tr>
+        <td>04/06</td>
+        <td>Porsche Supercup-FP</td>
+        <td><img src="logo_porsche supercup.png" alt="Porsche Supercup" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>Monaco</td>
+        <td>11:30</td>
+        <td>Dazn 5 PT</td>
+        <td><img src="logo DAZN.png" alt="DAZN" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+      <!-- Linha 4 -->
+      <tr>
+        <td>04/06</td>
+        <td>Isle Of Man TT-Superstock-Melhores momentos</td>
+        <td><img src="Isle of Man TT.jpg" alt="Isle of Man TT" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>UK</td>
+        <td>20:00</td>
+        <td>Youtube GP</td>
+        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+      <!-- Linha 5 -->
+      <tr>
+        <td>05/06</td>
+        <td>Fenajeep-Desafio Radical 4x4-dia 1</td>
+        <td><img src="Fenajeep_desafio radical.jpg" alt="Fenajeep DEsafio Radical" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>Brusque-SC</td>
+        <td>14:00</td>
+        <td>Youtube</td>
+        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+      <!-- Linha 6 -->
+      <tr>
+        <td>05/06</td>
+        <td>Fenajeep-Indor-Dia 2</td>
+        <td><img src="Fenajeep_indor.jpg" alt="Fenajeep Indor" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>Brusque-SC</td>
+        <td>08:30</td>
+        <td>Youtube</td>
+        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+      <!-- Linha 7 -->
+      <tr>
+        <td>05/06</td>
+        <td>GP de Monaco-FP1</td>
+        <td><img src="gp de monaco.jpg" alt="GP de Monaco" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>Monaco</td>
+        <td>08:30</td>
+        <td>Sportv3</td>
+        <td><img src="sportv3.jpg" alt="sportv3" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+      <!-- Linha 8 -->
+      <tr>
+        <td>05/06</td>
+        <td>F2-Qualyfing</td>
+        <td><img src="F2.jpg" alt="F2" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>Monaco</td>
+        <td>10:00</td>
+        <td>Sportv3</td>
+        <td><img src="sportv3.jpg" alt="sportv3" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+      <!-- Linha 9 -->
+      <tr>
+        <td>29/05</td>
+        <td>Rally Del Guira-SS1-Fia Codassur/Stellantis SA Rally Cup</td>
+        <td><img src="Fia Codassur.jpg" alt="Fia Codassur" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>Paraguai</td>
+        <td>20:00</td>
+        <td>Youtube</td>
+        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+      <!-- Linha 10 -->
+      <tr>
+        <td>29/05</td>
+        <td>WRC-SS7-SS9</td>
+        <td><img src="LOGO WRC.png" alt="WRC" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>Japão</td>
+        <td>20:30</td>
+        <td>Sportv 4 Portugal</td>
+        <td><img src="LOGO SPORTV4 PORT.png" alt="SPORTV 4 PORTUGAL" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+      <!-- Linha 11 -->
+      <tr>
+        <td>30/05</td>
+        <td>Euro RX-Q1</td>
+        <td><img src="logo_euro rx.jpg" alt="Euro RX" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>Hungria</td>
+        <td>07:30</td>
+        <td>Youtube</td>
+        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+      <!-- Linha 12 -->
+      <tr>
+        <td>30/05</td>
+        <td>GT2 European Series-race 1</td>
+        <td><img src="gt2 european.png" alt="GT2 European" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>Monza</td>
+        <td>08:30</td>
+        <td>Youtube</td>
+        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+      <!-- Linha 13 -->
+      <tr>
+        <td>31/05</td>
+        <td>GTWC Europe</td>
+        <td><img src="gwtc europe.png" alt="GTWC Europe" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>Monza</td>
+        <td>10:30</td>
+        <td>Youtube</td>
+        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+      <!-- Linha 14 -->
+      <tr>
+        <td>31/05</td>
+        <td>Copa Truck-races</td>
+        <td><img src="copa truck.jpg" alt="Copa Truck" width="75" style="display: block; margin: 0 auto;"></td>
+        <td>Brasil</td>
+        <td>13:00</td>
+        <td>Band</td>
+        <td><img src="logo_band.png" alt="Band" width="50" style="display: block; margin: 0 auto;"></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div id="msgSemResultados" class="sem-resultados">Nenhum evento encontrado para a pesquisa feita.</div>
+
+  <!-- JAVASCRIPT: ORDENAÇÃO E FILTRO DE BUSCA -->
+  <script>
+    // 1. Função que ordena automaticamente a tabela ao abrir a página
+    function ordenarTabelaPorDataHora() {
+      const tbody = document.getElementById("raceTableBody");
+      const linhas = Array.from(tbody.querySelectorAll("tr"));
+
+      const listaOrdenada = linhas.map(linha => {
+        const colunas = linha.querySelectorAll("td");
+        const textoDia = colunas[0].innerText.trim();
+        const textoHora = colunas[4].innerText.trim();
+
+        const [dia, mes] = textoDia.split("/").map(Number);
+        const [hora, minuto] = textoHora.split(":").map(Number);
+
+        // Define ano base 2026 para cálculo cronológico preciso
+        const objetoData = new Date(2026, mes - 1, dia, hora, minuto);
+
+        return { elementoHtml: Henry = linha, timestamp: objetoData.getTime() };
+      });
+
+      listaOrdenada.sort((a, b) => a.timestamp - b.timestamp);
+
+      tbody.innerHTML = "";
+      listaOrdenada.forEach(item => {
+        tbody.appendChild(item.elementoHtml);
+      });
+    }
+
+    // 2. Função da barra de pesquisa em tempo real
+    function filtrarTabela() {
+      const input = document.getElementById("inputBusca");
+      const filtro = input.value.toLowerCase();
+      const tbody = document.getElementById("raceTableBody");
+      const linhas = tbody.getElementsByTagName("tr");
+      let algumVisivel = false;
+
+      for (let i = 0; i < linhas.length; i++) {
+        // Pega o conteúdo de texto de toda a linha para pesquisa ampla
+        const textoLinha = linhas[i].textContent || linhas[i].innerText;
         
+        if (textoLinha.toLowerCase().indexOf(filtro) > -1) {
+          linhas[i].style.display = "";
+          algumVisivel = true;
+        } else {
+          linhas[i].style.display = "none";
+        }
+      }
+
+      // Exibe mensagem caso nenhum termo seja encontrado
+      const msg = document.getElementById("msgSemResultados");
+      msg.style.display = algumVisivel ? "none" : "block";
+    }
+
+    // Executa a ordenação inicial assim que o DOM estiver carregado
+
 
 
         
