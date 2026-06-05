@@ -118,6 +118,52 @@
     <div class="filter-container">
         <input type="text" id="filterInput" onkeyup="filterTable()" placeholder="🔍 Filtrar por descrição, local, dia, canal...">
     </div>
+<!-- Estrutura do seu letreiro HTML -->
+<div style="background: #111; color: #fff; padding: 10px; font-family: sans-serif;">
+  <span style="color: #ffcc00; font-weight: bold;">PRÓXIMA CORRIDA:</span>
+  <span id="texto-corrida">Carregando programação...</span>
+</div>
+
+<script>
+// 1. Cadastre a lista de corridas em ordem cronológica (Ano, Mês-1, Dia, Hora, Minuto)
+// Nota: O mês no JavaScript começa em 0 (Janeiro = 0, Fevereiro = 1, Junho = 5, etc.)
+const programacao = [
+  { 
+    nome: "Isle Of Man TT - Superstock - Melhores Momentos", 
+    horario: new Date(2026, 5, 5, 10, 0) // Exemplo: 05 de Junho de 2026 às 10:00
+  },
+  { 
+    nome: "Isle Of Man TT - Senior TT - Ao Vivo", 
+    horario: new Date(2026, 5, 5, 13, 30) // Exemplo: 05 de Junho de 2026 às 13:30
+  },
+  { 
+    nome: "MotoGP - Treino Livre", 
+    horario: new Date(2026, 5, 6, 09, 0)  // Exemplo: 06 de Junho de 2026 às 09:00
+  }
+];
+
+function atualizarLetreiro() {
+  const agora = new Date();
+  let proximaCorrida = "Nenhuma corrida agendada";
+
+  // 2. Procura a primeira corrida da lista que ainda vai acontecer
+  for (let i = 0; i < programacao.length; i++) {
+    if (programacao[i].horario > agora) {
+      proximaCorrida = programacao[i].nome;
+      break; 
+    }
+  }
+
+  // 3. Aplica o nome da corrida no texto da tela
+  document.getElementById("texto-corrida").innerText = proximaCorrida;
+}
+
+// Executa a função assim que a página abre
+atualizarLetreiro();
+
+// Atualiza o letreiro automaticamente a cada 30 segundos
+setInterval(atualizarLetreiro, 30000);
+</script>
 
     <!-- TABELA DE CORRIDAS -->
     <table id="raceTable">
