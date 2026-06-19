@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motorsportverso | API Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121214;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #ff1801; /* Vermelho F1 */
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #1f1f23, #2d2d34);
+            border: 2px solid #ff1801;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        h3 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: #ff1801;
+            text-transform: uppercase;
+        }
+
+        #status-banco {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 10px;
+            border-radius: 6px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .verde {
+            color: #00e676;
+            border-left: 5px solid #00e676;
+        }
+
+        .vermelho {
+            color: #ff1801;
+            border-left: 5px solid #ff1801;
+        }
+
+        #dados-banco {
+            font-size: 1.1rem;
+            color: #e1e1e6;
+            background: #121214;
+            padding: 15px;
+            border-radius: 6px;
+            display: none; /* Só mostra se conectar */
+        }
+
+        footer {
+            margin-top: 100px;
+            color: #7c7c8a;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🏎️ Motorsportverso Dashboard</h1>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h3>Telemetria do Banco de Dados</h3>
+            
+            <p id="status-banco" class="vermelho">Tentando conexão com o Servidor Java... ⏳</p>
+            
+            <div id="dados-banco"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Motorsportverso Integration. Rodando via GitHub Pages.</p>
+    </footer>
+
+    <script>
+        const urlServidorJava = 'http://localhost:8080/dados';
+
+        function verificarConexao() {
+            fetch(urlServidorJava)
+                .then(response => {
+                    if (!response.ok) throw new Error();
+                    return response.json();
+                })
+                .then(data => {
+                    const statusEl = document.getElementById('status-banco');
+                    const dadosEl = document.getElementById('dados-banco');
+                    
+                    // Altera o painel para VERDE de sucesso
+                    statusEl.innerText = "Banco de Dados: " + data.status + " 🟢";
+                    statusEl.className = "verde";
+                    
+                    // Exibe a contagem de linhas retornada pela query do Java
+                    if(data.totalPilotos !== undefined) {
+                        dadosEl.style.display = "block";
+                        dadosEl.innerHTML = "🏁 <strong>Total de Pilotos no Banco:</strong> " + data.totalPilotos;
+                    }
+                })
+                .catch(error => {
+                    const statusEl = document.getElementById('status-banco');
+                    const dadosEl = document.getElementById('dados-banco');
+                    
+                    // Altera o painel para VERMELHO se o Eclipse estiver desligado
+                    statusEl.innerText = "Servidor Java Desconectado 🔴";
+                    statusEl.className = "vermelho";
+                    dadosEl.style.display = "none";
+                });
+        }
+
+        // Executa a checagem assim que a página carrega
+        verificarConexao();
+        
+        // Fica checando automaticamente a cada 5 segundos se o Java continua ligado
+        setInterval(verificarConexao, 5000);
+    </script>
+</body>
+</html>
