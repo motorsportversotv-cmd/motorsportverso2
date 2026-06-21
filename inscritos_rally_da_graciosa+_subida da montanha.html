@@ -4,47 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscritos rally da Graciosa+subida da montanha 2026</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h3 {
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+
+        /* Estilização da Barra de Pesquisa */
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+            display: block;
+        }
+
+        .search-box:focus {
+            border-color: #ff6600; /* Destaque em laranja ao clicar */
+        }
+
+        /* Estilização da Tabela */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #ff6600;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
 
     <h3>Inscritos rally da Graciosa+subida da montanha 2026</h3>
-    <table border="1">
-    <!-- Linha do Cabeçalho (Títulos) -->
-    <tr>
-        <th>Numero</th>
-        <th>Piloto\Navegador</th>
-        <th>Equipe</th>
-        <th>Marca\Modelo</th>
-        <th>Categoria\Cameponato</th>
-    </tr>
-    <!-- Primeira Linha de Dados -->
-    <tr>
-        <td>20</td>
-        <td>Leo Gram</td>
-        <td>-</td>
-        <td>Gac Aion V</td>
-        <td>Friends Hill Climb Street EV</td>
-    </tr>
-    <!-- Segunda Linha de Dados -->
-    <tr>
-        <tr>
-        <td>59</td>
-        <td>Toshio</td>
-        <td>-</td>
-        <td>Chevrolet Celta</td>
-        <td>Friends Hill Climb Street Asp</td>
-    </tr>
+    
+    <!-- Barra de Pesquisa Dinâmica -->
+    <input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="🔍 Pesquisar por número, piloto, carro ou categoria..." class="search-box">
 
-    <tr>
-        <tr>
-        <td>17</td>
-        <td>Jeff Duarte</td>
-        <td>-</td>
-        <td>Renault Sandero RS</td>
-        <td>Friends Hill Climb Street Asp</td>
-    </tr>
-</table>
+    <table id="tabelaInscritos">
+        <thead>
+            <!-- Linha do Cabeçalho (Títulos) -->
+            <tr>
+                <th>Numero</th>
+                <th>Piloto\Navegador</th>
+                <th>Equipe</th>
+                <th>Marca\Modelo</th>
+                <th>Categoria\Campeonato</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Primeira Linha de Dados -->
+            <tr>
+                <td>20</td>
+                <td>Leo Gram</td>
+                <td>-</td>
+                <td>Gac Aion V</td>
+                <td>Friends Hill Climb Street EV</td>
+            </tr>
+            <!-- Segunda Linha de Dados -->
+            <tr>
+                <td>59</td>
+                <td>Toshio</td>
+                <td>-</td>
+                <td>Chevrolet Celta</td>
+                <td>Friends Hill Climb Street Asp</td>
+            </tr>
+            <!-- Terceira Linha de Dados -->
+            <tr>
+                <td>17</td>
+                <td>Jeff Duarte</td>
+                <td>-</td>
+                <td>Renault Sandero RS</td>
+                <td>Friends Hill Climb Street Asp</td>
+            </tr>
+        </tbody>
+    </table>
 
+    <!-- Lógica JavaScript para Filtragem -->
+    <script>
+        function filtrarTabela() {
+            var input, filter, table, tr, td, i, j, txtValue, match;
+            input = document.getElementById("inputBusca");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("tabelaInscritos");
+            tr = table.getElementsByTagName("tr");
+
+            // Começa do 1 para ignorar a linha de cabeçalho (th)
+            for (i = 1; i < tr.length; i++) {
+                tr[i].style.display = "none"; // Oculta a linha por padrão
+                td = tr[i].getElementsByTagName("td");
+                match = false;
+                
+                // Varre todas as colunas da linha atual
+                for (j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            match = true;
+                            break; // Se achou um termo, não precisa olhar o resto da linha
+                        }
+                    }
+                }
+                
+                // Se achou uma correspondência, exibe a linha
+                if (match) {
+                    tr[i].style.display = "";
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
+
+
+
