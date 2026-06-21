@@ -516,6 +516,62 @@
             }
         }
     </script>
+
+    /* Container que organiza as linhas com 3 colunas */
+.container-artigos {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Alinha os cards a partir da esquerda */
+  gap: 20px;                   /* Espaçamento entre os cards */
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* O Card Individual ajustado para 3 por linha */
+.card-post {
+  background-color: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 20px;
+  /* Cálculo para caberem exatamente 3 cards por linha descontando o gap */
+  width: calc(33.333% - 14px); 
+  min-width: 280px;            /* Evita que esmague em telas muito pequenas */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+}
+
+/* Alinhamento interno à esquerda */
+.news-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;     /* Alinha textos e tags à esquerda */
+  text-align: left;            /* Alinha os títulos à esquerda */
+  height: 100%;
+}
+
+/* Imagens Reduzidas e Padronizadas */
+.news-content img {
+  width: 100%;
+  height: 140px;               /* Altura reduzida para diminuir a imagem */
+  object-fit: cover;           /* Mantém a proporção da foto sem distorcer */
+  border-radius: 4px;
+  margin: 12px 0;
+}
+
+/* Estilização das Tags Vermelhas */
+.tag-wec {
+  background-color: #d30000;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
 </body>
 </html>
 
