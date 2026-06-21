@@ -250,65 +250,319 @@
 
     <div class="container-artigos">
 
-    <!-- Post 1 -->
-    <article class="card-post">
-        <div class="news-content">
-            <span class="tag-wec">UTV Cup</span>
-            <h3>Programação Friends Hill Climb Campo Largo</h3>
-            <img src="imagem_2026-03-31_004623684.png" alt="UTV Cup">
-            <a href="programacao-friends-hill-climb-campolargo-26.html" class="read-more">Ler mais →</a>
-        </div>
-    </article>
+    <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motorsportverso - Universo Hill Climb</title>
+    <style>
+        :root {
+            --laranja: #ff6600;
+            --laranja-escuro: #e65c00;
+            --preto: #1a1a1a;
+            --cinza-claro: #f4f4f4;
+            --branco: #ffffff;
+        }
 
-    <!-- Post 2 -->
-    <article class="card-post">
-        <div class="news-content">
-            <span class="tag-wec">Friends Hill Climb</span>
-            <h3>As categorias do Friends Hill Climb</h3>
-            <img src="imagem_2026-03-31_004623684.png" alt="UTV Cup">
-            <a href="as_categorias_do_friends_hillclimb.html" class="read-more">Ler mais →</a>
-        </div>
-    </article>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--cinza-claro);
+            color: #333;
+        }
 
-    <!-- Post 3 -->
-    <article class="card-post">
-        <div class="news-content">
-            <span class="tag-wec">Goodwood</span>
-            <h3>Goodwood 83MM: Disputa BTCC Anos 90/2000</h3>
-            <img src="super-touring-shoot-out-preview-header-jh-copy.jpg" alt="BTCC Shoot-out">
-            <a href="BTCC_terá_disputa_por_tempo_goodwood_83mm.html" class="read-more">Ler mais →</a>
-        </div>
-    </article>
+        header {
+            background-color: var(--preto);
+            color: var(--branco);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 4px solid var(--laranja);
+        }
 
-    <!-- Post 4 -->
-    <article class="card-post">
-        <div class="news-content">
-            <span class="tag-wec">Friends Hill Climb</span>
-            <h3>Resultados Friends Hill Climb Campo Largo</h3>
-            <img src="super-touring-shoot-out-preview-header-jh-copy.jpg" alt="BTCC Shoot-out">
-            <a href="resultados_friends_hill_climb_campo_Largo_26.html" class="read-more">Ler mais →</a>
-        </div>
-    </article>
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-    <!-- Post 5 -->
-    <article class="card-post">
-        <div class="news-content">
-            <span class="tag-wec">Simola Hill Climb</span>
-            <h3>Simola Hill Climb Classic 2026 - Resultados</h3>
-            <img src="images.jpg" alt="Simola Hill Climb Classic 2026">
-            <a href="Results_Simola_classic_hill_climb_2026.html" class="read-more">Ler mais →</a>
+        nav a {
+            color: var(--branco);
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: var(--laranja); }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #333;
+            color: var(--branco);
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 { color: var(--laranja); font-size: 3rem; margin-bottom: 10px; }
+
+        section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+
+        h2 { color: var(--preto); border-left: 5px solid var(--laranja); padding-left: 10px; margin-bottom: 20px; }
+
+        .content-box {
+            background: var(--branco);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .content-box img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: block;
+        }
+
+        /* ==================================================== */
+        /* NOVO DESIGN: GRID DE POSTS (3 EM 3 COLUNAS)          */
+        /* ==================================================== */
+        
+        .container-artigos {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        .card-post {
+            background-color: var(--branco);
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            padding: 20px;
+            width: calc(33.333% - 14px); 
+            max-width: 32.5%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;     
+            text-align: left;            
+            height: 100%;
+            width: 100%;
+        }
+
+        .news-content h3 {
+            font-size: 16px;
+            color: #222222;
+            margin: 10px 0;
+            line-height: 1.4;
+            font-weight: bold;
+        }
+
+        /* Correção e diminuição rígida das imagens verticais */
+        .news-content img {
+            width: 100% !important;
+            height: 140px !important;
+            object-fit: cover !important;
+            border-radius: 4px;
+            margin: 12px 0 !important;
+        }
+
+        .tag-wec {
+            background-color: #d30000;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .read-more {
+            color: #0000ed;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: auto;            
+            white-space: nowrap;         
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* ==================================================== */
+
+        /* Estilização da Barra de Pesquisa */
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .search-box:focus {
+            border-color: var(--laranja);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th { background-color: var(--laranja); color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+
+        footer {
+            background-color: var(--preto);
+            color: var(--branco);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 992px) {
+            .card-post {
+                width: calc(50% - 10px);
+                max-width: 50%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav { flex-direction: column; align-items: center; }
+            .hero h1 { font-size: 2rem; }
+        }
+
+        @media (max-width: 600px) {
+            .card-post {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#o-que-e">O que é</a>
+            <a href="#artigos">Notícias</a>
+            <a href="#friends">Friends</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Hill Climb</h1>
+        <p>A emoção da subida contra o relógio.</p>
+    </div>
+
+    <section id="o-que-e">
+        <div class="content-box">
+            <h2>O que é Hill Climb?</h2>
+            <p>Conhecida como subida de montanha, é uma modalidade automobilística onde pilotos competem individualmente contra o relógio, buscando o menor tempo em trajetos sinuosos de subida.</p>
+            <img src="loeb-pikes-peak.jpg" alt="Loeb Pikes Peak">
         </div>
-    </article>
-    
-    <!-- Post 6 -->
-    <article class="card-post">
-        <div class="news-content">
-            <span class="tag-wec">Pikes Peak Hill Climb</span>
-            <h3>Kimera estará com K39 em Pikes Peak em 2027</h3>
-            <img src="tumblr_d00cbea0e1cd239af7d1ceb2e0c36888_f349af05_400.png" alt="Kimera K39 Pikes Peak">
-            <a href="kimera_k39_em_pikes_peak_em_2027.html" class="read-more">Ler mais →</a>
-        </div>
-    </article>
+    </section>
+
+    <!-- NOVO BLOCO: Seção de artigos organizada de 3 em 3 por linha -->
+    <section id="artigos">
+        <h2>Últimas Postagens</h2>
+        <div class="container-artigos">
+
+            <!-- Post 1 -->
+            <article class="card-post">
+                <div class="news-content">
+                    <span class="tag-wec">UTV Cup</span>
+                    <h3>Programação Friends Hill Climb Campo Largo</h3>
+                    <img src="imagem_2026-03-31_004623684.png" alt="UTV Cup">
+                    <a href="programacao-friends-hill-climb-campolargo-26.html" class="read-more">Ler mais →</a>
+                </div>
+            </article>
+
+            <!-- Post 2 -->
+            <article class="card-post">
+                <div class="news-content">
+                    <span class="tag-wec">Friends Hill Climb</span>
+                    <h3>As categorias do Friends Hill Climb</h3>
+                    <img src="imagem_2026-03-31_004623684.png" alt="UTV Cup">
+                    <a href="as_categorias_do_friends_hillclimb.html" class="read-more">Ler mais →</a>
+                </div>
+            </article>
+
+            <!-- Post 3 -->
+            <article class="card-post">
+                <div class="news-content">
+                    <span class="tag-wec">Goodwood</span>
+                    <h3>Goodwood 83MM: Disputa BTCC Anos 90/2000</h3>
+                    <img src="super-touring-shoot-out-preview-header-jh-copy.jpg" alt="BTCC Shoot-out">
+                    <a href="BTCC_terá_disputa_por_tempo_goodwood_83mm.html" class="read-more">Ler mais →</a>
+                </div>
+            </article>
+
+            <!-- Post 4 -->
+            <article class="card-post">
+                <div class="news-content">
+                    <span class="tag-wec">Friends Hill Climb</span>
+                    <h3>Resultados Friends Hill Climb Campo Largo</h3>
+                    <img src="super-touring-shoot-out-preview-header-jh-copy.jpg" alt="BTCC Shoot-out">
+                    <a href="resultados_friends_hill_climb_campo_Largo_26.html" class="read-more">Ler mais →</a>
+                </div>
+            </article>
+
+            <!-- Post 5 -->
+            <article class="card-post">
+                <div class="news-content">
+                    <span class="tag-wec">Simola Hill Climb</span>
+                    <h3>Simola Hill Climb Classic 2026 - Resultados</h3>
+                    <img src="images.jpg" alt="Simola Hill Climb Classic 2026">
+                    <a href="Results_Simola_classic_hill_climb_2026.html" class="read-more">Ler mais →</a>
+                </div>
+            </article>
+            
+            <!-- Post 6 -->
+            <article class="card-post">
+                <div class="news-content">
+                    <span class="tag-wec">Pikes Peak Hill Climb</span>
+                    <h3>Kimera estará com K39 em Pikes Peak em 2027</h3>
+                    <img src="tumblr_d00cbea0e1cd239af7d1ceb2e0c36888_f349af05_400.png" alt="Kimera K39 Pikes Peak">
+                    <a href="kimera_k39_em_pikes_peak_em_2027.html" class="read-more">Ler mais →</a>
+                </div>
+            </article>
+
+
 
     <!-- Post 7 -->
     <article class="card-post">
@@ -339,6 +593,36 @@
             <a href="Novidades_pkes_peak_2026.html" class="read-more">Ler mais →</a>
         </div>
     </article>
+                <!-- Post 7 -->
+    <article class="card-post">
+        <div class="news-content">
+            <span class="tag-wec">Friends Hill Climb</span>
+            <h3>Pelo segundo ano o Rally da Graciosa em Quatro Barras terá junto a sua programação subida da montanha</h3>
+            <img src="WhatsApp Image 2026-05-20 at 23.00.55.jpeg" alt="Rally da Graciosa e Subida da montanha">
+            <a href="rally-da_graciosa_tera_subida da montanha_pelo_segundo ano_consecutivo_em 2026.html" class="read-more">Ler mais →</a>
+        </div>
+    </article>
+
+    <!-- Post 8 -->
+    <article class="card-post">
+        <div class="news-content">
+            <span class="tag-wec">Goodwood Hill Climb</span>
+            <h3>As novidades do Goodwood Festival of Speed 2026</h3>
+            <img src="WhatsApp Image 2026-05-20 at 23.00.55.jpeg" alt="Novidades Goodwood">
+            <a href="as_primeiras_novidades_do_goodwood_fos_2026.html" class="read-more">Ler mais →</a>
+        </div>
+    </article>
+
+    <!-- Post 9 -->
+    <article class="card-post">
+        <div class="news-content">
+            <span class="tag-wec">Pikes Peak Hill Climb</span>
+            <h3>Novidades Pikes Peak 2026</h3>
+            <img src="Pikes Peak.PNG" alt="Pikes Peak">
+            <a href="Novidades_pkes_peak_2026.html" class="read-more">Ler mais →</a>
+        </div>
+    </article>
+
 
 </div>
 
@@ -522,60 +806,87 @@
         }
     </script>
 
-    /* Container que organiza as linhas com 3 colunas */
+ /* Container que força o alinhamento horizontal */
 .container-artigos {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start; /* Alinha os cards a partir da esquerda */
-  gap: 20px;                   /* Espaçamento entre os cards */
+  justify-content: flex-start; /* Alinha os blocos à esquerda */
+  gap: 15px;                   /* Reduzido para dar mais espaço aos cards */
   padding: 20px;
   width: 100%;
   box-sizing: border-box;
 }
 
-/* O Card Individual ajustado para 3 por linha */
+/* O Card configurado estritamente para 3 por linha */
 .card-post {
   background-color: #ffffff;
   border: 1px solid #e8e8e8;
   border-radius: 8px;
-  padding: 20px;
-  /* Cálculo para caberem exatamente 3 cards por linha descontando o gap */
-  width: calc(33.333% - 14px); 
-  min-width: 280px;            /* Evita que esmague em telas muito pequenas */
+  padding: 16px;
+  /* Calcula um terço exato da linha considerando a folga dos espaços */
+  width: calc(33.333% - 10px); 
+  max-width: 32%;              /* Força o limite rígido para caberem 3 */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Alinhamento interno à esquerda */
+/* Força todo o conteúdo do card a alinhar à esquerda */
 .news-content {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;     /* Alinha textos e tags à esquerda */
-  text-align: left;            /* Alinha os títulos à esquerda */
+  align-items: flex-start;     
+  text-align: left;            
   height: 100%;
+  width: 100%;
 }
 
-/* Imagens Reduzidas e Padronizadas */
+/* Títulos do card */
+.news-content h3 {
+  font-size: 15px;
+  color: #222222;
+  margin: 10px 0;
+  line-height: 1.4;
+  font-weight: bold;
+}
+
+/* CORREÇÃO DA IMAGEM VERTICAL: Força ela a ficar horizontal e menor */
 .news-content img {
-  width: 100%;
-  height: 140px;               /* Altura reduzida para diminuir a imagem */
-  object-fit: cover;           /* Mantém a proporção da foto sem distorcer */
+  width: 100% !important;      /* Ocupa toda a largura interna do card */
+  height: 150px !important;    /* Reduz drasticamente a altura da foto */
+  object-fit: cover;           /* Corta a imagem no centro sem amassar o carro */
   border-radius: 4px;
   margin: 12px 0;
 }
 
-/* Estilização das Tags Vermelhas */
+/* Badge vermelho superior */
 .tag-wec {
   background-color: #d30000;
   color: #ffffff;
   font-weight: bold;
   font-size: 11px;
-  padding: 3px 8px;
-  border-radius: 4px;
+  padding: 4px 8px;
+  border-radius: 3px;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  display: inline-block;
 }
+
+/* Link "Ler mais" ajustado para não quebrar linha */
+.read-more {
+  color: #0000ed;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: auto;            /* Mantém na base do card */
+  white-space: nowrap;         /* Impede que o texto quebre em duas linhas */
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
+
 
 </body>
 </html>
