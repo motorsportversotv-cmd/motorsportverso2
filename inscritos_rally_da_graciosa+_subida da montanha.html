@@ -3,111 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscritos rally da Graciosa+subida da montanha 2026</title>
+    <title>Inscritos - Rally da Graciosa + Subida da Montanha 2026</title>
     <style>
+        :root {
+            --laranja: #ff6600;
+            --laranja-escuro: #e65c00;
+            --preto: #1a1a1a;
+            --cinza-escuro: #2a2a2a;
+            --branco: #ffffff;
+            --cinza-claro: #f4f4f4;
+            --borda: #ddd;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--cinza-claro);
             color: #333;
         }
 
-        h3 {
-            color: #1a1a1a;
-            margin-bottom: 15px;
+        /* Topo do Site */
+        header {
+            background-color: var(--preto);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 4px solid var(--laranja);
         }
 
-        /* Estilização da Barra de Pesquisa */
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo h1 {
+            color: var(--branco);
+            margin: 0;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .brand-logo h1 span {
+            color: var(--laranja);
+        }
+
+        /* Container Principal */
+        .main-container {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2.section-title {
+            color: var(--preto);
+            margin: 0 0 25px 0;
+            font-size: 1.6rem;
+            border-left: 6px solid var(--laranja);
+            padding-left: 12px;
+            text-transform: uppercase;
+        }
+
+        /* Barra de Pesquisa */
         .search-box {
             width: 100%;
             max-width: 500px;
-            padding: 10px 15px;
-            margin-bottom: 20px;
-            border: 2px solid #ddd;
+            padding: 12px 15px;
+            margin-bottom: 25px;
+            border: 2px solid var(--borda);
             border-radius: 6px;
             font-size: 16px;
             outline: none;
             transition: border-color 0.3s;
             box-sizing: border-box;
             display: block;
+            background-color: var(--branco);
         }
 
         .search-box:focus {
-            border-color: #ff6600; /* Destaque em laranja ao clicar */
+            border-color: var(--laranja);
         }
 
-        /* Estilização da Tabela */
+        /* Tabela Estruturada */
+        .table-container {
+            overflow-x: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border-radius: 8px;
+            background-color: var(--branco);
+        }
+
         table {
             border-collapse: collapse;
             width: 100%;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
+            border: 1px solid var(--borda);
+            padding: 14px 16px;
             text-align: left;
+            font-size: 0.95rem;
         }
 
         th {
-            background-color: #ff6600;
-            color: white;
+            background-color: var(--laranja);
+            color: var(--branco);
             font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
         }
 
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+
+        /* Alinhamento da Logo/Marca do Carro dentro da Célula */
+        .logo-marca-celula {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        /* Tamanho padronizado para as marcas dos carros */
+        .logo-marca-celula img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain; /* Garante que o escudo não fique esticado */
+        }
+
+        footer {
+            background-color: var(--preto);
+            color: var(--branco);
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+            font-size: 0.9rem;
+            border-top: 4px solid var(--laranja);
+        }
     </style>
 </head>
 <body>
 
-    <h3>Inscritos rally da Graciosa+subida da montanha 2026</h3>
-    
-    <!-- Barra de Pesquisa Dinâmica -->
-    <input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="🔍 Pesquisar por número, piloto, carro ou categoria..." class="search-box">
+    <header>
+        <div class="header-container">
+            <div class="brand-logo">
+                <h1>Motorsport<span>verso</span></h1>
+            </div>
+        </div>
+    </header>
 
-    <table id="tabelaInscritos">
-        <thead>
-            <!-- Linha do Cabeçalho (Títulos) -->
-            <tr>
-                <th>Numero</th>
-                <th>Piloto\Navegador</th>
-                <th>Equipe</th>
-                <th>Marca\Modelo</th>
-                <th>Categoria\Campeonato</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Primeira Linha de Dados -->
-            <tr>
-                <td>20</td>
-                <td>Leo Gram</td>
-                <td>-</td>
-                <td>Gac Aion V</td>
-                <td>Friends Hill Climb Street EV</td>
-            </tr>
-            <!-- Segunda Linha de Dados -->
-            <tr>
-                <td>59</td>
-                <td>Toshio</td>
-                <td>-</td>
-                <td>Chevrolet Celta</td>
-                <td>Friends Hill Climb Street Asp</td>
-            </tr>
-            <!-- Terceira Linha de Dados -->
-            <tr>
-                <td>17</td>
-                <td>Jeff Duarte</td>
-                <td>-</td>
-                <td>Renault Sandero RS</td>
-                <td>Friends Hill Climb Street Asp</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="main-container">
 
-    <!-- Lógica JavaScript para Filtragem -->
+        <h2 class="section-title">Inscritos Rally da Graciosa + Subida da Montanha 2026</h2>
+        
+        <!-- Filtro de Busca -->
+        <input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="🔍 Filtrar por número, piloto, marca ou categoria..." class="search-box">
+
+        <div class="table-container">
+            <table id="tabelaInscritos">
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Piloto \ Navegador</th>
+                        <th>Equipe</th>
+                        <th>Marca / Logo</th>
+                        <th>Modelo do Veículo</th>
+                        <th>Categoria \ Campeonato</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>20</td>
+                        <td>Leo Gram</td>
+                        <td>-</td>
+                        <td>
+                            <div class="logo-marca-celula">
+                                <img src="logos/gac.png" alt="GAC Logo" onerror="this.src='https://placehold.co'">
+                                GAC
+                            </div>
+                        </td>
+                        <td>Aion V</td>
+                        <td>Friends Hill Climb Street EV</td>
+                    </tr>
+                    <tr>
+                        <td>59</td>
+                        <td>Toshio</td>
+                        <td>-</td>
+                        <td>
+                            <div class="logo-marca-celula">
+                                <img src="logos/chevrolet.png" alt="Chevrolet Logo" onerror="this.src='https://placehold.co'">
+                                Chevrolet
+                            </div>
+                        </td>
+                        <td>Celta</td>
+                        <td>Friends Hill Climb Street Asp</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>Jeff Duarte</td>
+                        <td>-</td>
+                        <td>
+                            <div class="logo-marca-celula">
+                                <img src="logos/renault.png" alt="Renault Logo" onerror="this.src='https://placehold.co'">
+                                Renault
+                            </div>
+                        </td>
+                        <td>Sandero RS</td>
+                        <td>Friends Hill Climb Street Asp</td>
+                    </tr>
+                    <tr>
+                        <td>88</td>
+                        <td>Mark</td>
+                        <td>-</td>
+                        <td>
+                            <div class="logo-marca-celula">
+                                <img src="logos/subaru.png" alt="Subaru Logo" onerror="this.src='https://placehold.co'">
+                                Subaru
+                            </div>
+                        </td>
+                        <td>Impreza WRX</td>
+                        <td>Friends Hill Climb Pro Stock Turbo</td>
+                    </tr>
+                    <tr>
+                        <td>07</td>
+                        <td>Logo</td>
+                        <td>-</td>
+                        <td>
+                            <div class="logo-marca-celula">
+                                <img src="logos/volkswagen.png" alt="Volkswagen Logo" onerror="this.src='https://placehold.co'">
+                                Volkswagen
+                            </div>
+                        </td>
+                        <td>Gol DSG</td>
+                        <td>Friends Hill Climb Street Turbo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Motorsportverso. Todos os direitos reservados.</p>
+    </footer>
+
     <script>
         function filtrarTabela() {
             var input, filter, table, tr, td, i, j, txtValue, match;
@@ -116,24 +261,21 @@
             table = document.getElementById("tabelaInscritos");
             tr = table.getElementsByTagName("tr");
 
-            // Começa do 1 para ignorar a linha de cabeçalho (th)
             for (i = 1; i < tr.length; i++) {
-                tr[i].style.display = "none"; // Oculta a linha por padrão
+                tr[i].style.display = "none"; 
                 td = tr[i].getElementsByTagName("td");
                 match = false;
                 
-                // Varre todas as colunas da linha atual
                 for (j = 0; j < td.length; j++) {
                     if (td[j]) {
                         txtValue = td[j].textContent || td[j].innerText;
                         if (txtValue.toUpperCase().indexOf(filter) > -1) {
                             match = true;
-                            break; // Se achou um termo, não precisa olhar o resto da linha
+                            break; 
                         }
                     }
                 }
                 
-                // Se achou uma correspondência, exibe a linha
                 if (match) {
                     tr[i].style.display = "";
                 }
@@ -143,6 +285,3 @@
 
 </body>
 </html>
-
-
-
