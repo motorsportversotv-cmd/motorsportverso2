@@ -511,6 +511,79 @@
                 <th>Carro / Modelo</th>
                 <th>Equipe</th>
                 <th>Voltas / Diferença</th>
+           <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 Hypercar - Le Mans 2026</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 20px;
+            padding: 0;
+        }
+        .table-container {
+            overflow-x: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            min-width: 600px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dddddd;
+            color: #000000; /* Garante que o texto de todas as células seja preto */
+        }
+        th {
+            background-color: #1a1a2e;
+            color: #ffffff; /* Mantém o cabeçalho branco para contraste com o fundo escuro */
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #f1f3f5;
+        }
+        .pos {
+            font-weight: bold;
+            text-align: center;
+            width: 50px;
+        }
+        .car-num {
+            text-align: center;
+            font-weight: bold;
+            color: #e94560; /* Mantém o número do carro em vermelho destacado */
+        }
+        .highlight {
+            background-color: #e8f4fd !important;
+        }
+        .highlight td {
+            color: #000000 !important; /* Garante texto preto também na linha de destaque */
+        }
+    </style>
+</head>
+<body>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th style="text-align: center;">Pos.</th>
+                <th style="text-align: center;">Nº Carro</th>
+                <th>Pilotos</th>
+                <th>Carro / Modelo</th>
+                <th>Equipe</th>
+                <th>Voltas / Diferença</th>
             </tr>
         </thead>
         <tbody>
@@ -597,6 +670,10 @@
         </tbody>
     </table>
 </div>
+
+</body>
+</html>
+
 
 </body>
 </html>
