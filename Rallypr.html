@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado Rally das Praias 2026</title>
+    <title>Guia de Notícias - Rallypr 2026</title>
     <style>
         :root {
             --verde-escuro: #004d40;
             --verde-hover: #00695c;
             --branco: #ffffff;
             --cinza-claro: #f4f4f4;
-            /* Nova cor para destacar a barra de notícias */
+            --cinza-texto: #555555;
             --laranja-destaque: #ff6f00; 
         }
 
@@ -53,9 +53,7 @@
         .dropdown-content a:hover { background-color: #f1f1f1; }
         .dropdown:hover .dropdown-content { display: block; }
 
-        /* ========================================================
-           ESTILO DA BARRA DE NOTÍCIAS (NOVO)
-        ======================================================== */
+        /* BARRA DE NOTÍCIAS RÁPIDAS */
         .news-ticker {
             display: flex;
             align-items: center;
@@ -64,7 +62,6 @@
             height: 40px;
             overflow: hidden;
             font-size: 14px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .news-title {
@@ -77,7 +74,6 @@
             text-transform: uppercase;
             white-space: nowrap;
             z-index: 1;
-            box-shadow: 3px 0 5px rgba(0,0,0,0.3);
         }
 
         .news-scroll {
@@ -87,40 +83,119 @@
             animation: ticker 25s linear infinite;
         }
 
-        .news-scroll span {
-            padding-right: 50px;
-            display: flex;
-            align-items: center;
-        }
+        .news-scroll span { padding-right: 50px; }
 
-        /* Animação para fazer o texto correr */
         @keyframes ticker {
             0% { transform: translate3d(0, 0, 0); }
             100% { transform: translate3d(-100%, 0, 0); }
         }
 
-        /* Pausa a notícia quando o usuário passa o mouse por cima */
-        .news-ticker:hover .news-scroll {
-            animation-play-state: paused;
+        .news-ticker:hover .news-scroll { animation-play-state: paused; }
+
+        /* ========================================================
+           ESTILO DO GUIA DE NOTÍCIAS PRINCIPAL (NOVO)
+        ======================================================== */
+        .container { 
+            max-width: 1100px; 
+            margin: 40px auto; 
+            padding: 0 20px; 
+        }
+
+        .secao-titulo {
+            border-left: 5px solid var(--laranja-destaque);
+            padding-left: 10px;
+            color: var(--verde-escuro);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .news-card {
+            background-color: var(--branco);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .news-card-img {
+            width: 100%;
+            height: 180px;
+            background-color: #ddd;
+            object-fit: cover;
+            /* Remove a borda verde grossa específica das imagens antigas */
+            border: none;
+            border-radius: 0;
+        }
+
+        .news-card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .news-card-date {
+            font-size: 12px;
+            color: var(--laranja-destaque);
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .news-card-title {
+            font-size: 18px;
+            color: #222;
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+        }
+
+        .news-card-text {
+            font-size: 14px;
+            color: var(--cinza-texto);
+            margin: 0 0 20px 0;
+            line-height: 1.6;
+        }
+
+        .news-card-btn {
+            margin-top: auto;
+            background-color: var(--verde-escuro);
+            color: var(--branco);
+            text-decoration: none;
+            padding: 10px;
+            text-align: center;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .news-card-btn:hover {
+            background-color: var(--verde-hover);
         }
         /* ======================================================== */
 
-        .container { max-width: 1000px; margin: 20px auto; padding: 0 20px; }
-        .img-flex { display: flex; justify-content: space-between; margin-top: 30px; margin-bottom: 30px; padding: 0 20px; }
-        
-        img { 
-            max-width: 100%; 
-            height: auto; 
-            border: 5px solid var(--verde-escuro);
-            border-radius: 8px; 
-        }
-
+        /* Mantendo os estilos da sua tabela original */
+        .tabela-titulo { margin-top: 50px; }
         table { 
-            width: 95%; 
-            margin: 20px auto;
+            width: 100%; 
             border-collapse: collapse; 
             background-color: var(--branco);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 50px;
         }
 
         th { background-color: var(--verde-escuro); color: var(--branco); padding: 15px; text-transform: uppercase; }
@@ -155,41 +230,82 @@
         </li>
     </nav>
 
-    <!-- BARRA DE NOTÍCIAS ADICIONADA AQUI -->
+    <!-- BARRA DE NOTÍCIAS RÁPIDAS -->
     <div class="news-ticker">
-        <div class="news-title">Últimas Notícias</div>
+        <div class="news-title">Plantão</div>
         <div class="news-scroll">
-            <span>🔥 <strong>Rally do Centro Oeste:</strong> Inscrições abertas para a etapa de Jardim Alegre!</span>
-            <span>🏆 <strong>Rally das Praias 2026:</strong> Confira a tabela completa dos resultados abaixo.</span>
-            <span>🎮 <strong>Rally Virtual:</strong> Nova temporada começa no próximo mês, prepare seu simulador!</span>
-            <span>📅 <strong>Fique atento:</strong> Próxima etapa do Rally da Graciosa acontece de 17 a 19 de Julho.</span>
+            <span>🔥 Inscrições abertas para o Rally do Centro Oeste em Jardim Alegre!</span>
+            <span>🏆 Resultados do Rally das Praias atualizados na tabela abaixo.</span>
+            <span>🎮 Nova temporada do Rally Virtual começa no próximo mês!</span>
         </div>
     </div>
 
-    <div class="img-flex">
-        <img src="download (6).jpg" alt="Rally" width="300" height="200">
-        <img src="50245640956_bc7cefc42c_o.jpg" alt="Rally Virtual" width="300" height="200">
-    </div>
+    <!-- GUIA DE NOTÍCIAS PRINCIPAL -->
+    <div class="container">
+        
+        <h2 class="secao-titulo">📰 Guia de Notícias / Cobertura</h2>
+        
+        <div class="news-grid">
+            
+            <!-- CARD NOTÍCIA 1 -->
+            <div class="news-card">
+                <!-- Substitua o src pela sua imagem da notícia -->
+                <img class="news-card-img" src="download (6).jpg" alt="Carro de Rally na praia">
+                <div class="news-card-content">
+                    <div class="news-card-date">Fevereiro 2026</div>
+                    <h3 class="news-card-title">Rally das Praias agita o litoral em Guaratuba</h3>
+                    <p class="news-card-text">A abertura da temporada 2026 foi marcada por muita poeira, adrenalina e disputas acirradas nas praias do Paraná. Veja a cobertura completa.</p>
+                    <a href="#" class="news-card-btn">Ler Notícia Completa</a>
+                </div>
+            </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Etapa</th>
-          <th>Evento</th>
-          <th>Localização</th>
-          <th>Data</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td>Rally das Praias</td><td>Guaratuba - PR</td><td>20-22/02</td></tr>
-        <tr><td>2</td><td>Rally do Centro Oeste</td><td>Jardim Alegre - PR</td><td>15-17/05</td></tr>
-        <tr><td>3</td><td>Rally da Graciosa</td><td>Quatro Barras - PR</td><td>17-19/07</td></tr>
-        <tr><td>4</td><td>Rally Vales do Iguaçu</td><td>Pato Branco - PR</td><td>06-08/11</td></tr>
-        <tr><td>5</td><td>Rally Sprint</td><td>Balsa Nova - PR</td><td>04-06/12</td></tr>
-      </tbody>
-    </table>
+            <!-- CARD NOTÍCIA 2 -->
+            <div class="news-card">
+                <!-- Substitua o src pela sua imagem da notícia -->
+                <img class="news-card-img" src="50245640956_bc7cefc42c_o.jpg" alt="Simulador de Rally">
+                <div class="news-card-content">
+                    <div class="news-card-date">Inscrições Abertas</div>
+                    <h3 class="news-card-title">Inscrições para o Rally Virtual estão liberadas</h3>
+                    <p class="news-card-text">Pilotos de todo o país já podem garantir sua vaga na primeira etapa do campeonato virtual. Prepare seu simulador e acelere.</p>
+                    <a href="#" class="news-card-btn">Inscrever-se Agora</a>
+                </div>
+            </div>
+
+            <!-- CARD NOTÍCIA 3 -->
+            <div class="news-card">
+                <!-- Imagem padrão caso queira adicionar mais notícias no futuro -->
+                <img class="news-card-img" src="download (6).jpg" alt="Próxima etapa">
+                <div class="news-card-content">
+                    <div class="news-card-date">Próxima Etapa</div>
+                    <h3 class="news-card-title">Preparativos para Jardim Alegre a todo vapor</h3>
+                    <p class="news-card-text">A organização do Rally do Centro Oeste divulgou os primeiros detalhes das pistas para a corrida que acontece em maio.</p>
+                    <a href="#" class="news-card-btn">Ver Detalhes Técnicos</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SEÇÃO DO CALENDÁRIO / TABELA -->
+        <h2 class="secao-titulo tabela-titulo">📅 Calendário de Etapas</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Etapa</th>
+              <th>Evento</th>
+              <th>Localização</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Rally das Praias</td><td>Guaratuba - PR</td><td>20-22/02</td></tr>
+            <tr><td>2</td><td>Rally do Centro Oeste</td><td>Jardim Alegre - PR</td><td>15-17/05</td></tr>
+            <tr><td>3</td><td>Rally da Graciosa</td><td>Quatro Barras - PR</td><td>17-19/07</td></tr>
+            <tr><td>4</td><td>Rally Vales do Iguaçu</td><td>Pato Branco - PR</td><td>06-08/11</td></tr>
+            <tr><td>5</td><td>Rally Sprint</td><td>Balsa Nova - PR</td><td>04-06/12</td></tr>
+          </tbody>
+        </table>
+
+    </div>
 
 </body>
 </html>
-
-
