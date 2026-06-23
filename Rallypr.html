@@ -10,6 +10,8 @@
             --verde-hover: #00695c;
             --branco: #ffffff;
             --cinza-claro: #f4f4f4;
+            /* Nova cor para destacar a barra de notícias */
+            --laranja-destaque: #ff6f00; 
         }
 
         body { 
@@ -46,13 +48,65 @@
         }
 
         .dropdown { list-style: none; position: relative; display: inline-block; }
-        .dropdown-content { display: none; position: absolute; background-color: var(--branco); min-width: 200px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1; }
+        .dropdown-content { display: none; position: absolute; background-color: var(--branco); min-width: 200px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 2; }
         .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; text-align: left; }
         .dropdown-content a:hover { background-color: #f1f1f1; }
         .dropdown:hover .dropdown-content { display: block; }
 
+        /* ========================================================
+           ESTILO DA BARRA DE NOTÍCIAS (NOVO)
+        ======================================================== */
+        .news-ticker {
+            display: flex;
+            align-items: center;
+            background-color: #1a1a1a;
+            color: var(--branco);
+            height: 40px;
+            overflow: hidden;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .news-title {
+            background-color: var(--laranja-destaque);
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            white-space: nowrap;
+            z-index: 1;
+            box-shadow: 3px 0 5px rgba(0,0,0,0.3);
+        }
+
+        .news-scroll {
+            display: flex;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: ticker 25s linear infinite;
+        }
+
+        .news-scroll span {
+            padding-right: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Animação para fazer o texto correr */
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* Pausa a notícia quando o usuário passa o mouse por cima */
+        .news-ticker:hover .news-scroll {
+            animation-play-state: paused;
+        }
+        /* ======================================================== */
+
         .container { max-width: 1000px; margin: 20px auto; padding: 0 20px; }
-        .img-flex { display: flex; justify-content: space-between; margin-bottom: 30px; padding: 0 20px; }
+        .img-flex { display: flex; justify-content: space-between; margin-top: 30px; margin-bottom: 30px; padding: 0 20px; }
         
         img { 
             max-width: 100%; 
@@ -100,6 +154,17 @@
             </div>
         </li>
     </nav>
+
+    <!-- BARRA DE NOTÍCIAS ADICIONADA AQUI -->
+    <div class="news-ticker">
+        <div class="news-title">Últimas Notícias</div>
+        <div class="news-scroll">
+            <span>🔥 <strong>Rally do Centro Oeste:</strong> Inscrições abertas para a etapa de Jardim Alegre!</span>
+            <span>🏆 <strong>Rally das Praias 2026:</strong> Confira a tabela completa dos resultados abaixo.</span>
+            <span>🎮 <strong>Rally Virtual:</strong> Nova temporada começa no próximo mês, prepare seu simulador!</span>
+            <span>📅 <strong>Fique atento:</strong> Próxima etapa do Rally da Graciosa acontece de 17 a 19 de Julho.</span>
+        </div>
+    </div>
 
     <div class="img-flex">
         <img src="download (6).jpg" alt="Rally" width="300" height="200">
