@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Possiveis entradas Goodwood FOS 2026</title>
+</head>
+<body>
+    <h1>Possiveis entradas Goodwood FOS 2026</h1>
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela com Barra de Busca</title>
+    <style>
+        /* Estilos básicos para organizar a página */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        /* Estilização do campo de busca */
+        #inputBusca {
+            width: 100%;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        /* Estilização da tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Lista de Usuários</h2>
+
+    <!-- Campo de Entrada para a Busca -->
+    <input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="Digite um nome para buscar...">
+
+    <!-- Tabela de Dados -->
+    <table id="tabelaDados">
+        <thead>
+            <tr>
+                <th>Marca\Modelo</th>
+                <th>entrada</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Dacia Sandrider T1+</td>
+                <td>Dacia</td>
+                <td>Rally\Dakar Rally</td>
+            </tr>
+            <tr>
+                <td>HWA Evo R</td>
+                <td>HWA</td>
+                <td>Touring Car</td>
+            </tr>
+            <tr>
+                <td>BMW M3 Touring GT3</td>
+                <td>BMW M Motorsport</td>
+                <td>GT3</td>
+            </tr>
+            <tr>
+                <td>Ford GT40 MKII</td>
+                <td>-</td>
+                <td>Ford VS Ferrari</td>
+            </tr>
+ <tr>
+                <td>Ford GT40 MKII</td>
+                <td>-</td>
+                <td>Ford VS Ferrari</td>
+            </tr>
+ <tr>
+                <td>Ford GT40 MKII</td>
+                <td>-</td>
+                <td>Ford VS Ferrari</td>
+            </tr>
+    <tr>
+                <td>Ferrari  330 P3\4</td>
+                <td>-</td>
+                <td>Ford VS Ferrari</td>
+            </tr>     
+             <tr>
+                <td>Lancia 037 Evo</td>
+                <td>-</td>
+                <td>Audi VS Lancia</td>
+            </tr>     
+               
+
+        </tbody>
+    </table>
+
+    <!-- Script JavaScript para o Filtro -->
+    <script>
+        function filtrarTabela() {
+            // Obtém o valor digitado no input e converte para letras maiúsculas
+            let input = document.getElementById("inputBusca");
+            let filtro = input.value.toUpperCase();
+            
+            // Obtém a tabela e as linhas do corpo (tbody)
+            let tabela = document.getElementById("tabelaDados");
+            let linhas = tabela.getElementsByTagName("tr");
+
+            // Percorre todas as linhas da tabela (ignorando o cabeçalho index 0)
+            for (let i = 1; i < linhas.length; i++) {
+                // Obtém a primeira coluna (Nome) da linha atual
+                let colunaNome = linhas[i].getElementsByTagName("td")[0];
+                
+                if (colunaNome) {
+                    let textoCelula = colunaNome.textContent || colunaNome.innerText;
+                    
+                    // Se o texto da célula contiver o que foi digitado, exibe a linha; senão, esconde
+                    if (textoCelula.toUpperCase().indexOf(filtro) > -1) {
+                        linhas[i].style.display = "";
+                    } else {
+                        linhas[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+</body>
+</html>
