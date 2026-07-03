@@ -376,23 +376,209 @@
           </article>
         </a>
 
-        <!-- CARD 3 (Exemplo duplicado para preencher a divisão) -->
-        <a href="https://facebook.com" target="_blank" class="card-video-link">
-          <article class="card-video">
-            <div class="video-container">
-              <div class="miniatura-placeholder" style="background-color: #009900;">
-                <div class="marca-dagua-texto">
-                  <span>Subida da Montanha</span>
-                  <p>motorsportversoTV</p>
-                </div>
-                <div class="botao-play-yt"></div>
-              </div>
-            </div>
-            <div class="conteudo-card">
-              <span class="tag-categoria">ONBOARD</span>
-              <h3 class="titulo-video">Câmera Interna Completa</h3>
-            </div>
-          </article>
+       <!-- Bloco do Meio: Textos e Informações -->
+        <div class="info-evento">
+          <span class="data-evento">Sábado, 18 de julho de 2026 de 08:30 a 09:30</span>
+          <h2 class="titulo-evento">Teste transmissão rally da Graciosa+ subida da montanha</h2>
+          <span class="subtitulo-evento">Facebook Live</span>
+        </div>
+
+        <!-- Bloco da Direita: Botão Azul de Configuração -->
+        <div class="acao-evento">
+          <div class="botao-azul">
+            <span class="icone-camera"></span>
+            Configurar vídeo ao vivo
+          </div>
+        </div>
+
+      </div>
+
+    </article>
+  </a>
+
+</body>
+</html>
+Use o código com cuidado.2. Estilização CSS (style.css)css/* Configurações Gerais */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: #f0f2f5; /* Fundo cinza claro igual ao do Facebook */
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ESTILIZAÇÃO DO LINK DA TRANSMISSÃO */
+.link-transmissao-evento {
+  text-decoration: none !important; /* Remove qualquer sublinhado do link */
+  color: inherit !important;        /* Mantém as cores originais dos textos internos */
+  display: block;
+  width: 100%;
+  max-width: 850px;                 /* Limita a largura máxima do bloco */
+  outline: none;
+}
+
+/* Container do Card Principal */
+.card-evento {
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer; /* Transforma o cursor em mãozinha ao passar o mouse */
+}
+
+/* Efeito sutil de destaque ao passar o mouse por cima do bloco */
+.card-evento:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Área da Imagem de Banner */
+.banner-evento {
+  width: 100%;
+  height: auto;
+  max-height: 380px;
+  overflow: hidden;
+  background-color: #e4e6eb;
+}
+
+.banner-evento img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Container dos Detalhes (Alinha Calendário, Texto e Botão) */
+.detalhes-container {
+  display: flex;
+  padding: 20px;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+/* Ícone de Calendário */
+.calendario-icone {
+  width: 50px;
+  height: 52px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  flex-shrink: 0;
+}
+
+.calendario-icone .topo-vermelho {
+  width: 100%;
+  height: 14px;
+  background-color: #e41e3f;
+}
+
+.calendario-icone .numero-dia {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1c1e21;
+  line-height: 34px;
+}
+
+/* Informações de Texto */
+.info-evento {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.data-evento {
+  color: #e41e3f;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.titulo-evento {
+  font-size: 20px;
+  font-weight: 700;
+  color: #050505;
+  line-height: 1.25;
+}
+
+.subtitulo-evento {
+  color: #65676b;
+  font-size: 13px;
+}
+
+/* Botão Azul de Ação */
+.acao-evento {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  margin-bottom: 5px;
+}
+
+.botao-azul {
+  background-color: #0064e0;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+/* Ícone de Câmera em CSS puro */
+.icone-camera {
+  width: 14px;
+  height: 10px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  position: relative;
+  display: inline-block;
+}
+
+.icone-camera::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: -4px;
+  width: 0;
+  height: 0;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-left: 5px solid #ffffff;
+}
+
+/* Responsividade para Celulares */
+@media (max-width: 600px) {
+  .detalhes-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .acao-evento {
+    align-self: flex-start;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .botao-azul {
+    width: 100%;
+    justify-content: center;
+  }
+}
+Use o código com cuidado.Deseja avançar na estilização da página? Diga-me se você prefere adicionar mais eventos para listar abaixo ou se quer criar uma mensagem de alerta avisando o usuário que ele será redirecionado para o Facebook externo.
         </a>
 
       </div> <!-- Fim da divisão grid -->
