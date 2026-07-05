@@ -1,64 +1,108 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rally News - Notícias</title>
+    <title>Portal de Rally com Filtro</title>
     <style>
-        :root {
-            --vermelho-rally: #cc0000;
-            --preto-asfalto: #1a1a1a;
-            --amarelo-destaque: #ffcc00;
-            --cinza-fundo: #f4f4f4;
-        }
-
+        /* Estilos Gerais do Layout */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--cinza-fundo);
+            background-color: #0b1a24;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
             margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: var(--preto-asfalto);
-            color: var(--amarelo-destaque);
-            text-align: center;
-            padding: 3rem 1rem;
-            border-bottom: 5px solid var(--vermelho-rally);
-        }
-
-        /* Container Principal */
-        .noticias-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            display: grid;
-            /* Cria colunas responsivas: mínimo 300px, máximo 1 fração do espaço */
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            padding: 20px;
+            display: flex;
             gap: 30px;
-            padding: 0 20px;
         }
 
-        /* Card de Notícia */
+        /* BARRA LATERAL (Estilo da sua primeira imagem) */
+        .sidebar-tags {
+            background-color: #53835c;
+            color: #ffffff;
+            width: 300px;
+            min-width: 300px;
+            padding: 15px;
+            box-sizing: border-box;
+            align-self: flex-start;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted #a3c4ab;
+        }
+
+        .tag-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tag-item {
+            padding: 8px 0;
+            border-bottom: 1px dotted #a3c4ab;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .tag-item:hover, .tag-item.active {
+            background-color: #436d4b;
+        }
+
+        .tag-item::before {
+            content: "➔";
+            font-size: 10px;
+            margin-right: 8px;
+            color: #ffffff;
+        }
+
+        .tag-link {
+            text-decoration: underline;
+            flex-grow: 1;
+        }
+
+        .tag-count {
+            margin-left: 5px;
+            font-weight: bold;
+            padding-right: 5px;
+        }
+
+        /* CONTAINER DE NOTÍCIAS */
+        .news-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+        /* CARDS DE NOTÍCIA */
         .card {
-            background: #fff;
-            border-radius: 12px;
+            background: #162a3a;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
             display: flex;
             flex-direction: column;
+            border: 1px solid #233d52;
+            transition: transform 0.2s;
         }
 
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
         }
 
         .image-container {
             position: relative;
-            height: 200px;
+            height: 180px;
+            background: #000;
         }
 
-        .card img {
+        .image-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -66,257 +110,191 @@
 
         .tag {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--vermelho-rally);
+            top: 10px;
+            left: 10px;
+            background: #53835c;
             color: white;
-            padding: 5px 12px;
+            padding: 4px 8px;
             font-size: 12px;
             font-weight: bold;
             border-radius: 4px;
-            text-transform: uppercase;
         }
 
         .card-body {
-            padding: 20px;
-            flex-grow: 1;
+            padding: 15px;
             display: flex;
             flex-direction: column;
+            flex-grow: 1;
         }
 
         .card-body h3 {
-            margin: 0 0 12px 0;
-            font-size: 1.3rem;
-            color: #222;
-            line-height: 1.3;
+            font-size: 16px;
+            margin: 0 0 10px 0;
+            color: #fff;
         }
 
         .card-body p {
-            color: #666;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            font-size: 13px;
+            color: #a0b2c6;
+            margin: 0 0 15px 0;
+            line-height: 1.4;
         }
 
         .btn-ler {
             margin-top: auto;
-            color: var(--vermelho-rally);
+            color: #53835c;
             text-decoration: none;
             font-weight: bold;
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 1px;
-            transition: 0.2s;
+            font-size: 14px;
         }
 
         .btn-ler:hover {
-            letter-spacing: 2px;
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>MUNDO RALLY</h1>
-        <p>A velocidade máxima em qualquer terreno</p>
-    </header>
+    <!-- BARRA LATERAL COM OS FILTROS -->
+    <div class="sidebar-tags">
+        <div class="sidebar-title">Marcadores</div>
+        <ul class="tag-list">
+            <!-- Item para resetar o filtro e mostrar tudo -->
+            <li class="tag-item active" data-filter="all">
+                <span class="tag-link">Ver Todos</span>
+                <span class="tag-count">(13)</span>
+            </li>
+            <li class="tag-item" data-filter="Paranaense">
+                <span class="tag-link">Paranaense</span>
+                <span class="tag-count">(1)</span>
+            </li>
+            <li class="tag-item" data-filter="Tour Auto">
+                <span class="tag-link">Tour Auto</span>
+                <span class="tag-count">(3)</span>
+            </li>
+            <li class="tag-item" data-filter="Rally Virtual">
+                <span class="tag-link">Rally Virtual</span>
+                <span class="tag-count">(1)</span>
+            </li>
+            <li class="tag-item" data-filter="Brasil">
+                <span class="tag-link">Brasil</span>
+                <span class="tag-count">(1)</span>
+            </li>
+            <li class="tag-item" data-filter="Paraná">
+                <span class="tag-link">Paraná</span>
+                <span class="tag-count">(3)</span>
+            </li>
+            <li class="tag-item" data-filter="Fia Codassur\Sttelantis SA Rally Cup">
+                <span class="tag-link">Fia Codassur\Sttelantis SA Rally Cup</span>
+                <span class="tag-count">(2)</span>
+            </li>
+            <li class="tag-item" data-filter="Mille Miglia">
+                <span class="tag-link">Mille Miglia</span>
+                <span class="tag-count">(1)</span>
+            </li>
+            <li class="tag-item" data-filter="France">
+                <span class="tag-link">France</span>
+                <span class="tag-count">(1)</span>
+            </li>
+        </ul>
+    </div>
 
-    <main class="noticias-container">
-
-<div class="sidebar-tags">
-    <div class="sidebar-title">Marcadores</div>
-    <ul class="tag-list">
-        <li class="tag-item"><span class="tag-link">Paranaense</span><span class="tag-count">(1)</span></li>
-        <li class="tag-item"><span class="tag-link">Tour Auto</span><span class="tag-count">(3)</span></li>
-        <li class="tag-item"><span class="tag-link">Rally Virtual</span><span class="tag-count">(1)</span></li>
-        <li class="tag-item"><span class="tag-link">Brasil</span><span class="tag-count">(1)</span></li>
-        <li class="tag-item"><span class="tag-link">Paraná</span><span class="tag-count">(3)</span></li>
-        <li class="tag-item"><span class="tag-link">Fia Codassur\Sttelantis SA Rally Cup</span><span class="tag-count">(2)</span></li>
-        <li class="tag-item"><span class="tag-link">Mille Miglia</span><span class="tag-count">(1)</span></li>
-        <li class="tag-item"><span class="tag-link">France</span><span class="tag-count">(1)</span></li>
-    </ul>
-</div>
-
-
+    <!-- ÁREA DE CONTEÚDO COM SEUS CARDS (Ajustados com data-tags) -->
+    <div class="news-container">
         
-<!-- Notícia 1: Rally Centro Oeste (Resultado) -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">Paranaense</span>
-        <img src="imagem_2026-05-17_214335051.png" alt="Mitsubishi L200 RS">
-    </div>
-    <div class="card-body">
-        <h3>Resultado rally do Centro Oeste-Jardim Alegre</h3>
-        <a href="resultado_rally_centro_oeste_2026.html" class="btn-ler">Leia mais →</a>
-    </div>
-</article>
+        <!-- Notícia 1 -->
+        <article class="card" data-tags="Paranaense">
+            <div class="image-container">
+                <span class="tag">Paranaense</span>
+                <img src="imagem_2026-05-17_214335051.png" alt="Mitsubishi L200 RS">
+            </div>
+            <div class="card-body">
+                <h3>Resultado rally do Centro Oeste-Jardim Alegre</h3>
+                <a href="resultado_rally_centro_oeste_2026.html" class="btn-ler">Leia mais →</a>
+            </div>
+        </article>
 
-<!-- Notícia 2: Tour Auto (Resultado Final) -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">Tour Auto</span>
-        <img src="Unbenannt-9 (1).png" alt="BMW M1 Pro Car">
-    </div>
-    <div class="card-body">
-        <h3>Resultado final - Tour Auto 2026</h3>
-        <a href="resultado_final_tour_auto26.html" class="btn-ler">Leia mais →</a>
-    </div>
-</article>
+        <!-- Notícia 2 -->
+        <article class="card" data-tags="Tour Auto">
+            <div class="image-container">
+                <span class="tag">Tour Auto</span>
+                <img src="Unbenannt-9 (1).png" alt="BMW M1 Pro Car">
+            </div>
+            <div class="card-body">
+                <h3>Resultado final - Tour Auto 2026</h3>
+                <a href="resultado_final_tour_auto26.html" class="btn-ler">Leia mais →</a>
+            </div>
+        </article>
 
-<!-- Notícia 3: FIA Esports Global -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">Rally Virtual</span>
-        <img src="hyundai_ac_rally.jpg" alt="Hyundai I20 N Rally 2 Assetto Corsa rally">
-    </div>
-    <div class="card-body">
-        <h3>Fia lança o esports global</h3>
-        <p>Fia lança primeiro esports global baseado no Assetto Corsa rally.</p>
-        <a href="fia_cria_esports_global_de_rally_no_assetto_corsa_rally.html" class="btn-ler">Leia mais →</a>
-    </div>
-</article>
+        <!-- Notícia 3 -->
+        <article class="card" data-tags="Rally Virtual">
+            <div class="image-container">
+                <span class="tag">Rally Virtual</span>
+                <img src="hyundai_ac_rally.jpg" alt="Hyundai I20 N Rally 2">
+            </div>
+            <div class="card-body">
+                <h3>Fia lança o esports global</h3>
+                <p>Fia lança primeiro esports global baseado no Assetto Corsa rally.</p>
+                <a href="fia_cria_esports_global_de_rally_no_assetto_corsa_rally.html" class="btn-ler">Leia mais →</a>
+            </div>
+        </article>
 
-<!-- Notícia 4: Tour Auto (Dia 2) -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">Tour Auto</span>
-        <img src="Porsche-911-Carrera-3.0-RS-blanc-Tour-Auto-2009-3-4-avant-droit_zoom.jpg" alt="Porsche 911 Carrera">
-    </div>
-    <div class="card-body">
-        <h3>Resultado Dia 2 - Tour Auto 2026</h3>
-        <p>Liderança de um Porsche 911 Carrera RS apos segundo dia.</p>
-        <a href="results_day%202_tour_auto%2026.html" class="btn-ler">Leia mais →</a>
-    </div>
-</article>
+        <!-- Notícia 4 -->
+        <article class="card" data-tags="Tour Auto">
+            <div class="image-container">
+                <span class="tag">Tour Auto</span>
+                <img src="Porsche-911-Carrera-3.0-RS-blanc-Tour-Auto-2009-3-4-avant-droit_zoom.jpg" alt="Porsche 911">
+            </div>
+            <div class="card-body">
+                <h3>Resultado Dia 2 - Tour Auto 2026</h3>
+                <p>Liderança de um Porsche 911 Carrera RS apos segundo dia.</p>
+                <a href="results_day%202_tour_auto%2026.html" class="btn-ler">Leia mais →</a>
+            </div>
+        </article>
 
-<!-- Notícia 5: Tour Auto (Dia 1) -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">Tour Auto</span>
-        <img src="tour-auto-1524813481.jpg" alt="Ford GT40">
-    </div>
-    <div class="card-body">
-        <h3>Resultado Dia 1 - Tour Auto 2026</h3>
-        <p>Liderança impressionante do Ford GT40 MKII ao fim da primeira etapa cronometrada.</p>
-        <a href="results_tour_auto_2026.html" class="btn-ler">Leia mais →</a>
-    </div>
-</article>
+        <!-- Notícia 5 -->
+        <article class="card" data-tags="Tour Auto">
+            <div class="image-container">
+                <span class="tag">Tour Auto</span>
+                <img src="tour-auto-1524813481.jpg" alt="Ford GT40">
+            </div>
+            <div class="card-body">
+                <h3>Resultado Dia 1 - Tour Auto 2026</h3>
+                <p>Liderança impressionante do Ford GT40 MKII ao fim da primeira etapa cronometrada.</p>
+                <a href="results_tour_auto_2026.html" class="btn-ler">Leia mais →</a>
+            </div>
+        </article>
 
-<!-- Notícia 6: Rally Estação -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">Brasil</span>
-        <img src="Peugeot%20208%20Maxxi%20Rally.JPG" alt="Peugeot 208 Rally">
-    </div>
-    <div class="card-body">
-        <h3>Rally Estação 2026</h3>
-        <p>Rodrigo Varela domina as especiais com le Peugeot 208 Maxi Rally e garante a vitória.</p>
-        <p>Fotos rallybr\Lisandro Garcia ou Edson Castro</p>
-        <a href="resultado_dia_1_rally_de_estacao_26.html" class="btn-ler">Leia mais →</a>
-    </div>
-</article>
+        <!-- Notícia 6 -->
+        <article class="card" data-tags="Brasil">
+            <div class="image-container">
+                <span class="tag">Brasil</span>
+                <img src="Peugeot%20208%20Maxxi%20Rally.JPG" alt="Peugeot 208">
+            </div>
+            <div class="card-body">
+                <h3>Rally Estação 2026</h3>
+                <p>Rodrigo Varela domina as especiais com le Peugeot 208 Maxi Rally e garante a vitória.</p>
+                <a href="resultado_dia_1_rally_de_estacao_26.html" class="btn-ler">Leia mais →</a>
+            </div>
+        </article>
 
-<!-- Notícia 7: Rally Centro Oeste (Inscritos) -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">Paraná</span>
-        <img src="20250831_151232000_iOS-1-225x300.jpg" alt="Rally do Centro Oeste">
-    </div>
-    <div class="card-body">
-        <h3>Inscritos Rally do Centro Oeste-Jardim Alegre</h3>
-        <a href="inscritos_rally_do_centro_oeste_26.html" class="btn-ler">Leia mais →</a>
-    </div>
-</article>
+        <!-- Notícia 7 -->
+        <article class="card" data-tags="Paraná">
+            <div class="image-container">
+                <span class="tag">Paraná</span>
+                <img src="20250831_151232000_iOS-1-225x300.jpg" alt="Rally Centro Oeste">
+            </div>
+            <div class="card-body">
+                <h3>Inscritos Rally do Centro Oeste-Jardim Alegre</h3>
+                <a href="inscritos_rally_do_centro_oeste_26.html" class="btn-ler">Leia mais →</a>
+            </div>
+        </article>
 
-<!-- Notícia 8: Rally da Graciosa (Subida de Montanha) -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">PARANÁ</span> 
-        <img src="WhatsApp%20Image%202026-05-20%20at%2023.00.55.jpeg" alt="Rally da Graciosa">
-    </div>
-    <div class="card-body">
-        <h3>Pelo segundo ano o Rally da Graciosa em Quatro Barras terá junto a sua programação subida da montanha</h3>
-        <p>Rally da Graciosa em julho em Quatro Barras, do campeonato Paranaense terá novamente subida da montanha dentro da sua programação.</p>
-        <a href="rally-da_graciosa_tera_subida%20da%20montanha_pelo_segundo%20ano_consecutivo_em%202026.html" class="btn-ler">LEIA MAIS →</a>
-    </div>
-</article>
+        <!-- Notícia 8 -->
+        <article class="card" data-tags="Paraná">
+            <div class="image-container">
+                <span class="tag">PARANÁ</span>
 
-<!-- Notícia 9: Fia Codassur (Inscritos Brasileiros) -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">Fia Codassur\Sttelantis SA Rally Cup</span> 
-        <img src="WhatsApp%20Image%202026-05-25%20at%2023.12.49.jpeg" alt="VW Polo GTI R5 Rosset">
-    </div>
-    <div class="card-body">
-        <h3>Brasileiros competirão no rally del Guiara no Paraguay do Fia Codassur</h3>
-        <p>Os Brasileiros que vai disputar o Fia Codassur no Paraguai (também valida pelo Sttelantis SA Rally Cup).</p>
-        <a href="Brasileiros_no%20fia_codassur_paraguai_2026.html" class="btn-ler">LEIA MAIS →</a>
-    </div>
-</article>
-
-<!-- Notícia 10: Rally del Guaira (Resultados Dia 1) -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">Fia Codassur\Sttelantis SA Rally Cup</span> 
-        <img src="rally%20del%20Guaira.jpg" alt="Rally del Guaira" width="300">
-    </div>
-    <div class="card-body">
-        <h3>Resultados dia 1-rally del Guiara no Paraguay do Fia Codassur 2026</h3>
-        <a href="resultados_rally_del_guaira_paraguai_fia_codassur_dia%201_26.html" class="btn-ler">LEIA MAIS →</a>
-    </div>
-</article>
-
-<!-- Notícia 11: Mille Miglia (Resultados Dia 1) -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">Mille Miglia</span> 
-        <img src="mb_1000miglia_princ.webp" alt="Mille Miglia" width="300">
-    </div>
-    <div class="card-body">
-        <h3>Resultados dia 1-Mille Miglia 2026</h3>
-        <a href="results-day1_migla_mille_2026.html" class="btn-ler">LEIA MAIS →</a>
-    </div>
-</article>
-
-<!-- Notícia 12: Rally da Graciosa (Inscritos) -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">Paraná</span> 
-        <img src="2025-07-12-Rally-da-Graciosa-Edson-Castro-01-1024x683.jpg" alt="Renault Clio RS no Rally da Graciosa" width="300">
-    </div>
-    <div class="card-body">
-        <h3>Inscritos rally da Graciosa + subida da montanha</h3>
-        <a href="inscritos_rally_da_graciosa_%20mais_subida%20da%20montanha.html" class="btn-ler">LEIA MAIS →</a>
-    </div>
-</article>    
-
-<!-- Notícia 13: Rally Vosges Est Grand (Loeb) -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">France</span> 
-        <img src="Loeb%20Fiesta%20WRC.jpg" alt="Loeb Ford Fiesta WRC" width="300">
-    </div>
-    <div class="card-body">
-        <h3>Loeb com Ford Fiesta WRC Vence o primeiro dia do rally Vosges Est Grand</h3>
-        <a href="resultados_rally_vosges_est_grand.html" class="btn-ler">LEIA MAIS →</a>
-    </div>
-</article>
-
-        <!-- Notícia 14: Rally de Nova Prata(Resultado) -->
-<article class="card">
-    <div class="image-container">
-        <span class="tag">Brasil</span> 
-        <img src="Loeb%20Fiesta%20WRC.jpg" alt="Loeb Ford Fiesta WRC" width="300">
-    </div>
-    <div class="card-body">
-        <h3>Rodrigo Varela vence o Rally de Nova Prata 2026 com Peugeot 208 Maxxi Rally</h3>
-        <a href="Resultado_rally_Nova_prata 2026.html" class="btn-ler">LEIA MAIS →</a>
-    </div>
-</article>
-
-
-        
     
 <!DOCTYPE html>
 <html lang="pt-BR">
