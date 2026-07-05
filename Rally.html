@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Rally com Filtro</title>
+    <title>Portal de Rally com Links Diretos</title>
     <style>
         /* Estilos Gerais do Layout */
         body {
@@ -25,6 +25,8 @@
             padding: 15px;
             box-sizing: border-box;
             align-self: flex-start;
+            position: sticky;
+            top: 20px; /* Mantém a barra visível ao rolar a página */
         }
 
         .sidebar-title {
@@ -47,12 +49,6 @@
             font-size: 14px;
             display: flex;
             align-items: center;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .tag-item:hover, .tag-item.active {
-            background-color: #436d4b;
         }
 
         .tag-item::before {
@@ -63,8 +59,14 @@
         }
 
         .tag-link {
+            color: #ffffff;
             text-decoration: underline;
             flex-grow: 1;
+            cursor: pointer;
+        }
+
+        .tag-item:hover .tag-link, .tag-item.active .tag-link {
+            color: #e0f2e5;
         }
 
         .tag-count {
@@ -74,6 +76,11 @@
         }
 
         /* CONTAINER DE NOTÍCIAS */
+        .news-section {
+            width: 100%;
+            scroll-margin-top: 20px; /* Suaviza a rolagem para o topo */
+        }
+
         .news-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -155,147 +162,134 @@
 </head>
 <body>
 
-    <!-- BARRA LATERAL COM OS FILTROS -->
+    <!-- BARRA LATERAL COM OS LINKS DIRETOS -->
     <div class="sidebar-tags">
         <div class="sidebar-title">Marcadores</div>
         <ul class="tag-list">
-            <!-- Item para resetar o filtro e mostrar tudo -->
             <li class="tag-item active" data-filter="all">
-                <span class="tag-link">Ver Todos</span>
+                <a href="#Todos" class="tag-link">Ver Todos</a>
                 <span class="tag-count">(13)</span>
             </li>
             <li class="tag-item" data-filter="Paranaense">
-                <span class="tag-link">Paranaense</span>
+                <a href="#Paranaense" class="tag-link">Paranaense</a>
                 <span class="tag-count">(1)</span>
             </li>
             <li class="tag-item" data-filter="Tour Auto">
-                <span class="tag-link">Tour Auto</span>
+                <a href="#Tour-Auto" class="tag-link">Tour Auto</a>
                 <span class="tag-count">(3)</span>
             </li>
             <li class="tag-item" data-filter="Rally Virtual">
-                <span class="tag-link">Rally Virtual</span>
+                <a href="#Rally-Virtual" class="tag-link">Rally Virtual</a>
                 <span class="tag-count">(1)</span>
             </li>
             <li class="tag-item" data-filter="Brasil">
-                <span class="tag-link">Brasil</span>
+                <a href="#Brasil" class="tag-link">Brasil</a>
                 <span class="tag-count">(1)</span>
             </li>
             <li class="tag-item" data-filter="Paraná">
-                <span class="tag-link">Paraná</span>
+                <a href="#Parana" class="tag-link">Paraná</a>
                 <span class="tag-count">(3)</span>
             </li>
             <li class="tag-item" data-filter="Fia Codassur\Sttelantis SA Rally Cup">
-                <span class="tag-link">Fia Codassur\Sttelantis SA Rally Cup</span>
+                <a href="#Fia-Codassur" class="tag-link">Fia Codassur\Sttelantis SA Rally Cup</a>
                 <span class="tag-count">(2)</span>
             </li>
             <li class="tag-item" data-filter="Mille Miglia">
-                <span class="tag-link">Mille Miglia</span>
+                <a href="#Mille-Miglia" class="tag-link">Mille Miglia</a>
                 <span class="tag-count">(1)</span>
             </li>
             <li class="tag-item" data-filter="France">
-                <span class="tag-link">France</span>
+                <a href="#France" class="tag-link">France</a>
                 <span class="tag-count">(1)</span>
             </li>
         </ul>
     </div>
 
-    <!-- ÁREA DE CONTEÚDO COM SEUS CARDS (Ajustados com data-tags) -->
-    <div class="news-container">
-        
-        <!-- Notícia 1 -->
-        <article class="card" data-tags="Paranaense">
-            <div class="image-container">
-                <span class="tag">Paranaense</span>
-                <img src="imagem_2026-05-17_214335051.png" alt="Mitsubishi L200 RS">
-            </div>
-            <div class="card-body">
-                <h3>Resultado rally do Centro Oeste-Jardim Alegre</h3>
-                <a href="resultado_rally_centro_oeste_2026.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
+    <!-- SEÇÃO DE CONTEÚDO (Alvo do link direto) -->
+    <section class="news-section" id="resultados">
+        <div class="news-container">
+            
+            <!-- Notícia 1 -->
+            <article class="card" data-tags="Paranaense">
+                <div class="image-container">
+                    <span class="tag">Paranaense</span>
+                    <img src="imagem_2026-05-17_214335051.png" alt="Mitsubishi L200 RS">
+                </div>
+                <div class="card-body">
+                    <h3>Resultado rally do Centro Oeste-Jardim Alegre</h3>
+                    <a href="resultado_rally_centro_oeste_2026.html" class="btn-ler">Leia mais →</a>
+                </div>
+            </article>
 
-        <!-- Notícia 2 -->
-        <article class="card" data-tags="Tour Auto">
-            <div class="image-container">
-                <span class="tag">Tour Auto</span>
-                <img src="Unbenannt-9 (1).png" alt="BMW M1 Pro Car">
-            </div>
-            <div class="card-body">
-                <h3>Resultado final - Tour Auto 2026</h3>
-                <a href="resultado_final_tour_auto26.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
+            <!-- Notícia 2 -->
+            <article class="card" data-tags="Tour Auto">
+                <div class="image-container">
+                    <span class="tag">Tour Auto</span>
+                    <img src="Unbenannt-9 (1).png" alt="BMW M1 Pro Car">
+                </div>
+                <div class="card-body">
+                    <h3>Resultado final - Tour Auto 2026</h3>
+                    <a href="resultado_final_tour_auto26.html" class="btn-ler">Leia mais →</a>
+                </div>
+            </article>
 
-        <!-- Notícia 3 -->
-        <article class="card" data-tags="Rally Virtual">
-            <div class="image-container">
-                <span class="tag">Rally Virtual</span>
-                <img src="hyundai_ac_rally.jpg" alt="Hyundai I20 N Rally 2">
-            </div>
-            <div class="card-body">
-                <h3>Fia lança o esports global</h3>
-                <p>Fia lança primeiro esports global baseado no Assetto Corsa rally.</p>
-                <a href="fia_cria_esports_global_de_rally_no_assetto_corsa_rally.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
+            <!-- Notícia 3 -->
+            <article class="card" data-tags="Rally Virtual">
+                <div class="image-container">
+                    <span class="tag">Rally Virtual</span>
+                    <img src="hyundai_ac_rally.jpg" alt="Hyundai I20 N Rally 2">
+                </div>
+                <div class="card-body">
+                    <h3>Fia lança o esports global</h3>
+                    <p>Fia lança primeiro esports global baseado no Assetto Corsa rally.</p>
+                    <a href="fia_cria_esports_global_de_rally_no_assetto_corsa_rally.html" class="btn-ler">Leia mais →</a>
+                </div>
+            </article>
 
-        <!-- Notícia 4 -->
-        <article class="card" data-tags="Tour Auto">
-            <div class="image-container">
-                <span class="tag">Tour Auto</span>
-                <img src="Porsche-911-Carrera-3.0-RS-blanc-Tour-Auto-2009-3-4-avant-droit_zoom.jpg" alt="Porsche 911">
-            </div>
-            <div class="card-body">
-                <h3>Resultado Dia 2 - Tour Auto 2026</h3>
-                <p>Liderança de um Porsche 911 Carrera RS apos segundo dia.</p>
-                <a href="results_day%202_tour_auto%2026.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
+            <!-- Notícia 4 -->
+            <article class="card" data-tags="Tour Auto">
+                <div class="image-container">
+                    <span class="tag">Tour Auto</span>
+                    <img src="Porsche-911-Carrera-3.0-RS-blanc-Tour-Auto-2009-3-4-avant-droit_zoom.jpg" alt="Porsche 911">
+                </div>
+                <div class="card-body">
+                    <h3>Resultado Dia 2 - Tour Auto 2026</h3>
+                    <p>Liderança de um Porsche 911 Carrera RS apos segundo dia.</p>
+                    <a href="results_day%202_tour_auto%2026.html" class="btn-ler">Leia mais →</a>
+                </div>
+            </article>
 
-        <!-- Notícia 5 -->
-        <article class="card" data-tags="Tour Auto">
-            <div class="image-container">
-                <span class="tag">Tour Auto</span>
-                <img src="tour-auto-1524813481.jpg" alt="Ford GT40">
-            </div>
-            <div class="card-body">
-                <h3>Resultado Dia 1 - Tour Auto 2026</h3>
-                <p>Liderança impressionante do Ford GT40 MKII ao fim da primeira etapa cronometrada.</p>
-                <a href="results_tour_auto_2026.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
+            <!-- Notícia 5 -->
+            <article class="card" data-tags="Tour Auto">
+                <div class="image-container">
+                    <span class="tag">Tour Auto</span>
+                    <img src="tour-auto-1524813481.jpg" alt="Ford GT40">
+                </div>
+                <div class="card-body">
+                    <h3>Resultado Dia 1 - Tour Auto 2026</h3>
+                    <p>Liderança impressionante do Ford GT40 MKII ao fim da primeira etapa cronometrada.</p>
+                    <a href="results_tour_auto_2026.html" class="btn-ler">Leia mais →</a>
+                </div>
+            </article>
 
-        <!-- Notícia 6 -->
-        <article class="card" data-tags="Brasil">
-            <div class="image-container">
-                <span class="tag">Brasil</span>
-                <img src="Peugeot%20208%20Maxxi%20Rally.JPG" alt="Peugeot 208">
-            </div>
-            <div class="card-body">
-                <h3>Rally Estação 2026</h3>
-                <p>Rodrigo Varela domina as especiais com le Peugeot 208 Maxi Rally e garante a vitória.</p>
-                <a href="resultado_dia_1_rally_de_estacao_26.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
+            <!-- Notícia 6 -->
+            <article class="card" data-tags="Brasil">
+                <div class="image-container">
+                    <span class="tag">Brasil</span>
+                    <img src="Peugeot%20208%20Maxxi%20Rally.JPG" alt="Peugeot 208">
+                </div>
+                <div class="card-body">
+                    <h3>Rally Estação 2026</h3>
+                    <p>Rodrigo Varela domina as especiais com le Peugeot 208 Maxi Rally e garante a vitória.</p>
+                    <a href="resultado_dia_1_rally_de_estacao_26.html" class="btn-ler">Leia mais →</a>
+                </div>
+            </article>
 
-        <!-- Notícia 7 -->
-        <article class="card" data-tags="Paraná">
-            <div class="image-container">
-                <span class="tag">Paraná</span>
-                <img src="20250831_151232000_iOS-1-225x300.jpg" alt="Rally Centro Oeste">
-            </div>
-            <div class="card-body">
-                <h3>Inscritos Rally do Centro Oeste-Jardim Alegre</h3>
-                <a href="inscritos_rally_do_centro_oeste_26.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
+            <!-- Notícia 7 -->
+            <article class="card" data-tags="Paraná">
+                <div class="image-container">
+                    <span class="tag">Paraná</span>
 
-        <!-- Notícia 8 -->
-        <article class="card" data-tags="Paraná">
-            <div class="image-container">
-                <span class="tag">PARANÁ</span>
-
-    
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
