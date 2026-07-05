@@ -585,6 +585,64 @@
 
         <article class="card" data-tags="France">
             <div class="image-container"><span class="tag">France</span><img src="Loeb.jpg" alt="Loeb"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tagItems = document.querySelectorAll('.tag-item');
+        const cards = document.querySelectorAll('.card');
+
+        // Função para limpar e normalizar os textos das tags para comparação segura
+        function normalizarTexto(texto) {
+            if (!texto) return '';
+            return texto.trim()
+                        .toLowerCase()
+                        .normalize("NFD")
+                        .replace(/[\u0300-\u036f]/g, "") // Remove acentos (ex: Paraná vira parana)
+                        .replace(/\\/g, '/');            // Converte barra invertida em barra normal
+        }
+
+        // 1. MECANISMO DE CONTAGEM AUTOMÁTICA
+        tagItems.forEach(item => {
+            const filterValue = normalizarTexto(item.getAttribute('data-filter'));
+            const countSpan = item.querySelector('.tag-count');
+            
+            if (filterValue === 'all') {
+                countSpan.textContent = `(${cards.length})`;
+            } else {
+                const totalMatches = Array.from(cards).filter(card => {
+                    const cardTag = normalizarTexto(card.getAttribute('data-tags'));
+                    return cardTag === filterValue;
+                }).length;
+                countSpan.textContent = `(${totalMatches})`;
+            }
+        });
+
+        // 2. FILTRO AO CLICAR
+        tagItems.forEach(item => {
+            const link = item.querySelector('.tag-link');
+            
+            if (link) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    tagItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+
+                    const selectedTag = normalizarTexto(item.getAttribute('data-filter'));
+
+                    cards.forEach(card => {
+                        const cardTag = normalizarTexto(card.getAttribute('data-tags'));
+                        
+                        if (selectedTag === 'all' || cardTag === selectedTag) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        });
+    });
+</script>
 
 
 
