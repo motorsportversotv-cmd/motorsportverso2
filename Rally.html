@@ -524,66 +524,51 @@
         </li>
     </ul>
 </div>
-<script>
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Seleciona todos os posts do seu site. 
-    // OBSERVAÇÃO: Se a classe do seu post não for "post", mude aqui para a classe correta (ex: .card, .artigo)
+    // 1. Seleciona todos os posts da página
     const posts = document.querySelectorAll(".post"); 
     
-    // Objeto para armazenar o total de cada marcador
+    // 2. Cria o mapa de contagem limpando os dados
     const contagemTags = { all: posts.length };
 
-    // 2. Calcula as tags de cada post
     posts.forEach(post => {
-        // Busca o atributo 'data-tags' no HTML do post
-        const tagsAttr = post.getAttribute("data-tags");
+        // Lê as tags do post (procura por data-tags ou classes alternativas)
+        let tagsAttr = post.getAttribute("data-tags") || post.className;
+        
         if (tagsAttr) {
-            // Divide por vírgula, limpa espaços extras invisíveis nas pontas
-            const tags = tagsAttr.split(",").map(t => t.trim());
+            // Remove o nome da classe "post" se o script estiver lendo a classList
+            tagsAttr = tagsAttr.replace("post", "");
+
+            // ALGORITMO CORRETOR: Divide por vírgula ou espaço e limpa tudo
+            const tags = tagsAttr.split(/[\s,]+/).map(t => t.trim()).filter(Boolean);
             
             tags.forEach(tag => {
-                if (tag !== "") {
-                    contagemTags[tag] = (contagemTags[tag] || 0) + 1;
-                }
+                // Padroniza a capitalização para "Brasil" e "Paraná" não quebrarem
+                const tagFormatada = tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase();
+                
+                // Força a soma correta no mapa
+                contagemTags[tagFormatada] = (contagemTags[tagFormatada] || 0) + 1;
             });
         }
     });
 
-    // 3. Renderiza os números reais na barra lateral
+    // 3. Atualiza os elementos HTML da sua barra lateral na tela
     const tagItems = document.querySelectorAll(".tag-item");
     tagItems.forEach(item => {
         const filter = item.getAttribute("data-filter");
         const countSpan = item.querySelector(".tag-count");
         
-        if (countSpan) {
-            const total = contagemTags[filter] || 0;
+        if (countSpan && filter) {
+            // Se o filtro for 'all', usa o total de posts, senão busca a tag limpa
+            const chave = filter === "all" ? "all" : filter.trim();
+            const total = contagemTags[chave] || 0;
+            
+            // Força a atualização do número na interface
             countSpan.textContent = `(${total})`;
         }
     });
-
-    // 4. Lógica de clique para filtrar os posts na tela ao clicar na tag
-    tagItems.forEach(item => {
-        item.addEventListener("click", () => {
-            // Remove a classe ativa de todos e adiciona no clicado
-            tagItems.forEach(i => i.classList.remove("active"));
-            item.classList.add("active");
-
-            const filterValue = item.getAttribute("data-filter");
-
-            posts.forEach(post => {
-                const postTagsAttr = post.getAttribute("data-tags") || "";
-                const postTags = postTagsAttr.split(",").map(t => t.trim());
-
-                if (filterValue === "all" || postTags.includes(filterValue)) {
-                    post.style.display = "block"; // Mostra o post
-                } else {
-                    post.style.display = "none";  // Esconde o post
-                }
-            });
-        });
-    });
 });
-</script>
+
  
 <!-- BARRA LATERAL DINÂMICA (O HTML interno é gerado automaticamente pelo JS) -->
 <div class="sidebar-tags">
