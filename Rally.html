@@ -528,29 +528,45 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. Seleciona todos os posts da página
     const posts = document.querySelectorAll(".post"); 
     
-    // 2. Cria o mapa de contagem limpando os dados
+    // 2. Cria o mapa de contagem
     const contagemTags = { all: posts.length };
 
     posts.forEach(post => {
-        // Lê as tags do post (procura por data-tags ou classes alternativas)
-        let tagsAttr = post.getAttribute("data-tags") || post.className;
+        // Lê estritamente o atributo data-tags do post
+        let tagsAttr = post.getAttribute("data-tags");
         
         if (tagsAttr) {
-            // Remove o nome da classe "post" se o script estiver lendo a classList
-            tagsAttr = tagsAttr.replace("post", "");
-
-            // ALGORITMO CORRETOR: Divide por vírgula ou espaço e limpa tudo
-            const tags = tagsAttr.split(/[\s,]+/).map(t => t.trim()).filter(Boolean);
+            // CORREÇÃO: Divide APENAS por vírgulas, preservando os espaços internos de tags compostas
+            const tags = tagsAttr.split(",").map(t => t.trim()).filter(Boolean);
             
             tags.forEach(tag => {
-                // Padroniza a capitalização para "Brasil" e "Paraná" não quebrarem
-                const tagFormatada = tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase();
+                // Remove espaços extras nas pontas e mantém a escrita original do seu data-tags
+                const tagFormatada = tag.trim();
                 
-                // Força a soma correta no mapa
-                contagemTags[tagFormatada] = (contagemTags[tagFormatada] || 0) + 1;
+                // Soma no mapa de contagem
+                if (tagFormatada) {
+                    contagemTags[tagFormatada] = (contagemTags[tagFormatada] || 0) + 1;
+                }
             });
         }
     });
+
+    // 3. Atualiza os elementos HTML da sua barra lateral na tela
+    const tagItems = document.querySelectorAll(".tag-item");
+    tagItems.forEach(item => {
+        const filter = item.getAttribute("data-filter");
+        const countSpan = item.querySelector(".tag-count");
+        
+        if (countSpan && filter) {
+            const chave = filter === "all" ? "all" : filter.trim();
+            const total = contagemTags[chave] || 0;
+            
+            // Atualiza o HTML com o valor correto calculado
+            countSpan.textContent = `(${total})`;
+        }
+    });
+});
+
 
     // 3. Atualiza os elementos HTML da sua barra lateral na tela
     const tagItems = document.querySelectorAll(".tag-item");
