@@ -524,66 +524,7 @@
         </li>
     </ul>
 </div>
-document.addEventListener("DOMContentLoaded", () => {
-    // 1. Seleciona todos os posts da página
-    const posts = document.querySelectorAll(".post"); 
-    
-    // 2. Cria o mapa de contagem
-    const contagemTags = { all: posts.length };
 
-    posts.forEach(post => {
-        // Lê estritamente o atributo data-tags do post
-        let tagsAttr = post.getAttribute("data-tags");
-        
-        if (tagsAttr) {
-            // CORREÇÃO: Divide APENAS por vírgulas, preservando os espaços internos de tags compostas
-            const tags = tagsAttr.split(",").map(t => t.trim()).filter(Boolean);
-            
-            tags.forEach(tag => {
-                // Remove espaços extras nas pontas e mantém a escrita original do seu data-tags
-                const tagFormatada = tag.trim();
-                
-                // Soma no mapa de contagem
-                if (tagFormatada) {
-                    contagemTags[tagFormatada] = (contagemTags[tagFormatada] || 0) + 1;
-                }
-            });
-        }
-    });
-
-    // 3. Atualiza os elementos HTML da sua barra lateral na tela
-    const tagItems = document.querySelectorAll(".tag-item");
-    tagItems.forEach(item => {
-        const filter = item.getAttribute("data-filter");
-        const countSpan = item.querySelector(".tag-count");
-        
-        if (countSpan && filter) {
-            const chave = filter === "all" ? "all" : filter.trim();
-            const total = contagemTags[chave] || 0;
-            
-            // Atualiza o HTML com o valor correto calculado
-            countSpan.textContent = `(${total})`;
-        }
-    });
-});
-
-
-    // 3. Atualiza os elementos HTML da sua barra lateral na tela
-    const tagItems = document.querySelectorAll(".tag-item");
-    tagItems.forEach(item => {
-        const filter = item.getAttribute("data-filter");
-        const countSpan = item.querySelector(".tag-count");
-        
-        if (countSpan && filter) {
-            // Se o filtro for 'all', usa o total de posts, senão busca a tag limpa
-            const chave = filter === "all" ? "all" : filter.trim();
-            const total = contagemTags[chave] || 0;
-            
-            // Força a atualização do número na interface
-            countSpan.textContent = `(${total})`;
-        }
-    });
-});
 
  
 <!-- BARRA LATERAL DINÂMICA (O HTML interno é gerado automaticamente pelo JS) -->
