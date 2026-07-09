@@ -524,6 +524,66 @@
         </li>
     </ul>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Seleciona todos os posts do seu site. 
+    // OBSERVAÇÃO: Se a classe do seu post não for "post", mude aqui para a classe correta (ex: .card, .artigo)
+    const posts = document.querySelectorAll(".post"); 
+    
+    // Objeto para armazenar o total de cada marcador
+    const contagemTags = { all: posts.length };
+
+    // 2. Calcula as tags de cada post
+    posts.forEach(post => {
+        // Busca o atributo 'data-tags' no HTML do post
+        const tagsAttr = post.getAttribute("data-tags");
+        if (tagsAttr) {
+            // Divide por vírgula, limpa espaços extras invisíveis nas pontas
+            const tags = tagsAttr.split(",").map(t => t.trim());
+            
+            tags.forEach(tag => {
+                if (tag !== "") {
+                    contagemTags[tag] = (contagemTags[tag] || 0) + 1;
+                }
+            });
+        }
+    });
+
+    // 3. Renderiza os números reais na barra lateral
+    const tagItems = document.querySelectorAll(".tag-item");
+    tagItems.forEach(item => {
+        const filter = item.getAttribute("data-filter");
+        const countSpan = item.querySelector(".tag-count");
+        
+        if (countSpan) {
+            const total = contagemTags[filter] || 0;
+            countSpan.textContent = `(${total})`;
+        }
+    });
+
+    // 4. Lógica de clique para filtrar os posts na tela ao clicar na tag
+    tagItems.forEach(item => {
+        item.addEventListener("click", () => {
+            // Remove a classe ativa de todos e adiciona no clicado
+            tagItems.forEach(i => i.classList.remove("active"));
+            item.classList.add("active");
+
+            const filterValue = item.getAttribute("data-filter");
+
+            posts.forEach(post => {
+                const postTagsAttr = post.getAttribute("data-tags") || "";
+                const postTags = postTagsAttr.split(",").map(t => t.trim());
+
+                if (filterValue === "all" || postTags.includes(filterValue)) {
+                    post.style.display = "block"; // Mostra o post
+                } else {
+                    post.style.display = "none";  // Esconde o post
+                }
+            });
+        });
+    });
+});
+</script>
 
 
     <!-- GRADE DE NOTÍCIAS (DIV FECHADA CORRETAMENTE) -->
