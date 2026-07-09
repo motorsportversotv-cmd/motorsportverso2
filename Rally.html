@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -523,6 +523,42 @@
             </li>
         </ul>
     </div>
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Seleciona todos os seus posts (ajuste a classe .post para a sua classe real)
+    const posts = document.querySelectorAll(".post"); 
+    
+    // 2. Cria um mapa para armazenar as contagens
+    const contagemTags = { all: posts.length };
+
+    // 3. Varre cada post e extrai as tags
+    posts.forEach(post => {
+        // Lê o atributo data-tags do post, ex: data-tags="Brasil, Paraná"
+        const tagsAttr = post.getAttribute("data-tags");
+        if (tagsAttr) {
+            // Divide por vírgula, limpa espaços (trim) e padroniza
+            const tags = tagsAttr.split(",").map(t => t.trim());
+            
+            tags.forEach(tag => {
+                if (tag) {
+                    contagemTags[tag] = (contagemTags[tag] || 0) + 1;
+                }
+            });
+        }
+    });
+
+    // 4. Atualiza os números (0) na sua barra lateral HTML
+    const tagItems = document.querySelectorAll(".tag-item");
+    tagItems.forEach(item => {
+        const filter = item.getAttribute("data-filter");
+        const countSpan = item.querySelector(".tag-count");
+        
+        if (countSpan) {
+            // Se a tag existir na contagem, mostra o número, se não, mostra (0)
+            const total = contagemTags[filter] || 0;
+            countSpan.textContent = `(${total})`;
+        }
+    });
+});
 
     <!-- GRADE DE NOTÍCIAS (DIV FECHADA CORRETAMENTE) -->
     <div class="news-container">
