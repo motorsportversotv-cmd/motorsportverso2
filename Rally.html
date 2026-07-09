@@ -477,88 +477,54 @@
 </head>
 <body>
 
-    <!-- BARRA LATERAL -->
-    <div class="sidebar-tags">
-        <div class="sidebar-title">Marcadores</div>
-        <ul class="tag-list">
-            <li class="tag-item active" data-filter="all">
-                <a class="tag-link">Ver Todos</a>
-                <span class="tag-count">(0)</span>
-            </li>
-            <li class="tag-item" data-filter="Paranaense">
-                <a class="tag-link">Paranaense</a>
-                <span class="tag-count">(0)</span>
-            </li>
-            <li class="tag-item" data-filter="Tour Auto">
-                <a class="tag-link">Tour Auto</a>
-                <span class="tag-count">(0)</span>
-            </li>
-            <li class="tag-item" data-filter="Rally Virtual">
-                <a class="tag-link">Rally Virtual</a>
-                <span class="tag-count">(0)</span>
-            </li>
-            <li class="tag-item" data-filter="Brasil">
-                <a class="tag-link">Brasil</a>
-                <span class="tag-count">(0)</span>
-            </li>
-            <li class="tag-item" data-filter="Paraná">
-                <a class="tag-link">Paraná</a>
-                <span class="tag-count">(0)</span>
-            </li>
-            <li class="tag-item" data-filter="Fia Codassur/Sttelantis SA Rally Cup">
-                <a class="tag-link">Fia Codassur/Sttelantis SA Rally Cup</a>
-                <span class="tag-count">(0)</span>
-            </li>
-            <li class="tag-item" data-filter="Mille Miglia">
-                <a class="tag-link">Mille Miglia</a>
-                <span class="tag-count">(0)</span>
-            </li>
-            <li class="tag-item" data-filter="France">
-                <a class="tag-link">France</a>
-                <span class="tag-count">(0)</span>
-            </li>
-              <li class="tag-item" data-filter="France">
-                <a class="tag-link">BR Rally Raid</a>
-                <span class="tag-count">(0)</span>
-            </li>
-        </ul>
-    </div>
-document.addEventListener("DOMContentLoaded", () => {
-    // 1. Seleciona todos os seus posts (ajuste a classe .post para a sua classe real)
-    const posts = document.querySelectorAll(".post"); 
-    
-    // 2. Cria um mapa para armazenar as contagens
-    const contagemTags = { all: posts.length };
+   <!-- BARRA LATERAL CORRIGIDA -->
+<div class="sidebar-tags">
+    <div class="sidebar-title">Marcadores</div>
+    <ul class="tag-list">
+        <li class="tag-item active" data-filter="all">
+            <a class="tag-link">Ver Todos</a>
+            <span class="tag-count">(0)</span>
+        </li>
+        <li class="tag-item" data-filter="Paranaense">
+            <a class="tag-link">Paranaense</a>
+            <span class="tag-count">(0)</span>
+        </li>
+        <li class="tag-item" data-filter="Tour Auto">
+            <a class="tag-link">Tour Auto</a>
+            <span class="tag-count">(0)</span>
+        </li>
+        <li class="tag-item" data-filter="Rally Virtual">
+            <a class="tag-link">Rally Virtual</a>
+            <span class="tag-count">(0)</span>
+        </li>
+        <li class="tag-item" data-filter="Brasil">
+            <a class="tag-link">Brasil</a>
+            <span class="tag-count">(0)</span>
+        </li>
+        <li class="tag-item" data-filter="Paraná">
+            <a class="tag-link">Paraná</a>
+            <span class="tag-count">(0)</span>
+        </li>
+        <li class="tag-item" data-filter="Fia Codassur/Sttelantis SA Rally Cup">
+            <a class="tag-link">Fia Codassur/Sttelantis SA Rally Cup</a>
+            <span class="tag-count">(0)</span>
+        </li>
+        <li class="tag-item" data-filter="Mille Miglia">
+            <a class="tag-link">Mille Miglia</a>
+            <span class="tag-count">(0)</span>
+        </li>
+        <li class="tag-item" data-filter="France">
+            <a class="tag-link">France</a>
+            <span class="tag-count">(0)</span>
+        </li>
+        <!-- CORRIGIDO: data-filter ajustado para "BR Rally Raid" -->
+        <li class="tag-item" data-filter="BR Rally Raid">
+            <a class="tag-link">BR Rally Raid</a>
+            <span class="tag-count">(0)</span>
+        </li>
+    </ul>
+</div>
 
-    // 3. Varre cada post e extrai as tags
-    posts.forEach(post => {
-        // Lê o atributo data-tags do post, ex: data-tags="Brasil, Paraná"
-        const tagsAttr = post.getAttribute("data-tags");
-        if (tagsAttr) {
-            // Divide por vírgula, limpa espaços (trim) e padroniza
-            const tags = tagsAttr.split(",").map(t => t.trim());
-            
-            tags.forEach(tag => {
-                if (tag) {
-                    contagemTags[tag] = (contagemTags[tag] || 0) + 1;
-                }
-            });
-        }
-    });
-
-    // 4. Atualiza os números (0) na sua barra lateral HTML
-    const tagItems = document.querySelectorAll(".tag-item");
-    tagItems.forEach(item => {
-        const filter = item.getAttribute("data-filter");
-        const countSpan = item.querySelector(".tag-count");
-        
-        if (countSpan) {
-            // Se a tag existir na contagem, mostra o número, se não, mostra (0)
-            const total = contagemTags[filter] || 0;
-            countSpan.textContent = `(${total})`;
-        }
-    });
-});
 
     <!-- GRADE DE NOTÍCIAS (DIV FECHADA CORRETAMENTE) -->
     <div class="news-container">
