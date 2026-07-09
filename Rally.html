@@ -584,6 +584,87 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
+ 
+<!-- BARRA LATERAL DINÂMICA (O HTML interno é gerado automaticamente pelo JS) -->
+<div class="sidebar-tags">
+    <div class="sidebar-title">Marcadores</div>
+    <ul class="tag-list" id="tagListContainer">
+        <!-- O algoritmo vai injetar os itens (Ver Todos, Brasil, Paraná, etc.) aqui dentro -->
+    </ul>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Alvo onde a lista de marcadores será renderizada
+    const container = document.getElementById("tagListContainer");
+    if (!container) return;
+
+    // 2. Seleciona os posts (ajuste o seletor ".post" se os seus blocos usarem outra classe)
+    const posts = document.querySelectorAll(".post"); 
+    
+    // 3. Estrutura para armazenar e contar as tags automaticamente
+    const contagemTags = { "Ver Todos": posts.length };
+
+    // 4. ALGORITMO DE EXTRAÇÃO E CONTAGEM AUTOMÁTICA
+    posts.forEach(post => {
+        const tagsAttr = post.getAttribute("data-tags");
+        if (tagsAttr) {
+            // Divide por vírgula e limpa os espaços invisíveis
+            const tags = tagsAttr.split(",").map(t => t.trim());
+            
+            tags.forEach(tag => {
+                if (tag !== "") {
+                    // Se a tag já existe, soma +1. Se não existe, inicia em 1.
+                    contagemTags[tag] = (contagemTags[tag] || 0) + 1;
+                }
+            });
+        }
+    });
+
+    // 5. GERAÇÃO AUTOMÁTICA DO HTML NA TELA
+    // Transforma o objeto de contagem em uma lista para renderizar
+    Object.keys(contagemTags).forEach(tag => {
+        const li = document.createElement("li");
+        li.className = "tag-item";
+        
+        // Define o filtro lógico (se for 'Ver Todos', o filtro real é 'all')
+        const filterValue = (tag === "Ver Todos") ? "all" : tag;
+        li.setAttribute("data-filter", filterValue);
+        
+        // Se for o botão "Ver Todos", inicia marcado como ativo
+        if (filterValue === "all") {
+            li.classList.add("active");
+        }
+
+        // Monta a estrutura interna do link e do contador
+        li.innerHTML = `
+            <a class="tag-link">${tag}</a>
+            <span class="tag-count">(${contagemTags[tag]})</span>
+        `;
+        
+        // 6. ALGORITMO DE FILTRAGEM VISUAL (Ao clicar)
+        li.addEventListener("click", () => {
+            // Remove classe ativa de todos os marcadores gerados
+            document.querySelectorAll(".tag-item").forEach(i => i.classList.remove("active"));
+            li.classList.add("active");
+
+            // Esconde ou mostra os posts baseado na tag clicada
+            posts.forEach(post => {
+                const postTagsAttr = post.getAttribute("data-tags") || "";
+                const postTags = postTagsAttr.split(",").map(t => t.trim());
+
+                if (filterValue === "all" || postTags.includes(filterValue)) {
+                    post.style.display = "block";
+                } else {
+                    post.style.display = "none";
+                }
+            });
+        });
+
+        container.appendChild(li);
+    });
+});
+</script>
 
 
     <!-- GRADE DE NOTÍCIAS (DIV FECHADA CORRETAMENTE) -->
