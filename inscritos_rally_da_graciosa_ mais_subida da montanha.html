@@ -457,70 +457,175 @@
                 </tbody>
             </table>
         </div>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f9; color: #333; }
+        h1, h2 { color: #222; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; background: #fff; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #f0f0f0; }
+        .dashboard { display: flex; gap: 20px; margin-bottom: 20px; }
+        .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); flex: 1; text-align: center; }
+        .card h3 { margin: 0 0 10px 0; color: #666; font-size: 14px; }
+        .card p { margin: 0; font-size: 24px; font-weight: bold; color: #0056b3; }
+        .secoes-estatisticas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .tabela-estatistica { max-width: 100%; }
+    </style>
+</head>
+<body>
+
+    <h1>Painel de Inscritos</h1>
+
+    <!-- 1. CARDS DE RESUMO -->
+    <div class="dashboard">
+        <div class="card">
+            <h3>Total de Inscritos</h3>
+            <p id="resumoTotal">0</p>
+        </div>
+        <div class="card">
+            <h3>Inscritos RallyPR</h3>
+            <p id="resumoRally">0</p>
+        </div>
+        <div class="card">
+            <h3>Inscritos Hill Climb</h3>
+            <p id="resumoHill">0</p>
+        </div>
+    </div>
+
+    <!-- 2. TABELA ORIGINAL DE DADOS (O Script lê daqui) -->
+    <h2>Lista de Inscritos (Dados)</h2>
+    <table id="tabelaInscritos">
+        <thead>
+            <tr>
+                <th>Piloto</th>
+                <th>Navegador</th>
+                <th>Cidade</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>RallyPR</th>
+                <th>Hill Climb</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Piloto A</td><td>Navegador A</td><td>Curitiba</td><td>Subaru</td><td>Impreza</td><td>RBR2</td><td>-</td></tr>
+            <tr><td>Piloto B</td><td>Navegador B</td><td>Cascavel</td><td>Mitsubishi</td><td>Lancer Evolution</td><td>RBR2</td><td>CH3</td></tr>
+            <tr><td>Piloto C</td><td>-</td><td>Londrina</td><td>Subaru</td><td>Impreza</td><td>-</td><td>CH3</td></tr>
+            <tr><td>Piloto D</td><td>Navegador D</td><td>Ponta Grossa</td><td>Volkswagen</td><td>Gol</td><td>RBR4</td><td>-</td></tr>
+            <tr><td>Piloto E</td><td>-</td><td>Curitiba</td><td>Mitsubishi</td><td>Lancer Evolution</td><td>-</td><td>CH2</td></tr>
+        </tbody>
+    </table>
+
+    <!-- 3. LOCAL ONDE AS ESTATÍSTICAS SERÃO INJETADAS -->
+    <h2>Estatísticas Detalhadas</h2>
+    <div class="secoes-estatisticas">
+        <div class="tabela-estatistica">
+            <h3>Marcas mais Utilizadas</h3>
+            <table id="estatisticaMarcas">
+                <thead><tr><th>Marca</th><th>Qtd</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="tabela-estatistica">
+            <h3>Modelos mais Utilizados</h3>
+            <table id="estatisticaModelos">
+                <thead><tr><th>Modelo</th><th>Qtd</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="tabela-estatistica">
+            <h3>Categorias RallyPR</h3>
+            <table id="estatisticaRally">
+                <thead><tr><th>Categoria</th><th>Qtd</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="tabela-estatistica">
+            <h3>Categorias Hill Climb</h3>
+            <table id="estatisticaHill">
+                <thead><tr><th>Categoria</th><th>Qtd</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 4. SCRIPT LOGICO -->
+    <script>
         function calcularEstatisticas() {
-    const tabela = document.getElementById("tabelaInscritos");
-    const linhas = tabela.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
-    
-    let totalInscritos = 0;
-    const marcas = {};
-    const modelos = {};
-    const categoriasRally = {};
-    const categoriasHillClimb = {};
-    let totalRally = 0;
-    let totalHillClimb = 0;
+            const tabela = document.getElementById("tabelaInscritos");
+            if (!tabela) return;
 
-    for (let i = 0; i < linhas.length; i++) {
-        const colunas = linhas[i].getElementsByTagName("td");
-        
-        // Evita linhas vazias ou mal estruturadas
-        if (colunas.length < 7) continue; 
-        
-        totalInscritos++;
+            const tbody = tabela.getElementsByTagName("tbody")[0];
+            if (!tbody) return;
 
-        // 1. Extração de Marca (limpando espaços extras)
-        const marca = colunas[3].innerText.trim();
-        marcas[marca] = (marcas[marca] || 0) + 1;
+            const linhas = tbody.getElementsByTagName("tr");
+            let totalInscritos = 0;
+            const marcas = {};
+            const modelos = {};
+            const categoriasRally = {};
+            const categoriasHillClimb = {};
+            let totalRally = 0;
+            let totalHillClimb = 0;
 
-        // 2. Extração de Modelo
-        const modelo = colunas[4].innerText.trim();
-        modelos[modelo] = (modelos[modelo] || 0) + 1;
+            for (let i = 0; i < linhas.length; i++) {
+                const colunas = linhas[i].getElementsByTagName("td");
+                if (colunas.length < 7) continue;
 
-        // 3. Extração e Contagem do RallyPR
-        const catRally = colunas[5].innerText.trim();
-        if (catRally && catRally !== "-") {
-            categoriasRally[catRally] = (categoriasRally[catRally] || 0) + 1;
-            totalRally++;
+                totalInscritos++;
+
+                // Extração e contagem
+                const marca = colunas[3].innerText.trim();
+                if (marca) marcas[marca] = (marcas[marca] || 0) + 1;
+
+                const modelo = colunas[4].innerText.trim();
+                if (modelo) modelos[modelo] = (modelos[modelo] || 0) + 1;
+
+                const catRally = colunas[5].innerText.trim();
+                if (catRally && catRally !== "-") {
+                    categoriasRally[catRally] = (categoriasRally[catRally] || 0) + 1;
+                    totalRally++;
+                }
+
+                const catHill = colunas[6].innerText.trim();
+                if (catHill && catHill !== "-") {
+                    categoriasHillClimb[catHill] = (categoriasHillClimb[catHill] || 0) + 1;
+                    totalHillClimb++;
+                }
+            }
+
+            // Atualiza os Cards de Resumo na Tela
+            document.getElementById("resumoTotal").innerText = totalInscritos;
+            document.getElementById("resumoRally").innerText = totalRally;
+            document.getElementById("resumoHill").innerText = totalHillClimb;
+
+            // Função auxiliar para renderizar as tabelas de estatísticas ordenadas
+            function renderizarTabelaEstatistica(idTabela, objetoDados) {
+                const tabelaDestino = document.getElementById(idTabela).getElementsByTagName("tbody")[0];
+                tabelaDestino.innerHTML = ""; // Limpa dados anteriores
+
+                const ordenado = Object.entries(objetoDados).sort((a, b) => b[1] - a[1]);
+
+                ordenado.forEach(([nome, qtd]) => {
+                    const linha = document.createElement("tr");
+                    linha.innerHTML = `<td>${nome}</td><td>${qtd}</td>`;
+                    tabelaDestino.appendChild(linha);
+                });
+            }
+
+            // Injeta os dados nas respectivas tabelas HTML
+            renderizarTabelaEstatistica("estatisticaMarcas", marcas);
+            renderizarTabelaEstatistica("estatisticaModelos", modelos);
+            renderizarTabelaEstatistica("estatisticaRally", categoriasRally);
+            renderizarTabelaEstatistica("estatisticaHill", categoriasHillClimb);
         }
 
-        // 4. Extração e Contagem do Hill Climb
-        const catHill = colunas[6].innerText.trim();
-        if (catHill && catHill !== "-") {
-            categoriasHillClimb[catHill] = (categoriasHillClimb[catHill] || 0) + 1;
-            totalHillClimb++;
-        }
-    }
+        // Executa automaticamente ao carregar a página
+        document.addEventListener("DOMContentLoaded", calcularEstatisticas);
+    </script>
+</body>
+</html>
 
-    // Exibe os resultados formatados no console do navegador
-    console.log("=== ESTATÍSTICAS DOS INSCRITOS ===");
-    console.log(`Total de Inscritos: ${totalInscritos}`);
-    console.log(`Inscritos no RallyPR: ${totalRally}`);
-    console.log(`Inscritos na Subida de Montanha (Hill Climb): ${totalHillClimb}`);
-    
-    console.log("\n--- Marcas mais Utilizadas ---");
-    console.table(Object.entries(marcas).sort((a, b) => b[1] - a[1]));
-
-    console.log("\n--- Modelos mais Utilizados ---");
-    console.table(Object.entries(modelos).sort((a, b) => b[1] - a[1]));
-
-    console.log("\n--- Categorias RallyPR ---");
-    console.table(Object.entries(categoriasRally).sort((a, b) => b[1] - a[1]));
-
-    console.log("\n--- Categorias Hill Climb ---");
-    console.table(Object.entries(categoriasHillClimb).sort((a, b) => b[1] - a[1]));
-}
-
-// Executa a função assim que a página terminar de carregar
-window.onload = calcularEstatisticas;
 
     </div>
 
