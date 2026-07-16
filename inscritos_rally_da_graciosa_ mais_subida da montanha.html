@@ -485,20 +485,63 @@
                 </tbody>
             </table>
         </div>
-    <style>
-        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f9; color: #333; }
-        h1, h2 { color: #222; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; background: #fff; }
-        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
-        th { background-color: #f0f0f0; }
-        .dashboard { display: flex; gap: 20px; margin-bottom: 20px; }
-        .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); flex: 1; text-align: center; }
-        .card h3 { margin: 0 0 10px 0; color: #666; font-size: 14px; }
-        .card p { margin: 0; font-size: 24px; font-weight: bold; color: #0056b3; }
-        .secoes-estatisticas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .tabela-estatistica { max-width: 100%; }
-    </style>
-</head>
+   <script>
+    // Função corrigida para calcular as estatísticas lendo as colunas corretas
+    function atualizarEstatisticas() {
+        var table = document.getElementById("tabelaInscritos");
+        var tbody = table.querySelector("tbody");
+        var tr = tbody.getElementsByTagName("tr");
+        
+        var total = tr.length;
+        var rallyPrCount = 0;
+        var hillClimbCount = 0;
+
+        for (var i = 0; i < tr.length; i++) {
+            var tds = tr[i].getElementsByTagName("td");
+            
+            // Garante que a linha possui todas as colunas necessárias
+            if (tds.length >= 7) {
+                // tds[5] é a 6ª coluna (RALLYPR) e tds[6] é a 7ª coluna (FRIENDS HILL CLIMB)
+                var catRally = tds[5].innerText.trim();
+                var catHill = tds[6].innerText.trim();
+                
+                if (catRally !== "-") rallyPrCount++;
+                if (catHill !== "-") hillClimbCount++;
+            }
+        }
+
+        // Atualiza os elementos visuais do painel
+        document.getElementById("statTotal").innerText = total;
+        document.getElementById("statRallyPR").innerText = rallyPrCount;
+        document.getElementById("statHillClimb").innerText = hillClimbCount;
+    }
+
+    // Filtro de pesquisa dinâmica por texto
+    function filtrarTabela() {
+        var input = document.getElementById("inputBusca");
+        var filter = input.value.toUpperCase();
+        var table = document.getElementById("tabelaInscritos");
+        var tbody = table.querySelector("tbody");
+        var tr = tbody.getElementsByTagName("tr");
+
+        for (var i = 0; i < tr.length; i++) {
+            var mostrar = false;
+            var tds = tr[i].getElementsByTagName("td");
+            
+            for (var j = 0; j < tds.length; j++) {
+                if (tds[j] && tds[j].innerText.toUpperCase().indexOf(filter) > -1) {
+                    mostrar = true;
+                    break;
+                }
+            }
+            tr[i].style.display = mostrar ? "" : "none";
+        }
+    }
+
+    // Executa as somas assim que a página renderizar
+    window.onload = atualizarEstatisticas;
+</script>
+
 <body>
 
     <h1>Painel de Inscritos</h1>
