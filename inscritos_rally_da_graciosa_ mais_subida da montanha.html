@@ -425,52 +425,125 @@
             </div>
         </div>
         
-       <!-- Filtro de Busca -->
-        <input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="🔍 Filtrar por número, piloto, marca ou categoria..." class="search-box">
+      <!-- Tabela Responsiva com Colunas Ajustadas -->
+<div class="table-container">
+    <table id="tabelaInscritos">
+        <thead>
+            <tr>
+                <th style="width: 5%;">Nº</th>
+                <th style="width: 25%;">PILOTO \ NAVEGADOR</th>
+                <th style="width: 20%;">EQUIPE</th>
+                <th style="width: 15%;">MARCA / LOGO</th>
+                <th style="width: 15%;">MODELO DO VEÍCULO</th>
+                <!-- ALTERADO: Largura reduzida para as duas colunas de categoria -->
+                <th style="width: 10%;">RALLYPR</th>
+                <th style="width: 10%;">HILL CLIMB</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>45</td>
+                <td>Maycon Soares\Cleiton Casaroto</td>
+                <td>Soares Rally Team</td>
+                <td>
+                    <div class="logo-marca-celula">
+                        <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
+                        Peugeot
+                    </div>
+                </td>
+                <td>207</td>
+                <td>4x2 Pró</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Adib Sada\Albert Oliveira Filho</td>
+                <td>ASTJ</td>
+                <td>
+                    <div class="logo-marca-celula">
+                        <!-- CORRIGIDO: Removido o erro visual do escudo trocado no seu print -->
+                        <img src="ford-logo-png_seeklogo-56577.png" alt="Ford" onerror="this.src='https://placehold.co'">
+                        Ford 
+                    </div>
+                </td>
+                <td>Ká</td>
+                <td>4x2 Pró</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>Marcio Cedraz\Gilson Rocha</td>
+                <td>Bahia Rally</td>
+                <td>
+                    <div class="logo-marca-celula">
+                        <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
+                        Peugeot
+                    </div>
+                </td>
+                <td>207</td>
+                <td>4x2 Super</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>777</td>
+                <td>Perci Hultmann\Juliano Zerbinatto</td>
+                <td>ProMacchina</td>
+                <td>
+                    <div class="logo-marca-celula">
+                        <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
+                        Peugeot
+                    </div>
+                </td>
+                <td>207</td>
+                <td>4x2 Super</td> 
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>72</td>
+                <td>Sandro Maia\Guilherme Pontarolo</td>
+                <td>Maia Racing\Maia Motorsport</td>
+                <td>
+                    <div class="logo-marca-celula">
+                        <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
+                        Fiat
+                    </div>
+                </td>
+                <td>Palio</td>
+                <td>4x2 Super</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Ronaldo Paske\Edna Paske</td>
+                <td>PSK Rally Team</td>
+                <td>
+                    <div class="logo-marca-celula">
+                        <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
+                        Peugeot
+                    </div>
+                </td>
+                <td>206</td>
+                <td>4x2 Super</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>Felipe Paiva\William</td>
+                <td>ProMacchina</td>
+                <td>
+                    <div class="logo-marca-celula">
+                        <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
+                        Mitsubishi
+                    </div>
+                </td>
+                <td>L200 RS</td>
+                <td>RTT</td>
+                <td>-</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-        <!-- Tabela Responsiva com barra de rolagem interna isolada -->
-        <div class="table-container">
-            <table id="tabelaInscritos">
-                <thead>
-                    <tr>
-                        <th>Nº</th>
-                        <th>PILOTO \ NAVEGADOR</th>
-                        <th>EQUIPE</th>
-                        <th>MARCA / LOGO</th>
-                        <th>MODELO DO VEÍCULO</th>
-                        <th>RALLYPR(CATEGORIA)</th>
-                        <th>FRIENDS HILL CLIMB(CATEGORIA)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>45</td>
-                        <td>Maycon Soares\Cleiton Casaroto</td>
-                        <td>Soares Rally Team</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
-                                Peugeot
-                            </div>
-                        </td>
-                        <td>207</td>
-                        <td>4x2 Pró</td>
-                        <td>-</td>
-                    </tr>
-                      <tr>
-                        <td>10</td>
-                        <td>Adib Sada\Albert Oliveira Filho</td>
-                        <td>ASTJ</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
-                                Ford
-                            </div>
-                        </td>
-                        <td>Ká</td>
-                        <td>4x2 Pró</td>
-                        <td>-</td>
-                    </tr>
                     
     <footer>
         <p>&copy; 2026 Motorsportverso. Todos os direitos reservados.</p>
