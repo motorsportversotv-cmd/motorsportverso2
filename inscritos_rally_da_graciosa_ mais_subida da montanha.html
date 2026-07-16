@@ -6,8 +6,8 @@
     <title>Inscritos - Rally da Graciosa + Subida da Montanha 2026</title>
     <style>
         :root {
-            --laranja: #ff6600;
-            --laranja-escuro: #e65c00;
+            --verde: #2e7d32;
+            --verde-escuro: #1b5e20;
             --preto: #1a1a1a;
             --cinza-escuro: #2a2a2a;
             --branco: #ffffff;
@@ -29,7 +29,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 4px solid var(--laranja);
+            border-bottom: 4px solid var(--verde);
         }
 
         .header-container {
@@ -50,7 +50,7 @@
         }
 
         .brand-logo h1 span {
-            color: var(--laranja);
+            color: var(--verde);
         }
 
         /* Container Principal */
@@ -64,9 +64,41 @@
             color: var(--preto);
             margin: 0 0 25px 0;
             font-size: 1.6rem;
-            border-left: 6px solid var(--laranja);
+            border-left: 6px solid var(--verde);
             padding-left: 12px;
             text-transform: uppercase;
+        }
+
+        /* Painel de Estatísticas */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card-stat {
+            background-color: var(--branco);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--verde);
+            text-align: center;
+        }
+
+        .card-stat h3 {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-stat p {
+            margin: 10px 0 0 0;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--preto);
         }
 
         /* Barra de Pesquisa */
@@ -86,7 +118,7 @@
         }
 
         .search-box:focus {
-            border-color: var(--laranja);
+            border-color: var(--verde);
         }
 
         /* Tabela Estruturada */
@@ -110,7 +142,7 @@
         }
 
         th {
-            background-color: var(--laranja);
+            background-color: var(--verde);
             color: var(--branco);
             font-weight: bold;
             text-transform: uppercase;
@@ -130,11 +162,10 @@
             font-weight: 500;
         }
 
-        /* Tamanho padronizado para as marcas dos carros */
         .logo-marca-celula img {
             width: 24px;
             height: 24px;
-            object-fit: contain; /* Garante que o escudo não fique esticado */
+            object-fit: contain;
         }
 
         footer {
@@ -144,7 +175,7 @@
             padding: 20px;
             margin-top: 60px;
             font-size: 0.9rem;
-            border-top: 4px solid var(--laranja);
+            border-top: 4px solid var(--verde);
         }
     </style>
 </head>
@@ -162,41 +193,44 @@
 
         <h2 class="section-title">Inscritos Rally da Graciosa + Subida da Montanha 2026</h2>
         
+        <!-- Painel Dinâmico de Estatísticas -->
+        <div class="stats-grid">
+            <div class="card-stat">
+                <h3>Total Inscritos</h3>
+                <p id="statTotal">0</p>
+            </div>
+            <div class="card-stat">
+                <h3>Carros Peugeot</h3>
+                <p id="statPeugeot">0</p>
+            </div>
+            <div class="card-stat">
+                <h3>Carros Ford</h3>
+                <p id="statFord">0</p>
+            </div>
+            <div class="card-stat">
+                <h3>Categoria 4x2 Pró</h3>
+                <p id="statPro">0</p>
+            </div>
+        </div>
+        
         <!-- Filtro de Busca -->
         <input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="🔍 Filtrar por número, piloto, marca ou categoria..." class="search-box">
 
-        
         <div class="table-container">
             <table id="tabelaInscritos">
-                <tr style="background-color: #2e7d32; color: black;">
-              <th>Nº</th>
-              <th>PILOTO \ NAVEGADOR</th>
-              <th>EQUIPE</th>
-              <th>MARCA / LOGO</th>
-               <th>MODELO DO VEÍCULO</th>
-               <th>RALLYPR(CATEGORIA)</th>
-               <th>FRIENDS HILL CLIMB(CATEGORIA)</th>
-</tr>
-                  <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: Arial, sans-serif;
-        }
-        /* Estilo que muda a cor do fundo para verde */
-        th {
-            background-color: #00796B; 
-            color: white;
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #ddd;
-            font-size: 14px;
-        }
-    </style>
-
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>PILOTO \ NAVEGADOR</th>
+                        <th>EQUIPE</th>
+                        <th>MARCA / LOGO</th>
+                        <th>MODELO DO VEÍCULO</th>
+                        <th>RALLYPR(CATEGORIA)</th>
+                        <th>FRIENDS HILL CLIMB(CATEGORIA)</th>
+                    </tr>
                 </thead>
                 <tbody>
-                      <tr>
+                    <tr>
                         <td>45</td>
                         <td>Maycon Soares\Cleiton Casaroto</td>
                         <td>Soares Rally Team</td>
@@ -211,7 +245,7 @@
                         <td>-</td>
                     </tr>
 
-                     <tr>
+                    <tr>
                         <td>10</td>
                         <td>Adib Sada\Albert Oliveira Filho</td>
                         <td>ASTJ</td>
@@ -240,7 +274,8 @@
                         <td>4x2 Super</td>
                         <td>-</td>
                     </tr>
-                     <tr>
+                    
+                    <tr>
                         <td>777</td>
                         <td>Perci Hultmann\Juliano Zerbinatto</td>
                         <td>ProMacchina</td>
@@ -253,44 +288,12 @@
                         <td>207</td>
                         <td>4x2 Super</td> 
                         <td>-</td>
-                          
                     </tr>
-                      </tr>
-                      <tr>
+                    
+                    <tr>
                         <td>72</td>
                         <td>Sandro Maia\Guilherme Pontarolo</td>
                         <td>Maia Racing\Maia Motorsport</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo Fiat.PNG" alt="Fiat" onerror="this.src='https://placehold.co'">
-                                Fiat 
-                            </div>
-                        </td>
-                        <td>Palio</td>
-                        <td>4x2 Super</td>
-                        <td>-</td>
-                    </tr>
-
-                <tr>
-                        <td>14</td>
-                        <td>Ronaldo e Edna Paske</td>
-                        <td>PSK Rally Team</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
-                                Peugeot
-                            </div>
-                        </td>
-                        <td>206</td>
-                        <td>4x2 Super</td> 
-                        <td>-</td>
-                          
-                    </tr>
-                
-                <tr>
-                        <td>74</td>
-                        <td>Marcelo Maronezi\Thiago Osternack</td>
-                        <td>ProMacchina</td>
                         <td>
                             <div class="logo-marca-celula">
                                 <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
@@ -298,236 +301,23 @@
                             </div>
                         </td>
                         <td>207</td>
-                        <td>4x2 Super</td> 
-                        <td>-</td>
-                          
-                    </tr>
-                      <tr>
-                        <td>22</td>
-                        <td>Felipe Paiva\Wiliam Santos</td>
-                        <td>ProMacchina</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo Mitsubishi.jpg" alt="Mitsubishi" onerror="this.src='https://placehold.co'">
-                                Mitsubishi 
-                            </div>
-                        </td>
-                        <td>L200 RS</td>
-                        <td>RTT</td>
+                        <td>4x2 Super</td>
                         <td>-</td>
                     </tr>
-                    <tr>
-                        <td>20</td>
-                        <td>Leo Gram</td>
-                        <td>-</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo Gac.jpg" alt="GAC Logo" onerror="this.src='https://placehold.co'">
-                                GAC
-                            </div>
-                        </td>
-                        <td>Aion V</td>
-                        <td>-</td>
-                        <td> Street EV</td>
-                    </tr>
-                    <tr>
-                        <td>59</td>
-                        <td>Toshio</td>
-                        <td>-</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo Chevrolet.png" alt="Chevrolet Logo" onerror="this.src='https://placehold.co'">
-                                Chevrolet
-                            </div>
-                        </td>
-                        <td>Celta</td>
-                        <td>-</td>
-                        <td>Street Asp</td>
-                    </tr>
-                    <tr>
-                        <td>17</td>
-                        <td>Jeff Duarte</td>
-                        <td>-</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo Renault.png" alt="Renault Logo" onerror="this.src='https://placehold.co'">
-                                Renault
-                            </div>
-                        </td>
-                        <td>Sandero RS</td>
-                        <td>-</td>
-                        <td>Street Asp</td>
-                    </tr>
-                     <tr>
-                        <td>126</td>
-                        <td>Zanella</td>
-                        <td>-</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo Chevrolet.png" alt="Chevrolet Logo" onerror="this.src='https://placehold.co'">
-                                Chevrolet
-                            </div>
-                        </td>
-                        <td>Marajo</td>
-                        <td>-</td>
-                        <td>Street Turbo</td>
-                    </tr>
-                        <tr>
-                        <td>111</td>
-                        <td>Edu</td>
-                        <td>Pneu Free</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo Subaru.jpg" alt="Subaru Logo" onerror="this.src='https://placehold.co'">
-                                Subaru
-                            </div>
-                        </td>
-                        <td>Impreza GL Wagon</td>
-                        <td>-</td>
-                        <td> Pro Stock Turbo</td>
-                    </tr>
-                   <tr>
-    <td>73</td>
-    <td>Valeski</td>
-    <td>-</td>
-    <td>
-        <div class="logo-marca-celula">
-            <img src="Logo VW.jpg" alt="VW Logo" onerror="this.src='https://placehold.co'">
-            VW
+                </tbody>
+            </table>
         </div>
-    </td>
-    <td>Beetle TSI</td>
-    <td>-</td>
-    <td>Street Turbo</td>
-</tr>
-                 <tr>
-                        <td>200</td>
-                        <td>João Paulo Wodiani</td>
-                        <td>-</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo suzuki.png" alt="Suzuki Logo" onerror="this.src='https://placehold.co'">
-                                    Suzuki
-                            </div>
-                        </td>
-                        <td>Swifty Sport</td>
-                        <td>-</td>
-                        <td> Street ASP</td>
-                      </tr>
-                        <tr>
-                        <td>22</td>
-                        <td>Cleversson</td>
-                        <td>-</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo Subaru.jpg" alt="Subaru Logo" onerror="this.src='https://placehold.co'">
-                                Subaru
-                            </div>
-                        </td>
-                        <td>Impreza</td>
-                        <td>-</td>
-                        <td> Pro Stock Turbo</td>
-                    </tr>
-                 <tr>
-                        <td>3</td>
-                        <td>Fabian Andreassa</td>
-                        <td>-</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo Subaru.jpg" alt="Subaru Logo" onerror="this.src='https://placehold.co'">
-                                Subaru
-                            </div>
-                        </td>
-                        <td>Impreza</td>
-                        <td>-</td>
-                        <td>Pró Stock Aspro</td>
-                    </tr>
-                 <tr>
-                     <td>579</td>
-                     <td>Sandrinho</td>
-                     <td>-</td>
-                <td>
-                     <div class="logo-marca-celula">
-                     <img src="Logo VW.jpg" alt="VW Logo" onerror="this.src='https://placehold.co'">
-                     VW
-                  </div>
-                   </td>
-                    <td>Saveiro</td>
-                    <td>-</td>
-                     <td>Street Turbo</td>
-                     </tr>
-                     <tr>
-                        <td>23</td>
-                        <td>André Rosa</td>
-                        <td>-</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo dodge.PNG" alt="Dodge" onerror="this.src='https://placehold.co'">
-                                Dodge
-                            </div>
-                        </td>
-                        <td>Polara</td>
-                        <td>-</td>
-                        <td>Street Asp</td>
-                    </tr>
-                 <tr>
-                        <td>9</td>
-                        <td>Bia</td>
-                        <td>-</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="ford-logo-png_seeklogo-56577.png" alt="Ford" onerror="this.src='https://placehold.co'">
-                                Ford 
-                            </div>
-                        </td>
-                        <td>Mustang</td>
-                        <td>-</td>
-                        <td>Street Asp</td>
-                    </tr>
+    </div>
 
-                 </tr>
-                      <tr>
-                        <td>24</td>
-                        <td>Marquinhos</td>
-                        <td>-</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo Fiat.PNG" alt="Fiat" onerror="this.src='https://placehold.co'">
-                                Fiat 
-                            </div>
-                        </td>
-                        <td>Palio</td>
-                        <td>-</td>
-                        <td>Pró Stock Aspirado</td>
-                    </tr>
- <tr>
-                        <td>27</td>
-                        <td>Fred Zettel</td>
-                        <td>Octanas Motorsport</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo Renault.png" alt="Renault Logo" onerror="this.src='https://placehold.co'">
-                                Renault
-                            </div>
-                        </td>
-                        <td>Sandero RS Rally</td>
-                        <td>-</td>
-                        <td>Pró Stock Aspirado</td>
-                    </tr>
-              <tr>
-    <td>143</td>
-    <td>Maikel</td>
-    <td>-</td>
-    <td>
-        <div class="logo-marca-celula">
-            <img src="Logo VW.jpg" alt="VW Logo" onerror="this.src='https://placehold.co'">
-            VW
-        </div>
-    </td>
-    <td>Gol G2 Marcas</td>
-    <td>-</td>
-    <td>Pró Stock Aspirado</td>
-</tr>
+    <footer>
+        <p>&copy; 2026 Motorsportverso. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Função para calcular e atualizar o painel de estatísticas automaticamente
+        function atualizarEstatisticas() {
+            var table = document.getElementById("tabelaInscritos");
+
                    
                 </tbody>
             </table>
