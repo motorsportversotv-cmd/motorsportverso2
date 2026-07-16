@@ -214,6 +214,235 @@
         <div class="table-container">
             <table id="tabelaInscritos">
                 <thead>
+                  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscritos - Rally da Graciosa + Subida da Montanha 2026</title>
+    <style>
+        :root {
+            --verde: #2e7d32;
+            --verde-escuro: #1b5e20;
+            --preto: #1a1a1a;
+            --cinza-escuro: #2a2a2a;
+            --branco: #ffffff;
+            --cinza-claro: #f4f4f4;
+            --borda: #ddd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--cinza-claro);
+            color: #333;
+        }
+
+        /* Topo do Site */
+        header {
+            background-color: var(--preto);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 4px solid var(--verde);
+            width: 100%;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo h1 {
+            color: var(--branco);
+            margin: 0;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .brand-logo h1 span {
+            color: var(--verde);
+        }
+
+        /* Container Principal Estruturado Verticalmente */
+        .main-container {
+            display: block !important;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        h2.section-title {
+            color: var(--preto);
+            margin: 0 0 25px 0;
+            font-size: 1.6rem;
+            border-left: 6px solid var(--verde);
+            padding-left: 12px;
+            text-transform: uppercase;
+            width: 100%;
+        }
+
+        /* Painel de Estatísticas Horizontal */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .card-stat {
+            background-color: var(--branco);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--verde);
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .card-stat h3 {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-stat p {
+            margin: 10px 0 0 0;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--preto);
+        }
+
+        /* Barra de Pesquisa */
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 15px;
+            margin: 0 0 25px 0;
+            border: 2px solid var(--borda);
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+            display: block;
+            background-color: var(--branco);
+            clear: both;
+        }
+
+        .search-box:focus {
+            border-color: var(--verde);
+        }
+
+        /* Tabela Estruturada */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border-radius: 8px;
+            background-color: var(--branco);
+            box-sizing: border-box;
+            clear: both;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid var(--borda);
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: var(--verde);
+            color: var(--branco);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .logo-marca-celula {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .logo-marca-celula img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        footer {
+            background-color: var(--preto);
+            color: var(--branco);
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+            font-size: 0.9rem;
+            border-top: 4px solid var(--verde);
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="brand-logo">
+                <h1>Motorsport<span>verso</span></h1>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+
+        <h2 class="section-title">Inscritos Rally da Graciosa + Subida da Montanha 2026</h2>
+        
+        <!-- Painel de Estatísticas -->
+        <div class="stats-grid">
+            <div class="card-stat">
+                <h3>Total Inscritos</h3>
+                <p id="statTotal">0</p>
+            </div>
+            <div class="card-stat">
+                <h3>RallyPR</h3>
+                <p id="statRallyPR">0</p>
+            </div>
+            <div class="card-stat">
+                <h3>Hill Climb</h3>
+                <p id="statHillClimb">0</p>
+            </div>
+        </div>
+        
+        <!-- Filtro de Busca -->
+        <input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="🔍 Filtrar por número, piloto, marca ou categoria..." class="search-box">
+
+        <!-- Tabela -->
+        <div class="table-container">
+            <table id="tabelaInscritos">
+                <thead>
                     <tr>
                         <th>Nº</th>
                         <th>PILOTO \ NAVEGADOR</th>
@@ -239,7 +468,6 @@
                         <td>4x2 Pró</td>
                         <td>-</td>
                     </tr>
-
                     <tr>
                         <td>10</td>
                         <td>Adib Sada\Albert Oliveira Filho</td>
@@ -254,7 +482,6 @@
                         <td>4x2 Pró</td>
                         <td>-</td>
                     </tr>
-
                     <tr>
                         <td>21</td>
                         <td>Marcio Cedraz\Gilson Rocha</td>
@@ -269,7 +496,6 @@
                         <td>4x2 Super</td>
                         <td>-</td>
                     </tr>
-                    
                     <tr>
                         <td>777</td>
                         <td>Perci Hultmann\Juliano Zerbinatto</td>
@@ -284,7 +510,6 @@
                         <td>4x2 Super</td> 
                         <td>-</td>
                     </tr>
-                    
                     <tr>
                         <td>72</td>
                         <td>Sandro Maia\Guilherme Pontarolo</td>
@@ -292,43 +517,27 @@
                         <td>
                             <div class="logo-marca-celula">
                                 <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
-                                Fiat 
+                                Peugeot
                             </div>
                         </td>
-                        <td>Palio</td>
+                        <td>207</td>
                         <td>4x2 Super</td>
                         <td>-</td>
                     </tr>
-                       <tr>
+                    <tr>
                         <td>14</td>
-                        <td>Ronaldo Paske e Edna Paske</td>
-                        <td>PSK Rally Team</td>
+                        <td>Ronaldo Paske\Edna Paske</td>
+                        <td>Paske Racing</td>
                         <td>
-                            <div class="logo-marca-celula">
+                             <div class="logo-marca-celula">
                                 <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
                                 Peugeot
                             </div>
                         </td>
                         <td>206</td>
-                        <td>4x2 Super</td> 
+                        <td>4x2 Super</td>
                         <td>-</td>
-                    </tr>
-                      <tr>
-                        <td>23</td>
-                        <td>Felipe Paiva\William Santos</td>
-                        <td>ProMacchina</td>
-                        <td>
-                            <div class="logo-marca-celula">
-                                <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
-                                Mitsubishi 
-                            </div>
-                        </td>
-                        <td>L200 RS</td>
-                        <td>RTT</td> 
-                        <td>-</td>
-                    </tr>
-                </tbody>
-            </table>
+
         </div>
     </div>
 
