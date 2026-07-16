@@ -165,6 +165,7 @@
         <!-- Filtro de Busca -->
         <input type="text" id="inputBusca" onkeyup="filtrarTabela()" placeholder="🔍 Filtrar por número, piloto, marca ou categoria..." class="search-box">
 
+        
         <div class="table-container">
             <table id="tabelaInscritos">
                 <tr style="background-color: #2e7d32; color: black;">
@@ -176,6 +177,22 @@
                <th>RALLYPR(CATEGORIA)</th>
                <th>FRIENDS HILL CLIMB(CATEGORIA)</th>
 </tr>
+                  <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        /* Estilo que muda a cor do fundo para verde */
+        th {
+            background-color: #00796B; 
+            color: white;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+    </style>
 
                 </thead>
                 <tbody>
