@@ -416,294 +416,249 @@
         <thead>
             <div class="table-container">
     <table id="tabelaInscritos">
+       <style>
+    /* Estilos para garantir o alinhamento e visual limpo da tabela */
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+        font-family: Arial, sans-serif;
+    }
+    #tabelaInscritos {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed; /* Força o navegador a respeitar as larguras em % */
+    }
+    #tabelaInscritos th {
+        background-color: #248738; /* Verde do seu cabeçalho */
+        color: white;
+        padding: 12px 8px;
+        font-size: 14px;
+        text-align: left;
+        text-transform: uppercase;
+    }
+    #tabelaInscritos td {
+        padding: 10px 8px;
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+    /* Estilo para alinhar logos e textos na mesma linha */
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .logo-container img {
+        height: 20px;
+        width: auto;
+    }
+    /* Centralização de colunas específicas */
+    .text-center {
+        text-align: center !important;
+    }
+</style>
+
+<div class="table-container">
+    <table id="tabelaInscritos">
         <thead>
             <tr>
-                <th style="width: 5%;">Nº</th>
-                <!-- Aumentado de 25% para 30% para absorver o espaço liberado -->
+                <th style="width: 5%;" class="text-center">Nº</th>
                 <th style="width: 30%;">PILOTO \ NAVEGADOR</th>
                 <th style="width: 20%;">EQUIPE</th>
                 <th style="width: 15%;">MARCA / LOGO</th>
-                <!-- ALTERADO: Largura reduzida de 15% para 10% -->
-                <th style="width: 10%;">MODELO DO VEÍCULO</th>
-                <th style="width: 10%;">RALLYPR</th>
-                <th style="width: 10%;">HILL CLIMB</th>
+                <!-- REDUZIDO E AJUSTADO: Não quebra linha e fica centralizado -->
+                <th style="width: 10%; text-align: center; white-space: nowrap;">MODELO DO VEÍCULO</th>
+                <th style="width: 10%;" class="text-center">RALLYPR</th>
+                <th style="width: 10%;" class="text-center">HILL CLIMB</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Suas linhas de dados (tr/td) entram aqui -->
+            <!-- Linha 1 -->
+            <tr>
+                <td class="text-center">45</td>
+                <td>Maycon Soares \ Cleiton Casaroto</td>
+                <td>Soares Rally Team</td>
+                <td>
+                    <div class="logo-container">
+                        <img src="caminho_do_logo/peugeot.png" alt="Peugeot">
+                        <span>Peugeot</span>
+                    </div>
+                </td>
+                <td class="text-center">207</td>
+                <td class="text-center">4x2 Pró</td>
+                <td class="text-center">-</td>
+            </tr>
+            <!-- Linha 2 -->
+            <tr>
+                <td class="text-center">10</td>
+                <td>Adib Sada \ Albert Oliveira Filho</td>
+                <td>ASTJ</td>
+                <td>
+                    <div class="logo-container">
+                        <img src="caminho_do_logo/ford.png" alt="Ford">
+                        <span>Ford</span>
+                    </div>
+                </td>
+                <td class="text-center">Ká</td>
+                <td class="text-center">4x2 Pró</td>
+                <td class="text-center">-</td>
+            </tr>
+            <!-- Linha 3 -->
+            <tr>
+                <td class="text-center">29</td>
+                <td>Albert Oliveira Pai \ Ricardo Simon</td>
+                <td>Megaself</td>
+                <td>
+                    <div class="logo-container">
+                        <img src="caminho_do_logo/vw.png" alt="VW">
+                        <span>VW</span>
+                    </div>
+                </td>
+                <td class="text-center">UP TSI</td>
+                <td class="text-center">4x2 Pró</td>
+                <td class="text-center">-</td>
+            </tr>
+            <!-- Linha 4 -->
+            <tr>
+                <td class="text-center">21</td>
+                <td>Marcio Cedraz \ Gilson Rocha</td>
+                <td>Bahia Rally</td>
+                <td>
+                    <div class="logo-container">
+                        <img src="caminho_do_logo/peugeot.png" alt="Peugeot">
+                        <span>Peugeot</span>
+                    </div>
+                </td>
+                <td class="text-center">207</td>
+                <td class="text-center">4x2 Super</td>
+                <td class="text-center">-</td>
+            </tr>
+            <!-- Linha 5 -->
+            <tr>
+                <td class="text-center">777</td>
+                <td>Perci Hultmann \ Juliano Zerbinatto</td>
+                <td>ProMacchina</td>
+                <td>
+                    <div class="logo-container">
+                        <img src="caminho_do_logo/peugeot.png" alt="Peugeot">
+                        <span>Peugeot</span>
+                    </div>
+                </td>
+                <td class="text-center">207</td>
+                <td class="text-center">4x2 Super</td>
+                <td class="text-center">-</td>
+            </tr>
+            <!-- Linha 6 -->
+            <tr>
+                <td class="text-center">72</td>
+                <td>Sandro Maia \ Guilherme Pontarolo</td>
+                <td>Maia Racing \ Maia Motorsport</td>
+                <td>
+                    <div class="logo-container">
+                        <img src="caminho_do_logo/fiat.png" alt="Fiat">
+                        <span>Fiat</span>
+                    </div>
+                </td>
+                <td class="text-center">Palio</td>
+                <td class="text-center">4x2 Super</td>
+                <td class="text-center">-</td>
+            </tr>
+            <!-- Linha 7 -->
+            <tr>
+                <td class="text-center">14</td>
+                <td>Ronaldo Paske \ Edna Paske</td>
+                <td>PSK Rally Team</td>
+                <td>
+                    <div class="logo-container">
+                        <img src="caminho_do_logo/peugeot.png" alt="Peugeot">
+                        <span>Peugeot</span>
+                    </div>
+                </td>
+                <td class="text-center">206</td>
+                <td class="text-center">4x2 Super</td>
+                <td class="text-center">-</td>
+            </tr>
+            <!-- Linha 8 -->
+            <tr>
+                <td class="text-center">74</td>
+                <td>Marcelo Maronezi \ Thiago Osternack</td>
+                <td>ProMacchina</td>
+                <td>
+                    <div class="logo-container">
+                        <img src="caminho_do_logo/peugeot.png" alt="Peugeot">
+                        <span>Peugeot</span>
+                    </div>
+                </td>
+                <td class="text-center">207</td>
+                <td class="text-center">4x2 Super</td>
+                <td class="text-center">-</td>
+            </tr>
+            <!-- Linha 9 -->
+            <tr>
+                <td class="text-center">23</td>
+                <td>Felipe Paiva \ William</td>
+                <td>ProMacchina</td>
+                <td>
+                    <div class="logo-container">
+                        <img src="caminho_do_logo/mitsubishi.png" alt="Mitsubishi">
+                        <span>Mitsubishi</span>
+                    </div>
+                </td>
+                <td class="text-center">L200 RS RTT</td>
+                <td class="text-center">Pro Stock Asp</td>
+                <td class="text-center">-</td>
+            </tr>
+            <!-- Linha 10 -->
+            <tr>
+                <td class="text-center">9</td>
+                <td>Bia</td>
+                <td>-</td>
+                <td>
+                    <div class="logo-container">
+                        <img src="caminho_do_logo/ford.png" alt="Ford">
+                        <span>Ford</span>
+                    </div>
+                </td>
+                <td class="text-center">Mustang</td>
+                <td class="text-center">Super Sport</td>
+                <td class="text-center">-</td>
+            </tr>
+            <!-- Linha 11 -->
+            <tr>
+                <td class="text-center">27</td>
+                <td>Fred Zettel</td>
+                <td>Octanas Motorsport</td>
+                <td>
+                    <div class="logo-container">
+                        <img src="caminho_do_logo/renault.png" alt="Renault">
+                        <span>Renault</span>
+                    </div>
+                </td>
+                <td class="text-center">Sandeiro RS Rally</td>
+                <td class="text-center">Pro Stock Asp</td>
+                <td class="text-center">-</td>
+            </tr>
+            <!-- Linha 12 -->
+            <tr>
+                <td class="text-center">111</td>
+                <td>Edu Pneu Free</td>
+                <td>-</td>
+                <td>
+                    <div class="logo-container">
+                        <img src="caminho_do_logo/subaru.png" alt="Subaru">
+                        <span>Subaru</span>
+                    </div>
+                </td>
+                <td class="text-center">Impreza GT Wagon</td>
+                <td class="text-center">Pro Stock Turbo</td>
+                <td class="text-center">-</td>
+            </tr>
         </tbody>
     </table>
 </div>
 
-        </thead>
-        <tbody>
-            <tr>
-                <td>45</td>
-                <td>Maycon Soares\Cleiton Casaroto</td>
-                <td>Soares Rally Team</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
-                        Peugeot
-                    </div>
-                </td>
-                <td>207</td>
-                <td>4x2 Pró</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>Adib Sada\Albert Oliveira Filho</td>
-                <td>ASTJ</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <!-- CORRIGIDO: Removido o erro visual do escudo trocado no seu print -->
-                        <img src="ford-logo-png_seeklogo-56577.png" alt="Ford" onerror="this.src='https://placehold.co'">
-                        Ford 
-                    </div>
-                </td>
-                <td>Ká</td>
-                <td>4x2 Pró</td>
-                <td>-</td>
-            </tr>
-             <tr>
-                <td>29</td>
-                <td>Albert Oliveira Pai\Ricardo Simon</td>
-                <td>Megaself</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <!-- CORRIGIDO: Removido o erro visual do escudo trocado no seu print -->
-                        <img src="Logo VW.jpg" alt="VW" onerror="this.src='https://placehold.co'">
-                        VW 
-                    </div>
-                </td>
-                <td>UP TSI</td>
-                <td>4x2 Pró</td>
-                <td>-</td>
-             
-            </tr>
-            
-            <tr>
-                <td>21</td>
-                <td>Marcio Cedraz\Gilson Rocha</td>
-                <td>Bahia Rally</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
-                        Peugeot
-                    </div>
-                </td>
-                <td>207</td>
-                <td>4x2 Super</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>777</td>
-                <td>Perci Hultmann\Juliano Zerbinatto</td>
-                <td>ProMacchina</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
-                        Peugeot
-                    </div>
-                </td>
-                <td>207</td>
-                <td>4x2 Super</td> 
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>72</td>
-                <td>Sandro Maia\Guilherme Pontarolo</td>
-                <td>Maia Racing\Maia Motorsport</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <img src="logo Fiat.PNG" alt="Fiat" onerror="this.src='https://placehold.co'">
-                        Fiat
-                    </div>
-                </td>
-                <td>Palio</td>
-                <td>4x2 Super</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>14</td>
-                <td>Ronaldo Paske\Edna Paske</td>
-                <td>PSK Rally Team</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
-                        Peugeot
-                    </div>
-                </td>
-                <td>206</td>
-                <td>4x2 Super</td>
-                <td>-</td>
-                  <tr>
-                <td>74</td>
-                <td>Marcelo Maronezi\Thiago Osternack</td>
-                <td>ProMacchina</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <img src="logo peugeot.png" alt="Peugeot" onerror="this.src='https://placehold.co'">
-                        Peugeot
-                    </div>
-                </td>
-                <td>207</td>
-                <td>4x2 Super</td>
-                <td>-</td>
-            </tr>
-            </tr>
-            <tr>
-                <td>23</td>
-                <td>Felipe Paiva\William</td>
-                <td>ProMacchina</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <img src="logo Mitsubishi.jpg" alt="Mitsubishi" onerror="this.src='https://placehold.co'">
-                        Mitsubishi
-                    </div>
-                </td>
-                <td>L200 RS</td>
-                <td>RTT</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>Bia</td>
-                <td>-</td>
-                <td>
-                    <div class="logo-marca-celula">
-                         <img src="ford-logo-png_seeklogo-56577.png" alt="Ford" onerror="this.src='https://placehold.co'">
-                        Ford
-                    </div>
-                </td>
-                <td>Mustang</td>
-                <td>-</td>
-                <td>Super Sport +</td>
-            </tr>
-               <tr>
-                <td>27</td>
-                <td>Fred  Zettel</td>
-                <td>Octanas Motorsport</td>
-                <td>
-                    <div class="logo-marca-celula">
-                         <img src="ford-logo-png_seeklogo-56577.png" alt="Ford" onerror="this.src='https://placehold.co'">
-                        Renault
-                    </div>
-                </td>
-                <td>Sandeiro RS Rally</td>
-                <td>-</td>
-                <td>Pro Stock Asp</td>
-            </tr>
-              </tr>
-               <tr>
-                <td>111</td>
-                <td>Edu</td>
-                <td>Pneu Free</td>
-                <td>
-                    <div class="logo-marca-celula">
-                         <img src="ford-logo-png_seeklogo-56577.png" alt="Ford" onerror="this.src='https://placehold.co'">
-                        Subaru
-                    </div>
-                </td>
-                <td>Impreza GL Wagon</td>
-                <td>-</td>
-                <td>Pro Stock Turbo</td>
-            </tr>
-         </tr>
-              </tr>
-               <tr>
-                <td>22</td>
-                <td>Cleversson</td>
-                <td>-</td>
-                <td>
-                    <div class="logo-marca-celula">
-                         <img src="ford-logo-png_seeklogo-56577.png" alt="Ford" onerror="this.src='https://placehold.co'">
-                        Subaru
-                    </div>
-                </td>
-                <td>Impreza</td>
-                <td>-</td>
-                <td>Pro Stock Turbo</td>
-            </tr>
-            <tr>
-                <td>73</td>
-                <td>Valeski</td>
-                <td>-</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <!-- CORRIGIDO: Removido o erro visual do escudo trocado no seu print -->
-                        <img src="Logo VW.jpg" alt="VW" onerror="this.src='https://placehold.co'">
-                        VW 
-                    </div>
-                </td>
-                <td>Beetle TSI</td>
-                <td>-</td>
-                <td>Street Turbo</td>
-            </tr>
-         <tr>
-                <td>24</td>
-                <td>Marquinhos</td>
-                <td>-</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <img src="logo Fiat.PNG" alt="Fiat" onerror="this.src='https://placehold.co'">
-                        Fiat
-                    </div>
-                </td>
-                <td>Palio</td>
-                <td>-</td>
-                <td>Pro Stock Asp</td>
-            </tr>
-            <tr>
-                <td>143</td>
-                <td>Maikel</td>
-                <td>-</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <!-- CORRIGIDO: Removido o erro visual do escudo trocado no seu print -->
-                        <img src="Logo VW.jpg" alt="VW" onerror="this.src='https://placehold.co'">
-                        VW 
-                    </div>
-                </td>
-                <td>Gol G2 Marcas</td>
-                <td>-</td>
-                <td>Pro Stock Asp</td>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td>André Rosa</td>
-                <td>-</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <!-- CORRIGIDO: Removido o erro visual do escudo trocado no seu print -->
-                        <img src="Logo VW.jpg" alt="VW" onerror="this.src='https://placehold.co'">
-                        Dodge
-                    </div>
-                </td>
-                <td>Polara</td>
-                <td>-</td>
-                <td>Street Asp</td>
-            </tr>
-         <tr>
-                <td>17</td>
-                <td>Jefersson</td>
-                <td>-</td>
-                <td>
-                    <div class="logo-marca-celula">
-                        <!-- CORRIGIDO: Removido o erro visual do escudo trocado no seu print -->
-                        <img src="Logo VW.jpg" alt="VW" onerror="this.src='https://placehold.co'">
-                        Renault
-                    </div>
-                </td>
-                <td>Sandeiro RS</td>
-                <td>-</td>
-                <td>Street Asp</td>
-            </tr>
+
         
-        </tbody>
-    </table>
-</div>
 
                     
     <footer>
