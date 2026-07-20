@@ -203,20 +203,217 @@
 
     <div class="container">
         
+        <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog de Rally Interativo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0b151e;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        /* Container principal em Grid de 3 colunas */
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.3fr;
+            gap: 20px;
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        /* Estilização dos Menus Laterais (Marcadores) */
+        .menu-marcadores {
+            background-color: #143522;
+            border: 1px solid #1f4e33;
+            border-radius: 4px;
+            padding: 15px;
+            height: fit-content;
+        }
+
+        .menu-marcadores h2 {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #1f4e33;
+            padding-bottom: 8px;
+        }
+
+        .lista-links {
+            list-style: none;
+        }
+
+        .lista-links li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px dashed #276341;
+            font-size: 0.9rem;
+        }
+
+        .lista-links li:last-child {
+            border-bottom: none;
+        }
+
+        /* Links interativos do filtro */
+        .lista-links button {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-align: left;
+            padding: 0;
+            width: 100%;
+        }
+
+        .lista-links button:hover {
+            text-decoration: underline;
+            color: #aae0bc;
+        }
+
+        /* Estado ativo do botão selecionado */
+        .lista-links button.ativo {
+            color: #52e085;
+            font-weight: bold;
+        }
+
+        .contador {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 0.9rem;
+            padding-left: 5px;
+        }
+
+        /* Estilização da Coluna do Feed de Posts */
+        .coluna-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Estrutura Base do Card de Notícias */
+        .card-post {
+            background-color: #111e29;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #162635;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Classe utilitária para esconder posts filtrados */
+        .card-post.escondido {
+            display: none;
+        }
+
+        /* Bloco da Imagem com suporte a Tags absolutas */
+        .container-imagem {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            background-color: #1a2c3d;
+        }
+
+        .container-imagem img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Tag Verde Flutuante */
+        .tag-categoria {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: #4e6c46;
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        /* Corpo do Texto do Card */
+        .conteudo-post {
+            padding: 20px;
+        }
+
+        .card-post h3 {
+            font-size: 1.25rem;
+            color: #ffffff;
+            font-weight: bold;
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .card-post p {
+            color: #798e9c;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        /* Links de ação interno dos posts */
+        .link-topo {
+            color: #798e9c;
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .leia-mais {
+            color: #4e6b52;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .leia-mais:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 950px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
         <!-- COLUNA 1: Primeiro Bloco de Marcadores -->
         <aside class="menu-marcadores">
             <h2>Marcadores</h2>
             <ul class="lista-links">
-                <li><a href="#">➔ Ver Todos</a> <span class="contador">(8)</span></li>
-                <li><a href="#">➔ Paranaense</a> <span class="contador">(1)</span></li>
-                <li><a href="#">➔ Tour Auto</a> <span class="contador">(3)</span></li>
-                <li><a href="#">➔ Rally Virtual</a> <span class="contador">(1)</span></li>
-                <li><a href="#">➔ Brasil</a> <span class="contador">(1)</span></li>
-                <li><a href="#">➔ Paraná</a> <span class="contador">(2)</span></li>
-                <li><a href="#">➔ Fia Codassur/Stellantis SA Rally Cup</a> <span class="contador">(0)</span></li>
-                <li><a href="#">➔ Mille Miglia</a> <span class="contador">(0)</span></li>
-                <li><a href="#">➔ France</a> <span class="contador">(0)</span></li>
-                <li><a href="#">➔ BR Rally Raid</a> <span class="contador">(0)</span></li>
+                <li><button class="btn-filtro ativo" data-filtro="todos">➔ Ver Todos</button> <span class="contador">(8)</span></li>
+                <li><button class="btn-filtro" data-filtro="paranaense">➔ Paranaense</button> <span class="contador">(1)</span></li>
+                <li><button class="btn-filtro" data-filtro="tour-auto">➔ Tour Auto</button> <span class="contador">(3)</span></li>
+                <li><button class="btn-filtro" data-filtro="rally-virtual">➔ Rally Virtual</button> <span class="contador">(1)</span></li>
+                <li><button class="btn-filtro" data-filtro="brasil">➔ Brasil</button> <span class="contador">(1)</span></li>
+                <li><button class="btn-filtro" data-filtro="parana">➔ Paraná</button> <span class="contador">(2)</span></li>
+                <li><button class="btn-filtro" data-filtro="fia">➔ Fia Codassur/Stellantis SA Rally Cup</button> <span class="contador">(0)</span></li>
+                <li><button class="btn-filtro" data-filtro="mille-miglia">➔ Mille Miglia</button> <span class="contador">(0)</span></li>
+                <li><button class="btn-filtro" data-filtro="france">➔ France</button> <span class="contador">(0)</span></li>
+                <li><button class="btn-filtro" data-filtro="br-rally-raid">➔ BR Rally Raid</button> <span class="contador">(0)</span></li>
             </ul>
         </aside>
 
@@ -224,13 +421,13 @@
         <aside class="menu-marcadores">
             <h2>Marcadores</h2>
             <ul class="lista-links">
-                <li><a href="#">➔ Ver Todos</a> <span class="contador">(8)</span></li>
-                <li><a href="#">➔ Rio Grande do Sul</a> <span class="contador">(0)</span></li>
-                <li><a href="#">➔ Brasil</a> <span class="contador">(1)</span></li>
-                <li><a href="#">➔ BR Rally Raid</a> <span class="contador">(0)</span></li>
-                <li><a href="#">➔ Mitsubishi Cup</a> <span class="contador">(0)</span></li>
-                <li><a href="#">➔ Virtual</a> <span class="contador">(0)</span></li>
-                <li><a href="#">➔ ARA</a> <span class="contador">(0)</span></li>
+                <li><button class="btn-filtro" data-filtro="todos">➔ Ver Todos</button> <span class="contador">(8)</span></li>
+                <li><button class="btn-filtro" data-filtro="rio-grande-do-sul">➔ Rio Grande do Sul</button> <span class="contador">(0)</span></li>
+                <li><button class="btn-filtro" data-filtro="brasil">➔ Brasil</button> <span class="contador">(1)</span></li>
+                <li><button class="btn-filtro" data-filtro="br-rally-raid">➔ BR Rally Raid</button> <span class="contador">(0)</span></li>
+                <li><button class="btn-filtro" data-filtro="mitsubishi-cup">➔ Mitsubishi Cup</button> <span class="contador">(0)</span></li>
+                <li><button class="btn-filtro" data-filtro="virtual">➔ Virtual</button> <span class="contador">(0)</span></li>
+                <li><button class="btn-filtro" data-filtro="ara">➔ ARA</button> <span class="contador">(0)</span></li>
             </ul>
         </aside>
 
@@ -238,7 +435,7 @@
         <main class="coluna-posts">
             
             <!-- CARD: Resultado Rally do Centro Oeste -->
-            <article class="card-post">
+            <article class="card-post" data-categoria="paranaense">
                 <div class="container-imagem">
                     <span class="tag-categoria">Paranaense</span>
                     <img src="https://placeholder.com" alt="Rally do Centro Oeste - Jardim Alegre">
@@ -250,7 +447,7 @@
             </article>
 
             <!-- CARD: Resultado Final Tour Auto 2026 -->
-            <article class="card-post">
+            <article class="card-post" data-categoria="tour-auto">
                 <div class="container-imagem">
                     <span class="tag-categoria">Tour Auto</span>
                     <img src="https://placeholder.com" alt="Tour Auto 2026">
@@ -262,7 +459,7 @@
             </article>
 
             <!-- CARD: Rally Nova Prata -->
-            <article class="card-post">
+            <article class="card-post" data-categoria="rio-grande-do-sul">
                 <div class="conteudo-post">
                     <a href="#" class="link-topo">Leia mais →</a>
                     <h3>Rally Nova Prata, Rio Grande do Sul</h3>
@@ -271,7 +468,7 @@
             </article>
 
             <!-- CARD: Novo Evento de Rally Raid -->
-            <article class="card-post">
+            <article class="card-post" data-categoria="br-rally-raid">
                 <div class="conteudo-post">
                     <h3>Novo Evento de Rally Raid</h3>
                     <p>Conteúdo do post...</p>
@@ -279,83 +476,16 @@
             </article>
 
             <!-- CARD: Mitsubishi Cup Virtual 2026 -->
-            <article class="card-post">
+            <article class="card-post" data-categoria="mitsubishi-cup">
                 <div class="conteudo-post">
                     <h3>Mitsubishi Cup terá campeonato virtual em 2026</h3>
                 </div>
                 <div class="container-imagem">
                     <img src="https://placeholder.com" alt="Mitsubishi Triton">
                 </div>
-            </article>
 
-            <!-- CARD: FIA Esports Global -->
-            <article class="card-post">
-                <div class="container-imagem">
-                    <span class="tag-categoria">Rally Virtual</span>
-                    <img src="https://placeholder.com" alt="Fia esports global">
-                </div>
-                <div class="conteudo-post">
-                    <h3>Fia lança o esports global</h3>
-                    <p>Fia lança primeiro esports global baseado no Assetto Corsa rally.</p>
-                    <a href="#" class="leia-mais">Leia mais →</a>
-                </div>
-            </article>
 
-            <!-- CARD: Resultado Dia 2 Tour Auto -->
-            <article class="card-post">
-                <div class="container-imagem">
-                    <span class="tag-categoria">Tour Auto</span>
-                    <img src="https://placeholder.com" alt="Resultado Dia 2 - Tour Auto 2026">
-                </div>
-                <div class="conteudo-post">
-                    <h3>Resultado Dia 2 - Tour Auto 2026</h3>
-                    <p>Liderança de um Porsche 911 Carrera RS apos segundo dia.</p>
-                </div>
-            </article>
-
-            <!-- CARD: Inscritos Rally do Centro Oeste -->
-            <article class="card-post">
-                <div class="container-imagem">
-                    <span class="tag-categoria">Paraná</span>
-                    <img src="https://placeholder.com" alt="Inscritos Centro Oeste Jardim Alegre">
-                </div>
-
-      <article class="card-post">
-                <div class="conteudo-post">
-                    <a href="#" class="link-topo">Leia mais →</a>
-                    <h3>Rally Nova Prata, Rio Grande do Sul</h3>
-                    <a href="#" class="leia-mais">Leia mais →</a>
-                </div>
-            </article>
-
-            <!-- CARD: Novo Evento de Rally Raid -->
-            <article class="card-post">
-                <div class="conteudo-post">
-                    <h3>Novo Evento de Rally Raid</h3>
-                    <p>Conteúdo do post...</p>
-                </div>
-            </article>
-              <!-- CARD: Mitsubishi Cup Virtual 2026 -->
-            <article class="card-post">
-                <div class="conteudo-post">
-                    <h3>Mitsubishi Cup terá campeonato virtual em 2026</h3>
-                </div>
-                <div class="container-imagem">
-                    <img src="https://placeholder.com" alt="Mitsubishi Triton">
-                </div>
-            </article>
-
-            <!-- CARD: FIA Esports Global -->
-            <article class="card-post">
-                <div class="container-imagem">
-                    <span class="tag-categoria">Rally Virtual</span>
-                    <img src="https://placeholder.com" alt="Fia esports global">
-                </div>
-                <div class="conteudo-post">
-                    <h3>Fia lança o esports global</h3>
-                 <p>Fia lança primeiro esports global baseado no Assetto Corsa rally.</p>
-                    <a href="#" class="leia-mais">Leia mais →</a>
-                </div>
+       
     
      
       
