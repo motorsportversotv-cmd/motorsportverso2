@@ -39,6 +39,21 @@
       color: #666;
       font-style: italic;
     }
+
+    /* Estilização da Barra Superior Fixa */
+    .barra-superior {
+      background-color: #1a1a1a;
+      color: white;
+      padding: 10px;
+      margin-bottom: 15px;
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+    }
+    .amarelo {
+      color: #ffcc00;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -48,18 +63,20 @@
     <input type="text" id="inputBusca" class="input-busca" placeholder="Digite para buscar (corrida, canal, local...)" onkeyup="filtrarTabela()">
   </div>
 
-      <!-- BARRA SUPERIOR FIXA -->
+  <!-- BARRA SUPERIOR FIXA -->
   <div class="barra-superior">
     <div><span class="amarelo">PRÓXIMA CORRIDA:</span> F2-Monaco-Qualyfing às 10:00</div>
     <div><span class="amarelo">DESTAQUE:</span> WRC Shakedown no Japão</div>
     <div><span class="amarelo">FIQUE LIGADO:</span> DTM em Zandvoort</div>
   </div>
+
   <!-- TABELA DE CORRIDAS -->
   <table id="raceTable">
     <thead>
       <tr>
         <th>Dia</th>
         <th>Descrição</th>
+        <th>Tipo de Corrida</th>
         <th>Logo Categoria</th>
         <th>Local</th>
         <th>Hora</th>
@@ -69,60 +86,110 @@
     </thead>
     <tbody id="raceTableBody">
       <tr>
-        <td>24\07</td>
+        <td>24/07</td>
         <td>ERC-Qualyfing Stage</td>
+        <td>Rally</td>
         <td><img src="Logo erc rally.png" alt="ERC Rally" width="50" style="display: block; margin: 0 auto;"></td>
         <td>Polonia</td>
         <td>06:00</td>
         <td>Youtube</td>
         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-          <td>24/07</td>
+      <tr>
+        <td>24/07</td>
         <td>Formula E-FP1</td>
+        <td>Sprint / Asfalto</td>
         <td><img src="FORMULA E.png" alt="Formula E" width="50" style="display: block; margin: 0 auto;"></td>
         <td>Tokyo</td>
         <td>06:50</td>
         <td>Youtube\Youtube Esporte na Band\Bandsports\Youtube GP</td>
         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-     </tr> 
-        <tr>
-        <td>24\07</td>
+      </tr> 
+      <tr>
+        <td>24/07</td>
         <td>ERC-SS1</td>
+        <td>Rally</td>
         <td><img src="Logo erc rally.png" alt="ERC Rally" width="50" style="display: block; margin: 0 auto;"></td>
         <td>Polonia</td>
         <td>16:15</td>
         <td>-</td>
         <td><img src="Logo erc rally.png" alt="ERC Rally" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-     </tr>
-          <td>25/07</td>
+      <tr>
+        <td>25/07</td>
         <td>Formula E-Race 1</td>
+        <td>Sprint / Asfalto</td>
         <td><img src="FORMULA E.png" alt="Formula E" width="50" style="display: block; margin: 0 auto;"></td>
         <td>Tokyo</td>
         <td>07:30</td>
         <td>Youtube Acelerados\Youtube Esporte na Band\Bandsports\Youtube GP\Nsports</td>
         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-     </tr> 
- </tr>
-          <td>25/07</td>
+      </tr> 
+      <tr>
+        <td>25/07</td>
         <td>Mitsubishi Cup</td>
+        <td>Off Road / Rally</td>
         <td><img src="ECLIPSE CROSS R.PNG" alt="Mitsubishi Cup" width="50" style="display: block; margin: 0 auto;"></td>
         <td>Santa Barbara</td>
         <td>08:00</td>
         <td>Youtube\RacerBR</td>
         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
-    
-    
-    </tr>
-          <td>25/07</td>
+      <tr>
+        <td>25/07</td>
         <td>DTM-race 1</td>
+        <td>Sprint / Asfalto</td>
         <td><img src="logo_dtm.png" alt="DTM" width="50" style="display: block; margin: 0 auto;"></td>
         <td>Oscherbelen</td>
         <td>08:30</td>
         <td>ESPN 3 ou 4</td>
         <td><img src="ESPN LOGO.png" alt="ESPN" width="50" style="display: block; margin: 0 auto;"></td>
       </tr>
+    </tbody>
+  </table>
+
+  <div id="semResultados" class="sem-resultados">Nenhuma corrida encontrada.</div>
+
+  <!-- SCRIPT DE FILTRO -->
+  <script>
+    function filtrarTabela() {
+      const input = document.getElementById('inputBusca');
+      const filter = input.value.toLowerCase();
+      const table = document.getElementById('raceTable');
+      const tr = table.getElementsByTagName('tr');
+      let encontrou = false;
+
+      for (let i = 1; i < tr.length; i++) {
+        let mostrar = false;
+        const tds = tr[i].getElementsByTagName('td');
+        
+        for (let j = 0; j < tds.length; j++) {
+          if (tds[j] && tds[j].innerText.toLowerCase().indexOf(filter) > -1) {
+            mostrar = true;
+            break;
+          }
+        }
+        
+        if (mostrar) {
+          tr[i].style.display = "";
+          encontrou = true;
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+
+      const msgSemResultados = document.getElementById('semResultados');
+      if (encontrou) {
+        msgSemResultados.style.display = "none";
+      } else {
+        msgSemResultados.style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>
+
     
       </tr>
           <td>25/07</td>
