@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -6,11 +6,12 @@
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
     
-    /* Estilização da Barra de Pesquisa */
-    .container-busca {
+    /* Estilização da Barra de Pesquisa e Filtros */
+    .container-controles {
       margin-bottom: 15px;
       display: flex;
-      justify-content: flex-start;
+      flex-direction: column;
+      gap: 12px;
     }
     .input-busca {
       width: 100%;
@@ -24,6 +25,34 @@
     }
     .input-busca:focus {
       border-color: #d90429;
+    }
+
+    /* Container dos Botões de Filtro */
+    .container-filtros {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn-filtro {
+      background-color: #fff;
+      color: #333;
+      border: 2px solid #ccc;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+    .btn-filtro:hover {
+      border-color: #d90429;
+      color: #d90429;
+    }
+    .btn-filtro.ativo {
+      background-color: #d90429;
+      border-color: #d90429;
+      color: white;
     }
 
     /* Estilização da Tabela */
@@ -58,16 +87,25 @@
 </head>
 <body>
 
-  <!-- BARRA DE PESQUISA -->
-  <div class="container-busca">
-    <input type="text" id="inputBusca" class="input-busca" placeholder="Digite para buscar (corrida, canal, local...)" onkeyup="filtrarTabela()">
-  </div>
-
   <!-- BARRA SUPERIOR FIXA -->
   <div class="barra-superior">
     <div><span class="amarelo">PRÓXIMA CORRIDA:</span> F2-Monaco-Qualyfing às 10:00</div>
     <div><span class="amarelo">DESTAQUE:</span> WRC Shakedown no Japão</div>
     <div><span class="amarelo">FIQUE LIGADO:</span> DTM em Zandvoort</div>
+  </div>
+
+  <!-- CONTROLES (BUSCA E BOTÕES DE FILTRO) -->
+  <div class="container-controles">
+    <div class="container-busca">
+      <input type="text" id="inputBusca" class="input-busca" placeholder="Digite para buscar..." onkeyup="filtrarTabela()">
+    </div>
+    
+    <div class="container-filtros">
+      <button class="btn-filtro ativo" onclick="filtrarPorBotao('todos', this)">Todos</button>
+      <button class="btn-filtro" onclick="filtrarPorBotao('Rally', this)">Rally</button>
+      <button class="btn-filtro" onclick="filtrarPorBotao('Sprint / Asfalto', this)">Sprint / Asfalto</button>
+      <button class="btn-filtro" onclick="filtrarPorBotao('Off Road / Rally', this)">Off Road</button>
+    </div>
   </div>
 
   <!-- TABELA DE CORRIDAS -->
@@ -150,27 +188,63 @@
 
   <div id="semResultados" class="sem-resultados">Nenhuma corrida encontrada.</div>
 
-  <!-- SCRIPT DE FILTRO -->
+  <!-- SCRIPT DE FILTROS INTEGRADOS -->
   <script>
+    let filtroTipoAtual = 'todos';
+
+    // Função executada ao clicar em um botão de tipo
+    function filtrarPorBotao(tipo, botaoClicado) {
+      // Atualiza as classes visuais dos botões
+      const botoes = document.querySelectorAll('.btn-filtro');
+      botoes.forEach(btn => btn.classList.remove('ativo'));
+      botaoClicado.classList.add('ativo');
+
+      // Define o tipo atual e executa o filtro geral
+      filtroTipoAtual = tipo;
+      executarFiltroGeral();
+    }
+
+    // Função executada ao digitar na barra de pesquisa
     function filtrarTabela() {
+      executarFiltroGeral();
+    }
+
+    // Processa os filtros de busca por texto + categoria de botão ao mesmo tempo
+    function executarFeral() {
       const input = document.getElementById('inputBusca');
-      const filter = input.value.toLowerCase();
+      const textoFiltro = input.value.toLowerCase();
       const table = document.getElementById('raceTable');
       const tr = table.getElementsByTagName('tr');
       let encontrou = false;
 
       for (let i = 1; i < tr.length; i++) {
-        let mostrar = false;
         const tds = tr[i].getElementsByTagName('td');
-        
-        for (let j = 0; j < tds.length; j++) {
-          if (tds[j] && tds[j].innerText.toLowerCase().indexOf(filter) > -1) {
-            mostrar = true;
-            break;
+        if (!tds || tds.length < 3) continue;
+
+        // Pega o valor exato da coluna "Tipo de Corrida" (índice 2)
+        const valorTipoCelula = tds[2].innerText;
+
+        // Validação 1: Filtro do Botão
+        let atendeBotao = false;
+        if (filtroTipoAtual === 'todos' || valorTipoCelula.toLowerCase().indexOf(filtroTipoAtual.toLowerCase()) > -1) {
+          atendeBotao = true;
+        }
+
+        // Validação 2: Filtro de Texto (Varre todas as células da linha)
+        let atendeTexto = false;
+        if (textoFiltro === "") {
+          atendeTexto = true;
+        } else {
+          for (let j = 0; j < tds.length; j++) {
+            if (tds[j] && tds[j].innerText.toLowerCase().indexOf(textoFiltro) > -1) {
+              atendeTexto = true;
+              break;
+            }
           }
         }
-        
-        if (mostrar) {
+
+        // Exibe a linha se ela passar em ambos os filtros simultaneamente
+        if (atendeBotao && atendeTexto) {
           tr[i].style.display = "";
           encontrou = true;
         } else {
@@ -178,315 +252,15 @@
         }
       }
 
+      // Alerta de resultados vazios
       const msgSemResultados = document.getElementById('semResultados');
-      if (encontrou) {
-        msgSemResultados.style.display = "none";
-      } else {
-        msgSemResultados.style.display = "block";
-      }
-    }
-  </script>
-
-</body>
-</html>
-
-    
-      </tr>
-          <td>25/07</td>
-        <td>WRC-SS3 & SS4</td>
-        <td><img src="FORMULA E.png" alt="Formula E" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Estonia</td>
-        <td>08:49</td>
-        <td>SporTV4 Portugal</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-      <tr>
-  </tr>
-          <td>17/07</td>
-        <td>Rally da Graciosa(Paranaense)-Largada promocional</td>
-        <td><img src="2025-07-12-Rally-da-Graciosa-Edson-Castro-01-1024x683.jpg" alt="Rally da Graciosa" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Graciosa</td>
-        <td>19:00</td>
-        <td>Youtube</td>
-         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-        
-    </tr>
-          <td>18/07</td>
-        <td>Rally da Graciosa(Paranaense)-SS1+Subida da Montanha***ainda não sei se vai dar certo a live</td>
-        <p style="color: red;">Este texto é vermelho vivo.</p>
-        <td><img src="2025-07-12-Rally-da-Graciosa-Edson-Castro-01-1024x683.jpg" alt="Rally da Graciosa" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Graciosa</td>
-        <td>08:30</td>
-        <td>Facebook</td>
-         <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-    
-
-       <tr>
-        <td>26/06</td>
-        <td>DTM-race 1</td></td>
-        <td><img src="logo_dtm.png" alt="DTM" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Norisring</td>
-        <td>08:30</td>
-        <td>ESPN 3 ou 4</td>
-        <td><img src="ESPN LOGO.png" alt="ESPN" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-
-        
-     <tr>
-          <td>26/06</td>
-        <td>24h SPA-IGTC\GTWC Europe-Superpole</td>
-        <td><img src="baja jalapao.webp" alt="Baja Jalapão" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>SPA</td>
-        <td>10:00</td></td>
-        <td>Youtube GT Word\Youtube GP</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-        <tr>
-          <td>26/06</td>
-        <td>Fia Baja Italia-Prologo</td>
-        <td><img src="baja Italia.PNG" alt="Baja Italia" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Italia</td>
-        <td>12:30</td>
-        <td>Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
- <tr>
-        <td>26/06</td>
-        <td>BMW M2 Cup Brasil-race 2(reposição etapa 1)</td>
-        <td><img src="bmw m2 cup BRASIL.jpg" alt="BMW M2 Cup Brasil" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Velopark </td>
-        <td>16:50</td>
-        <td>Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-
-
-    
-       <tr>
-        <td>26/06</td>
-        <td>Mustang Challenge-race 1</td>
-        <td><img src="Logo TCR BR .JPEG" alt="TCR Brasil" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Wtakins Glen </td>
-        <td>14:55</td>
-        <td>Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-
-       <tr>
-        <td>26/06</td>
-        <td>Rally X Americas-etapa 3</td>
-        <td><img src="rally x usa.PNG" alt="Rally X USA" width="75" style="display: block; margin: 0 auto;"></td>
-        <td>Eldora</td>
-        <td>18:30</td>
-        <td>Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-        
-
-          <tr>
-          <td>20/06</td>
-        <td>Stock Car Pro Series-race 1</td>
-        <td><img src="STOCK CAR.png" alt="Stock Car" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Cuiaba</td>
-        <td>00:15</td>
-        <td>Bandsports\Youtube Esporte na Band</td>
-         <td><img src="bandsports.png" alt="Bandsports" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-
-      
-      <tr>
-        <td>20/06</td>
-        <td>Rally X USA-Semis-etapa 1(adiado para domingo de manhã as 09:30)</td>
-        <td><img src="rally x usa.PNG" alt="Rally X USA" width="75" style="display: block; margin: 0 auto;"></td>
-        <td>Crandon</td>
-        <td>17:00</td>
-        <td>Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-        <tr>
-        <td>20/06</td>
-        <td>Rally X USA-Finais-etapa 1(adiado para domingo de manhã as 12:30 por causa de chuva)</td>
-        <td><img src="rally x usa.PNG" alt="Rally X USA" width="75" style="display: block; margin: 0 auto;"></td>
-        <td>Crandon</td>
-        <td>21:30</td>
-        <td>Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-      <tr>
-          <td>20/06</td>
-        <td>Stock Car Pro Series-Main Race</td>
-        <td><img src="STOCK CAR.png" alt="Stock Car" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Cuiaba</td>
-        <td>22:30</td>
-        <td>Youtube\RacerBR\Youtube Esporte na Band\Bandsports</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-
-      <tr>
-        <tr>
-        <td>21/06</td>
-        <td>Pikes Peak Hill Climb</td>
-        <td><img src="Pikes Peak.PNG" alt="Pikes Peak" width="75" style="display: block; margin: 0 auto;"></td>
-        <td>Pikes Peak</td>
-        <td>10:00</td>
-        <td>Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-      <tr>
-      <tr>
-        <tr>
-        <td>13/06</td>
-        <td>24h Le Mans-Start\Largada</td>
-        <td><img src="LOGO 24H LE MANS.webp" alt="24h Le Mans" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Le Mans</td>
-        <td>11:00</td>
-        <td>Youtube GP\Youtube Esporte na Band\Youtube Joven Pan Esportes</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-      <tr>
-      
-       <tr>
-        <td>13/06</td>
-        <td>24h Le Mans-Start\Largada</td>
-        <td><img src="LOGO 24H LE MANS.webp" alt="24h Le Mans" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Le Mans</td>
-        <td>11:00</td>
-        <td>Bandsports</td>
-        <td><img src="bandsports.png" alt="Bandsports" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-          <tr>
-        <td>13/06</td>
-        <td>Londrina 600 Speedfest</td>
-        <td><img src="londrina 600 speedfest.jpg" alt="Londrina 600 Speedfest" width="75" style="display: block; margin: 0 auto;"></td>
-        <td>Londrina</td>
-        <td>17:00</td>
-        <td>Youtube\Youtube High Speed TV\Youtube Curva do S</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-      <tr>
-       <tr>
-        <tr>
-        <td>14/06</td>
-        <td>Lyden Hill Legend-day 2</td>
-        <td><img src="lyden hill festival.PNG" alt="Lyden Hill Legend" width="75" style="display: block; margin: 0 auto;"></td>
-        <td>Lyden Hill</td>
-        <td>06:20</td>
-        <td>Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-      </tr>
-       <tr>
-        <td>14/06</td>
-        <td>Formula Truck-Corridas</td>
-        <td><img src="formula truck.webp" alt="Formula Truck" width="75" style="display: block; margin: 0 auto;"></td>
-        <td>Cuiaba</td>
-        <td>12:50</td>
-        <td>Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-      <tr>
-        <td>14/06</td>
-        <td>GTWC Americas</td>
-        <td><img src="logo_euro rx.jpg" alt="Euro RX" width="75" style="display: block; margin: 0 auto;"></td>
-        <td>Road Atlanta</td>
-        <td>15:00</td>
-        <td>Youtube GP\Youtube GT Word</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-      <tr>
-        <td>14/06</td>
-        <td>Formula Truck-Corridas(VT)</td>
-        <td><img src="formula truck.webp" alt="Formula Truck" width="75" style="display: block; margin: 0 auto;"></td>
-        <td>Cuiaba</td>
-        <td>17:30</td>
-        <td>Bandsports</td>
-        <td><img src="bandsports.png" alt="Bandsports" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-    </tbody>
-  </table>
-   <tr>
-     <tr>
-        <td>14/06</td>
-        <td>Formula Truck-Corridas(VT)</td>
-        <td><img src="formula truck.webp" alt="Formula Truck" width="75" style="display: block; margin: 0 auto;"></td>
-        <td>Cuiaba</td>
-        <td>17:30</td>
-        <td>Bandsports</td>
-        <td><img src="bandsports.png" alt="Bandsports" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
- 
-   <tr>
-        <td>13/06</td>
-        <td>Londrina 600 Speedfest</td>
-        <td><img src="londrina 600 speedfest.jpg" alt="Londrina 600 Speedfest" width="75" style="display: block; margin: 0 auto;"></td>
-        <td>Londrina</td>
-        <td>17:00</td>
-        <td>Youtube\Youtube High Speed TV\Youtube Curva do S</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-  <div id="msgSemResultados" class="sem-resultados">Nenhum evento encontrado para a pesquisa feita.</div>
-
-  <!-- CODIGO DE CORREÇÃO -->
-  <script>
-    function ordenarTabelaPorDataHora() {
-      const tbody = document.getElementById("raceTableBody");
-      const linhas = Array.from(tbody.querySelectorAll("tr"));
-      const anoAtual = new Date().getFullYear();
-
-      const listaOrdenada = linhas.map(linha => {
-        const colunas = linha.querySelectorAll("td");
-        
-        // Correção crítica: lê o conteúdo em formato textual correto das células [0] e [4]
-        const textoDia = colunas[0].innerText || colunas[0].textContent;
-        const textoHora = colunas[4].innerText || colunas[4].textContent;
-
-        const [dia, mes] = textoDia.trim().split("/").map(Number);
-        const [hora, minuto] = textoHora.trim().split(":").map(Number);
-
-        // Converte para objeto Date válido
-        const objetoData = new Date(anoAtual, mes - 1, dia, hora, minuto);
-
-        return { elementoHtml: linha, timestamp: objetoData.getTime() };
-      });
-
-      // Ordena cronologicamente
-      listaOrdenada.sort((a, b) => a.timestamp - b.timestamp);
-
-      // Limpa e reinsere os elementos na ordem exata
-      tbody.innerHTML = "";
-      listaOrdenada.forEach(item => {
-        tbody.appendChild(item.elementoHtml);
-      });
+      msgSemResultados.style.display = encontrou ? "none" : "block";
     }
 
-    function filtrarTabela() {
-      const input = document.getElementById("inputBusca");
-      const filtro = input.value.toLowerCase();
-      const tbody = document.getElementById("raceTableBody");
-      const linhas = tbody.getElementsByTagName("tr");
-      let algumVisivel = false;
-
-      for (let i = 0; i < linhas.length; i++) {
-        const textoLinha = linhas[i].textContent || linhas[i].innerText;
-        
-        if (textoLinha.toLowerCase().indexOf(filtro) > -1) {
-          linhas[i].style.display = "";
-          algumVisivel = true;
-        } else {
-          linhas[i].style.display = "none";
-        }
-      }
-
-      const msg = document.getElementById("msgSemResultados");
-      msg.style.display = algumVisivel ? "none" : "block";
+    // Alias para manter a compatibilidade do onkeyup do input original
+    function executarFiltroGeral() {
+      executarFeral();
     }
-
-    // Inicializa a ordenação imediatamente após o carregamento da página
-    window.onload = function() {
-      ordenarTabelaPorDataHora();
-    };
   </script>
 
 </body>
