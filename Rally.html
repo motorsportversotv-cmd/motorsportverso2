@@ -1,249 +1,231 @@
-
-       
-        .tag-item {
-            padding: 8px 0;
-            border-bottom: 1px dotted #a3c4ab;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-        }
-
-        .tag-item::before {
-            content: "➔";
-            font-size: 10px;
-            margin-right: 8px;
-            color: #ffffff;
-        }
-
-        .tag-link {
-            color: #ffffff;
-            text-decoration: underline;
-            flex-grow: 1;
-            cursor: pointer;
-        }
-
-        .tag-item:hover .tag-link, .tag-item.active .tag-link {
-            color: #e0f2e5;
-        }
-
-        .tag-count {
-            margin-left: 5px;
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog de Rally</title>
+    <title>Portal Rally - Lista de Categorias</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
 
         body {
-            background-color: #0b151e;
+            background-color: #05121e;
             color: #ffffff;
-            padding: 20px;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
         }
 
-        /* Container principal em Grid de 3 colunas */
         .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1.3fr;
-            gap: 20px;
-            max-width: 1250px;
-            margin: 0 auto;
-        }
-
-        /* Estilização dos Menus Laterais (Marcadores) */
-        .menu-marcadores {
-            background-color: #143522;
-            border: 1px solid #1f4e33;
-            border-radius: 4px;
-            padding: 15px;
-            height: fit-content;
-        }
-
-        .menu-marcadores h2 {
-            font-size: 1.1rem;
-            color: #ffffff;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #1f4e33;
-            padding-bottom: 8px;
-        }
-
-        .lista-links {
-            list-style: none;
-        }
-
-        .lista-links li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px dashed #276341;
-            font-size: 0.9rem;
-        }
-
-        .lista-links li:last-child {
-            border-bottom: none;
-        }
-
-        .lista-links a {
-            color: #ffffff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .lista-links a:hover {
-            text-decoration: underline;
-        }
-
-        .contador {
-            color: #ffffff;
-            font-weight: bold;
-        }
-
-        /* Estilização da Coluna do Feed de Posts */
-        .coluna-posts {
+            width: 100%;
+            max-width: 450px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 30px;
         }
 
-        /* Estrutura Base do Card de Notícias */
-        .card-post {
-            background-color: #111e29;
+        /* --- SINALIZADOR DA LISTA IGUAL À IMAGEM --- */
+        .categories-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dotted #556879;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .category-item:hover {
+            color: #4a7551;
+        }
+
+        .category-item::before {
+            content: "➔";
+            margin-right: 10px;
+            color: #ffffff;
+        }
+
+        .count-num {
+            margin-left: 5px;
+        }
+
+        /* --- CARDS DE POSTAGENS PARA TESTE --- */
+        .posts-title {
+            font-size: 14px;
+            color: #556879;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+
+        .post-card {
+            background-color: #111e2e;
             border-radius: 8px;
             overflow: hidden;
-            border: 1px solid #162635;
+            padding-bottom: 20px;
+            margin-top: 10px;
         }
 
-        /* Bloco da Imagem com suporte a Tags absolutas */
-        .container-imagem {
+        .image-container {
             position: relative;
             width: 100%;
-            height: 240px;
-            background-color: #1a2c3d;
+            height: 200px;
+            background-color: #ffffff;
         }
 
-        .container-imagem img {
+        .image-container img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            display: block;
         }
 
-        /* Tag Verde Flutuante */
-        .tag-categoria {
+        .badge {
             position: absolute;
             top: 12px;
             left: 12px;
-            background-color: #4e6c46;
+            background-color: #43764d;
             color: #ffffff;
-            font-size: 0.75rem;
+            font-size: 12px;
             font-weight: bold;
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 4px;
         }
 
-        /* Corpo do Texto do Card */
-        .conteudo-post {
-            padding: 20px;
+        .post-content {
+            padding: 16px;
         }
 
-        .card-post h3 {
-            font-size: 1.25rem;
-            color: #ffffff;
+        .post-title {
+            font-size: 18px;
             font-weight: bold;
             line-height: 1.3;
-            margin-bottom: 12px;
-        }
-
-        .card-post p {
-            color: #798e9c;
-            font-size: 0.95rem;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
-
-        /* Links de ação interno dos posts */
-        .link-topo {
-            color: #798e9c;
-            text-decoration: none;
-            font-size: 0.85rem;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .leia-mais {
-            color: #4e6b52;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: bold;
-            display: inline-block;
-        }
-
-        .leia-mais:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsividade para telas menores */
-        @media (max-width: 950px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        
-        <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog de Rally Interativo</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
 
-        body {
-            background-color: #0b151e;
-            color: #ffffff;
-            padding: 20px;
-        }
+        <!-- Lista de Categorias Reais -->
+        <ul class="categories-list">
+            <li class="category-item" data-target="Todos">Todos (<span id="count-todos">0</span>)</li>
+            <li class="category-item" data-target="Link & Co">Link & Co (<span id="count-linkco">0</span>)</li>
+            <li class="category-item" data-target="Rally dos Sertões">Rally dos Sertões (<span id="count-sertoes">0</span>)</li>
+            <li class="category-item" data-target="Paraná">Paraná (<span id="count-parana">0</span>)</li>
+            <li class="category-item" data-target="Tour Auto">Tour Auto (<span id="count-tour">0</span>)</li>
+        </ul>
 
-        /* Container principal em Grid de 3 colunas */
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1.3fr;
-            gap: 20px;
-            max-width: 1250px;
-            margin: 0 auto;
-        }
+        <h3 class="posts-title">Postagens Cadastradas</h3>
 
-        /* Estilização dos Menus Laterais (Marcadores) */
-        .menu-marcadores {
-            background-color: #143522;
-            border: 1px solid #1f4e33;
-            border-radius: 4px;
-            padding: 15px;
-            height: fit-content;
-        }
+        <!-- Seção de Posts (O Script lê o "data-category" para somar) -->
+        <div class="posts-wrapper">
+            
+            <!-- Post 1 -->
+            <div class="post-card" data-category="Link & Co">
+                <div class="image-container">
+                    <span class="badge">Link & Co</span>
+                    <img src="https://unsplash.com" alt="Mitsubishi">
+                </div>
+                <div class="post-content">
+                    <h2 class="post-title">Grupo Geely entra no mundo do rally com a marca Link & Co</h2>
+                </div>
+            </div>
 
-        .menu-marcadores h2 {
-            font-size: 1.1rem;
-            color: #ffffff;
+            <!-- Post 2 -->
+            <div class="post-card" data-category="Rally dos Sertões">
+                <div class="image-container">
+                    <span class="badge">Rally dos Sertões</span>
+                    <img src="https://unsplash.com" alt="Mitsubishi">
+                </div>
+                <div class="post-content">
+                    <h2 class="post-title">Atual campeão do W2RC, Lucas Moraes confirma participação no Rally dos Sertões 2026</h2>
+                </div>
+            </div>
+
+            <!-- Post 3 -->
+            <div class="post-card" data-category="Paraná">
+                <div class="image-container">
+                    <span class="badge">Paraná</span>
+                    <img src="https://unsplash.com" alt="Rally">
+                </div>
+                <div class="post-content">
+                    <h2 class="post-title">Inscritos Rally do Centro Oeste-Jardim Alegre</h2>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Script de contagem automática e filtragem por clique -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const posts = document.querySelectorAll('.post-card');
+            
+            // Variáveis de contagem
+            let total = posts.length;
+            let linkco = 0;
+            let sertoes = 0;
+            let parana = 0;
+            let tour = 0;
+
+            // Executa o laço de soma varrendo os posts reais na tela
+            posts.forEach(post => {
+                const cat = post.getAttribute('data-category');
+                if (cat === 'Link & Co') linkco++;
+                if (cat === 'Rally dos Sertões') sertoes++;
+                if (cat === 'Paraná') parana++;
+                if (cat === 'Tour Auto') tour++;
+            });
+
+            // Alimenta os elementos HTML com os valores corretos
+            document.getElementById('count-todos').textContent = total;
+            document.getElementById('count-linkco').textContent = linkco;
+            document.getElementById('count-sertoes').textContent = sertoes;
+            document.getElementById('count-parana').textContent = parana;
+            document.getElementById('count-tour').textContent = tour;
+
+            // Função para clicar na categoria e isolar os posts na tela
+            const items = document.querySelectorAll('.category-item');
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    const target = item.getAttribute('data-target');
+                    
+                    posts.forEach(post => {
+                        const postCat = post.getAttribute('data-category');
+                        if (target === 'Todos' || postCat === target) {
+                            post.style.display = 'block';
+                        } else {
+                            post.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+       
+
+         
+   
+
+   
             margin-bottom: 15px;
             border-bottom: 1px solid #1f4e33;
             padding-bottom: 8px;
