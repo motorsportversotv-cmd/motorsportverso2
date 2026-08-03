@@ -398,17 +398,15 @@
 </head>
 <body>
 
-     <!-- Lista de Marcadores do Portal -->
+      <!-- Lista de Marcadores do Portal com IDs para o Script identificar -->
         <div class="tags-container">
-            <a href="#" class="tag-item active">Todos</a>
-            <a href="#" class="tag-item">Link & Co</a>
-            <a href="#" class="tag-item">Rally dos Sertões</a>
-            <a href="#" class="tag-item">Paraná</a>
-            <a href="#" class="tag-item">Tour Auto</a>
-            <a href="#" class="tag-item">Brasil</a>
-            <a href="#" class="tag-item">Paranaense</a>
-            <a href="#" class="tag-item">Rally Virtual</a>
+            <span class="tag-item active" data-tag="Todos">Todos <span class="tag-count" id="count-todos">0</span></span>
+            <span class="tag-item" data-tag="Link & Co">Link & Co <span class="tag-count" id="count-linkco">0</span></span>
+            <span class="tag-item" data-tag="Rally dos Sertões">Rally dos Sertões <span class="tag-count" id="count-sertoes">0</span></span>
+            <span class="tag-item" data-tag="Paraná">Paraná <span class="tag-count" id="count-parana">0</span></span>
+            <span class="tag-item" data-tag="Tour Auto">Tour Auto <span class="tag-count" id="count-tour">0</span></span>
         </div>
+
 
 
         <!-- COLUNA 3: Feed Unificado de Notícias -->
@@ -463,85 +461,55 @@
   
     
 
-    
-     
-      
-
-
- 
-
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    // 1. Alvo onde a lista de marcadores será renderizada
-    const container = document.getElementById("tagListContainer");
-    if (!container) return;
-
-    // 2. Seleciona os posts (ajuste o seletor ".post" se os seus blocos usarem outra classe)
-    const posts = document.querySelectorAll(".post"); 
-    
-    // 3. Estrutura para armazenar e contar as tags automaticamente
-    const contagemTags = { "Ver Todos": posts.length };
-
-    // 4. ALGORITMO DE EXTRAÇÃO E CONTAGEM AUTOMÁTICA
-    posts.forEach(post => {
-        const tagsAttr = post.getAttribute("data-tags");
-        if (tagsAttr) {
-            // Divide por vírgula e limpa os espaços invisíveis
-            const tags = tagsAttr.split(",").map(t => t.trim());
+    <!-- Script que realiza a contagem e a filtragem automática -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const posts = document.querySelectorAll('.post-card');
             
-            tags.forEach(tag => {
-                if (tag !== "") {
-                    // Se a tag já existe, soma +1. Se não existe, inicia em 1.
-                    contagemTags[tag] = (contagemTags[tag] || 0) + 1;
-                }
-            });
-        }
-    });
+            // 1. Faz a contagem dos itens existentes no HTML
+            let totalPosts = posts.length;
+            let linkCoCount = 0;
+            let sertoesCount = 0;
+            let paranaCount = 0;
+            let tourCount = 0;
 
-    // 5. GERAÇÃO AUTOMÁTICA DO HTML NA TELA
-    // Transforma o objeto de contagem em uma lista para renderizar
-    Object.keys(contagemTags).forEach(tag => {
-        const li = document.createElement("li");
-        li.className = "tag-item";
-        
-        // Define o filtro lógico (se for 'Ver Todos', o filtro real é 'all')
-        const filterValue = (tag === "Ver Todos") ? "all" : tag;
-        li.setAttribute("data-filter", filterValue);
-        
-        // Se for o botão "Ver Todos", inicia marcado como ativo
-        if (filterValue === "all") {
-            li.classList.add("active");
-        }
-
-        // Monta a estrutura interna do link e do contador
-        li.innerHTML = `
-            <a class="tag-link">${tag}</a>
-            <span class="tag-count">(${contagemTags[tag]})</span>
-        `;
-        
-        // 6. ALGORITMO DE FILTRAGEM VISUAL (Ao clicar)
-        li.addEventListener("click", () => {
-            // Remove classe ativa de todos os marcadores gerados
-            document.querySelectorAll(".tag-item").forEach(i => i.classList.remove("active"));
-            li.classList.add("active");
-
-            // Esconde ou mostra os posts baseado na tag clicada
             posts.forEach(post => {
-                const postTagsAttr = post.getAttribute("data-tags") || "";
-                const postTags = postTagsAttr.split(",").map(t => t.trim());
-
-                if (filterValue === "all" || postTags.includes(filterValue)) {
-                    post.style.display = "block";
-                } else {
-                    post.style.display = "none";
-                }
+                const category = post.getAttribute('data-category');
+                if (category === 'Link & Co') linkCoCount++;
+                if (category === 'Rally dos Sertões') sertoesCount++;
+                if (category === 'Paraná') paranaCount++;
+                if (category === 'Tour Auto') tourCount++;
             });
-        });
 
-        container.appendChild(li);
-    });
-});
+            // 2. Insere os números contados dentro dos balões das tags
+            document.getElementById('count-todos').textContent = totalPosts;
+            document.getElementById('count-linkco').textContent = linkCoCount;
+            document.getElementById('count-sertoes').textContent = sertoesCount;
+            document.getElementById('count-parana').textContent = paranaCount;
+            document.getElementById('count-tour').textContent = tourCount;
+
+            // 3. Sistema de clique para Filtrar os posts na tela
+            const tagButtons = document.querySelectorAll('.tag-item');
+            tagButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove classe ativa de todos e adiciona no clicado
+                    tagButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const selectedTag = button.getAttribute('data-tag');
+
+                    // Mostra ou esconde os cards baseado na tag selecionada
+                    posts.forEach(post => {
+                        const postCategory = post.getAttribute('data-category');
+                        if (selectedTag === 'Todos' || postCategory === selectedTag) {
+                            post.style.display = 'block';
+                        } else {
+                            post.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });     
 </script>
 
 
