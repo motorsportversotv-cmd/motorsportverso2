@@ -28,7 +28,7 @@
             gap: 30px;
         }
 
-        /* --- SINALIZADOR DA LISTA IGUAL À IMAGEM --- */
+        /* --- LISTA DE CATEGORIAS --- */
         .categories-list {
             list-style: none;
             display: flex;
@@ -38,8 +38,8 @@
         .category-item {
             display: flex;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px dotted #556879;
+            padding: 14px 0;
+            border-bottom: 1px dotted #20354b;
             font-size: 16px;
             font-weight: bold;
             color: #ffffff;
@@ -53,21 +53,16 @@
 
         .category-item::before {
             content: "➔";
-            margin-right: 10px;
+            margin-right: 12px;
             color: #ffffff;
         }
 
-        .count-num {
-            margin-left: 5px;
-        }
-
-        /* --- CARDS DE POSTAGENS PARA TESTE --- */
-        .posts-title {
-            font-size: 14px;
-            color: #556879;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 20px;
+        /* --- CARDS DE POSTAGENS REAL --- */
+        .posts-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 10px;
         }
 
         .post-card {
@@ -75,20 +70,19 @@
             border-radius: 8px;
             overflow: hidden;
             padding-bottom: 20px;
-            margin-top: 10px;
         }
 
         .image-container {
             position: relative;
             width: 100%;
-            height: 200px;
-            background-color: #ffffff;
+            height: 220px;
+            background-color: #000;
         }
 
         .image-container img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             display: block;
         }
 
@@ -113,6 +107,19 @@
             font-weight: bold;
             line-height: 1.3;
             color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .btn-ler {
+            color: #4a7551;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .btn-ler:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -120,7 +127,7 @@
 
     <div class="container">
 
-        <!-- Lista de Categorias Reais -->
+        <!-- Lista de Categorias Atualizada com ARA -->
         <ul class="categories-list">
             <li class="category-item" data-target="Todos">Todos (<span id="count-todos">0</span>)</li>
             <li class="category-item" data-target="Link & Co">Link & Co (<span id="count-linkco">0</span>)</li>
@@ -130,75 +137,51 @@
             <li class="category-item" data-target="ARA">ARA (<span id="count-ara">0</span>)</li>
         </ul>
 
-        <h3 class="posts-title">Postagens Cadastradas</h3>
-
-        <!-- Seção de Posts (O Script lê o "data-category" para somar) -->
+        <!-- Seção Dinâmica de Posts Cadastrados -->
         <div class="posts-wrapper">
             
-            <!-- Post 1 -->
+            <!-- Post 1 (Exemplo) -->
             <div class="post-card" data-category="Link & Co">
                 <div class="image-container">
                     <span class="badge">Link & Co</span>
-                    <img src="https://unsplash.com" alt="Mitsubishi">
+                    <img src="https://unsplash.com" alt="Exemplo">
                 </div>
                 <div class="post-content">
                     <h2 class="post-title">Grupo Geely entra no mundo do rally com a marca Link & Co</h2>
-                    <a href="link_co_entra_no_rally_campeonato_chines.html" class="btn-ler">Leia mais →</a>
+                    <a href="#" class="btn-ler">Leia mais →</a>
                 </div>
             </div>
 
-            <!-- Post 2 -->
-            <div class="post-card" data-category="Rally dos Sertões">
-                <div class="image-container">
-                    <span class="badge">Rally dos Sertões</span>
-                    <img src="https://unsplash.com" alt="Mitsubishi">
-                </div>
-                <div class="post-content">
-                    <h2 class="post-title">Atual campeão do W2RC, Lucas Moraes confirma participação no Rally dos Sertões 2026</h2>
-                    <a href="Lucas_Moraes_confirma_participação_Rally_dos_sertoes_26.html" class="btn-ler">Leia mais →</a>
-                </div>
-            </div>
-
-            <!-- Post 3 -->
-            <div class="post-card" data-category="Paraná">
-                <div class="image-container">
-                    <span class="badge">Paraná</span>
-                    <img src="https://unsplash.com" alt="Rally">
-                </div>
-                <div class="post-content">
-                    <h2 class="post-title">Resultados Rally da Graciosa 2026</h2>
-                    <a href="resultados_rally_da_graciosa_2026_v2.html" class="btn-ler">Leia mais →</a>
-                </div>
-                  <!-- Post 3 -->
+            <!-- Post 3 (Seu Post do Toyota GR Corolla) -->
             <div class="post-card" data-category="ARA">
                 <div class="image-container">
                     <span class="badge">ARA</span>
-                   <img src="Toyota GR Corolla Rally 2 ARA COLORADO.jpg" alt="Toyota GR Corolla Rally 2">
+                    <img src="Toyota GR Corolla Rally 2 ARA COLORADO.jpg" alt="Toyota GR Corolla Rally 2">
                 </div>
                 <div class="post-content">
                     <h2 class="post-title">Resultados Rally do Colorado 2026</h2>
                     <a href="Resultados_ARA_Rally_Colorado.html" class="btn-ler">Leia mais →</a>
                 </div>
-            </div>
+            </div>  
 
         </div>
 
     </div>
 
-    <!-- Script de contagem automática e filtragem por clique -->
+    <!-- Script Corrigido para Ler a Classe '.post-card' Real -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // Seleciona todos os cards reais da página
             const posts = document.querySelectorAll('.post-card');
             
-            // Variáveis de contagem
             let total = posts.length;
             let linkco = 0;
             let sertoes = 0;
             let parana = 0;
             let tour = 0;
-            let ara=0;
+            let ara = 0;
 
-            // Executa o laço de soma varrendo os posts reais na tela
+            // Percorre e contabiliza cada um dos cards baseados no "data-category"
             posts.forEach(post => {
                 const cat = post.getAttribute('data-category');
                 if (cat === 'Link & Co') linkco++;
@@ -208,15 +191,15 @@
                 if (cat === 'ARA') ara++;
             });
 
-            // Alimenta os elementos HTML com os valores corretos
+            // Modifica os números do cabeçalho
             document.getElementById('count-todos').textContent = total;
             document.getElementById('count-linkco').textContent = linkco;
             document.getElementById('count-sertoes').textContent = sertoes;
             document.getElementById('count-parana').textContent = parana;
             document.getElementById('count-tour').textContent = tour;
-            document.getElementById('count-tour').textContent = ara;
-            
-            // Função para clicar na categoria e isolar os posts na tela
+            document.getElementById('count-ara').textContent = ara;
+
+            // Sistema Inteligente de Filtro por Clique
             const items = document.querySelectorAll('.category-item');
             items.forEach(item => {
                 item.addEventListener('click', () => {
@@ -234,6 +217,9 @@
             });
         });
     </script>
+</body>
+</html>
+
 </body>
 </html>
 
