@@ -197,6 +197,7 @@
             let sertoes = 0;
             let parana = 0;
             let tour = 0;
+            let ara=0;
 
             // Executa o laço de soma varrendo os posts reais na tela
             posts.forEach(post => {
@@ -205,6 +206,7 @@
                 if (cat === 'Rally dos Sertões') sertoes++;
                 if (cat === 'Paraná') parana++;
                 if (cat === 'Tour Auto') tour++;
+                if (cat === 'ARA') ara++;
             });
 
             // Alimenta os elementos HTML com os valores corretos
@@ -213,7 +215,8 @@
             document.getElementById('count-sertoes').textContent = sertoes;
             document.getElementById('count-parana').textContent = parana;
             document.getElementById('count-tour').textContent = tour;
-
+            document.getElementById('count-tour').textContent = ara;
+            
             // Função para clicar na categoria e isolar os posts na tela
             const items = document.querySelectorAll('.category-item');
             items.forEach(item => {
