@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscritos Rally dos Sertões 2026</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        /* Estilo para o container do filtro */
+        .filtro-container {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        select {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #fca311;
+            color: #000;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Inscritos Rally dos Sertões 2026</h1>
+    <p>Confira abaixo a lista dos competidores confirmados para a edição de 2026:</p>
+
+    <!-- Adicionado: Seletor de Categoria -->
+    <div class="filtro-container">
+        <label for="seletor-categoria">Filtrar por Categoria:</label>
+        <select id="seletor-categoria" onchange="filtrarTabela()">
+            <option value="todos">Todas as Categorias</option>
+            <option value="Ultimate T1+">Ultimate T1+</option>
+            <!-- Adicione novas tags <option> aqui se surgirem outras categorias -->
+        </select>
+    </div>
+
+    <table id="tabela-inscritos">
+        <thead>
+            <tr>
+                <th>Nº</th>
+                <th>Piloto\Navegador</th>
+                <th>Nat</th>
+                <th>Equipe</th>
+                <th>Marca\Modelo</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>301</td>
+                <td>Marcos Baugart\Kleber Cincea</td>
+                <td>BRA</td>
+                <td>Sizmic Racing</td>
+                <td>Ford Ranger Raptor T1+</td>
+                <td>Ultimate T1+</td>
+            </tr>
+            <tr>
+                <td>302</td>
+                <td>Marcelo Gastaldi\Cadu Sachs</td>
+                <td>BRA</td>
+                <td>Bajatek</td>
+                <td>Toyota GR Hylux T1+</td>
+                <td>Ultimate T1+</td>
+            </tr>
+            <tr>
+                <td>308</td>
+                <td>Marcos Moraes\Fabio Pedroso</td>
+                <td>BRA</td>
+                <td>Mem Motorsport</td>
+                <td>Mem Motorsport</td> <!-- Corrigido: Fechamento da tag td -->
+                <td>Ultimate T1+</td>
+            </tr>
+            <tr>
+                <td>310</td>
+                <td>Guilherme Spinelli\Paulo Fiuza</td>
+                <td>BRA</td>
+                <td>Mitsubishi Spinelli Rcaing</td>
+                <td>MItsubishi Triton Ultimate T1+</td>
+                <td>Ultimate T1+</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Adicionado: Script de Funcionamento -->
+    <script>
+        function filtrarTabela() {
+            // Pega o valor selecionado no filtro
+            var input = document.getElementById("seletor-categoria");
+            var filtro = input.value;
+            
+            // Pega a tabela e as linhas de dados
+            var tabela = document.getElementById("tabela-inscritos");
+            var tr = tabela.getElementsByTagName("tr");
+
+            // Passa por todas as linhas (ignorando o cabeçalho)
+            for (var i = 1; i < tr.length; i++) {
+                // A coluna da Categoria é a sexta (índice 5)
+                var td = tr[i].getElementsByTagName("td")[5];
+                
+                if (td) {
+                    var textoCategoria = td.textContent || td.innerText;
+                    
+                    // Se for "todos" ou bater com o nome da categoria, mostra a linha. Se não, esconde.
+                    if (filtro === "todos" || textoCategoria.trim() === filtro) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+
+
