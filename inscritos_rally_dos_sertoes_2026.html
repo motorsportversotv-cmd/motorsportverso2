@@ -318,5 +318,9 @@
             var contagemCategorias = {};
             var contagemMarcas = {};
             var contagemPaises = {};
-
+            
+// Varre as linhas coletando os dados pelas colunas corretas
+            for (var i = 1; i < tr.length; i++) {
+                var tds = tr[i].getElementsByTagName("td");
+                if (tds.length >= 6) {
 
