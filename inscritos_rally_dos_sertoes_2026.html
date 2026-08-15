@@ -15,7 +15,7 @@
             color: #222;
         }
         
-        /* Painel de Estatísticas */
+        /* Painel de Estatísticas Principais */
         .painel-estatisticas {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -42,7 +42,53 @@
             color: #111;
         }
 
-        /* Estilo para o container do filtro */
+        /* Seção de Gráficos e Detalhes */
+        .secao-detalhes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .card-detalhe {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .card-detalhe h2 {
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #fca311;
+            padding-bottom: 5px;
+        }
+
+        /* Barras de Estatísticas */
+        .item-barra {
+            margin-bottom: 12px;
+        }
+        .info-barra {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+        .container-barra {
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            height: 12px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .preenchimento-barra {
+            background-color: #fca311;
+            height: 100%;
+            width: 0%; /* Controlado pelo JS */
+            transition: width 0.5s ease-in-out;
+        }
+
+        /* Container do filtro */
         .filtro-container {
             margin-bottom: 20px;
             background-color: #fff;
@@ -95,14 +141,14 @@
     <h1>Inscritos Rally dos Sertões 2026</h1>
     <p>Confira abaixo a lista dos competidores confirmados para a edição de 2026:</p>
 
-    <!-- Painel de Estatísticas Dinâmicas -->
+    <!-- Painel de Estatísticas Principais -->
     <div class="painel-estatisticas">
         <div class="card-estatistica">
             <h3>Total de Veículos</h3>
             <p id="total-veiculos">0</p>
         </div>
         <div class="card-estatistica">
-            <h3>Total de Pilotos/Navegadores</h3>
+            <h3>Total de Competidores</h3>
             <p id="total-competidores">0</p>
         </div>
         <div class="card-estatistica">
@@ -110,14 +156,41 @@
             <p id="total-categorias">0</p>
         </div>
         <div class="card-estatistica">
-            <h3>Equipes no Grid</h3>
-            <p id="total-equipes">0</p>
+            <h3>Países Representados</h3>
+            <p id="total-paises">0</p>
+        </div>
+    </div>
+
+    <!-- Seção de Detalhes de Carros, Categorias e Países -->
+    <div class="secao-detalhes">
+        <!-- Estatísticas de Categorias -->
+        <div class="card-detalhe">
+            <h2>Estatística por Categoria</h2>
+            <div id="grafico-categorias">
+                <!-- Preenchido automaticamente via JS -->
+            </div>
+        </div>
+
+        <!-- Estatísticas de Marcas/Modelos -->
+        <div class="card-detalhe">
+            <h2>Estatística por Marca/Modelo</h2>
+            <div id="grafico-marcas">
+                <!-- Preenchido automaticamente via JS -->
+            </div>
+        </div>
+
+        <!-- Estatísticas de Países -->
+        <div class="card-detalhe">
+            <h2>Estatística por País</h2>
+            <div id="grafico-paises">
+                <!-- Preenchido automaticamente via JS -->
+            </div>
         </div>
     </div>
 
     <!-- Seletor de Categoria -->
     <div class="filtro-container">
-        <label for="seletor-categoria">Filtrar por Categoria:</label>
+        <label for="seletor-categoria">Filtrar Tabela por Categoria:</label>
         <select id="seletor-categoria" onchange="filtrarTabela()">
             <option value="todos">Todas as Categorias</option>
             <option value="Ultimate T1+">Ultimate T1+</option>
@@ -235,53 +308,18 @@
     </table>
 
     <script>
-        // Função para calcular as estatísticas automaticamente baseadas na tabela
         function calcularEstatisticas() {
             var tabela = document.getElementById("tabela-inscritos");
             var tr = tabela.getElementsByTagName("tr");
             
-            var totalVeiculos = tr.length - 1; // Desconta o cabeçalho
-            var totalCompetidores = totalVeiculos * 2; // Piloto + Navegador por carro
+            var totalVeiculos = tr.length - 1; 
+            var totalCompetidores = totalVeiculos * 2; 
             
-            var equipes = new Set();
-            var categorias = new Set();
+            var contagemCategorias = {};
+            var contagemMarcas = {};
+            var contagemPaises = {};
 
-            for (var i = 1; i < tr.length; i++) {
-                var tdEquipe = tr[i].getElementsByTagName("td")[3];
-                var tdCategoria = tr[i].getElementsByTagName("td")[5];
-                
-                if (tdEquipe) equipes.add(tdEquipe.textContent.trim());
-                if (tdCategoria) categorias.add(tdCategoria.textContent.trim());
-            }
 
-            // Atualiza os valores nos cards da tela
-            document.getElementById("total-veiculos").innerText = totalVeiculos;
-            document.getElementById("total-competidores").innerText = totalCompetidores;
-            document.getElementById("total-categorias").innerText = categorias.size;
-            document.getElementById("total-equipes").innerText = equipes.size;
-        }
-
-        // Função de filtro existente
-        function filtrarTabela() {
-            var input = document.getElementById("seletor-categoria");
-            var filtro = input.value;
-            var tabela = document.getElementById("tabela-inscritos");
-            var tr = tabela.getElementsByTagName("tr");
-
-            for (var i = 1; i < tr.length; i++) {
-                var td = tr[i].getElementsByTagName("td")[5];
-                if (td) {
-                    var textoCategoria = td.textContent || td.innerText;
-                    if (filtro === "todos" || textoCategoria.trim() === filtro) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-
-        // Executa o cálculo assim que a página carrega
         window.onload = calcularEstatisticas;
     </script>
 </body>
