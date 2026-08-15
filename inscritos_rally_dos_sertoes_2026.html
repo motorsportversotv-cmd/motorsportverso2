@@ -303,19 +303,87 @@
 
     <script>
         function calcularEstatisticas() {
-            var tabela = document.getElementById("tabela-inscritos");
-            var tr = tabela.getElementsByTagName("tr");
-            
-            var totalVeiculos = tr.length - 1; 
-            var totalCompetidores = totalVeiculos * 2; 
-            
-            var contagemCategorias = {};
-            var contagemMarcas = {};
-            var contagemPaises = {};
+            const linhas = document.querySelectorAll('#tabela-inscritos tbody tr');
+            const totalVeiculos = linhas.length;
+            let totalCompetidores = 0;
 
-            // Varre as linhas coletando os dados pelos índices exatos das colunas (td)
-            for (var i = 1; i < tr.length; i++) {
-                var tds = tr[i].getElementsByTagName("td");
-                if (tds.length >= 6) {
+            const categorias = {};
+            const marcas = {};
+            const paises = {};
 
-         var pais = tds[2].textContent.trim();var marcaCompleta = tds[4].textContent.trim();var categoria = tds[5].textContent.trim();// Separa a primeira palavra para identificar a fabricante (ex: Toyota, Ford)var marcaPrincipal = marcaCompleta.split(' ')[0];// Adiciona as contagens nos dicionários JavaScriptcontagemCategorias[categoria] = (contagemCategorias[categoria] || 0) + 1;contagemMarcas[marcaPrincipal] = (contagemMarcas[marcaPrincipal] || 0) + 1;contagemPaises[pais] = (contagemPaises[pais] || 0) + 1;}}// Atualiza os textos dos cards superioresdocument.getElementById("total-veiculos").innerText = totalVeiculos;document.getElementById("total-competidores").innerText = totalCompetidores;document.getElementById("total-categorias").innerText = Object.keys(contagemCategorias).length;document.getElementById("total-paises").innerText = Object.keys(contagemPaises).length;// Desenha as barras horizontais na telagerarBarrasGrafico("grafico-categorias", contagemCategorias, totalVeiculos);gerarBarrasGrafico("grafico-marcas", contagemMarcas, totalVeiculos);gerarBarrasGrafico("grafico-paises", contagemPaises, totalVeiculos);}// Reconstrói a estrutura HTML interna para exibir as barras de progressofunction gerarBarrasGrafico(idContainer, dados, total) {var container = document.getElementById(idContainer);container.innerHTML = "";// Organiza do maior volume para o menorvar itensOrdenados = Object.keys(dados).sort(function(a, b) {return dados[b] - dados[a];});itensOrdenados.forEach(function(chave) {var qtd = dados[chave];var porcentagem = ((qtd / total) * 100).toFixed(1);var htmlBarra = <div class="item-barra"> <div class="info-barra"> <span>${chave}</span> <span>${qtd} (${porcentagem}%)</span> </div> <div class="container-barra"> <div class="preenchimento-barra" style="width: ${porcentagem}%"></div> </div> </div>;container.innerHTML += htmlBarra;});}// Executa o filtro de visualização de acordo com a categoria selecionadafunction filtrarTabela() {var input = document.getElementById("seletor-categoria");var filtro = input.value;var tabela = document.getElementById("tabela-inscritos");var tr = tabela.getElementsByTagName("tr");for (var i = 1; i < tr.length; i++) {var td = tr[i].getElementsByTagName("td")[5];if (td) {var textoCategoria = td.textContent || td.innerText;if (filtro === "todos" || textoCategoria.trim() === filtro) {tr[i].style.display = "";} else {tr[i].style.display = "none";}}}}// Inicia o processo automático ao abrir a páginawindow.onload = calcularEstatisticas;
+            linhas.forEach(linha => {
+                const celulas = linha.querySelectorAll('td');
+                const pilotoNavegador = celulas[1].innerText.trim();
+                const pais = celulas[2].innerText.trim();
+                const marca = celulas[4].innerText.trim();
+                const categoria = celulas[5].innerText.trim();
+
+                // Contagem de competidores (Piloto + Navegador)
+                const dupla = pilotoNavegador.split('\\');
+                totalCompetidores += dupla.length;
+
+                // Agrupamentos
+                categorias[categoria] = (categorias[categoria] || 0) + 1;
+                marcas[marca] = (marcas[marca] || 0) + 1;
+                paises[pais] = (paises[pais] || 0) + 1;
+            });
+
+            // Atualiza o painel superior
+            document.getElementById('total-veiculos').innerText = totalVeiculos;
+            document.getElementById('total-competidores').innerText = totalCompetidores;
+            document.getElementById('total-categorias').innerText = Object.keys(categorias).length;
+            document.getElementById('total-paises').innerText = Object.keys(paises).length;
+
+            // Renderiza as barras de progresso
+            gerarGrafico('grafico-categorias', categorias, totalVeiculos);
+            gerarGrafico('grafico-marcas', marcas, totalVeiculos);
+            gerarGrafico('grafico-paises', paises, totalVeiculos);
+        }
+
+        function gerarGrafico(elementId, dados, total) {
+            const container = document.getElementById(elementId);
+            container.innerHTML = '';
+
+            for (const [chave, valor] of Object.entries(dados)) {
+                const porcentagem = ((valor / total) * 100).toFixed(1);
+
+                const item = document.createElement('div');
+                item.className = 'item-barra';
+                item.innerHTML = `
+                    <div class="info-barra">
+                        <span>${chave}</span>
+                        <span>${valor} (${porcentagem}%)</span>
+                    </div>
+                    <div class="container-barra">
+                        <div class="preenchimento-barra" style="width: 0%"></div>
+                    </div>
+                `;
+                container.appendChild(item);
+
+                // Animação da barra de progresso
+                setTimeout(() => {
+                    item.querySelector('.preenchimento-barra').style.width = porcentagem + '%';
+                }, 100);
+            }
+        }
+
+        function filtrarTabela() {
+            const filtro = document.getElementById('seletor-categoria').value;
+            const linhas = document.querySelectorAll('#tabela-inscritos tbody tr');
+
+            linhas.forEach(linha => {
+                const categoriaLinha = linha.querySelectorAll('td')[5].innerText.trim();
+                if (filtro === 'todos' || categoriaLinha === filtro) {
+                    linha.style.display = '';
+                } else {
+                    linha.style.display = 'none';
+                }
+            });
+        }
+
+        // Executa a contagem ao carregar a página
+        document.addEventListener('DOMContentLoaded', calcularEstatisticas);
+    </script>
+</body>
+</html>
+      
