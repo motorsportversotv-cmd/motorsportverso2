@@ -84,7 +84,7 @@
         .preenchimento-barra {
             background-color: #fca311;
             height: 100%;
-            width: 0%; /* Controlado pelo JS */
+            width: 0%; 
             transition: width 0.5s ease-in-out;
         }
 
@@ -166,25 +166,19 @@
         <!-- Estatísticas de Categorias -->
         <div class="card-detalhe">
             <h2>Estatística por Categoria</h2>
-            <div id="grafico-categorias">
-                <!-- Preenchido automaticamente via JS -->
-            </div>
+            <div id="grafico-categorias"></div>
         </div>
 
         <!-- Estatísticas de Marcas/Modelos -->
         <div class="card-detalhe">
             <h2>Estatística por Marca/Modelo</h2>
-            <div id="grafico-marcas">
-                <!-- Preenchido automaticamente via JS -->
-            </div>
+            <div id="grafico-marcas"></div>
         </div>
 
         <!-- Estatísticas de Países -->
         <div class="card-detalhe">
             <h2>Estatística por País</h2>
-            <div id="grafico-paises">
-                <!-- Preenchido automaticamente via JS -->
-            </div>
+            <div id="grafico-paises"></div>
         </div>
     </div>
 
@@ -318,9 +312,8 @@
             var contagemCategorias = {};
             var contagemMarcas = {};
             var contagemPaises = {};
-            
-// Varre as linhas coletando os dados pelas colunas corretas
+
+            // Varre as linhas coletando os dados pelas colunas corretas
             for (var i = 1; i < tr.length; i++) {
                 var tds = tr[i].getElementsByTagName("td");
                 if (tds.length >= 6) {
-
