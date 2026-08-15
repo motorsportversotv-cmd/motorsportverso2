@@ -9,13 +9,47 @@
             font-family: Arial, sans-serif;
             margin: 20px;
             background-color: #f4f4f4;
-        }
-        h1 {
             color: #333;
         }
+        h1 {
+            color: #222;
+        }
+        
+        /* Painel de Estatísticas */
+        .painel-estatisticas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .card-estatistica {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 5px solid #fca311;
+        }
+        .card-estatistica h3 {
+            margin: 0 0 5px 0;
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+        }
+        .card-estatistica p {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: #111;
+        }
+
         /* Estilo para o container do filtro */
         .filtro-container {
             margin-bottom: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: inline-block;
         }
         label {
             font-weight: bold;
@@ -27,11 +61,16 @@
             border-radius: 4px;
             border: 1px solid #ccc;
         }
+        
+        /* Tabela */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
             background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            overflow: hidden;
         }
         th, td {
             border: 1px solid #ddd;
@@ -56,7 +95,27 @@
     <h1>Inscritos Rally dos Sertões 2026</h1>
     <p>Confira abaixo a lista dos competidores confirmados para a edição de 2026:</p>
 
-    <!-- Adicionado: Seletor de Categoria -->
+    <!-- Painel de Estatísticas Dinâmicas -->
+    <div class="painel-estatisticas">
+        <div class="card-estatistica">
+            <h3>Total de Veículos</h3>
+            <p id="total-veiculos">0</p>
+        </div>
+        <div class="card-estatistica">
+            <h3>Total de Pilotos/Navegadores</h3>
+            <p id="total-competidores">0</p>
+        </div>
+        <div class="card-estatistica">
+            <h3>Categorias Ativas</h3>
+            <p id="total-categorias">0</p>
+        </div>
+        <div class="card-estatistica">
+            <h3>Equipes no Grid</h3>
+            <p id="total-equipes">0</p>
+        </div>
+    </div>
+
+    <!-- Seletor de Categoria -->
     <div class="filtro-container">
         <label for="seletor-categoria">Filtrar por Categoria:</label>
         <select id="seletor-categoria" onchange="filtrarTabela()">
@@ -69,8 +128,6 @@
             <option value="UTV Challenger">UTV Challenger</option>
             <option value="UTV SSV">UTV SSV</option>
             <option value="Sertoes Classic">Sertoes Classic</option>
-            
-            <!-- Adicione novas tags <option> aqui se surgirem outras categorias -->
         </select>
     </div>
 
@@ -102,8 +159,7 @@
                 <td>Toyota GR Hylux T1+</td>
                 <td>Ultimate T1+</td>
             </tr>
-
-             <tr>
+            <tr>
                 <td>304</td>
                 <td>Pedro Queirolo\Luaro Sobreira</td>
                 <td>BRA</td>
@@ -111,7 +167,7 @@
                 <td>Buggy Giafonne V8</td>
                 <td>Ultimate BR</td>
             </tr>
-                <tr>
+            <tr>
                 <td>307</td>
                 <td>Paulo Pichini\Paulo Pomba</td>
                 <td>BRA</td>
@@ -124,15 +180,15 @@
                 <td>Marcos Moraes\Fabio Pedroso</td>
                 <td>BRA</td>
                 <td>Mem Motorsport</td>
-                <td>Mem Motorsport</td> <!-- Corrigido: Fechamento da tag td -->
+                <td>Mem Motorsport</td>
                 <td>Ultimate T1+</td>
             </tr>
-               <tr>
+            <tr>
                 <td>309</td>
                 <td>Oscar Santos\Ezequiel Mendola</td>
                 <td>PRY</td>
                 <td>Cotton Racing</td>
-                <td>Can-am Maverick R</td> <!-- Corrigido: Fechamento da tag td -->
+                <td>Can-am Maverick R</td>
                 <td>UTV Challenger</td>
             </tr>
             <tr>
@@ -140,7 +196,7 @@
                 <td>Guilherme Spinelli\Paulo Fiuza</td>
                 <td>BRA</td>
                 <td>Mitsubishi Spinelli Racing</td>
-                <td>Mitsubishi Triton Ultimate T1+</td> <!-- Corrigido: Fechamento da tag td -->
+                <td>Mitsubishi Triton Ultimate T1+</td>
                 <td>Ultimate T1+</td>
             </tr>
             <tr>
@@ -151,7 +207,7 @@
                 <td>Toyota GR Hylux T1+</td>
                 <td>Ultimate T1+</td>
             </tr>
-              <tr>
+            <tr>
                 <td>315</td>
                 <td>Fernando Possetti\Weidener Moreira</td>
                 <td>BRA</td>
@@ -159,7 +215,7 @@
                 <td>Toyota GR Hylux IMA</td>
                 <td>T1.1</td>
             </tr>
-             <tr>
+            <tr>
                 <td>316</td>
                 <td>Alex Bucheim\Miguel Falcão</td>
                 <td>BRA</td>
@@ -167,7 +223,7 @@
                 <td>Buggy Giafonne V8</td>
                 <td>Ultimate BR</td>
             </tr>
-              <tr>
+            <tr>
                 <td>321</td>
                 <td>Lelio Carneiro Jr\Weberth Moreira</td>
                 <td>BRA</td>
@@ -175,30 +231,47 @@
                 <td>Century CR7 T1+</td>
                 <td>Ultimate T1+</td>
             </tr>
-            
         </tbody>
     </table>
 
-    <!-- Adicionado: Script de Funcionamento -->
     <script>
+        // Função para calcular as estatísticas automaticamente baseadas na tabela
+        function calcularEstatisticas() {
+            var tabela = document.getElementById("tabela-inscritos");
+            var tr = tabela.getElementsByTagName("tr");
+            
+            var totalVeiculos = tr.length - 1; // Desconta o cabeçalho
+            var totalCompetidores = totalVeiculos * 2; // Piloto + Navegador por carro
+            
+            var equipes = new Set();
+            var categorias = new Set();
+
+            for (var i = 1; i < tr.length; i++) {
+                var tdEquipe = tr[i].getElementsByTagName("td")[3];
+                var tdCategoria = tr[i].getElementsByTagName("td")[5];
+                
+                if (tdEquipe) equipes.add(tdEquipe.textContent.trim());
+                if (tdCategoria) categorias.add(tdCategoria.textContent.trim());
+            }
+
+            // Atualiza os valores nos cards da tela
+            document.getElementById("total-veiculos").innerText = totalVeiculos;
+            document.getElementById("total-competidores").innerText = totalCompetidores;
+            document.getElementById("total-categorias").innerText = categorias.size;
+            document.getElementById("total-equipes").innerText = equipes.size;
+        }
+
+        // Função de filtro existente
         function filtrarTabela() {
-            // Pega o valor selecionado no filtro
             var input = document.getElementById("seletor-categoria");
             var filtro = input.value;
-            
-            // Pega a tabela e as linhas de dados
             var tabela = document.getElementById("tabela-inscritos");
             var tr = tabela.getElementsByTagName("tr");
 
-            // Passa por todas as linhas (ignorando o cabeçalho)
             for (var i = 1; i < tr.length; i++) {
-                // A coluna da Categoria é a sexta (índice 5)
                 var td = tr[i].getElementsByTagName("td")[5];
-                
                 if (td) {
                     var textoCategoria = td.textContent || td.innerText;
-                    
-                    // Se for "todos" ou bater com o nome da categoria, mostra a linha. Se não, esconde.
                     if (filtro === "todos" || textoCategoria.trim() === filtro) {
                         tr[i].style.display = "";
                     } else {
@@ -207,10 +280,9 @@
                 }
             }
         }
-    </script>
 
+        // Executa o cálculo assim que a página carrega
+        window.onload = calcularEstatisticas;
+    </script>
 </body>
 </html>
-
-
-
