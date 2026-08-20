@@ -181,71 +181,86 @@
             <div id="grafico-paises"></div>
         </div>
     </div>
-    <!-- Estatística por Marca -->
-<div class="col-md-4">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Estatística por Marca</h3>
+<!-- Estatística por Marca -->
+<div style="font-family: Arial, sans-serif; max-width: 400px; padding: 15px; background: #fff;">
+    
+    <!-- Título da Seção -->
+    <div style="border-bottom: 2px solid #f39c12; padding-bottom: 5px; margin-bottom: 15px;">
+        <h3 style="margin: 0; font-size: 16px; color: #333; font-weight: bold;">Estatística por Marca</h3>
+    </div>
+
+    <!-- Lista de Marcas -->
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+
+        <!-- Item: Toyota (5 + 1 = 6) -->
+        <div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; color: #333; margin-bottom: 4px;">
+                <span>Toyota</span>
+                <span>6 (31.6%)</span>
+            </div>
+            <div style="background-color: #e0e0e0; height: 12px; width: 100%; border-radius: 2px;">
+                <div style="background-color: #f39c12; height: 100%; width: 31.6%; border-radius: 2px;"></div>
+            </div>
         </div>
-        <div class="card-body">
-            
-            <!-- Item: Toyota -->
-            <div class="progress-group">
-                <span class="progress-text">Toyota</span>
-                <span class="float-right"><b>6</b> (31.6%)</span>
-                <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: 31.6%"></div>
-                </div>
-            </div>
 
-            <!-- Item: Ford -->
-            <div class="progress-group">
-                <span class="progress-text">Ford</span>
-                <span class="float-right"><b>3</b> (15.8%)</span>
-                <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="style: 15.8%"></div>
-                </div>
+        <!-- Item: Can-am (4) -->
+        <div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; color: #333; margin-bottom: 4px;">
+                <span>Can-am</span>
+                <span>4 (21.1%)</span>
             </div>
-
-            <!-- Item: Mitsubishi -->
-            <div class="progress-group">
-                <span class="progress-text">Mitsubishi</span>
-                <span class="float-right"><b>2</b> (10.5%)</span>
-                <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: 10.5%"></div>
-                </div>
+            <div style="background-color: #e0e0e0; height: 12px; width: 100%; border-radius: 2px;">
+                <div style="background-color: #f39c12; height: 100%; width: 21.1%; border-radius: 2px;"></div>
             </div>
-
-            <!-- Item: Can-am -->
-            <div class="progress-group">
-                <span class="progress-text">Can-am</span>
-                <span class="float-right"><b>4</b> (21.1%)</span>
-                <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: 21.1%"></div>
-                </div>
-            </div>
-
-            <!-- Item: Buggy Giafonne -->
-            <div class="progress-group">
-                <span class="progress-text">Buggy Giafonne</span>
-                <span class="float-right"><b>2</b> (10.5%)</span>
-                <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: 10.5%"></div>
-                </div>
-            </div>
-
-            <!-- Item: Century -->
-            <div class="progress-group">
-                <span class="progress-text">Century</span>
-                <span class="float-right"><b>2</b> (10.5%)</span>
-                <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: 10.5%"></div>
-                </div>
-            </div>
-
         </div>
+
+        <!-- Item: Ford (1 + 2 = 3) -->
+        <div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; color: #333; margin-bottom: 4px;">
+                <span>Ford</span>
+                <span>3 (15.8%)</span>
+            </div>
+            <div style="background-color: #e0e0e0; height: 12px; width: 100%; border-radius: 2px;">
+                <div style="background-color: #f39c12; height: 100%; width: 15.8%; border-radius: 2px;"></div>
+            </div>
+        </div>
+
+        <!-- Item: Buggy Giafonne (2) -->
+        <div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; color: #333; margin-bottom: 4px;">
+                <span>Buggy Giafonne</span>
+                <span>2 (10.5%)</span>
+            </div>
+            <div style="background-color: #e0e0e0; height: 12px; width: 100%; border-radius: 2px;">
+                <div style="background-color: #f39c12; height: 100%; width: 10.5%; border-radius: 2px;"></div>
+            </div>
+        </div>
+
+        <!-- Item: Century (2) -->
+        <div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; color: #333; margin-bottom: 4px;">
+                <span>Century</span>
+                <span>2 (10.5%)</span>
+            </div>
+            <div style="background-color: #e0e0e0; height: 12px; width: 100%; border-radius: 2px;">
+                <div style="background-color: #f39c12; height: 100%; width: 10.5%; border-radius: 2px;"></div>
+            </div>
+        </div>
+
+        <!-- Item: Mitsubishi (1 + 1 = 2) -->
+        <div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; color: #333; margin-bottom: 4px;">
+                <span>Mitsubishi</span>
+                <span>2 (10.5%)</span>
+            </div>
+            <div style="background-color: #e0e0e0; height: 12px; width: 100%; border-radius: 2px;">
+                <div style="background-color: #f39c12; height: 100%; width: 10.5%; border-radius: 2px;"></div>
+            </div>
+        </div>
+
     </div>
 </div>
+
 
 
     <!-- Seletor de Categoria -->
