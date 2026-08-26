@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -61,6 +61,17 @@
     td { padding: 10px; border: 1px solid #e0e0e0; text-align: center; font-size: 14px; vertical-align: middle; }
     td:nth-child(2) { text-align: left; font-weight: bold; }
     
+    /* REGRA ADICIONADA: Organiza os links um abaixo do outro dentro da célula */
+    .celula-links a {
+      display: block;
+      margin-bottom: 6px;
+      color: #0000EE;
+      text-decoration: underline;
+    }
+    .celula-links a:last-child {
+      margin-bottom: 0; /* Remove a margem do último item */
+    }
+
     .sem-resultados {
       display: none;
       text-align: center;
@@ -94,10 +105,8 @@
     <div><span class="amarelo">FIQUE LIGADO:</span> DTM em Zandvoort</div>
   </div>
 
-  
-
   <!-- TABELA DE CORRIDAS --> 
-<table id="raceTable"> 
+  <table id="raceTable"> 
     <thead> 
         <tr> 
             <th>Dia</th> 
@@ -111,31 +120,47 @@
         </tr> 
     </thead> 
     <tbody id="raceTableBody"> 
-      <tr> 
+        <tr> 
             <td>26/08</td> 
             <td>Rally Dos Sertoes-etapa 4</td> 
-             <td><img src="rally-do-sertoes-chegou-ao-fim-neste-sabado-31-em-brasilia-df-1725114484120_v2_1920x1280 (1).jpg" alt="Rally dos Sertoes" width="50" style="display: block; margin: 0 auto;"></td>
+            <td><img src="rally-do-sertoes-chegou-ao-fim-neste-sabado-31-em-brasilia-df-1725114484120_v2_1920x1280 (1).jpg" alt="Rally dos Sertoes" width="50" style="display: block; margin: 0 auto;"></td>
             <td>Mateiros-BA</td> 
             <td>08:00</td>
             <td>Youtube\Youtube GP\Youtube Acelerados\Youtube Roxo Sports</td> 
             <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td><a href="https://www.youtube.com/@grandepremio" target="_blank">Grande Premio</a></td> 
-            <td><a href="https://www.youtube.com/@RoxoSports" target="_blank">Roxo Sports</a></td> 
-            <td><a href="https://www.youtube.com/@NSports" target="_blank">NSports</a></td> 
+            <td class="celula-links">
+                <a href="https://youtube.com" target="_blank">Grande Premio</a>
+                <a href="https://youtube.com" target="_blank">Roxo Sports</a>
+                <a href="https://youtube.com" target="_blank">NSports</a>
+            </td> 
         </tr> 
-      <tr> 
+        <tr> 
             <td>26/08</td> 
             <td>Rally Dos Sertoes-etapa 4-Compacto</td> 
-             <td><img src="rally-do-sertoes-chegou-ao-fim-neste-sabado-31-em-brasilia-df-1725114484120_v2_1920x1280 (1).jpg" alt="Rally dos Sertoes" width="50" style="display: block; margin: 0 auto;"></td>
+            <td><img src="rally-do-sertoes-chegou-ao-fim-neste-sabado-31-em-brasilia-df-1725114484120_v2_1920x1280 (1).jpg" alt="Rally dos Sertoes" width="50" style="display: block; margin: 0 auto;"></td>
             <td>Mateiros-BA</td> 
             <td>20:00</td>
             <td>Youtube\Youtube GP\Youtube Acelerados\Youtube Roxo Sports</td> 
             <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td><a href="https://www.youtube.com/@grandepremio" target="_blank">Grande Premio</a></td> 
-            <td><a href="https://www.youtube.com/@RoxoSports" target="_blank">Roxo Sports</a></td> 
-            <td><a href="https://www.youtube.com/@NSports" target="_blank">NSports</a></td> 
+            <td class="celula-links">
+                <a href="https://youtube.com" target="_blank">Grande Premio</a>
+                <a href="https://youtube.com" target="_blank">Roxo Sports</a>
+                <a href="https://youtube.com" target="_blank">NSports</a>
+            </td> 
         </tr> 
-        </tr> 
+        <tr> 
+            <td>27/08</td> 
+            <td>WRC-Shakedown</td> 
+            <td><img src="LOGO SUPERCARS AUSTRALIA.png" alt="Supercars Australia" width="50" style="display: block; margin: 0 auto;"></td> 
+            <td>Paraguai</td> 
+            <td>11:00</td> 
+            <td>Youtube</td>
+            <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
+            <td class="celula-links">
+                <a href="https://youtube.com" target="_blank">WRC</a>
+            </td> 
+        </tr>
+ 
       <tr> 
             <td>27/08</td> 
             <td>WRC-Shakedown</td> 
