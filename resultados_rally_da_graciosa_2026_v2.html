@@ -7,45 +7,471 @@
 </head>
 <body>
 
-    <h3>Resultado rally da Graciosa 2026-Velocidade</h3>
-    <p>1.21-Marcio Cedraz\Gilson Rocha-Peugeot 207-Bahia Rally-4x2 Super-59:30.27</p>
-    <p>2.14-Ronaldo e Edna Paske-Peugeot 206-PSK Rally Team-4x2 Super-1:00:02.98</p>
-    <p>3.74-Marcelo Maronezi\Thiago Osternack-Peugeot 207-ProMacchina-4x2 Super-1:00:07.71</p>
-    <p>4.23-Felipe Paiva\William Santos-Mitsubishi L200 RS-ProMacchina-RTT-1:03:05.57</p>
-    <p>5.72-Sandro Maia\Guilherme Pontarolo-Fiat Palio-Maia Motorsport\Maia Racing-4x2 Super-1:04:58.18</p>
-    <p>6.45-Maicon Soares\Cleiton Casaroto-Peugeot 207-Soares Rally Team-4x2 Pró-1:05:59.16</p>
-    <p>7.10-Adib Sada\Albert Oliveira Filho-Ford KÁ-ASTJ-4x2 Pró-1:29:13.33</p>
-    <p>NC-29-Albert Oliveira Pai\Ricardo Simon-VW Up TSI-Megaself-4x2 Pró</p>
+   <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado Oficial - Rally da Graciosa 2026</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    <h3>Resultado rally da Graciosa 2026-Subida da montanha-Friends Hill Climb</h3>
-    <p>1.111-Edu-Subaru Impreza GL Wagon-Pneu Free-Pro Stock Turbo-37:25.37</p>
-    <p>2.22-Cleversson-Subaru Impreza-Pro Stock Turbo-38:18.34</p>
-    <p>3.24-Marco Mega-Fiat Palio-Pro Stock Aspro-38:54.31</p>
-    <p>4.20-Leo Gramm-Gac Aion V-Street Turbo-41:27.34</p>
-    <p>5.27-Fred Zettel-Renault Sandeiro RS Rally-Octanas Motorsport-Pro Stock Aspro-41:37.56</p>
-    <p>6.73-Valeski-VW Beetle TSI-Street Turbo-42:10.99</p>
-    <p>7.200-João Paulo Wodiani-Suzuki Swifity-Street Aspirado-42:47.95</p>
-    <p>8.302-Rafael Rabitz-Renault Sandeiro RS-Street Aspirado-43:36.03</p>
-    <p>9.17-Jef Duarte-Renault Sandeiro RS-Street Aspirado-45:01.55</p>
-    <p>10.143-Maikel-VW Gol G2 Marcas-MRS-Pro Stock Aspro-48:11.41</p>
+        .main-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    <p>Categoria Super Sport+</p>
-    <p>1.9-Bianca-Ford Mustang-52:53.59</p>
+        .main-header h1 {
+            color: #27ae60;
+            font-size: 28px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-    <h3>Resultado rally da Graciosa 2026-Regularidade</h3>
-    <p>Categoria Graduados</p>
-    <p>1.774-Thiago Osternack\William Santos-Mitsubishi Pajero Full-MSL Motorsport-598 PTS</p>
-    <p>2.717-Luciano Coelho\Erico Nirino-Mitsubishi Pajero-PRO Rally-698 PTS</p>
-    <p>3.770-Vinicios Mickos\Daine AP-Fiat Palio-77 Rally-1418 PTS</p>
-    <p>4.714-Ronaldo e Edna Paske-Renault Logan-PSK Rally Team-1565 PTS</p>
-    <p>5.708-Jhonatham e Aridne Volkmann-Nissan Versa-Volkmann Racing-2062 PTS</p>
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 30px 40px;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
 
-    <p>Categoria Novatos</p>
-    <p>1.222-Moises Peretti\Erick Perin-Ford Ká-ACE-1414 PTS</p>
-    <p>2.199-Daniel Nesvera\Bruno Terres-Suzuki Gran Vitara-OVR Racing-1484 PTS</p>
-    <p>3.799-Lilyana Gonçalves\Julio Key-Mercedes GLC300-1525 PTS</p>
-    <p>4.763-Johny e Luiz A.Sequinel-Renault Kardian-1902 PTS </p>
-    <p>5.707-Fabio e Vania Gaspar-Fiat Toro-2320 PTS</p>
+        .category-title {
+            color: #27ae60;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #27ae60;
+            padding-bottom: 8px;
+        }
+
+        .leaderboard {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard tr {
+            border-bottom: 1px solid #ededed;
+        }
+
+        .leaderboard tr:last-child {
+            border-bottom: none;
+        }
+
+        .leaderboard td {
+            padding: 14px 10px;
+            font-size: 15px;
+            vertical-align: middle;
+        }
+
+        .position {
+            font-weight: 500;
+            width: 60px;
+            color: #666666;
+        }
+
+        .competitor-info {
+            font-weight: 400;
+        }
+
+        .names {
+            font-weight: 500;
+            color: #111111;
+        }
+
+        .details {
+            color: #666666;
+        }
+
+        .time {
+            text-align: right;
+            font-weight: 500;
+            color: #111111;
+            white-space: nowrap;
+        }
+
+        .nc-row {
+            background-color: #fafafa;
+            color: #888888;
+        }
+        
+        .nc-row .names, .nc-row .time {
+            color: #888888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-header">
+        <h1>Rally da Graciosa 2026</h1>
+    </div>
+
+    <!-- 1. CATEGORIA: VELOCIDADE -->
+    <div class="container">
+        <h2 class="category-title">Velocidade</h2>
+        <table class="leaderboard">
+            <tr>
+                <td class="position">1.21</td>
+                <td class="competitor-info">
+                    <span class="names">Marcio Cedraz / Gilson Rocha</span> - 
+                    <span class="details">Peugeot 207 - Bahia Rally - 4x2 Super</span>
+                </td>
+                <td class="time">59:30.27</td>
+            </tr>
+            <tr>
+                <td class="position">2.14</td>
+                <td class="competitor-info">
+                    <span class="names">Ronaldo e Edna Paske</span> - 
+                    <span class="details">Peugeot 206 - PSK Rally Team - 4x2 Super</span>
+                </td>
+                <td class="time">1:00:02.98</td>
+            </tr>
+            <tr>
+                <td class="position">3.74</td>
+                <td class="competitor-info">
+                    <span class="names">Marcelo Maronezi / Thiago Osternack</span> - 
+                    <span class="details">Peugeot 207 - ProMacchina - 4x2 Super</span>
+                </td>
+                <td class="time">1:00:07.71</td>
+            </tr>
+            <tr>
+                <td class="position">4.23</td>
+                <td class="competitor-info">
+                    <span class="names">Felipe Paiva / William Santos</span> - 
+                    <span class="details">Mitsubishi L200 RS - ProMacchina - RTT</span>
+                </td>
+                <td class="time">1:03:05.57</td>
+            </tr>
+            <tr>
+                <td class="position">5.72</td>
+                <td class="competitor-info">
+                    <span class="names">Sandro Maia / Guilherme Pontarolo</span> - 
+                    <span class="details">Fiat Palio - Maia Motorsport / Maia Racing - 4x2 Super</span>
+                </td>
+                <td class="time">1:04:58.18</td>
+            </tr>
+            <tr>
+                <td class="position">6.45</td>
+                <td class="competitor-info">
+                    <span class="names">Maicon Soares / Cleiton Casaroto</span> - 
+                    <span class="details">Peugeot 207 - Soares Rally Team - 4x2 Pró</span>
+                </td>
+                <td class="time">1:05:59.16</td>
+            </tr>
+            <tr>
+                <td class="position">7.10</td>
+                <td class="competitor-info">
+                    <span class="names">Adib Sada / Albert Oliveira Filho</span> - 
+                    <span class="details">Ford KÁ - ASTJ - 4x2 Pró</span>
+                </td>
+                <td class="time">1:29:13.33</td>
+            </tr>
+            <tr class="nc-row">
+                <td class="position">NC-29</td>
+                <td class="competitor-info">
+                    <span class="names">Albert Oliveira Pai / Ricardo Simon</span> - 
+                    <span class="details">VW Up TSI - Megaself - 4x2 Pró</span>
+                </td>
+                <td class="time">NC (No Time)</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 2. CATEGORIA: SUBIDA DE MONTANHA -->
+    <div class="container">
+        <h2 class="category-title">Subida da Montanha - Friends Hill Climb</h2>
+        <table class="leaderboard">
+            <tr>
+                <td class="position">1.111</td>
+                <td class="competitor-info">
+                    <span class="names">Edu</span> - 
+                    <span class="details">Subaru Impreza GL Wagon - Pneu Free - Pro Stock Turbo</span>
+                </td>
+                <td class="time">37:25.37</td>
+            </tr>
+            <tr>
+                <td class="position">2.22</td>
+                <td class="competitor-info">
+                    <span class="names">Cleversson</span> - 
+                    <span class="details">Subaru Impreza - Pro Stock Turbo</span>
+                </td>
+                <td class="time">38:18.34</td>
+            </tr>
+            <tr>
+                <td class="position">3.24</td>
+                <td class="competitor-info">
+                    <span class="names">Marco Mega</span> - 
+                    <span class="details">Fiat Palio - Pro Stock Aspro</span>
+                </td>
+                <td class="time">38:54.31</td>
+            </tr>
+            <tr>
+                <td class="position">4.20</td>
+                <td class="competitor-info">
+                    <span class="names">Leo Gramm</span> - 
+                    <span class="details">Gac Aion V - Street Turbo</span>
+                </td>
+                <td class="time">41:27.34</td>
+            </tr>
+            <tr>
+                <td class="position">5.27</td>
+                <td class="competitor-info">
+                    <span class="names">Fred Zettel</span> - 
+                    <span class="details">Renault Sandero RS Rally - Octanas Motorsport - Pro Stock Aspro</span>
+                </td>
+                <td class="time">41:37.56</td>
+            </tr>
+            <tr>
+                <td class="position">6.73</td>
+                <td class="competitor-info">
+                    <span class="names">Valeski</span> - 
+                    <span class="details">VW Beetle TSI - Street Turbo</span>
+                </td>
+                <td class="time">42:10.99</td>
+            </tr>
+            <tr>
+                <td class="position">7.200</td>
+                <td class="competitor-info">
+                    <span class="names">João Paulo Wodiani</span> - 
+                    <span class="details">Suzuki Swift - Street Aspirado</span>
+                </td>
+                <td class="time">42:47.95</td>
+            </tr>
+            <tr>
+                <td class="position">8.302</td>
+                <td class="competitor-info">
+                    <span class="names">Rafael Rabitz</span> - 
+                    <span class="details">Renault Sandero RS - Street Aspirado</span>
+                </td>
+                <td class="time">43:36.03</td>
+            </tr>
+            <tr>
+                <td class="position">9.17</td>
+                <td class="competitor-info">
+                    <span class="names">Jef Duarte</span> - 
+                    <span class="details">Renault Sandero RS - Street Aspirado</span>
+                </td>
+                <td class="time">45:01.55</td>
+            </tr>
+            <tr>
+                <td class="position">10.143</td>
+                <td class="competitor-info">
+                    <span class="names">Maikel</span> - 
+                    <span class="details">VW Gol G2 Marcas - MRS - Pro Stock Aspro</span>
+                </td>
+                <td class="time">48:11.41</td>
+            </tr>
+        </table>
+    </div>
+
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado Regularidade - Rally da Graciosa 2026</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 30px 40px;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+
+        .main-title {
+            color: #27ae60;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .category-title {
+            color: #27ae60;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #27ae60;
+            padding-bottom: 6px;
+        }
+
+        .leaderboard {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        .leaderboard tr {
+            border-bottom: 1px solid #ededed;
+        }
+
+        .leaderboard tr:last-child {
+            border-bottom: none;
+        }
+
+        .leaderboard td {
+            padding: 14px 10px;
+            font-size: 15px;
+            vertical-align: middle;
+        }
+
+        .position {
+            font-weight: 500;
+            width: 60px;
+            color: #666666;
+        }
+
+        .competitor-info {
+            font-weight: 400;
+        }
+
+        .names {
+            font-weight: 500;
+            color: #111111;
+        }
+
+        .details {
+            color: #666666;
+        }
+
+        .time {
+            text-align: right;
+            font-weight: 500;
+            color: #111111;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="main-title">Resultado Rally da Graciosa 2026<br><span style="font-size: 18px; color: #555;">Regularidade</span></h1>
+
+        <!-- SEÇÃO: GRADUADOS -->
+        <h2 class="category-title">Categoria Graduados</h2>
+        <table class="leaderboard">
+            <tr>
+                <td class="position">1.774</td>
+                <td class="competitor-info">
+                    <span class="names">Thiago Osternack / William Santos</span> - 
+                    <span class="details">Mitsubishi Pajero Full - MSL Motorsport</span>
+                </td>
+                <td class="time">598 PTS</td>
+            </tr>
+            <tr>
+                <td class="position">2.717</td>
+                <td class="competitor-info">
+                    <span class="names">Luciano Coelho / Erico Nirino</span> - 
+                    <span class="details">Mitsubishi Pajero - PRO Rally</span>
+                </td>
+                <td class="time">698 PTS</td>
+            </tr>
+            <tr>
+                <td class="position">3.770</td>
+                <td class="competitor-info">
+                    <span class="names">Vinicios Mickos / Daine AP</span> - 
+                    <span class="details">Fiat Palio - 77 Rally</span>
+                </td>
+                <td class="time">1418 PTS</td>
+            </tr>
+            <tr>
+                <td class="position">4.714</td>
+                <td class="competitor-info">
+                    <span class="names">Ronaldo e Edna Paske</span> - 
+                    <span class="details">Renault Logan - PSK Rally Team</span>
+                </td>
+                <td class="time">1565 PTS</td>
+            </tr>
+            <tr>
+                <td class="position">5.708</td>
+                <td class="competitor-info">
+                    <span class="names">Jhonatham e Aridne Volkmann</span> - 
+                    <span class="details">Nissan Versa - Volkmann Racing</span>
+                </td>
+                <td class="time">2062 PTS</td>
+            </tr>
+        </table>
+
+        <!-- SEÇÃO: NOVATOS -->
+        <h2 class="category-title" style="margin-top: 40px;">Categoria Novatos</h2>
+        <table class="leaderboard">
+            <tr>
+                <td class="position">1.222</td>
+                <td class="competitor-info">
+                    <span class="names">Moises Peretti / Erick Perin</span> - 
+                    <span class="details">Ford Ká - ACE</span>
+                </td>
+                <td class="time">1414 PTS</td>
+            </tr>
+            <tr>
+                <td class="position">2.199</td>
+                <td class="competitor-info">
+                    <span class="names">Daniel Nesvera / Bruno Terres</span> - 
+                    <span class="details">Suzuki Gran Vitara - OVR Racing</span>
+                </td>
+                <td class="time">1484 PTS</td>
+            </tr>
+            <tr>
+                <td class="position">3.799</td>
+                <td class="competitor-info">
+                    <span class="names">Lilyana Gonçalves / Julio Key</span> - 
+                    <span class="details">Mercedes GLC300</span>
+                </td>
+                <td class="time">1525 PTS</td>
+            </tr>
+            <tr>
+                <td class="position">4.763</td>
+                <td class="competitor-info">
+                    <span class="names">Johny e Luiz A. Sequinel</span> - 
+                    <span class="details">Renault Kardian</span>
+                </td>
+                <td class="time">1902 PTS</td>
+            </tr>
+            <tr>
+                <td class="position">5.707</td>
+                <td class="competitor-info">
+                    <span class="names">Fabio e Vania Gaspar</span> - 
+                    <span class="details">Fiat Toro</span>
+                </td>
+                <td class="time">2320 PTS</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
 
     <!-- O link foi alterado de /watch?v=xdUmysUV0Oc para /embed/xdUmysUV0Oc -->
     <iframe 
