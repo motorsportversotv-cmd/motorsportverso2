@@ -132,6 +132,53 @@
             }
         });
     </script>
+   <div id="msgSemResultados" class="no-results">Nenhum resultado encontrado para a pesquisa.</div>
+
+    <!-- Script de Filtro Inteligente (O Algoritmo "Ler") -->
+    <script>
+        const barraPesquisa = document.getElementById('txtPesquisar');
+        const tabela = document.getElementById('tabelaDados');
+        const linhas = tabela.querySelector('tbody').getElementsByTagName('tr');
+        const msgSemResultados = document.getElementById('msgSemResultados');
+
+        // Função auxiliar para remover acentos antes de comparar os textos
+        function removerAcentos(texto) {
+            return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        // Executa a função sempre que o usuário digita algo na barra
+        barraPesquisa.addEventListener('input', function() {
+            // Pega o termo digitado, remove acentos e joga para minúsculo
+            const termoPesquisa = removerAcentos(barraPesquisa.value.toLowerCase().trim());
+            let encontrouAlgum = false;
+
+            // Percorre linha por linha da tabela
+            for (let i = 0; i < linhas.length; i++) {
+                const linha = linhas[i];
+                // Pega todo o texto contido na linha atual
+                const textoLinha = removerAcentos(linha.textContent.toLowerCase());
+
+                // Se o texto da linha contiver o que foi digitado
+                if (textoLinha.includes(termoPesquisa)) {
+                    linha.style.display = ''; // Mantém visível
+                    encontrouAlgum = true;
+                } else {
+                    linha.style.display = 'none'; // Oculta a linha
+                }
+            }
+
+            // Controle da mensagem de erro se a busca vier vazia
+            if (encontrouAlgum || termoPesquisa === "") {
+                msgSemResultados.style.display = 'none';
+            } else {
+                msgSemResultados.style.display = 'block';
+            }
+        });
+    </script>
+
+</body>
+</html>
+Use o código com cuidado.Para deixar o sistema perfeito para você, me diga:Você quer que eu troque os textos provisórios como "WRC" ou "YouTube" pelas imagens reais dos logotipos no código?Gostaria de criar um botão para limpar a pesquisa com um clique ou o comportamento atual de apagar o texto já atende?
 
     <!-- Barra de Pesquisa -->
     <div class="search-container">
