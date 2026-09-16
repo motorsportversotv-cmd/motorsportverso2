@@ -98,83 +98,70 @@
 </head>
 <body>
 
-  <!-- Lógica do Algoritmo (JavaScript) -->
-    <script>
-        const barraPesquisa = document.getElementById('txtPesquisar');
-        const tabela = document.getElementById('tabelaDados');
-        const linhas = tabela.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-        const msgSemResultados = document.getElementById('msgSemResultados');
+  <!-- Bloco de Pesquisa e Cabeçalho de Texto -->
+<div class="search-container">
+    <input type="text" id="txtPesquisar" class="search-bar" placeholder="Pesquisar..." value="  " autofocus>
+    <div class="debug-text">. &lt; &lt; &lt; &lt;tr&gt; &lt; &lt;tr&gt;</div>
+</div>
 
-        // Ação de "ler" o que é digitado na Barra de Pesquisa
-        barraPesquisa.addEventListener('keyup', function() {
-            const termoPesquisa = barraPesquisa.value.toLowerCase();
-            let encontrouAlgum = false;
+<!-- O restante da sua tabela permanece igual aqui -->
 
-            // Percorre todas as linhas da tabela (os registros das variáveis)
+<div id="msgSemResultados" style="display: none; color: #cc001b; margin-top: 15px; font-weight: bold;">Nenhum registro encontrado para esta pesquisa.</div>
+
+<!-- Script de Filtro Corrigido -->
+<script>
+    const barraPesquisa = document.getElementById('txtPesquisar');
+    const tabela = document.getElementById('tabelaDados');
+    const linhas = tabela.querySelector('tbody').getElementsByTagName('tr');
+    const msgSemResultados = document.getElementById('msgSemResultados');
+
+    // Função para remover acentos e padronizar o texto na busca
+    function normalizarTexto(texto) {
+        return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+    }
+
+    // Executa a filtragem das linhas da tabela de forma segura
+    function filtrarTabela() {
+        const termoPesquisa = normalizarTexto(barraPesquisa.value);
+        let encontrouAlgum = false;
+
+        // Se o usuário digitou apenas espaços ou nada, mostra todas as linhas
+        if (termoPesquisa === "") {
             for (let i = 0; i < linhas.length; i++) {
-                const linha = linhas[i];
-                // Captura o texto de todas as colunas daquela linha
-                const textoLinha = linha.textContent.toLowerCase();
-              // Verifica se a palavra pesquisada existe em alguma parte daquela linha
-                if (textoLinha.includes(termoPesquisa)) {
-                    linha.style.display = ''; // Mostra a linha
-                    encontrouAlgum = true;
-                } else {
-                    linha.style.display = 'none'; // Esconde a linha
-                }
+                linhas[i].style.display = '';
             }
-
-            // Exibe mensagem caso a busca não retorne nada
-            if (encontrouAlgum) {
-                msgSemResultados.style.display = 'none';
-            } else {
-                msgSemResultados.style.display = 'block';
-            }
-        });
-    </script>
-   <div id="msgSemResultados" class="no-results">Nenhum resultado encontrado para a pesquisa.</div>
-
-    <!-- Script de Filtro Inteligente (O Algoritmo "Ler") -->
-    <script>
-        const barraPesquisa = document.getElementById('txtPesquisar');
-        const tabela = document.getElementById('tabelaDados');
-        const linhas = tabela.querySelector('tbody').getElementsByTagName('tr');
-        const msgSemResultados = document.getElementById('msgSemResultados');
-
-        // Função auxiliar para remover acentos antes de comparar os textos
-        function removerAcentos(texto) {
-            return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            msgSemResultados.style.display = 'none';
+            return;
         }
 
-        // Executa a função sempre que o usuário digita algo na barra
-        barraPesquisa.addEventListener('input', function() {
-            // Pega o termo digitado, remove acentos e joga para minúsculo
-            const termoPesquisa = removerAcentos(barraPesquisa.value.toLowerCase().trim());
-            let encontrouAlgum = false;
+        // Caso contrário, filtra pelo termo digitado
+        for (let i = 0; i < linhas.length; i++) {
+            const linha = linhas[i];
+            const textoLinha = normalizarTexto(linha.textContent);
 
-            // Percorre linha por linha da tabela
-            for (let i = 0; i < linhas.length; i++) {
-                const linha = linhas[i];
-                // Pega todo o texto contido na linha atual
-                const textoLinha = removerAcentos(linha.textContent.toLowerCase());
-
-                // Se o texto da linha contiver o que foi digitado
-                if (textoLinha.includes(termoPesquisa)) {
-                    linha.style.display = ''; // Mantém visível
-                    encontrouAlgum = true;
-                } else {
-                    linha.style.display = 'none'; // Oculta a linha
-                }
-            }
-
-            // Controle da mensagem de erro se a busca vier vazia
-            if (encontrouAlgum || termoPesquisa === "") {
-                msgSemResultados.style.display = 'none';
+            if (textoLinha.includes(termoPesquisa)) {
+                linha.style.display = ''; 
+                encontrouAlgum = true;
             } else {
-                msgSemResultados.style.display = 'block';
+                linha.style.display = 'none'; 
             }
-        });
-    </script>
+        }
+
+        // Exibe ou oculta a mensagem de erro
+        if (encontrouAlgum) {
+            msgSemResultados.style.display = 'none';
+        } else {
+            msgSemResultados.style.display = 'block';
+        }
+    }
+
+    // Monitora o que o usuário digita na barra em tempo real
+    barraPesquisa.addEventListener('input', filtrarTabela);
+
+    // Executa a função na inicialização para processar o valor inicial (mesmo se for espaço "  ")
+    filtrarTabela();
+</script>
+
 
 </body>
 </html>
