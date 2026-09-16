@@ -98,6 +98,41 @@
 </head>
 <body>
 
+  <!-- Lógica do Algoritmo (JavaScript) -->
+    <script>
+        const barraPesquisa = document.getElementById('txtPesquisar');
+        const tabela = document.getElementById('tabelaDados');
+        const linhas = tabela.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+        const msgSemResultados = document.getElementById('msgSemResultados');
+
+        // Ação de "ler" o que é digitado na Barra de Pesquisa
+        barraPesquisa.addEventListener('keyup', function() {
+            const termoPesquisa = barraPesquisa.value.toLowerCase();
+            let encontrouAlgum = false;
+
+            // Percorre todas as linhas da tabela (os registros das variáveis)
+            for (let i = 0; i < linhas.length; i++) {
+                const linha = linhas[i];
+                // Captura o texto de todas as colunas daquela linha
+                const textoLinha = linha.textContent.toLowerCase();
+              // Verifica se a palavra pesquisada existe em alguma parte daquela linha
+                if (textoLinha.includes(termoPesquisa)) {
+                    linha.style.display = ''; // Mostra a linha
+                    encontrouAlgum = true;
+                } else {
+                    linha.style.display = 'none'; // Esconde a linha
+                }
+            }
+
+            // Exibe mensagem caso a busca não retorne nada
+            if (encontrouAlgum) {
+                msgSemResultados.style.display = 'none';
+            } else {
+                msgSemResultados.style.display = 'block';
+            }
+        });
+    </script>
+
   <!-- BARRA SUPERIOR FIXA -->
   <div class="barra-superior">
     <div><span class="amarelo">PRÓXIMA CORRIDA:</span> F2-Monaco-Qualyfing às 10:00</div>
