@@ -162,6 +162,44 @@
     filtrarTabela();
 </script>
 
+<!-- Cole este bloco de script no final do seu arquivo, logo antes de fechar a tag </body> -->
+<script>
+    // Procura a barra de pesquisa pelo ID fornecido no seu bloco
+    const barraPesquisa = document.getElementById('txtPesquisar');
+    
+    // Procura a primeira tabela que existir na sua página de forma automática
+    const tabela = document.querySelector('table');
+
+    if (barraPesquisa && tabela) {
+        // Monitora o evento de digitação na barra
+        barraPesquisa.addEventListener('input', function() {
+            // Pega o termo digitado, joga para minúsculo e elimina espaços inúteis do início e fim
+            const termoPesquisa = barraPesquisa.value.toLowerCase().trim();
+            
+            // Seleciona todas as linhas da tabela (ignorando apenas a primeira linha que é o cabeçalho vermelho)
+            const linhas = tabela.getElementsByTagName('tr');
+
+            for (let i = 1; i < linhas.length; i++) {
+                const linha = linhas[i];
+                const textoLinha = linha.textContent.toLowerCase();
+
+                // Se a barra estiver vazia ou com espaços, mostra TODAS as linhas de volta
+                if (termoPesquisa === "") {
+                    linha.style.display = '';
+                } 
+                // Se contiver o termo digitado, mostra a linha. Se não, esconde.
+                else if (textoLinha.includes(termoPesquisa)) {
+                    linha.style.display = '';
+                } else {
+                    linha.style.display = 'none';
+                }
+            }
+        });
+
+        // Dispara o filtro uma vez ao carregar a página para limpar o valor inicial "  "
+        barraPesquisa.dispatchEvent(new Event('input'));
+    }
+</script>
 
 </body>
 </html>
