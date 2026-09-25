@@ -50,7 +50,6 @@
             margin: 0 auto;
         }
 
-        /* Painel Admin */
         .admin-panel {
             background: var(--card-bg);
             padding: 20px;
@@ -79,9 +78,9 @@
             padding: 8px;
             border: 1px solid #cbd5e1;
             border-radius: 4px;
+            font-family: inherit;
         }
 
-        /* Grade de Eventos */
         .events-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -95,6 +94,9 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             border-left: 5px solid var(--accent);
             position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .event-header {
@@ -110,22 +112,6 @@
             border-radius: 4px;
             font-size: 12px;
             font-weight: bold;
-        }
-
-        .logos {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin: 10px 0;
-        }
-
-        .logo-img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            background: #f1f5f9;
-            border-radius: 4px;
-            padding: 2px;
         }
 
         .links-container {
@@ -147,12 +133,16 @@
         .btn-live { background-color: #dc2626; color: white; }
         .btn-replay { background-color: #475569; color: white; }
 
-        .btn-delete {
-            background-color: #ef4444;
-            padding: 5px 10px;
-            font-size: 12px;
-            margin-top: 10px;
+        .admin-actions {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #cbd5e1;
+            display: flex;
+            gap: 10px;
         }
+
+        .btn-edit { background-color: #eab308; color: black; font-size: 12px; padding: 5px 10px; }
+        .btn-delete { background-color: #ef4444; color: white; font-size: 12px; padding: 5px 10px; }
     </style>
 </head>
 <body>
@@ -163,10 +153,11 @@
     </header>
 
     <div class="container">
-        <!-- PAINEL ADMINISTRATIVO COM SENHA -->
+        <!-- PAINEL ADMINISTRATIVO -->
         <div id="adminPanel" class="admin-panel">
-            <h3>🔐 Painel do Administrador</h3>
+            <h3 id="formTitle">🔐 Cadastrar Novo Evento</h3>
             <form id="eventForm" onsubmit="salvarEvento(event)">
+                <input type="hidden" id="editId">
                 <div class="form-grid">
                     <label>Data
                         <input type="date" id="data" required>
@@ -175,10 +166,10 @@
                         <input type="time" id="hora" required>
                     </label>
                     <label>Categoria / Evento
-                        <input type="text" id="descricao" placeholder="Ex: Fórmula 1 - GP Brasil" required>
+                        <input type="text" id="descricao" required>
                     </label>
                     <label>Local / País
-                        <input type="text" id="local" placeholder="Ex: Interlagos">
+                        <input type="text" id="local">
                     </label>
                     <label>Canal
                         <select id="canal" required>
@@ -199,46 +190,35 @@
                             <option value="Racer BR">Racer BR</option>
                         </select>
                     </label>
-                    <label>URL Logo Categoria (Ícone do Esporte)
-                        <input type="url" id="logoCategoria" placeholder="https://link-da-imagem.com">
-                    </label>
-                    <label>URL Logo Canal (Opcional se não tiver padrão)
-                        <input type="url" id="logoCanal" placeholder="https://link-da-imagem.com">
-                    </label>
                     <label>Link de Transmissão (Ao Vivo)
-                        <input type="url" id="linkTransmissao" placeholder="https://...">
+                        <input type="url" id="linkTransmissao">
                     </label>
                     <label>Link de Replay (Gravação)
-                        <input type="url" id="linkReplay" placeholder="https://...">
+                        <input type="url" id="linkReplay">
                     </label>
                 </div>
-                <button type="submit" style="background-color: #16a34a;">Salvar Dados e Publicar</button>
-                <button type="button" onclick="logout()" style="background-color: #64748b; margin-left: 10px;">Sair do Admin</button>
+                <button type="submit" id="btnSalvar" style="background-color: #16a34a;">Salvar Dados e Publicar</button>
+                <button type="button" id="btnCancelar" onclick="cancelarEdicao()" style="background-color: #64748b; margin-left: 10px; display: none;">Cancelar Edição</button>
+                <button type="button" onclick="logout()" style="background-color: #334155; margin-left: 10px;">Sair do Admin</button>
             </form>
         </div>
 
-        <!-- LISTA DE EVENTOS PÚBLICOS -->
+        <!-- LISTA DE EVENTOS -->
         <h2>📅 Próximos Eventos</h2>
-        <div id="eventsGrid" class="events-grid">
-            <!-- Eventos serão gerados via JavaScript aqui -->
-        </div>
+        <div id="eventsGrid" class="events-grid"></div>
     </div>
 
     <script>
-        // Estado do Admin
         let isAdmin = false;
-        const SENHA_CORRETA = "admin123"; // Mude a sua senha aqui!
-
-        // Carrega os eventos salvos ou inicia com uma lista vazia
+        const SENHA_CORRETA = "admin123";
         let eventos = JSON.parse(localStorage.getItem('programacao_tv')) || [];
 
-        // Formata a data para o padrão BR (DD/MM/AAAA)
         function formatarData(dataString) {
+            if(!dataString) return "";
             const partes = dataString.split('-');
             return `${partes[2]}/${partes[1]}/${partes[0]}`;
         }
 
-        // Controla o acesso ao painel admin
         function toggleAdmin() {
             if (!isAdmin) {
                 const senha = prompt("Digite a senha do Administrador:");
@@ -255,34 +235,52 @@
 
         function logout() {
             isAdmin = false;
+            cancelarEdicao();
             document.getElementById('adminPanel').style.display = 'none';
             document.getElementById('authBtn').innerText = 'Acessar Admin';
             renderizarEventos();
         }
 
-        // Função para Cadastrar e Salvar Dados
         function salvarEvento(e) {
             e.preventDefault();
 
-            const novoEvento = {
-                id: Date.now(),
+            const id = document.getElementById('editId').value;
+            const dadosEvento = {
                 data: document.getElementById('data').value,
                 hora: document.getElementById('hora').value,
                 descricao: document.getElementById('descricao').value,
                 local: document.getElementById('local').value || 'Não informado',
                 canal: document.getElementById('canal').value,
-                logoCategoria: document.getElementById('logoCategoria').value || 'https://flaticon.com',
-                logoCanal: document.getElementById('logoCanal').value || 'https://flaticon.com',
                 linkTransmissao: document.getElementById('linkTransmissao').value,
                 linkReplay: document.getElementById('linkReplay').value
             };
 
-            eventos.push(novoEvento);
+            if (id) {
+                // Modo Edição: Atualiza o item existente
+                const index = eventos.findIndex(ev => ev.id == id);
+                if (index !== -1) {
+                    eventos[index] = { id: Number(id), ...dadosEvento };
+                }
+            } else {
+                // Modo Cadastro: Cria um novo item
+                dadosEvento.id = Date.now();
+                eventos.push(dadosEvento);
+            }
             
-            // Ordena por data e hora de forma cronológica
-eventos.sort((a, b) => a.data.localeCompare(b.data) || a.hora.localeCompare(b.hora));
-            // Salva no Banco de dados Local (Navegador)localStorage.setItem('programacao_tv', JSON.stringify(eventos));renderizarEventos();document.getElementById('eventForm').reset();alert("Evento cadastrado com sucesso!");}
-            // Função para Excluir um eventofunction deletarEvento(id) {if(confirm("Deseja mesmo excluir este evento?")) {eventos = eventos.filter(ev => ev.id !== id);localStorage.setItem('programacao_tv', JSON.stringify(eventos));renderizarEventos();}}
-            // Função para Renderizar os cards na telafunction renderizarEventos() {const grid = document.getElementById('eventsGrid');grid.innerHTML = '';if (eventos.length === 0) {
-grid.innerHTML = 'Nenhum evento programado no momento.';return;}eventos.forEach(ev => {const card = document.createElement('div');card.className = 'event-card';card.innerHTML = `📅 ${formatarData(ev.data)} às ${ev.hora}${ev.canal}${ev.descricao}📍 Local: ${ev.local}${ev.linkTransmissao ? <a href="${ev.linkTransmissao}" target="_blank" class="btn-link btn-live">🔴 Assistir Ao Vivo</a> : ''}${ev.linkReplay ? <a href="${ev.linkReplay}" target="_blank" class="btn-link btn-replay">🔄 Ver Replay</a> : ''}${isAdmin ? <button class="btn-delete" onclick="deletarEvento(${ev.id})">Excluir Evento</button> : ''}`;grid.appendChild(card);
-});}// Inicializa a listagem ao abrir o apprenderizarEventos();
+            eventos.sort((a, b) => a.data.localeCompare(b.data) || a.hora.localeCompare(b.hora));
+            localStorage.setItem('programacao_tv', JSON.stringify(eventos));
+            
+            cancelarEdicao();
+            renderizarEventos();
+            alert("Dados gravados com sucesso!");
+        }
+
+        function prepararEdicao(id) {
+            const ev = eventos.find(item => item.id == id);
+            if (!ev) return;
+
+            document.getElementById('editId').value = ev.id;
+            document.getElementById('data').value = ev.data;
+       document.getElementById('local').value = ev.local === 'Não informado' ? '' : 
+           ev.local;document.getElementById('canal').value = ev.canal;document.getElementById('linkTransmissao').value = ev.linkTransmissao;document.getElementById('linkReplay').
+           value = ev.linkReplay;document.getElementById('formTitle').innerText = "✏️ Editando Evento";document.getElementById('btnSalvar').innerText = "Atualizar Dados";document.getElementById('btnCancelar').style.display = "inline-block";window.scrollTo({ top: 0, behavior: 'smooth' });}
