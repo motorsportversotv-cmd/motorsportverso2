@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Cadastro - Administrador</title>
+    <title>Painel de Cadastro e Controle - Administrador</title>
     <style>
-        /* ESTILOS DO PAINEL DE CADASTRO */
+        /* ESTILOS GERAIS */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
@@ -14,13 +14,17 @@
             color: #333;
         }
 
-        .panel-cadastro {
-            max-width: 600px;
+        .container {
+            max-width: 800px;
             margin: 0 auto;
+        }
+
+        .panel-cadastro, .panel-lista {
             background: #ffffff;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
         }
 
         h2 {
@@ -100,132 +104,176 @@
         .btn-secondary:hover {
             background-color: #27ae60;
         }
+
+        /* ESTILOS DA LISTA DE EVENTOS */
+        .tabela-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .badge-principal {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+        }
+
+        .badge-alternativo {
+            background-color: #e8f5e9;
+            color: #1b5e20;
+        }
+
+        .btn-deletar {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-deletar:hover {
+            background-color: #c0392b;
+        }
+
+        .sem-dados {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 20px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
 
-    <!-- PAINEL DE CADASTRO -->
-    <main class="panel-cadastro">
-        <h2>Painel de Cadastro (Modo Administrador)</h2>
+    <div class="container">
+        <!-- PAINEL DE CADASTRO -->
+        <main class="panel-cadastro">
+            <h2>Painel de Cadastro (Modo Administrador)</h2>
 
-        <!-- FORMULÁRIO 1: Canal Principal -->
-        <section class="cadastro-secao">
-            <h3>Cadastro - Canal Principal</h3>
-            <form id="cadastro-tv-form-1" onsubmit="salvarEvento(event, 1)">
-                <div class="form-group">
-                    <label for="prog-data-1">Data:</label>
-                    <input type="date" id="prog-data-1" required>
-                </div>
-                <div class="form-group">
-                    <label for="prog-hora-1">Hora:</label>
-                    <input type="time" id="prog-hora-1" required>
-                </div>
-                <div class="form-group">
-                    <label for="prog-descricao-1">Descrição categoria\evento:</label>
-                    <input type="text" id="prog-descricao-1" placeholder="Ex: Rally Nova Itália - SS1 Shakedown" required>
-                </div>
-                <div class="form-group">
-                    <label for="prog-local-1">Local:</label>
-                    <input type="text" id="prog-local-1" required>
-                </div>
-                <div class="form-group">
-                    <label for="prog-canal-1">Canal:</label>
-                    <select id="prog-canal-1" required>
-                        <option value="Bandsports">Bandsports</option>
-                        <option value="Youtube">Youtube</option>
-                        <option value="Globoplay Premium">Globoplay Premium</option>
-                        <option value="Globo">Globo</option>
-                        <option value="Fox Sports(USA)">Fox Sports(USA)</option>
-                        <option value="Twitch .TV">Twitch .TV</option>
-                        <option value="Roku.TV">Roku.TV</option>
-                        <option value="Disney + (premium)">Disney + (premium)</option>
-                        <option value="ESPN">ESPN</option>
-                        <option value="Rally TV">Rally TV</option>
-                        <option value="Sportv 2 (BR)">Sportv 2 (BR)</option>
-                        <option value="Sportv 3 (BR)">Sportv 3 (BR)</option>
-                        <option value="Sportv 4 Portugal">Sportv 4 Portugal</option>
-                        <option value="Sportv 5 Portugal">Sportv 5 Portugal</option>
-                        <option value="Racer BR">Racer BR</option>
-                        <option value="Facebook">Facebook</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="prog-desc-canal-1">Descrição do Canal:</label>
-                    <input type="text" id="prog-desc-canal-1" placeholder="Ex: Canal Principal, Transmissão Oficial, Língua Inglesa">
-                </div>
-                <div class="form-group">
-                    <label for="prog-logo-cat-1">Colocar logo categoria (URL):</label>
-                    <input type="url" id="prog-logo-cat-1" placeholder="https://link-da-imagem.com">
-                </div>
-                <div class="form-group">
-                    <label for="prog-logo-canal-1">Colocar logo canal (URL):</label>
-                    <input type="url" id="prog-logo-canal-1" placeholder="https://link-da-imagem.com">
-                </div>
-                <div class="form-group">
-                    <label for="prog-links-transmissao-1">Colocar links de transmissão:</label>
-                    <input type="url" id="prog-links-transmissao-1" placeholder="https://...">
-                </div>
-                <div class="form-group">
-                    <label for="prog-links-replay-1">Colocar links de replay:</label>
-                    <input type="url" id="prog-links-replay-1" placeholder="https://...">
-                </div>
-                <button type="submit" class="btn-submit btn-primary">Salvar Programação Principal</button>
-            </form>
-        </section>
+            <!-- FORMULÁRIO 1: Canal Principal -->
+            <section class="cadastro-secao">
+                <h3>Cadastro - Canal Principal</h3>
+                <form id="cadastro-tv-form-1" onsubmit="salvarEvento(event, 1)">
+                    <div class="form-group">
+                        <label for="prog-data-1">Data:</label>
+                        <input type="date" id="prog-data-1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prog-hora-1">Hora:</label>
+                        <input type="time" id="prog-hora-1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prog-descricao-1">Descrição categoria\evento:</label>
+                        <input type="text" id="prog-descricao-1" placeholder="Ex: Rally Nova Itália - SS1 Shakedown" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prog-local-1">Local:</label>
+                        <input type="text" id="prog-local-1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prog-canal-1">Canal:</label>
+                        <select id="prog-canal-1" required>
+                            <option value="Bandsports">Bandsports</option>
+                            <option value="Youtube">Youtube</option>
+                            <option value="Globoplay Premium">Globoplay Premium</option>
+                            <option value="Globo">Globo</option>
+                            <option value="Fox Sports(USA)">Fox Sports(USA)</option>
+                            <option value="Twitch .TV">Twitch .TV</option>
+                            <option value="Roku.TV">Roku.TV</option>
+                            <option value="Disney + (premium)">Disney + (premium)</option>
+                            <option value="ESPN">ESPN</option>
+                            <option value="Rally TV">Rally TV</option>
+                            <option value="Sportv 2 (BR)">Sportv 2 (BR)</option>
+                            <option value="Sportv 3 (BR)">Sportv 3 (BR)</option>
+                            <option value="Sportv 4 Portugal">Sportv 4 Portugal</option>
+                            <option value="Sportv 5 Portugal">Sportv 5 Portugal</option>
+                            <option value="Racer BR">Racer BR</option>
+                            <option value="Facebook">Facebook</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="prog-desc-canal-1">Descrição do Canal:</label>
+                        <input type="text" id="prog-desc-canal-1" placeholder="Ex: Canal Principal, Transmissão Oficial, Língua Inglesa">
+                    </div>
+                    <div class="form-group">
+                        <label for="prog-logo-cat-1">Colocar logo categoria (URL):</label>
+                        <input type="url" id="prog-logo-cat-1" placeholder="https://link-da-imagem.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="prog-logo-canal-1">Colocar logo canal (URL):</label>
+                        <input type="url" id="prog-logo-canal-1" placeholder="https://link-da-imagem.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="prog-links-transmissao-1">Colocar links de transmissão:</label>
+                        <input type="url" id="prog-links-transmissao-1" placeholder="https://...">
+                    </div>
+                    <div class="form-group">
+                        <label for="prog-links-replay-1">Colocar links de replay:</label>
+                        <input type="url" id="prog-links-replay-1" placeholder="https://...">
+                    </div>
+                    <button type="submit" class="btn-submit btn-primary">Salvar Programação Principal</button>
+                </form>
+            </section>
 
-        <!-- FORMULÁRIO 2: Canal Alternativo / Secundário -->
-        <section class="cadastro-secao">
-            <h3>Cadastro - Canal Alternativo (Transmissão Secundária)</h3>
-            <form id="cadastro-tv-form-2" onsubmit="salvarEvento(event, 2)">
-                <div class="form-group">
-                    <label for="prog-data-2">Data:</label>
-                    <input type="date" id="prog-data-2" required>
-                </div>
-                <div class="form-group">
-                    <label for="prog-hora-2">Hora:</label>
-                    <input type="time" id="prog-hora-2" required>
-                </div>
-                <div class="form-group">
-                    <label for="prog-descricao-2">Descrição categoria\evento:</label>
-                    <input type="text" id="prog-descricao-2" placeholder="Ex: Transmissão Alternativa / Onboard" required>
-                </div>
-                <div class="form-group">
-                    <label for="prog-local-2">Local:</label>
-                    <input type="text" id="prog-local-2" required>
-                </div>
-                <div class="form-group">
-                    <label for="prog-canal-2">Canal Alternativo:</label>
-                    <select id="prog-canal-2" required>
-                        <option value="Youtube">Youtube</option>
-                        <option value="Twitch .TV">Twitch .TV</option>
-                        <option value="Facebook">Facebook</option>
-                        <option value="Bandsports">Bandsports</option>
-                        <option value="Globoplay Premium">Globoplay Premium</option>
-                        <option value="Globo">Globo</option>
-                        <option value="Fox Sports(USA)">Fox Sports(USA)</option>
-                        <option value="Roku.TV">Roku.TV</option>
-                        <option value="Disney + (premium)">Disney + (premium)</option>
-                        <option value="ESPN">ESPN</option>
-                        <option value="Rally TV">Rally TV</option>
-                        <option value="Sportv 2 (BR)">Sportv 2 (BR)</option>
-                        <option value="Sportv 3 (BR)">Sportv 3 (BR)</option>
-                        <option value="Sportv 4 Portugal">Sportv 4 Portugal</option>
-                        <option value="Sportv 5 Portugal">Sportv 5 Portugal</option>
-                        <option value="Racer BR">Racer BR</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="prog-desc-canal-2">Descrição do Canal Alternativo:</label>
-                    <input type="text" id="prog-desc-canal-2" placeholder="Ex: Canal Secundário, Câmera Onboard, Segunda Opção">
-                </div>
-                <div class="form-group">
-                    <label for="prog-logo-cat-2">Colocar logo categoria (URL):</label>
-                    <input type="url" id="prog-logo-cat-2" placeholder="https://link-da-imagem.com">
-                </div>
-                <div class="form-group">
-                    <label for="prog-logo-canal-2">Colocar logo canal (URL):</label>
-                    <input type="url" id="prog-logo-canal-2" placeholder="https://link-da-imagem.com">
-                </div>
-                <div class="form-group">
-                    <label for="prog-links-transmissao-2">Colocar links de transmissão:</label>
-                    / LÓGICA DE CAPTURA DO FORMULÁRIOfunction salvarEvento(event, tipoFormulario) {event.preventDefault(); // Impede a página de recarregar// Captura os dados com base no número do formulário (1 ou 2)const evento = {tipoCadastro: tipoFormulario === 1 ? 'Principal' : 'Alternativo',data: document.getElementById(prog-data-${tipoFormulario}).value,hora: document.getElementById(prog-hora-${tipoFormulario}).value,descricao: document.getElementById(prog-descricao-${tipoFormulario}).value,local: document.getElementById(prog-local-${tipoFormulario}).value,canal: document.getElementById(prog-canal-${tipoFormulario}).value,descricaoCanal: document.getElementById(prog-desc-canal-${tipoFormulario}).value, // Captura o novo campologoCategoria: document.getElementById(prog-logo-cat-${tipoFormulario}).value,logoCanal: document.getElementById(prog-logo-canal-${tipoFormulario}).value,linkTransmissao: document.getElementById(prog-links-transmissao-${tipoFormulario}).value,linkReplay: document.getElementById(prog-links-replay-${tipoFormulario}).value};// Exemplo de saída no Console do navegadorconsole.log("Novo evento cadastrado:", evento);alert(Programação do Canal ${evento.tipoCadastro} salva com sucesso!);// Limpa o formulário após o cadastrodocument.getElementById(cadastro-tv-form-${tipoFormulario}).reset();}
+            <!-- FORMULÁRIO 2: Canal Alternativo / Secundário -->
+            <section class="cadastro-secao">
+                <h3>Cadastro - Canal Alternativo (Transmissão Secundária)</h3>
+                <form id="cadastro-tv-form-2" onsubmit="salvarEvento(event, 2)">
+                    <div class="form-group">
+                        <label for="prog-data-2">Data:</label>
+                        <input type="date" id="prog-data-2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prog-hora-2">Hora:</label>
+                        <input type="time" id="prog-hora-2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prog-descricao-2">Descrição categoria\evento:</label>
+                        <input type="text" id="prog-descricao-2" placeholder="Ex: Transmissão Alternativa / Onboard" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prog-local-2">Local:</label>
+                        <input type="text" id="prog-local-2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prog-canal-2">Canal Alternativo:</label>
+                        <select id="prog-canal-2" required>
+                            <option value="Youtube">Youtube</option>
+                            <option value="Twitch .TV">Twitch .TV</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Bandsports">Bandsports</option>
+                           // Carrega os dados assim que a página abredocument.addEventListener('DOMContentLoaded', atualizarTabela);// LÓGICA DE CAPTURA E PERSISTÊNCIA DE DADOSfunction salvarEvento(event, tipoFormulario) {event.preventDefault();const novoEvento = {id: Date.now(),tipoCadastro: tipoFormulario === 1 ? 'Principal' : 'Alternativo',data: document.getElementById(prog-data-${tipoFormulario}).value,hora: document.getElementById(prog-hora-${tipoFormulario}).value,descricao: document.getElementById(prog-descricao-${tipoFormulario}).value,local: document.getElementById(prog-local-${tipoFormulario}).value,canal: document.getElementById(prog-canal-${tipoFormulario}).value,descricaoCanal: document.getElementById(prog-desc-canal-${tipoFormulario}).value || 'Não informada',logoCategoria: document.getElementById(prog-logo-cat-${tipoFormulario}).value,
+                            ogoCanal: document.getElementById(prog-logo-canal-${tipoFormulario}).value,linkTransmissao: document.getElementById(prog-links-transmissao-${tipoFormulario}).value,linkReplay: document.getElementById(prog-links-replay-${tipoFormulario}).value};let listaProgramacao = JSON.parse(localStorage.getItem('programacao_tv')) || [];listaProgramacao.push(novoEvento);localStorage.setItem('programacao_tv', JSON.stringify(listaProgramacao));document.getElementById(cadastro-tv-form-${tipoFormulario}).reset();atualizarTabela(); // Atualiza a lista na tela imediatamentealert(Programação salva com sucesso!);}
+                            // LÓGICA DE EXIBIÇÃO DA TABELA
+                            function atualizarTabela() {const tbody = document.getElementById('tabela-eventos-body');const listaProgramacao = JSON.parse(localStorage.getItem('programacao_tv')) || [];if (listaProgramacao.length === 0) {tbody.innerHTML = <tr><td colspan="5" class="sem-dados">Nenhuma programação cadastrada no momento.</td></tr>;return;}// Ordena os eventos por data e hora de forma amigávellistaProgramacao.sort((a, b) => new Date(a.data + 'T' + a.hora) - new Date(b.data + 'T' + b.hora));tbody.innerHTML = ''; // Limpa antes de renderizarlistaProgramacao.forEach(evento => {// Formata a data de AAAA-MM-DD para DD/MM/AAAAconst dataFormatada = evento.data.split('-').reverse().join('/');const badgeClass = evento.tipoCadastro === 'Principal' ? 'badge-principal' : 'badge-alternativo';
+                            const tr = document.createElement('tr');tr.innerHTML = `${dataFormatada}${evento.hora}${evento.descricao}📍 ${evento.local}${evento.tipoCadastro}${evento.canal}${evento.descricaoCanal}Excluir`;tbody.appendChild(tr);});}// LÓGICA DE EXCLUSÃO DE REGISTROSfunction excluirEvento(id) {if (confirm("Tem certeza que deseja remover esta programação?")) {let listaProgramacao = JSON.parse(localStorage.getItem('programacao_tv')) || [];listaProgramacao = listaProgramacao.filter(evento => evento.id !== id);localStorage.setItem('programacao_tv', JSON.stringify(listaProgramacao));atualizarTabela();
