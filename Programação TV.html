@@ -269,5 +269,240 @@
         </main>
     </div>
 
+            /* ESTILOS GERAIS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .panel-cadastro, .panel-lista {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .cadastro-secao {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: #2ecc71;
+        }
+
+        .btn-secondary:hover {
+            background-color: #27ae60;
+        }
+
+        /* ESTILOS DA LISTA DE EVENTOS - ADAPTÁVEL PARA QUALQUER TELA */
+        .tabela-container {
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .badge-principal {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+        }
+
+        .badge-alternativo {
+            background-color: #e8f5e9;
+            color: #1b5e20;
+        }
+
+        .btn-deletar {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-deletar:hover {
+            background-color: #c0392b;
+        }
+
+        .sem-dados {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        /* CONFIGURAÇÃO MÁGICA PARA SMARTPHONES (CELULAR) */
+        @media screen and (max-width: 650px) {
+            body {
+                padding: 10px;
+            }
+
+            .panel-cadastro, .panel-lista {
+                padding: 15px;
+            }
+
+            /* Esconde o cabeçalho original da tabela (Data, Evento, Tipo...) */
+            table thead {
+                display: none;
+            }
+
+            /* Transforma a tabela e suas linhas em blocos soltos */
+            table, table tbody, table tr, table td {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            /* Transforma cada linha (tr) em um cartão visual isolado */
+            table tr {
+                background: #fafafa;
+                border: 1px solid #e0e0e0;
+                border-radius: 6px;
+                margin-bottom: 15px;
+                padding: 10px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            }
+
+            /* Ajusta as células para mostrarem as informações empilhadas */
+            table td {
+                text-align: right;
+                padding: 8px 10px;
+                border-bottom: 1px dashed #eee;
+                position: relative;
+                font-size: 13px;
+            }
+
+            table td:last-child {
+                border-bottom: none;
+                text-align: center; /* Centraliza o botão excluir no celular */
+                padding-top: 12px;
+            }
+
+            /* Cria títulos automáticos na esquerda para identificar o que é cada dado */
+            table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                text-align: left;
+                font-weight: bold;
+                color: #7f8c8d;
+            }
+        }
+<tr>
+  <td data-label="Data/Hora">25/09/2026 - 21:30</td>
+  <td data-label="Evento/Local">Fia WEC - FP3 <br>📍 Fuji</td>
+  <td data-label="Tipo"><span class="badge badge-principal">Principal</span></td>
+  <td data-label="Canal / Info">Youtube <br>📺 Grande Premio</td>
+  <td data-label="Ações"><button class="btn-deletar">Excluir</button></td>
+</tr>
+
+
 </body>
 </html>
