@@ -97,15 +97,15 @@
             background-color: #2980b9;
         }
 
-        /* ESTILOS DA LISTA DE EVENTOS - TOTALMENTE RESPONSIVO */
+        /* TABELA DE EVENTOS ALINHADA E CORRIGIDA */
         .tabela-container {
             width: 100%;
+            margin-top: 15px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
             font-size: 14px;
         }
 
@@ -139,11 +139,6 @@
             color: #0d47a1;
         }
 
-        .badge-alternativo {
-            background-color: #e8f5e9;
-            color: #1b5e20;
-        }
-
         .btn-deletar {
             background-color: #e74c3c;
             color: white;
@@ -165,23 +160,12 @@
             font-style: italic;
         }
 
-        .icone-local, .icone-canal {
-            margin-right: 4px;
-        }
-
-        /* REGRAS ADAPTATIVAS PARA QUALQUER SMARTPHONE / CELULAR */
+        /* REGRAS DE ADAPTAÇÃO PARA CELULAR (CARDS EMPILHADOS) */
         @media screen and (max-width: 650px) {
-            body {
-                padding: 10px;
-            }
+            body { padding: 10px; }
+            .panel-cadastro, .panel-lista { padding: 15px; }
 
-            .panel-cadastro, .panel-lista {
-                padding: 15px;
-            }
-
-            table thead {
-                display: none; /* Oculta cabeçalho original no mobile */
-            }
+            table thead { display: none; } /* Esconde o cabeçalho no celular */
 
             table, table tbody, table tr, table td {
                 display: block;
@@ -212,7 +196,7 @@
                 padding-top: 12px;
             }
 
-            /* Insere os títulos à esquerda dinamicamente no mobile */
+            /* Exibe o nome da coluna à esquerda no celular */
             table td::before {
                 content: attr(data-label);
                 position: absolute;
@@ -230,9 +214,8 @@
     <div class="container">
         <!-- PAINEL DE CADASTRO -->
         <main class="panel-cadastro">
-            <h2>Painel de Cadastro (Modo Administrator)</h2>
+            <h2>Painel de Cadastro (Modo Administrador)</h2>
 
-            <!-- FORMULÁRIO -->
             <section class="cadastro-secao">
                 <h3>Cadastro - Canal Principal</h3>
                 <form id="cadastro-tv-form-1" onsubmit="salvarEvento(event)">
@@ -257,50 +240,79 @@
                         <select id="prog-canal-1" required>
                             <option value="Bandsports">Bandsports</option>
                             <option value="Youtube">Youtube</option>
-                            <option value="Globoplay Premium">Globoplay Premium</option>
                             <option value="Globo">Globo</option>
-                            <option value="Fox Sports(USA)">Fox Sports(USA)</option>
-                            <option value="Twitch .TV">Twitch .TV</option>
-                            <option value="Roku.TV">Roku.TV</option>
-                            <option value="Disney + (premium)">Disney + (premium)</option>
                             <option value="ESPN">ESPN</option>
-                            <option value="Rally TV">Rally TV</option>
-                            <option value="Sportv 2 (BR)">Sportv 2 (BR)</option>
-                            <option value="Sportv 3 (BR)">Sportv 3 (BR)</option>
-                            <option value="Sportv 4 Portugal">Sportv 4 Portugal</option>
-                            <option value="Sportv 5 Portugal">Sportv 5 Portugal</option>
-                            <option value="Racer BR">Racer BR</option>
-                            <option value="Facebook">Facebook</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="prog-desc-canal-1">Descrição do Canal (Ex: Youtube Canal):</label>
+                        <label for="prog-desc-canal-1">Descrição do Canal:</label>
                         <input type="text" id="prog-desc-canal-1" placeholder="Ex: Grande Premio">
                     </div>
-                    <div class="form-group">
-                        <label for="prog-logo-cat-1">Colocar logo categoria (URL):</label>
-                        <input type="url" id="prog-logo-cat-1" placeholder="https://link-da-imagem.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="prog-logo-canal-1">Colocar logo canal (URL):</label>
-                        <input type="url" id="prog-logo-canal-1" placeholder="https://link-da-imagem.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="prog-links-transmissao-1">Colocar links de transmissão:</label>
-                        <input type="url" id="prog-links-transmissao-1" placeholder="https://...">
-                    </div>
-                    <div class="form-group">
-                        <label for="prog-links-replay-1">Colocar links de replay:</label>
-                        <input type="url" id="prog-links-replay-1" placeholder="https://...">
-                    </div>
+                    
                     <button type="submit" class="btn-submit btn-primary">Salvar Programação</button>
                 </form>
             </section>
         </main>
 
-        <!-- PAINEL DE EXIBIÇÃO DA LISTA -->
-        // Array global para armazenar os eventos na memória do navegadorlet listaDeEventos = [];
-        // Função executada ao enviar o formuláriofunction salvarEvento(event) {event.preventDefault(); 
-        // Impede a página de recarregar
-        // Captura os valores digitados nos inputsconst dataOriginal = document.getElementById('prog-data-1').value;const hora = document.getElementById('prog-hora-1').value;const descricao = document.getElementById('prog-descricao-1').value;const local = document.getElementById('prog-local-1').value;const canal = document.getElementById('prog-canal-1').value;const descCanal = document.getElementById('prog-desc-canal-1').value;// Formata a data de YYYY-MM-DD para DD/MM/YYYYconst dataFormatada = dataOriginal.split('-').reverse().join('/');// Cria o objeto do novo eventoconst novoEvento = {data: dataFormatada,hora: hora,descricao: descricao,local: local,canal: canal,descCanal: descCanal,tipo: "PRINCIPAL" // Definido como padrão conforme seu layout};// Adiciona o novo evento na listalistaDeEventos.push(novoEvento);// Atualiza a tabela na telarenderizarTabela();// Limpa o formulário para um novo cadastrodocument.getElementById('cadastro-tv-form-1').reset();}// Função responsável por desenhar a tabela formatada na telafunction renderizarTabela() {const container = document.getElementById('tabela-dinamica-container');if (listaDeEventos.length === 0) {container.innerHTML = 'Nenhum evento cadastrado ainda.';return;}// Monta a estrutura HTML inicial da tabelalet html = ``;// Varre a lista e monta cada linha com o "data-label" para o mobilelistaDeEventos.forEach((evento, index) => {html += ``;});
-        // Fecha as tags abertashtml += `
+        <!-- PAINEL DA TABELA (ESTRUTURA FIXA NO HTML) -->
+        <section class="panel-lista">
+            <h3>Programações Cadastradas</h3>
+            <div class="tabela-container">
+                <table id="minha-tabela">
+                    <thead>
+                        <tr>
+                            <th>Data/Hora</th>
+                            <th>Evento/Local</th>
+                            <th>Tipo</th>
+                            <th>Canal / Info</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpo-tabela">
+                        <!-- O JavaScript vai colocar as linhas EXATAMENTE aqui dentro -->
+                        <tr>
+                            <td colspan="5" class="sem-dados">Nenhum evento cadastrado ainda.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Memória para guardar os eventos cadastrados provisoriamente
+        let eventosSalvos = [];
+
+        function salvarEvento(event) {
+            event.preventDefault(); // Impede o reload da página
+
+            // Pega as informações digitadas
+            const dataInput = document.getElementById('prog-data-1').value;
+            const hora = document.getElementById('prog-hora-1').value;
+            const descricao = document.getElementById('prog-descricao-1').value;
+            const local = document.getElementById('prog-local-1').value;
+            const canal = document.getElementById('prog-canal-1').value;
+            const descCanal = document.getElementById('prog-desc-canal-1').value;
+
+            // Transforma a data americana (AAAA-MM-DD) para padrão brasileiro (DD/MM/AAAA)
+            const dataBR = dataInput.split('-').reverse().join('/');
+
+            // Cria o registro
+            const novoItem = {
+                dataHora: `${dataBR} - ${hora}`,
+                eventoLocal: `<strong>${descricao}</strong><br>📍 ${local}`,
+                tipo: '<span class="badge badge-principal">PRINCIPAL</span>',
+                canalInfo: `${canal}<br>📺 ${descCanal || 'Geral'}`
+            };
+
+            // Guarda na lista
+            eventosSalvos.push(novoItem);
+
+            // Atualiza as linhas da tabela
+            atualizarTabelaNaTela();
+
+            // Limpa o formulário
+            document.getElementById('cadastro-tv-form-1').reset();
+        }
+
+
