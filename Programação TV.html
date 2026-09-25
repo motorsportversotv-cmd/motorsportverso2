@@ -314,5 +314,51 @@
             // Limpa o formulário
             document.getElementById('cadastro-tv-form-1').reset();
         }
+// Localize no seu arquivo a função que pega os dados salvos e joga na tela.
+// Ela deve ser parecida com esta estrutura abaixo:
+function renderizarListaDeEventos(eventos) {
+    // 1. Captura o corpo da tabela onde as linhas devem entrar
+    const tbody = document.getElementById('corpo-tabela'); 
+    
+    // Se não houver dados salvos
+    if (!eventos || eventos.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="sem-dados">Nenhum evento cadastrado.</td></tr>';
+        return;
+    }
+
+    let linhasHtml = "";
+
+    // 2. O segredo está aqui: gerar as tags <tr> e <td> com o "data-label" para o celular
+    eventos.forEach((evento, index) => {
+        // Define se o selo é azul (principal) ou verde (alternativo) baseado no parâmetro passado
+        const badgeClasse = evento.tipo === 1 || evento.tipo === 'PRINCIPAL' ? 'badge-principal' : 'badge-alternativo';
+        const badgeTexto = evento.tipo === 1 || evento.tipo === 'PRINCIPAL' ? 'PRINCIPAL' : 'ALTERNATIVO';
+
+        // Monta a linha com a estrutura perfeita da tabela
+        linhasHtml += `
+            <tr>
+                <td data-label="Data/Hora">${evento.data} - ${evento.hora}</td>
+                <td data-label="Evento/Local">
+                    <strong>${evento.descricao}</strong><br>
+                    📍 ${evento.local}
+                </td>
+                <td data-label="Tipo">
+                    <span class="badge ${badgeClasse}">${badgeTexto}</span>
+                </td>
+                <td data-label="Canal / Info">
+                    ${evento.canal}<br>
+                    📺 ${evento.descCanal || 'Geral'}
+                </td>
+                <td data-label="Ações">
+                    <!-- Certifique-se de ajustar a sua função de deletar aqui se necessário -->
+                    <button class="btn-deletar" onclick="excluirEvento('${evento.id}' || ${index})">Excluir</button>
+                </td>
+            </tr>
+        `;
+    });
+
+    // 3. Injeta as linhas estruturadas dentro do <tbody> correto do HTML
+    tbody.innerHTML = linhasHtml;
+}
 
 
