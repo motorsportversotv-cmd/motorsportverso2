@@ -3,182 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programação TV & Streaming - Rally Nova Itália</title>
+    <title>Painel de Cadastro - Administrador</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-
+        /* ESTILOS DO PAINEL DE CADASTRO */
         body {
-            background-color: #ffffff;
-            color: #000000;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
             padding: 20px;
+            color: #333;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        /* Topo da página */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-
-        header h1 {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .logout-link {
-            color: #cc0000;
-            text-decoration: underline;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        /* Painel com borda tracejada */
         .panel-cadastro {
-            border: 1px dashed #999;
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
             padding: 30px;
-            background-color: #fafafa;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .cadastro-secao {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
             margin-bottom: 30px;
         }
 
-        .panel-cadastro h2 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 25px;
-        }
-
-        /* Alinhamento dos campos */
         .form-group {
-            display: flex;
-            align-items: center;
             margin-bottom: 15px;
         }
 
         .form-group label {
-            width: 220px;
+            display: block;
+            margin-bottom: 5px;
             font-weight: bold;
-            font-size: 16px;
-        }
-
-        .form-group input, .form-group select {
-            width: 350px;
-            padding: 6px;
-            font-size: 16px;
-            border: 1px solid #999;
-            background-color: #fff;
-        }
-
-        /* Botão Salvar */
-        .btn-submit {
-            background-color: #d4edd5;
-            color: #000000;
-            border: 1px solid #777;
-            padding: 8px 16px;
             font-size: 14px;
-            cursor: pointer;
-            margin-left: 220px;
-            margin-top: 10px;
         }
 
-        .btn-submit:hover {
-            background-color: #c3e6cb;
-        }
-
-        /* Seção da Grade de Programação */
-        .grade-section {
-            margin-top: 40px;
-        }
-
-        .grade-section h3 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
-        }
-
-        table {
+        .form-group input, 
+        .form-group select {
             width: 100%;
-            border-collapse: collapse;
-            font-size: 15px;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
             padding: 10px;
-            text-align: left;
-            vertical-align: middle;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
         }
 
-        th {
-            background-color: #f2f2f2;
+        .form-group input:focus, 
+        .form-group select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
             font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
 
-        .img-logo {
-            max-height: 30px;
-            max-width: 60px;
-            margin-right: 5px;
-            object-fit: contain;
+        .btn-primary {
+            background-color: #3498db;
         }
 
-        .links-transmissao a {
-            color: #3b82f6;
-            text-decoration: underline;
-            margin-right: 12px;
-            font-weight: bold;
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: #2ecc71;
+        }
+
+        .btn-secondary:hover {
+            background-color: #27ae60;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- CABEÇALHO -->
-        <header>
-            <h1>Programação TV & Streaming - Rally Nova Itália</h1>
-            <span class="logout-link" onclick="window.location.reload();">Sair do Painel</span>
-        </header>
+    <!-- PAINEL DE CADASTRO -->
+    <main class="panel-cadastro">
+        <h2>Painel de Cadastro (Modo Administrador)</h2>
 
-        <!-- PAINEL DE CADASTRO -->
-        <main class="panel-cadastro">
-            <h2>Painel de Cadastro (Modo Administrador)</h2>
-            
-            <form id="cadastro-tv-form" onsubmit="salvarEvento(event)">
+        <!-- FORMULÁRIO 1: Canal Principal -->
+        <section class="cadastro-secao">
+            <h3>Cadastro - Canal Principal</h3>
+            <form id="cadastro-tv-form-1" onsubmit="salvarEvento(event, 1)">
                 <div class="form-group">
-                    <label for="prog-data">Data:</label>
-                    <input type="date" id="prog-data" required>
+                    <label for="prog-data-1">Data:</label>
+                    <input type="date" id="prog-data-1" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="prog-hora">Hora:</label>
-                    <input type="time" id="prog-hora" required>
+                    <label for="prog-hora-1">Hora:</label>
+                    <input type="time" id="prog-hora-1" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="prog-descricao">Descrição categoria\evento:</label>
-                    <input type="text" id="prog-descricao" placeholder="Ex: Rally Nova Itália - SS1 Shakedown" required>
+                    <label for="prog-descricao-1">Descrição categoria\evento:</label>
+                    <input type="text" id="prog-descricao-1" placeholder="Ex: Rally Nova Itália - SS1 Shakedown" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="prog-local">Local:</label>
-                    <input type="text" id="prog-local" required>
+                    <label for="prog-local-1">Local:</label>
+                    <input type="text" id="prog-local-1" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="prog-canal">Canal:</label>
-                    <select id="prog-canal" required>
+                    <label for="prog-canal-1">Canal:</label>
+                    <select id="prog-canal-1" required>
                         <option value="Bandsports">Bandsports</option>
                         <option value="Youtube">Youtube</option>
                         <option value="Globoplay Premium">Globoplay Premium</option>
@@ -197,136 +149,82 @@
                         <option value="Facebook">Facebook</option>
                     </select>
                 </div>
-
                 <div class="form-group">
-                    <label for="prog-logo-cat">Colocar logo categoria (URL):</label>
-                    <input type="url" id="prog-logo-cat" placeholder="https://link-da-imagem.com">
+                    <label for="prog-desc-canal-1">Descrição do Canal:</label>
+                    <input type="text" id="prog-desc-canal-1" placeholder="Ex: Canal Principal, Transmissão Oficial, Língua Inglesa">
                 </div>
-
                 <div class="form-group">
-                    <label for="prog-logo-canal">Colocar logo canal (URL):</label>
-                    <input type="url" id="prog-logo-canal" placeholder="https://link-da-imagem.com">
+                    <label for="prog-logo-cat-1">Colocar logo categoria (URL):</label>
+                    <input type="url" id="prog-logo-cat-1" placeholder="https://link-da-imagem.com">
                 </div>
-
                 <div class="form-group">
-                    <label for="prog-links-transmissao">Colocar links de transmissão:</label>
-                    <input type="url" id="prog-links-transmissao" placeholder="https://...">
+                    <label for="prog-logo-canal-1">Colocar logo canal (URL):</label>
+                    <input type="url" id="prog-logo-canal-1" placeholder="https://link-da-imagem.com">
                 </div>
-
                 <div class="form-group">
-                    <label for="prog-links-replay">Colocar links de replay:</label>
-                    <input type="url" id="prog-links-replay" placeholder="https://...">
+                    <label for="prog-links-transmissao-1">Colocar links de transmissão:</label>
+                    <input type="url" id="prog-links-transmissao-1" placeholder="https://...">
                 </div>
-
-                <button type="submit" class="btn-submit">Salvar Programação</button>
+                <div class="form-group">
+                    <label for="prog-links-replay-1">Colocar links de replay:</label>
+                    <input type="url" id="prog-links-replay-1" placeholder="https://...">
+                </div>
+                <button type="submit" class="btn-submit btn-primary">Salvar Programação Principal</button>
             </form>
-        </main>
-
-        <!-- SEÇÃO DA GRADE DE EXIBIÇÃO -->
-        <section class="grade-section">
-            <h3>Transmissões e Horários Cadastrados</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Data / Hora</th>
-                        <th>Logos</th>
-                        <th>Descrição Categoria / Evento / Local</th>
-                        <th>Canal de Exibição</th>
-                        <th>Links de Acesso</th>
-                    </tr>
-                </thead>
-                <tbody id="grade-table-body">
-                    <!-- Conteúdo inserido via JS -->
-                </tbody>
-            </table>
         </section>
-    </div>
 
-    <script>
-        // Carrega os dados salvos no localStorage
-        function obterEventos() {
-            const dados = localStorage.getItem('rally_tv_streaming_dados');
-            return dados ? JSON.parse(dados) : [];
-        }
-
-        // Armazena novos dados preservando os registros anteriores
-        function salvarEvento(event) {
-            event.preventDefault();
-
-            const novoEvento = {
-                id: Date.now(),
-                data: document.getElementById('prog-data').value,
-                hora: document.getElementById('prog-hora').value,
-                descricao: document.getElementById('prog-descricao').value,
-                local: document.getElementById('prog-local').value,
-                canal: document.getElementById('prog-canal').value,
-                logoCat: document.getElementById('prog-logo-cat').value || '',
-                logoCanal: document.getElementById('prog-logo-canal').value || '',
-                linkTransmissao: document.getElementById('prog-links-transmissao').value || '',
-                linkReplay: document.getElementById('prog-links-replay').value || ''
-            };
-
-            const lista = obterEventos();
-            lista.push(novoEvento);
-            
-            // Organiza por data e hora sequencialmente
-            lista.sort((a, b) => new Date(`${a.data}T${a.hora}`) - new Date(`${b.data}T${b.hora}`));
-            
-            localStorage.setItem('rally_tv_streaming_dados', JSON.stringify(lista));
-
-            document.getElementById('cadastro-tv-form').reset();
-            carregarGrade();
-        }
-
-        function formatarData(dataString) {
-            const partes = dataString.split('-');
-            if (partes.length !== 3) return dataString;
-            return `${partes[2]}/${partes[1]}/${partes[0]}`;
-        }
-
-        // Reconstrói a tabela dinamicamente em tela
-        function carregarGrade() {
-            const lista = obterEventos();
-            const tbody = document.getElementById('grade-table-body');
-            tbody.innerHTML = '';
-
-            if (lista.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#666; padding: 20px;">Nenhuma transmissão agendada.</td></tr>`;
-                return;
-            }
-
-            lista.forEach(item => {
-                const tr = document.createElement('tr');
-                
-                let linksHtml = '';
-                if (item.linkTransmissao) linksHtml += `<a href="${item.linkTransmissao}" target="_blank">🔴 Ao Vivo</a> `;
-                if (item.linkReplay) linksHtml += `<a href="${item.linkReplay}" target="_blank">🔄 Replay</a>`;
-                if (!item.linkTransmissao && !item.linkReplay) linksHtml = `<span style="color:#666;">Sem links</span>`;
-
-                let logosHtml = '';
-                if (item.logoCat) logosHtml += `<img src="${item.logoCat}" class="img-logo" alt="Logo Categoria">`;
-                if (item.logoCanal) logosHtml += `<img src="${item.logoCanal}" class="img-logo" alt="Logo Canal">`;
-
-                tr.innerHTML = `
-                    <td>${formatarData(item.data)} - ${item.hora}</td>
-                    <td>${logosHtml || '-'}</td>
-                    <td><strong>${item.descricao}</strong><br>📍 ${item.local}</td>
-                    <td>${item.canal}</td>
-                    <td class="links-transmissao">${linksHtml}</td>
-                `;
-
-                tbody.appendChild(tr);
-            });
-        }
-
-        window.onload = carregarGrade;
-    </script>
-</body>
-</html>
-
-
-
-
-        
-
-
+        <!-- FORMULÁRIO 2: Canal Alternativo / Secundário -->
+        <section class="cadastro-secao">
+            <h3>Cadastro - Canal Alternativo (Transmissão Secundária)</h3>
+            <form id="cadastro-tv-form-2" onsubmit="salvarEvento(event, 2)">
+                <div class="form-group">
+                    <label for="prog-data-2">Data:</label>
+                    <input type="date" id="prog-data-2" required>
+                </div>
+                <div class="form-group">
+                    <label for="prog-hora-2">Hora:</label>
+                    <input type="time" id="prog-hora-2" required>
+                </div>
+                <div class="form-group">
+                    <label for="prog-descricao-2">Descrição categoria\evento:</label>
+                    <input type="text" id="prog-descricao-2" placeholder="Ex: Transmissão Alternativa / Onboard" required>
+                </div>
+                <div class="form-group">
+                    <label for="prog-local-2">Local:</label>
+                    <input type="text" id="prog-local-2" required>
+                </div>
+                <div class="form-group">
+                    <label for="prog-canal-2">Canal Alternativo:</label>
+                    <select id="prog-canal-2" required>
+                        <option value="Youtube">Youtube</option>
+                        <option value="Twitch .TV">Twitch .TV</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="Bandsports">Bandsports</option>
+                        <option value="Globoplay Premium">Globoplay Premium</option>
+                        <option value="Globo">Globo</option>
+                        <option value="Fox Sports(USA)">Fox Sports(USA)</option>
+                        <option value="Roku.TV">Roku.TV</option>
+                        <option value="Disney + (premium)">Disney + (premium)</option>
+                        <option value="ESPN">ESPN</option>
+                        <option value="Rally TV">Rally TV</option>
+                        <option value="Sportv 2 (BR)">Sportv 2 (BR)</option>
+                        <option value="Sportv 3 (BR)">Sportv 3 (BR)</option>
+                        <option value="Sportv 4 Portugal">Sportv 4 Portugal</option>
+                        <option value="Sportv 5 Portugal">Sportv 5 Portugal</option>
+                        <option value="Racer BR">Racer BR</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="prog-desc-canal-2">Descrição do Canal Alternativo:</label>
+                    <input type="text" id="prog-desc-canal-2" placeholder="Ex: Canal Secundário, Câmera Onboard, Segunda Opção">
+                </div>
+                <div class="form-group">
+                    <label for="prog-logo-cat-2">Colocar logo categoria (URL):</label>
+                    <input type="url" id="prog-logo-cat-2" placeholder="https://link-da-imagem.com">
+                </div>
+                <div class="form-group">
+                    <label for="prog-logo-canal-2">Colocar logo canal (URL):</label>
+                    <input type="url" id="prog-logo-canal-2" placeholder="https://link-da-imagem.com">
+                </div>
+                <div class="form-group">
+                    <label for="prog-links-transmissao-2">Colocar links de transmissão:</label>
