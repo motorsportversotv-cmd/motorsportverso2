@@ -10,15 +10,13 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             margin: 0;
-            padding: 10px; /* Reduzido de 20px para aproveitar mais espaço no celular */
+            padding: 20px;
             color: #333;
         }
 
         .container {
-            width: 100%;
             max-width: 800px;
             margin: 0 auto;
-            box-sizing: border-box;
         }
 
         .panel-cadastro, .panel-lista {
@@ -27,7 +25,6 @@
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
-            box-sizing: border-box;
         }
 
         h2 {
@@ -100,28 +97,15 @@
             background-color: #2980b9;
         }
 
-        .btn-secondary {
-            background-color: #2ecc71;
-        }
-
-        .btn-secondary:hover {
-            background-color: #27ae60;
-        }
-
-        /* ESTILOS DA LISTA DE EVENTOS (CORRIGIDO PARA SUCESSO NO CELULAR) */
+        /* ESTILOS DA LISTA DE EVENTOS - TOTALMENTE RESPONSIVO */
         .tabela-container {
             width: 100%;
-            overflow-x: auto; /* Cria a rolagem horizontal no celular */
-            -webkit-overflow-scrolling: touch; /* Deixa o deslize do dedo suave no iOS */
-            margin-top: 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
         }
 
         table {
             width: 100%;
-            min-width: 650px; /* Impede a tabela de achatar e sumir no mobile */
             border-collapse: collapse;
+            margin-top: 15px;
             font-size: 14px;
         }
 
@@ -129,7 +113,6 @@
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #e0e0e0;
-            white-space: nowrap; /* Evita quebras de linha estranhas no texto */
         }
 
         th {
@@ -148,6 +131,7 @@
             font-size: 11px;
             font-weight: bold;
             text-transform: uppercase;
+            display: inline-block;
         }
 
         .badge-principal {
@@ -181,16 +165,62 @@
             font-style: italic;
         }
 
-        /* REGRAS DE RESPONSIVIDADE PARA TELAS PEQUENAS (SMARTPHONES) */
-        @media (max-width: 600px) {
+        .icone-local, .icone-canal {
+            margin-right: 4px;
+        }
+
+        /* REGRAS ADAPTATIVAS PARA QUALQUER SMARTPHONE / CELULAR */
+        @media screen and (max-width: 650px) {
             body {
-                padding: 5px;
+                padding: 10px;
             }
+
             .panel-cadastro, .panel-lista {
-                padding: 15px; /* Reduz o espaçamento lateral interno para dar mais espaço à tabela */
+                padding: 15px;
             }
-            th, td {
-                padding: 8px; /* Compacta os dados ligeiramente no celular */
+
+            table thead {
+                display: none; /* Oculta cabeçalho original no mobile */
+            }
+
+            table, table tbody, table tr, table td {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            table tr {
+                background: #fafafa;
+                border: 1px solid #e0e0e0;
+                border-radius: 6px;
+                margin-bottom: 15px;
+                padding: 10px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            }
+
+            table td {
+                text-align: right;
+                padding: 8px 10px;
+                border-bottom: 1px dashed #eee;
+                position: relative;
+                font-size: 13px;
+            }
+
+            table td:last-child {
+                border-bottom: none;
+                text-align: center;
+                padding-top: 12px;
+            }
+
+            /* Insere os títulos à esquerda dinamicamente no mobile */
+            table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                text-align: left;
+                font-weight: bold;
+                color: #7f8c8d;
             }
         }
     </style>
@@ -200,12 +230,12 @@
     <div class="container">
         <!-- PAINEL DE CADASTRO -->
         <main class="panel-cadastro">
-            <h2>Painel de Cadastro (Modo Administrador)</h2>
+            <h2>Painel de Cadastro (Modo Administrator)</h2>
 
-            <!-- FORMULÁRIO 1: Canal Principal -->
+            <!-- FORMULÁRIO -->
             <section class="cadastro-secao">
                 <h3>Cadastro - Canal Principal</h3>
-                <form id="cadastro-tv-form-1" onsubmit="salvarEvento(event, 1)">
+                <form id="cadastro-tv-form-1" onsubmit="salvarEvento(event)">
                     <div class="form-group">
                         <label for="prog-data-1">Data:</label>
                         <input type="date" id="prog-data-1" required>
@@ -216,11 +246,11 @@
                     </div>
                     <div class="form-group">
                         <label for="prog-descricao-1">Descrição categoria\evento:</label>
-                        <input type="text" id="prog-descricao-1" placeholder="Ex: Rally Nova Itália - SS1 Shakedown" required>
+                        <input type="text" id="prog-descricao-1" placeholder="Ex: Fia WEC - FP3" required>
                     </div>
                     <div class="form-group">
                         <label for="prog-local-1">Local:</label>
-                        <input type="text" id="prog-local-1" required>
+                        <input type="text" id="prog-local-1" placeholder="Ex: Fuji" required>
                     </div>
                     <div class="form-group">
                         <label for="prog-canal-1">Canal:</label>
@@ -245,7 +275,7 @@
                     </div>
                     <div class="form-group">
                         <label for="prog-desc-canal-1">Descrição do Canal (Ex: Youtube Canal):</label>
-                        <input type="text" id="prog-desc-canal-1" placeholder="Ex: Transmissão Oficial, Língua Inglesa">
+                        <input type="text" id="prog-desc-canal-1" placeholder="Ex: Grande Premio">
                     </div>
                     <div class="form-group">
                         <label for="prog-logo-cat-1">Colocar logo categoria (URL):</label>
@@ -267,17 +297,5 @@
                 </form>
             </section>
         </main>
-    </div>
 
-        
-<tr>
-  <td data-label="Data/Hora">25/09/2026 - 21:30</td>
-  <td data-label="Evento/Local">Fia WEC - FP3 <br>📍 Fuji</td>
-  <td data-label="Tipo"><span class="badge badge-principal">Principal</span></td>
-  <td data-label="Canal / Info">Youtube <br>📺 Grande Premio</td>
-  <td data-label="Ações"><button class="btn-deletar">Excluir</button></td>
-</tr>
-
-
-</body>
-</html>
+        <!-- PAINEL DE EXIBIÇÃO DA LISTA -->
