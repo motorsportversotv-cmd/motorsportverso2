@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>Programação TV & Streaming</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 950px; margin: 20px auto; padding: 10px; }
+        body { font-family: Arial, sans-serif; max-width: 1000px; margin: 20px auto; padding: 10px; }
         .topo { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px; }
         .link-admin { color: #0066cc; cursor: pointer; text-decoration: underline; font-size: 14px; font-weight: bold; }
         #areaCadastro { background-color: #f9f9f9; padding: 20px; border: 1px dashed #999; border-radius: 5px; margin-bottom: 30px; display: none; }
         .campo { margin-bottom: 10px; }
         label { display: inline-block; width: 150px; font-weight: bold; }
-        input, select { padding: 5px; width: 250px; }
+        input, select { padding: 5px; width: 280px; }
         button { padding: 8px 15px; margin-top: 10px; cursor: pointer; font-weight: bold; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
@@ -18,33 +18,35 @@
         .coluna-acao { display: none; text-align: center; }
         .btn-excluir { background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
         .btn-excluir:hover { background-color: #cc0000; }
+        .btn-link { background-color: #0066cc; color: white; padding: 4px 8px; text-decoration: none; border-radius: 3px; font-size: 13px; display: inline-block; }
+        .btn-link:hover { background-color: #004080; }
     </style>
 </head>
 <body>
 
     <div class="topo">
-        <h2>Lista de Inscritos - Rally Nova Itália</h2>
+        <h2>Programação de TV & Streaming</h2>
         <span id="linkAdmin" class="link-admin" onclick="fazerLogin()">Entrar como Admin</span>
         <span id="linkSair" class="link-admin" onclick="fazerSair()" style="display: none; color: red;">Sair do Painel</span>
     </div>
 
     <div id="areaCadastro">
-        <h3>Painel de Cadastro (Modo Administrador)</h3>
-        <form id="formRally">
-            <div class="campo"><label>Data:</label><input type="text" id="data" required></div>
-            <div class="campo"><label>Hora:</label><input type="text" id="hora" required></div>
-            <div class="campo"><label>Descrição</label><input type="text" id="descrição" required></div>
-            <div class="campo"><label>Canal</label><input type="text" id="canal" required></div>
-            <div class="campo"><label>Local</label><input type="text" id="local" required></div>
-            <div class="campo"><label>Links</label><input type="text" id="links" required></div>
+        <h3>Painel de Cadastro de Eventos (Modo Administrador)</h3>
+        <form id="formProgramacao">
+            <div class="campo"><label>Data:</label><input type="text" id="data" placeholder="Ex: 25/09/2026" required></div>
+            <div class="campo"><label>Hora:</label><input type="text" id="hora" placeholder="Ex: 21:30" required></div>
+            <div class="campo"><label>Descrição:</label><input type="text" id="descricao" placeholder="Ex: FIA WEC - FP3" required></div>
+            <div class="campo"><label>Canal / Transmissão:</label><input type="text" id="canal" placeholder="Ex: BandSports / YouTube" required></div>
+            <div class="campo"><label>Local / Evento:</label><input type="text" id="local" placeholder="Ex: Fuji Speedway" required></div>
+            <div class="campo"><label>Link do Streaming:</label><input type="url" id="links" placeholder="Ex: https://www.youtube.com/..." required></div>
             <div class="campo">
-                <label>Categoria:</label>
+                <label>Plataforma / Categoria:</label>
                 <select id="categoria" required>
                     <option value="Youtube">Youtube</option>
                     <option value="Twitch.TV">Twitch.TV</option>
                     <option value="ESPN">ESPN</option>
                     <option value="Sportv2 BR">Sportv2 BR</option>
-                    <option value="SporTV3 BR">Sportv3 BR</option>
+                    <option value="Sportv3 BR">Sportv3 BR</option>
                     <option value="Racer BR">Racer BR</option>
                     <option value="Rally TV">Rally TV</option>
                     <option value="Gaucho Rally 5 L">Gaucho Rally 5 L</option>
@@ -57,7 +59,7 @@
                     <option value="RallyPR RTT">RallyPR RTT</option>
                 </select>
             </div>
-            <button type="submit" style="background-color: #ccffcc;">Salvar Competidor</button>
+            <button type="submit" style="background-color: #ccffcc;">Salvar Transmissão</button>
         </form>
     </div>
 
@@ -68,7 +70,9 @@
                 <th>Hora</th>
                 <th>Descrição</th>
                 <th>Canal</th>
-                <th>Link</th>
+                <th>Local</th>
+                <th>Categoria</th>
+                <th>Assistir</th>
                 <th class="coluna-acao" id="thAcao">Ações</th>
             </tr>
         </thead>
@@ -76,27 +80,25 @@
     </table>
 
 <script>
-    // Carrega o banco estruturado ou inicia um vazio para gerenciar as linhas individualmente
-    let dadosSalvos = JSON.parse(localStorage.getItem("dados_rally_estruturados")) || [];
+    let dadosSalvos = JSON.parse(localStorage.getItem("programacao_tv_dados")) || [];
     let modoAdminAtivo = false;
 
     const SENHA_CORRETA = "Rally2026!";
 
-    // Desenha a tabela dinamicamente com base nos dados salvos
     function atualizarInterfaceTabela() {
         const corpoTabela = document.getElementById("tabela");
         corpoTabela.innerHTML = "";
 
-        dadosSalvos.forEach((competidor, indice) => {
+        dadosSalvos.forEach((item, indice) => {
             let linha = document.createElement("tr");
             linha.innerHTML = `
-                <td><b>${competidor.num}</b></td>
-                <td>${competidor.piloto}</td>
-                <td>${competidor.navegador}</td>
-                <td>${competidor.equipe}</td>
-                <td>${competidor.veiculo}</td>
-                <td>${competidor.campeonato}</td>
-                <td><b>${competidor.categoria}</b></td>
+                <td><b>${item.data}</b></td>
+                <td>${item.hora}</td>
+                <td>${item.descricao}</td>
+                <td>${item.canal}</td>
+                <td>${item.local}</td>
+                <td><b>${item.categoria}</b></td>
+                <td><a href="${item.links}" target="_blank" rel="noopener noreferrer" class="btn-link">Acessar</a></td>
                 <td class="coluna-acao" style="display: ${modoAdminAtivo ? 'table-cell' : 'none'}">
                     <button class="btn-excluir" onclick="removerLinha(${indice})">Excluir</button>
                 </td>
@@ -104,7 +106,6 @@
             corpoTabela.appendChild(linha);
         });
 
-        // Controla a exibição do cabeçalho da coluna de ações
         document.getElementById("thAcao").style.display = modoAdminAtivo ? "table-cell" : "none";
     }
 
@@ -129,37 +130,34 @@
         atualizarInterfaceTabela();
     }
 
-    // Função para remover uma linha específica
     function removerLinha(indice) {
-        if (confirm("Deseja mesmo remover este competidor?")) {
-            dadosSalvos.splice(indice, 1); // Remove do array
-            localStorage.setItem("dados_rally_estruturados", JSON.stringify(dadosSalvos)); // Salva nova lista
-            atualizarInterfaceTabela(); // Redesenha a tela
+        if (confirm("Deseja mesmo remover esta transmissão?")) {
+            dadosSalvos.splice(indice, 1);
+            localStorage.setItem("programacao_tv_dados", JSON.stringify(dadosSalvos));
+            atualizarInterfaceTabela();
         }
     }
 
-    // Grava um novo competidor estruturado
-    document.getElementById("formRally").addEventListener("submit", function(e) {
+    document.getElementById("formProgramacao").addEventListener("submit", function(e) {
         e.preventDefault();
 
-        let novoCompetidor = {
-            num: document.getElementById("num").value,
-            piloto: document.getElementById("piloto").value,
-            navegador: document.getElementById("navegador").value,
-            equipe: document.getElementById('equipe').value,
-            veiculo: document.getElementById("veiculo").value,
-            campeonato: document.getElementById("campeonato").value,
+        let novoEvento = {
+            data: document.getElementById("data").value,
+            hora: document.getElementById("hora").value,
+            descricao: document.getElementById("descricao").value,
+            canal: document.getElementById("canal").value,
+            local: document.getElementById("local").value,
+            links: document.getElementById("links").value,
             categoria: document.getElementById("categoria").value
         };
 
-        dadosSalvos.push(novoCompetidor);
-        localStorage.setItem("dados_rally_estruturados", JSON.stringify(dadosSalvos));
+        dadosSalvos.push(novoEvento);
+        localStorage.setItem("programacao_tv_dados", JSON.stringify(dadosSalvos));
         
         atualizarInterfaceTabela();
-        document.getElementById("formRally").reset();
+        document.getElementById("formProgramacao").reset();
     });
 
-    // Inicia carregando os dados na tela
     atualizarInterfaceTabela();
 </script>
 
