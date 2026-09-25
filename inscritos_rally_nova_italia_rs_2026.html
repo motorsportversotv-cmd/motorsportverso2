@@ -26,7 +26,7 @@
         <span id="linkSair" class="link-admin" onclick="fazerSair()" style="display: none; color: red;">Sair do Painel</span>
     </div>
 
-    <!-- O formulário começa oculto, mas os dados da tabela continuam protegidos -->
+    <!-- O formulário começa oculto e os dados da tabela ficam protegidos -->
     <div id="areaCadastro">
         <h3>Painel de Cadastro (Modo Administrador)</h3>
         <form id="formRally">
@@ -60,7 +60,7 @@
         </form>
     </div>
 
-    <!-- Tabela visível para todos com os dados carregados do armazenamento -->
+    <!-- Tabela pública -->
     <table>
         <thead>
             <tr>
@@ -77,11 +77,11 @@
     </table>
 
 <script>
-    // PASSO 1: Carrega IMEDIATAMENTE tudo o que foi salvo antes para os dados nunca sumirem
+    // Carrega imediatamente os dados já salvos
     document.getElementById("tabela").innerHTML = localStorage.getItem("tabela_rally") || "";
 
-    // Senha padrão para exibir o formulário
-    const SENHA_CORRETA = "admin123";
+    // 🔴 ALTERE A SUA SENHA DIRETAMENTE AQUI ENTRE AS ASPAS 🔴
+    const SENHA_CORRETA = "Rally2026!";
 
     function fazerLogin() {
         let senhaDigitada = prompt("Digite a senha de administrador para liberar o cadastro:");
@@ -100,7 +100,7 @@
         document.getElementById("linkSair").style.display = "none";
     }
 
-    // PASSO 2: Salva os novos competidores sem apagar os antigos da memória
+    // Salva os competidores na lista mantendo o histórico
     document.getElementById("formRally").addEventListener("submit", function(e) {
         e.preventDefault();
 
@@ -122,17 +122,11 @@
             <td><b>${categoria}</b></td>
         </tr>`;
 
-        // Adiciona na tabela existente na tela
         document.getElementById("tabela").innerHTML += novaLinha;
-
-        // Atualiza a memória definitiva do navegador (localStorage)
         localStorage.setItem("tabela_rally", document.getElementById("tabela").innerHTML);
-
-        // Limpa os campos do formulário para o próximo piloto
         document.getElementById("formRally").reset();
     });
 </script>
 
 </body>
 </html>
-
