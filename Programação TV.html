@@ -10,13 +10,15 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             margin: 0;
-            padding: 20px;
+            padding: 10px; /* Reduzido de 20px para aproveitar mais espaço no celular */
             color: #333;
         }
 
         .container {
+            width: 100%;
             max-width: 800px;
             margin: 0 auto;
+            box-sizing: border-box;
         }
 
         .panel-cadastro, .panel-lista {
@@ -25,6 +27,7 @@
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
+            box-sizing: border-box;
         }
 
         h2 {
@@ -105,15 +108,20 @@
             background-color: #27ae60;
         }
 
-        /* ESTILOS DA LISTA DE EVENTOS */
+        /* ESTILOS DA LISTA DE EVENTOS (CORRIGIDO PARA SUCESSO NO CELULAR) */
         .tabela-container {
-            overflow-x: auto;
+            width: 100%;
+            overflow-x: auto; /* Cria a rolagem horizontal no celular */
+            -webkit-overflow-scrolling: touch; /* Deixa o deslize do dedo suave no iOS */
+            margin-top: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
         }
 
         table {
             width: 100%;
+            min-width: 650px; /* Impede a tabela de achatar e sumir no mobile */
             border-collapse: collapse;
-            margin-top: 15px;
             font-size: 14px;
         }
 
@@ -121,6 +129,7 @@
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #e0e0e0;
+            white-space: nowrap; /* Evita quebras de linha estranhas no texto */
         }
 
         th {
@@ -170,6 +179,19 @@
             color: #7f8c8d;
             padding: 20px;
             font-style: italic;
+        }
+
+        /* REGRAS DE RESPONSIVIDADE PARA TELAS PEQUENAS (SMARTPHONES) */
+        @media (max-width: 600px) {
+            body {
+                padding: 5px;
+            }
+            .panel-cadastro, .panel-lista {
+                padding: 15px; /* Reduz o espaçamento lateral interno para dar mais espaço à tabela */
+            }
+            th, td {
+                padding: 8px; /* Compacta os dados ligeiramente no celular */
+            }
         }
     </style>
 </head>
@@ -241,197 +263,11 @@
                         <label for="prog-links-replay-1">Colocar links de replay:</label>
                         <input type="url" id="prog-links-replay-1" placeholder="https://...">
                     </div>
-                    <button type="submit" class="btn-submit btn-primary">Salvar Programação Principal</button>
-                </form>
-            </section>
-
-            <!-- FORMULÁRIO 2: Canal Alternativo / Secundário -->
-            <section class="cadastro-secao">
-                <h3>Cadastro - Canal Alternativo (Transmissão Secundária)</h3>
-                <form id="cadastro-tv-form-2" onsubmit="salvarEvento(event, 2)">
-                    <div class="form-group">
-                        <label for="prog-data-2">Data:</label>
-                        <input type="date" id="prog-data-2" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="prog-hora-2">Hora:</label>
-                        <input type="time" id="prog-hora-2" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="prog-descricao-2">Descrição categoria\evento:</label>
-                        <input type="text" id="prog-descricao-2" placeholder="Ex: Transmissão Alternativa / Onboard" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="prog-local-2">Local:</label>
-                        <input type="text" id="prog-local-2" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="prog-canal-2">Canal Alternativo:</label>
-                        <select id="prog-canal-2" required>
-                            <option value="Youtube">Youtube</option>
-                            <option value="Twitch .TV">Twitch .TV</option>
-                            <option value="Facebook">Facebook</option>
-                            <option value="Bandsports">Bandsports</option>
-                            <option value="Globoplay Premium">Globoplay Premium</option>
-                            <option value="Globo">Globo</option>
-                            <option value="Fox Sports(USA)">Fox Sports(USA)</option>
-                            <option value="Roku.TV">Roku.TV</option>
-                            <option value="Disney + (premium)">Disney + (premium)</option>
-                            <option value="ESPN">ESPN</option>
-                            <option value="Rally TV">Rally TV</option>
-                            <option value="Sportv 2 (BR)">Sportv 2 (BR)</option>
-                            <option value="Sportv 3 (BR)">Sportv 3 (BR)</option>
-                            <option value="Sportv 4 Portugal">Sportv 4 Portugal</option>
-                            <option value="Sportv 5 Portugal">Sportv 5 Portugal</option>
-                            <option value="Racer BR">Racer BR</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="prog-desc-canal-2">Descrição do Canal Alternativo (Ex: Twitch TV Canal):</label>
-                        <input type="text" id="prog-desc-canal-2" placeholder="Ex: Câmera Onboard / Sinal Secundário">
-                    </div>
-                    <div class="form-group">
-                        <label for="prog-logo-cat-2">Colocar logo categoria (URL):</label>
-                        <input type="url" id="prog-logo-cat-2" placeholder="https://link-da-imagem.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="prog-logo-canal-2">Colocar logo canal (URL):</label>
-                        <input type="url" id="prog-logo-canal-2" placeholder="https://link-da-imagem.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="prog-links-transmissao-2">Colocar links de transmissão:</label>
-                        <input type="url" id="prog-links-transmissao-2" placeholder="https://...">
-                    </div>
-                    <div class="form-group">
-                        <label for="prog-links-replay-2">Colocar links de replay:</label>
-                        <input type="url" id="prog-links-replay-2" placeholder="https://...">
-                    </div>
-                    <button type="submit" class="btn-submit btn-secondary">Salvar Programação Alternativa</button>
+                    <button type="submit" class="btn-submit btn-primary">Salvar Programação</button>
                 </form>
             </section>
         </main>
-
-        <!-- TABELA DE PROGRAMAÇÕES -->
-        <section class="panel-lista">
-            <h3>Programações Cadastradas</h3>
-            <div class="tabela-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Data/Hora</th>
-                            <th>Evento/Local</th>
-                            <th>Tipo</th>
-                            <th>Canal / Info</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabela-eventos-body">
-                        <!-- Preenchido dinamicamente via JS -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
     </div>
 
-    <script>
-        // Carrega a tabela assim que o navegador abre o arquivo
-        window.onload = function() {
-            atualizarTabela();
-        };
-
-        // SALVA SEM SOBRESCREVER OS DADOS ANTIGOS
-        function salvarEvento(event, tipoFormulario) {
-            event.preventDefault();
-
-            const novoEvento = {
-                id: 'id_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-                tipoCadastro: tipoFormulario === 1 ? 'Principal' : 'Alternativo',
-                data: document.getElementById(`prog-data-${tipoFormulario}`).value,
-                hora: document.getElementById(`prog-hora-${tipoFormulario}`).value,
-                descricao: document.getElementById(`prog-descricao-${tipoFormulario}`).value,
-                local: document.getElementById(`prog-local-${tipoFormulario}`).value,
-                canal: document.getElementById(`prog-canal-${tipoFormulario}`).value,
-                descricaoCanal: document.getElementById(`prog-desc-canal-${tipoFormulario}`).value || 'Canal Geral',
-                logoCategoria: document.getElementById(`prog-logo-cat-${tipoFormulario}`).value || '',
-                logoCanal: document.getElementById(`prog-logo-canal-${tipoFormulario}`).value || '',
-                linkTransmissao: document.getElementById(`prog-links-transmissao-${tipoFormulario}`).value || '',
-                linkReplay: document.getElementById(`prog-links-replay-${tipoFormulario}`).value || ''
-            };
-
-            // Busca os dados antigos de forma segura
-            let listaProgramacao = [];
-            try {
-                const dadosArmazenados = localStorage.getItem('programacao_tv');
-                if (dadosArmazenados) {
-                    listaProgramacao = JSON.parse(dadosArmazenados);
-                }
-            } catch (e) {
-                listaProgramacao = [];
-            }
-
-            // Junta o novo item com a lista existente
-            listaProgramacao.push(novoEvento);
-
-            // Grava de volta no LocalStorage
-            localStorage.setItem('programacao_tv', JSON.stringify(listaProgramacao));
-
-            // Reseta o formulário correto e recarrega a tabela visual
-            document.getElementById(`cadastro-tv-form-${tipoFormulario}`).reset();
-            atualizarTabela();
-            alert('Programação salva com sucesso!');
-        }
-
-        // ATUALIZA A INTERFACE VISUAL DA TABELA
-        function atualizarTabela() {
-            const tbody = document.getElementById('tabela-eventos-body');
-            if (!tbody) return;
-
-            let listaProgramacao = [];
-            try {
-                const dadosArmazenados = localStorage.getItem('programacao_tv');
-                if (dadosArmazenados) {
-                    listaProgramacao = JSON.parse(dadosArmazenados);
-                }
-            } catch (e) {
-                listaProgramacao = [];
-            }
-
-            if (listaProgramacao.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="sem-dados">Nenhuma programação cadastrada no momento.</td></tr>`;
-                return;
-            }
-
-            // Organiza por ordem cronológica (Data e Hora)
-            listaProgramacao.sort((a, b) => new Date(a.data + 'T' + a.hora) - new Date(b.data + 'T' + b.hora));
-
-            tbody.innerHTML = '';
-            listaProgramacao.forEach(evento => {
-                const dataFormatada = evento.data.split('-').reverse().join('/');
-                const badgeClass = evento.tipoCadastro === 'Principal' ? 'badge-principal' : 'badge-alternativo';
-                
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${dataFormatada} - ${evento.hora}</td>
-                    <td><strong>${evento.descricao}</strong><br><small>📍 ${evento.local}</small></td>
-                    <td><span class="badge ${badgeClass}">${evento.tipoCadastro}</span></td>
-                    <td>${evento.canal}<br><small>📺 ${evento.descricaoCanal}</small></td>
-                    <td>
-                        <button class="btn-deletar" onclick="excluirEvento('${evento.id}')">Excluir</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        // REMOVE EVENTOS MANUALMENTE POR ID
-        function excluirEvento(id) {
-            if (confirm("Tem certeza que deseja remover esta programação?")) {
-                let listaProgramacao = JSON.parse(localStorage.getItem('programacao_tv')) || [];
-                listaProgramacao = listaProgramacao.filter(evento => evento.id !== id);
-                localStorage.setItem('programacao_tv', JSON.stringify(listaProgramacao));
-                atualizarTabela();
-            }
-        }
-    </script>
 </body>
 </html>
