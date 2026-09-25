@@ -256,13 +256,11 @@
             };
 
             if (id) {
-                // Modo Edição: Atualiza o item existente
                 const index = eventos.findIndex(ev => ev.id == id);
                 if (index !== -1) {
                     eventos[index] = { id: Number(id), ...dadosEvento };
                 }
             } else {
-                // Modo Cadastro: Cria um novo item
                 dadosEvento.id = Date.now();
                 eventos.push(dadosEvento);
             }
@@ -281,6 +279,5 @@
 
             document.getElementById('editId').value = ev.id;
             document.getElementById('data').value = ev.data;
-       document.getElementById('local').value = ev.local === 'Não informado' ? '' : 
-           ev.local;document.getElementById('canal').value = ev.canal;document.getElementById('linkTransmissao').value = ev.linkTransmissao;document.getElementById('linkReplay').
-           value = ev.linkReplay;document.getElementById('formTitle').innerText = "✏️ Editando Evento";document.getElementById('btnSalvar').innerText = "Atualizar Dados";document.getElementById('btnCancelar').style.display = "inline-block";window.scrollTo({ top: 0, behavior: 'smooth' });}
+            document.getElementById('hora').value = ev.hora;
+Use o código com cuidado.document.getElementById('descricao').value = ev.descricao;document.getElementById('local').value = ev.local === 'Não informado' ? '' : ev.local;document.getElementById('canal').value = ev.canal;document.getElementById('linkTransmissao').value = ev.linkTransmissao;document.getElementById('linkReplay').value = ev.linkReplay;document.getElementById('formTitle').innerText = "✏️ Editando Evento";document.getElementById('btnSalvar').innerText = "Atualizar Dados";document.getElementById('btnCancelar').style.display = "inline-block";window.scrollTo({ top: 0, behavior: 'smooth' });}function cancelarEdicao() {document.getElementById('eventForm').reset();document.getElementById('editId').value = "";document.getElementById('formTitle').innerText = "🔐 Cadastrar Novo Evento";document.getElementById('btnSalvar').innerText = "Salvar Dados e Publicar";document.getElementById('btnCancelar').style.display = "none";}function deletarEvento(id) {if(confirm("Deseja mesmo excluir este evento?")) {eventos = eventos.filter(ev => ev.id !== id);localStorage.setItem('programacao_tv', JSON.stringify(eventos));if(document.getElementById('editId').value == id) cancelarEdicao();renderizarEventos();}}function renderizarEventos() {const grid = document.getElementById('eventsGrid');grid.innerHTML = '';if (eventos.length === 0) {grid.innerHTML = 'Nenhum evento programado.';return;}eventos.forEach(ev => {const card = document.createElement('div');card.className = 'event-card';card.innerHTML = `📅 ${formatarData(ev.data)} às ${ev.hora}${ev.canal}${ev.descricao}📍 Local: ${ev.local}${ev.linkTransmissao ? <a href="${ev.linkTransmissao}" target="_blank" class="btn-link btn-live">🔴 Ao Vivo</a> : ''}${ev.linkReplay ? <a href="${ev.linkReplay}" target="_blank" class="btn-link btn-replay">🔄 Replay</a> : ''}${isAdmin ? <div class="admin-actions"> <button class="btn-edit" onclick="prepararEdicao(${ev.id})">✏️ Editar</button> <button class="btn-delete" onclick="deletarEvento(${ev.id})">❌ Excluir</button> </div> : ''}`;grid.appendChild(card);});}renderizarEventos();
