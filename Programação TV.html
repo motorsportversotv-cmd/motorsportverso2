@@ -2,316 +2,168 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Administrativo - ProgramaÃ§Ã£o TV & Streaming</title>
+    <title>Programação TV & Streaming</title>
     <style>
-        :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #1e293b;
-            --border: #e2e8f0;
-            --danger: #ef4444;
-            --danger-hover: #dc2626;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 10px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--border);
-            margin-bottom: 20px;
-        }
-        h1, h2 { margin: 0; font-size: 1.5rem; }
-        .btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        .btn:hover { background-color: var(--primary-hover); }
-        .btn-danger { background-color: var(--danger); }
-        .btn-danger:hover { background-color: var(--danger-hover); }
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-        @media (min-width: 992px) {
-            .grid { grid-template-columns: 1fr 2fr; }
-        }
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .form-group { margin-bottom: 12px; }
-        label { display: block; margin-bottom: 4px; font-weight: 500; font-size: 0.9rem; }
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 0.95rem;
-        }
-        .table-container { overflow-x: auto; margin-top: 15px; }
-        table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        th, td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.9rem; }
-        th { background-color: #f1f5f9; }
-        .login-screen { max-width: 400px; margin: 80px auto; }
-        .hidden { display: none !important; }
-        .badge { background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
-        .logo-preview { max-height: 24px; max-width: 50px; object-fit: contain; vertical-align: middle; }
-        .action-links a { display: inline-block; font-size: 0.85em; color: var(--primary); text-decoration: none; margin-right: 10px; font-weight: bold; }
-        .action-links a:hover { text-decoration: underline; }
+        body { font-family: Arial, sans-serif; max-width: 950px; margin: 20px auto; padding: 10px; }
+        .topo { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px; }
+        .link-admin { color: #0066cc; cursor: pointer; text-decoration: underline; font-size: 14px; font-weight: bold; }
+        #areaCadastro { background-color: #f9f9f9; padding: 20px; border: 1px dashed #999; border-radius: 5px; margin-bottom: 30px; display: none; }
+        .campo { margin-bottom: 10px; }
+        label { display: inline-block; width: 150px; font-weight: bold; }
+        input, select { padding: 5px; width: 250px; }
+        button { padding: 8px 15px; margin-top: 10px; cursor: pointer; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .coluna-acao { display: none; text-align: center; }
+        .btn-excluir { background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
+        .btn-excluir:hover { background-color: #cc0000; }
     </style>
 </head>
 <body>
 
-    <!-- Tela de Login -->
-    <div id="loginSection" class="card login-screen">
-        <h2>Painel Restrito (Admin)</h2>
-        <p style="font-size: 0.9em; color: #64748b; margin: 5px 0 15px 0;">Insira a senha padrÃ£o: <strong>admin123</strong></p>
-        <div class="form-group">
-            <label for="password">Senha:</label>
-            <input type="password" id="password" placeholder="Digite a senha">
-        </div>
-        <button class="btn" style="width: 100%; margin-top: 10px;" onclick="login()">Entrar</button>
-        <p id="loginError" style="color: red; font-size: 0.9em; display: none; margin-top: 10px;">Senha incorreta!</p>
+    <div class="topo">
+        <h2>Lista de Inscritos - Rally Nova Itália</h2>
+        <span id="linkAdmin" class="link-admin" onclick="fazerLogin()">Entrar como Admin</span>
+        <span id="linkSair" class="link-admin" onclick="fazerSair()" style="display: none; color: red;">Sair do Painel</span>
     </div>
 
-    <!-- Painel Principal -->
-    <div id="adminPanel" class="container hidden">
-        <header>
-            <div>
-                <h1>ProgramaÃ§Ã£o TV & Streaming</h1>
-                <p style="margin: 3px 0 0 0; color: #64748b; font-size: 0.85rem;">Nuvem Global Ativa (Qualquer Dispositivo)</p>
+    <div id="areaCadastro">
+        <h3>Painel de Cadastro (Modo Administrador)</h3>
+        <form id="formRally">
+            <div class="campo"><label>Data:</label><input type="number" id="num" required></div>
+            <div class="campo"><label>Hora:</label><input type="text" id="piloto" required></div>
+            <div class="campo"><label>Descrição</label><input type="text" id="navegador" required></div>
+            <div class="campo"><label>Canal</label><input type="text" id="equipe" required></div>
+            <div class="campo"><label>Links</label><input type="text" id="veiculo" required></div>
+            <div class="campo"><label>Campeonato:</label><input type="text" id="campeonato" required></div>
+            <div class="campo">
+                <label>Categoria:</label>
+                <select id="categoria" required>
+                    <option value="Youtube">Youtube</option>
+                    <option value="BR Rally 4">BR Rally 4</option>
+                    <option value="BR Rally 5">BR Rally 5</option>
+                    <option value="BR Rally 5 L">BR Rally 5 L</option>
+                    <option value="Gaucho Rally 2">Gaucho Rally 2</option>
+                    <option value="Gaucho Rally 4">Gaucho Rally 4</option>
+                    <option value="Gaucho Rally 5">Gaucho Rally 5</option>
+                    <option value="Gaucho Rally 5 L">Gaucho Rally 5 L</option>
+                    <option value="Gaucho UTV SSV">Gaucho UTV SSV</option>
+                    <option value="RallyPR 4x4">RallyPR 4x4</option>
+                    <option value="RallyPR 4x2 Fia">RallyPR 4x2 Fia</option>
+                    <option value="RallyPR 4x2 Pró">RallyPR 4x2 Pró</option>
+                    <option value="RallyPR 4x2 Super">RallyPR 4x2 Super</option>
+                    <option value="RallyPR RCC">RallyPR RCC</option>
+                    <option value="RallyPR RTT">RallyPR RTT</option>
+                </select>
             </div>
-            <button class="btn btn-danger" onclick="logout()">Sair</button>
-        </header>
-
-        <div class="grid">
-            <!-- FormulÃ¡rio -->
-            <div class="card">
-                <h2>Cadastrar Evento</h2>
-                <form id="eventForm" onsubmit="saveEvent(event)" style="margin-top: 15px;">
-                    <div class="form-group">
-                        <label for="eventDate">Data:</label>
-                        <input type="date" id="eventDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventTime">Hora:</label>
-                        <input type="time" id="eventTime" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventDesc">DescriÃ§Ã£o Categoria / Evento:</label>
-                        <input type="text" id="eventDesc" placeholder="Ex: WRC - Rally de Portugal" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventLocal">Local / Circuito:</label>
-                        <input type="text" id="eventLocal" placeholder="Ex: Porto, Portugal" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventChannel">Canal / Plataforma:</label>
-                        <select id="eventChannel" required>
-                            <option value="Bandsports">Bandsports</option>
-                            <option value="Youtube">Youtube</option>
-                            <option value="Globoplay Premium">Globoplay Premium</option>
-                            <option value="Globo">Globo</option>
-                            <option value="Fox Sports (USA)">Fox Sports (USA)</option>
-                            <option value="Twitch.TV">Twitch.TV</option>
-                            <option value="Roku.TV">Roku.TV</option>
-                            <option value="Disney+ (premium)">Disney+ (premium)</option>
-                            <option value="ESPN">ESPN</option>
-                            <option value="Rally TV">Rally TV</option>
-                            <option value="Sportv 2 (BR)">Sportv 2 (BR)</option>
-                            <option value="Sportv 3 (BR)">Sportv 3 (BR)</option>
-                            <option value="Sportv 4 Portugal">Sportv 4 Portugal</option>
-                            <option value="Sportv 5 Portugal">Sportv 5 Portugal</option>
-                            <option value="Racer BR">Racer BR</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="logoCategory">URL do Logo da Categoria:</label>
-                        <input type="url" id="logoCategory" placeholder="https://...">
-                    </div>
-                    <div class="form-group">
-                        <label for="logoChannel">URL do Logo do Canal:</label>
-                        <input type="url" id="logoChannel" placeholder="https://...">
-                    </div>
-                    <div class="form-group">
-                        <label for="linkLive">Link de TransmissÃ£o (Ao Vivo):</label>
-                        <input type="url" id="linkLive" placeholder="https://...">
-                    </div>
-                    <div class="form-group">
-                        <label for="linkReplay">Link de Replay (VOD):</label>
-                        <input type="url" id="linkReplay" placeholder="https://...">
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Salvar na Nuvem</button>
-                </form>
-            </div>
-
-            <!-- Tabela -->
-            <div class="card">
-                <h2>Grade UniÃ£o em Tempo Real</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Data/Hora</th>
-                                <th>Evento</th>
-                                <th>Local</th>
-                                <th>Canal</th>
-                                <th>TransmissÃ£o</th>
-                                <th>AÃ§Ãµes</th>
-                            </tr>
-                        </thead>
-                        <tbody id="eventsTableBody">
-                            <tr><td colspan="6" style="text-align: center;">Carregando dados da nuvem...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+            <button type="submit" style="background-color: #ccffcc;">Salvar Competidor</button>
+        </form>
     </div>
 
-    <!-- MÃ³dulos de ConexÃ£o Firebase (Nuvem do Google) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    <table>
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Piloto</th>
+                <th>Navegador</th>
+                <th>Equipe</th>
+                <th>Veículo</th>
+                <th>Campeonato</th>
+                <th>Categoria</th>
+                <th class="coluna-acao" id="thAcao">Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabela"></tbody>
+    </table>
 
-        const firebaseConfig = {
-            databaseURL: "https://programacao-tv-default-rtdb.firebaseio.com/"
-        };
+<script>
+    // Carrega o banco estruturado ou inicia um vazio para gerenciar as linhas individualmente
+    let dadosSalvos = JSON.parse(localStorage.getItem("dados_rally_estruturados")) || [];
+    let modoAdminAtivo = false;
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-        const dbRef = ref(db, "eventos");
+    const SENHA_CORRETA = "Rally2026!";
 
-        const CORRECT_PASSWORD = "admin123";
-        let localEvents = [];
+    // Desenha a tabela dinamicamente com base nos dados salvos
+    function atualizarInterfaceTabela() {
+        const corpoTabela = document.getElementById("tabela");
+        corpoTabela.innerHTML = "";
 
-        window.login = function() {
-            const passwordInput = document.getElementById("password").value;
-            const errorText = document.getElementById("loginError");
-
-            if (passwordInput === CORRECT_PASSWORD) {
-                document.getElementById("loginSection").classList.add("hidden");
-                document.getElementById("adminPanel").classList.remove("hidden");
-                errorText.style.display = "none";
-            } else {
-                errorText.style.display = "block";
-            }
-        };
-
-        window.logout = function() {
-            document.getElementById("password").value = "";
-            document.getElementById("adminPanel").classList.add("hidden");
-            document.getElementById("loginSection").classList.remove("hidden");
-        };
-
-        onValue(dbRef, (snapshot) => {
-            const data = snapshot.val();
-            localEvents = [];
-            
-            if (data) {
-                Object.keys(data).forEach(key => {
-                    localEvents.push({ id: key, ...data[key] });
-                });
-                localEvents.sort((a, b) => new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`));
-            }
-            renderEvents(localEvents);
+        dadosSalvos.forEach((competidor, indice) => {
+            let linha = document.createElement("tr");
+            linha.innerHTML = `
+                <td><b>${competidor.num}</b></td>
+                <td>${competidor.piloto}</td>
+                <td>${competidor.navegador}</td>
+                <td>${competidor.equipe}</td>
+                <td>${competidor.veiculo}</td>
+                <td>${competidor.campeonato}</td>
+                <td><b>${competidor.categoria}</b></td>
+                <td class="coluna-acao" style="display: ${modoAdminAtivo ? 'table-cell' : 'none'}">
+                    <button class="btn-excluir" onclick="removerLinha(${indice})">Excluir</button>
+                </td>
+            `;
+            corpoTabela.appendChild(linha);
         });
 
-        window.saveEvent = function(e) {
-            e.preventDefault();
+        // Controla a exibição do cabeçalho da coluna de ações
+        document.getElementById("thAcao").style.display = modoAdminAtivo ? "table-cell" : "none";
+    }
 
-            const newEvent = {
-                date: document.getElementById("eventDate").value,
-                time: document.getElementById("eventTime").value,
-                desc: document.getElementById("eventDesc").value,
-                local: document.getElementById("eventLocal").value,
-                channel: document.getElementById("eventChannel").value,
-                logoCategory: document.getElementById("logoCategory").value,
-                logoChannel: document.getElementById("logoChannel").value,
-                linkLive: document.getElementById("linkLive").value,
-                linkReplay: document.getElementById("linkReplay").value
-            };
+    function fazerLogin() {
+        let senhaDigitada = prompt("Digite a senha de administrador para liberar ações:");
+        if (senhaDigitada === SENHA_CORRETA) {
+            modoAdminAtivo = true;
+            document.getElementById("areaCadastro").style.display = "block";
+            document.getElementById("linkAdmin").style.display = "none";
+            document.getElementById("linkSair").style.display = "inline";
+            atualizarInterfaceTabela();
+        } else if (senhaDigitada !== null) {
+            alert("Senha incorreta!");
+        }
+    }
 
-            push(dbRef, newEvent)
-                .then(() => {
-                    document.getElementById("eventForm").reset();
-                    alert("Salvo com sucesso na nuvem global!");
-                })
-                .catch(err => alert("Erro ao salvar: " + err.message));
+    function fazerSair() {
+        modoAdminAtivo = false;
+        document.getElementById("areaCadastro").style.display = "none";
+        document.getElementById("linkAdmin").style.display = "inline";
+        document.getElementById("linkSair").style.display = "none";
+        atualizarInterfaceTabela();
+    }
+
+    // Função para remover uma linha específica
+    function removerLinha(indice) {
+        if (confirm("Deseja mesmo remover este competidor?")) {
+            dadosSalvos.splice(indice, 1); // Remove do array
+            localStorage.setItem("dados_rally_estruturados", JSON.stringify(dadosSalvos)); // Salva nova lista
+            atualizarInterfaceTabela(); // Redesenha a tela
+        }
+    }
+
+    // Grava um novo competidor estruturado
+    document.getElementById("formRally").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        let novoCompetidor = {
+            num: document.getElementById("num").value,
+            piloto: document.getElementById("piloto").value,
+            navegador: document.getElementById("navegador").value,
+            equipe: document.getElementById('equipe').value,
+            veiculo: document.getElementById("veiculo").value,
+            campeonato: document.getElementById("campeonato").value,
+            categoria: document.getElementById("categoria").value
         };
 
-        window.deleteEvent = function(id) {
-            if (confirm("Remover permanentemente de todos os dispositivos?")) {
-                const itemRef = ref(db, `eventos/${id}`);
-                remove(itemRef);
-            }
-        };
+        dadosSalvos.push(novoCompetidor);
+        localStorage.setItem("dados_rally_estruturados", JSON.stringify(dadosSalvos));
+        
+        atualizarInterfaceTabela();
+        document.getElementById("formRally").reset();
+    });
 
-        function formatDate(dateStr) {
-            if(!dateStr) return "";
-            const parts = dateStr.split("-");
-            return `${parts[2]}/${parts[1]}/${parts[0]}`;
-        }
+    // Inicia carregando os dados na tela
+    atualizarInterfaceTabela();
+</script>
 
-        function renderEvents(eventsList) {
-            const tbody = document.getElementById("eventsTableBody");
-            tbody.innerHTML = "";
-
-            if (eventsList.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #64748b;">Nenhum evento agendado na nuvem.</td></tr>`;
-                return;
-            }
-
-            eventsList.forEach(event => {
-                const tr = document.createElement("tr");
-
-                const catLogoHTML = event.logoCategory ? `<img src="${event.logoCategory}" class="logo-preview" alt="Cat"> ` : "ðŸ“º ";
-                const channelLogoHTML = event.logoChannel ? `<img src="${event.logoChannel}" class="logo-preview" alt="Canal">` : `<span class="badge">${event.channel}</span>`;
-
-                let linksHTML = `<div class="action-links">`;
-                if (event.linkLive) linksHTML += `<a href="${event.linkLive}" target="_blank">ðŸ”´ Ao Vivo</a>`;
-                if (event.linkReplay) linksHTML += `<a href="${event.linkReplay}" target="_blank" style="color: #64748b;">ðŸ”„ Replay</a>`;
-                if (!event.linkLive && !event.linkReplay) linksHTML += `<span style="color:#94a3b8; font-size:0.85em;">Pendente</span>`;
-                linksHTML += `</div>`;
-
-                tr.innerHTML = `
-                    <td><strong>${formatDate(event.date)}</strong><br><small style="color:#64748b;">${event.time}</small></td>
-                    <td>${catLogoHTML}<strong>${event.desc}</strong></td>
-                    <td>ðŸ“ ${event.local}</td>
-                    <td>${channelLogoHTML}</td>
-                    <td>${linksHTML}</td>
-                    <td>
-                        <button class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8em;" onclick="deleteEvent('${event.id}')">Excluir</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-    </script>
 </body>
 </html>
