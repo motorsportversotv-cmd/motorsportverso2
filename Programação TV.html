@@ -1,709 +1,325 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Tabela de Corridas de Alta Performance</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
-    
-    /* Estilização da Barra de Pesquisa e Filtros */
-    .container-controles {
-      margin-bottom: 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .input-busca {
-      width: 100%;
-      max-width: 400px;
-      padding: 10px 15px;
-      font-size: 15px;
-      border: 2px solid #ccc;
-      border-radius: 4px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .input-busca:focus {
-      border-color: #d90429;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programação TV & Streaming - Rally Nova Itália</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
 
-    /* Container dos Botões de Filtro */
-    .container-filtros {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .btn-filtro {
-      background-color: #fff;
-      color: #333;
-      border: 2px solid #ccc;
-      padding: 8px 16px;
-      font-size: 13px;
-      font-weight: bold;
-      border-radius: 4px;
-      cursor: pointer;
-      text-transform: uppercase;
-      transition: all 0.2s ease;
-    }
-    .btn-filtro:hover {
-      border-color: #d90429;
-      color: #d90429;
-    }
-    .btn-filtro.ativo {
-      background-color: #d90429;
-      border-color: #d90429;
-      color: white;
-    }
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 20px;
+        }
 
-    /* Estilização da Tabela */
-    table { width: 100%; border-collapse: collapse; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
-    th { background-color: #d90429; color: white; padding: 12px 10px; text-transform: uppercase; font-size: 13px; }
-    td { padding: 10px; border: 1px solid #e0e0e0; text-align: center; font-size: 14px; vertical-align: middle; }
-    td:nth-child(2) { text-align: left; font-weight: bold; }
-    
-    /* REGRA ADICIONADA: Organiza os links um abaixo do outro dentro da célula */
-    .celula-links a {
-      display: block;
-      margin-bottom: 6px;
-      color: #0000EE;
-      text-decoration: underline;
-    }
-    .celula-links a:last-child {
-      margin-bottom: 0; /* Remove a margem do último item */
-    }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
-    .sem-resultados {
-      display: none;
-      text-align: center;
-      padding: 20px;
-      color: #666;
-      font-style: italic;
-    }
+        /* Topo da página */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
 
-    /* Estilização da Barra Superior Fixa */
-    .barra-superior {
-      background-color: #1a1a1a;
-      color: white;
-      padding: 10px;
-      margin-bottom: 15px;
-      display: flex;
-      gap: 20px;
-      font-size: 14px;
-    }
-    .amarelo {
-      color: #ffcc00;
-      font-weight: bold;
-    }
-  </style>
+        header h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logout-link {
+            color: #cc0000;
+            text-decoration: underline;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Painel com borda tracejada */
+        .panel-cadastro {
+            border: 1px dashed #999;
+            padding: 30px;
+            background-color: #fafafa;
+            margin-bottom: 30px;
+        }
+
+        .panel-cadastro h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        /* Alinhamento dos campos */
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            width: 220px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .form-group input, .form-group select {
+            width: 350px;
+            padding: 6px;
+            font-size: 16px;
+            border: 1px solid #999;
+            background-color: #fff;
+        }
+
+        /* Botão Salvar */
+        .btn-submit {
+            background-color: #d4edd5;
+            color: #000000;
+            border: 1px solid #777;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-left: 220px;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #c3e6cb;
+        }
+
+        /* Seção da Grade de Programação */
+        .grade-section {
+            margin-top: 40px;
+        }
+
+        .grade-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .img-logo {
+            max-height: 30px;
+            max-width: 60px;
+            margin-right: 5px;
+            object-fit: contain;
+        }
+
+        .links-transmissao a {
+            color: #3b82f6;
+            text-decoration: underline;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Bloco de Pesquisa e Cabeçalho de Texto -->
-<div class="search-container">
-    <input type="text" id="txtPesquisar" class="search-bar" placeholder="Pesquisar..." value="  " autofocus>
-    <div class="debug-text">. &lt; &lt; &lt; &lt;tr&gt; &lt; &lt;tr&gt;</div>
-</div>
+    <div class="container">
+        <!-- CABEÇALHO -->
+        <header>
+            <h1>Programação TV & Streaming - Rally Nova Itália</h1>
+            <span class="logout-link" onclick="window.location.reload();">Sair do Painel</span>
+        </header>
 
-<!-- O restante da sua tabela permanece igual aqui -->
+        <!-- PAINEL DE CADASTRO -->
+        <main class="panel-cadastro">
+            <h2>Painel de Cadastro (Modo Administrador)</h2>
+            
+            <form id="cadastro-tv-form" onsubmit="salvarEvento(event)">
+                <div class="form-group">
+                    <label for="prog-data">Data:</label>
+                    <input type="date" id="prog-data" required>
+                </div>
 
-<div id="msgSemResultados" style="display: none; color: #cc001b; margin-top: 15px; font-weight: bold;">Nenhum registro encontrado para esta pesquisa.</div>
-     <!-- Bloco de Pesquisa e Cabeçalho de Texto -->
-    <div class="search-container">
-        <input type="text" id="txtPesquisar" class="search-bar" placeholder="Pesquisar..." value="  " autofocus>
-        <div class="debug-text">. < < < <tr> < <tr></div>
+                <div class="form-group">
+                    <label for="prog-hora">Hora:</label>
+                    <input type="time" id="prog-hora" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="prog-descricao">Descrição categoria\evento:</label>
+                    <input type="text" id="prog-descricao" placeholder="Ex: Rally Nova Itália - SS1 Shakedown" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="prog-local">Local:</label>
+                    <input type="text" id="prog-local" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="prog-canal">Canal:</label>
+                    <select id="prog-canal" required>
+                        <option value="Bandsports">Bandsports</option>
+                        <option value="Youtube">Youtube</option>
+                        <option value="Globoplay Premium">Globoplay Premium</option>
+                        <option value="Globo">Globo</option>
+                        <option value="Fox Sports(USA)">Fox Sports(USA)</option>
+                        <option value="Twitch .TV">Twitch .TV</option>
+                        <option value="Roku.TV">Roku.TV</option>
+                        <option value="Disney + (premium)">Disney + (premium)</option>
+                        <option value="ESPN">ESPN</option>
+                        <option value="Rally TV">Rally TV</option>
+                        <option value="Sportv 2 (BR)">Sportv 2 (BR)</option>
+                        <option value="Sportv 3 (BR)">Sportv 3 (BR)</option>
+                        <option value="Sportv 4 Portugal">Sportv 4 Portugal</option>
+                        <option value="Sportv 5 Portugal">Sportv 5 Portugal</option>
+                        <option value="Racer BR">Racer BR</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="prog-logo-cat">Colocar logo categoria (URL):</label>
+                    <input type="url" id="prog-logo-cat" placeholder="https://link-da-imagem.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="prog-logo-canal">Colocar logo canal (URL):</label>
+                    <input type="url" id="prog-logo-canal" placeholder="https://link-da-imagem.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="prog-links-transmissao">Colocar links de transmissão:</label>
+                    <input type="url" id="prog-links-transmissao" placeholder="https://...">
+                </div>
+
+                <div class="form-group">
+                    <label for="prog-links-replay">Colocar links de replay:</label>
+                    <input type="url" id="prog-links-replay" placeholder="https://...">
+                </div>
+
+                <button type="submit" class="btn-submit">Salvar Programação</button>
+            </form>
+        </main>
+
+        <!-- SEÇÃO DA GRADE DE EXIBIÇÃO -->
+        <section class="grade-section">
+            <h3>Transmissões e Horários Cadastrados</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data / Hora</th>
+                        <th>Logos</th>
+                        <th>Descrição Categoria / Evento / Local</th>
+                        <th>Canal de Exibição</th>
+                        <th>Links de Acesso</th>
+                    </tr>
+                </thead>
+                <tbody id="grade-table-body">
+                    <!-- Conteúdo inserido via JS -->
+                </tbody>
+            </table>
+        </section>
     </div>
 
-    <!-- Tabela com as colunas da sua Imagem -->
-    <table id="tabelaDados">
-        <thead>
-            <tr>
-                <th>Dia</th>
-                <th>Descrição</th>
-                <th>Logo Categoria</th>
-                <th>Local</th>
-                <th>Hora</th>
-                <th>Canal</th>
-                <th>Logo Canal</th>
-                <th>Links</th>
-                <th>Há Brasileiros</th>
-                <th>Transmissão Internacional</th>
-                <th>Links de Replay</th>
-            </tr>
-        </thead>
-        <tbody>
-
-    <tbody id="raceTableBody"> 
-
-<tr>
-            <td>25/09</td> 
-            <td>TC America-race 1</td> 
-            <td><img src="toyota tc america.jpg" alt="Toyota GR Corolla TC" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td>Baber</td> 
-            <td>13:15</td> 
-            <td>Youtube\Twitch TV SRO Motortsports</td> 
-             <td>
-                <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-            </td>
-            <td>
-                <div class="links-col">
-                    <a href="https://www.twitch.tv/sromotorsports" target="_blank">Twitch TV SRO Motorsports</a>
-                    <a href="https://www.youtube.com/@GTWorld" target="_blank">Youtube GT Word</a>
-                </div>
-                <td>-</td>
-            </td>
-        </tr> 
-
-      <tr>
-            <td>25/09</td> 
-            <td>Fia WEC-FP3</td> 
-            <td><img src="logo WEC.png" alt="Fia WEC" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td>Fuji</td> 
-            <td>21:30</td> 
-            <td>Youtube GP\Youtube Jovem Pan Esportes</td> 
-             <td>
-                <td><img src="-" alt="-" width="50" style="display: block; margin: 0 auto;"></td> 
-            </td>
-            <td>
-                <div class="links-col">
-                    <a href="https://www.youtube.com/@grandepremio" target="_blank">Youtube Grande Premio</a>
-                    
-                </div>
-                <td>BRA</td>
-            </td>
-        </tr> 
-      
-       <tr>
-            <td>18/09</td> 
-            <td>Goodwood Revival-ST Mery's Trophy-race 1</td> 
-            <td><img src="goodwood  st merys.PNG" alt="Goodwood ST Mery's  Trophy" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td>Goodwood</td> 
-            <td>04:50</td> 
-            <td>Youtube\DAZN</td> 
-             <td>
-                <div class="logo-container">
-                  
-                    <span style="font-size: 11px; font-weight: bold; color: #2d7a4d;">-</span>
-                </div>
-            </td>
-            <td>
-                <div class="links-col">
-                    <a href="https://www.dazn.com/" target="_blank">DAZN</a>
-                    <a href="https://www.youtube.com/@GoodwoodRR" target="_blank">Youtube Goodwood</a>
-                </div>
-                <td>BRA</td>
-            </td>
-        </tr> 
-        <tr> 
-            <td>18/09</td> 
-            <td>Mitsubishi Cup Virtual-etapa 5</td> 
-            <<td><img src="mitsubishi virtual.PNG" alt="Mitsubishi Cup Virtual" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td>-</td> 
-            <td>19:50</td> 
-            <td>Youtube</td> 
-            <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-           <td><a href="https://www.youtube.com/@GTWorld" target="_blank">F1BC</a></td> 
-            
-
-        </tr> 
-        <tr>
-        <tr>
-            <td>18/09</td>
-            <td class="text-left bold">AMG Cup Brasil-race 1-GT4\A45  Pro </td>
-            <td><img src="AMG CUP BR.jpeg" alt="AMG Cup Brasil" width="50" style="display: block; margin: 0 auto;"></td>
-            <td>Cascavel</td>
-            <td>20:00</td>
-            <td>Youtube\Youtube High Speed TV</td>
-            <td>
-                 <td>
-                <div class="logo-container">
-                    <img src="logo_youtube.png" alt="YouTube" width="40">
-                </div>
-            </td>
-            <td>
-                <div class="links-col">
-                    <a href="https://www.youtube.com/@E1Series" target="_blank">AMG Cup Brasil</a>
-                    <a href="https://dazn.com" target="_blank">DAZN</a>
-                </div>
-            </td>
-        </tr>
-       <tr>
-               <td>18/09</td>
-            <td class="text-left bold">AMG Cup Brasil-race 1-A45 Super\ Pro Light</td>
-            <td><img src="AMG CUP BR.jpeg" alt="AMG Cup Brasil" width="50" style="display: block; margin: 0 auto;"></td>
-            <td>Cascavel</td>
-            <td>20:50</td>
-            <td>Youtube\Youtube High Speed TV</td>
-            <td>
-                 <td>
-                <div class="logo-container">
-                    <img src="logo_youtube.png" alt="YouTube" width="40">
-                    <img src="logo_dazn.png" alt="DAZN" width="25">
-                </div>
-            </td>
-            <td>
-                <div class="links-col">
-                    <a href="https://www.youtube.com/@E1Series" target="_blank">AMG Cup Brasil</a>
-                    <a href="https://dazn.com" target="_blank">DAZN</a>
-                </div>
-            </td>
-
-      
-  <!-- Evento 3 -->
-    <tr> 
-            <td>18/09</td> 
-            <td>Mitsubishi Cup Virtual-etapa 5</td> 
-           <<td><img src="mitsubishi virtual.PNG" alt="Mitsubishi Cup Virtual" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td>Canitar</td> 
-            <td>19:50</td> 
-            <td>Youtube</td> 
-             <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-           <td><a href="https://acestrims.pages.dev/r4lly/" target="_blank" class="btn-link">WRC</a> </td>
-          <td><a href="https://www.youtube.com/@Ruguasu" target="_blank" class="btn-link">Ruguasu</a> </td>
-        </div>
-    </div>
-</div>
-       <tr> 
-            <td>19/09</td> 
-            <td>Mitsubishi Cup-etapa 5</td> 
-            <<td><img src="mitsubishi virtual.PNG" alt="Mitsubishi Cup Virtual" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td>Canitar</td> 
-            <td>07:45</td> 
-            <td>Youtube</td> 
-            <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-           <td><a href="https://www.youtube.com/@peterautoracing" target="_blank">Peter Auto Youtube</a></td> 
-
-        </tr> 
-
-               <tr> 
-            <td>19/09</td> 
-            <td>Le Mans Classic Series-dia 1</td> 
-            <<td><img src="le mans classic series grupo c.jpg" alt="Le Mans Classic Series" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td>Estoril</td> 
-            <td>08:00</td> 
-            <td>Youtube</td> 
-            <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-           <td><a href="https://www.youtube.com/@peterautoracing" target="_blank">Peter Auto Youtube</a></td> 
-
-        </tr> 
-
-               <tr> 
-            <td>19/09</td> 
-            <td>GT2 European Series-race 1</td> 
-            <<td><img src="gt2 european.png" alt="GT2 European Series" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td>Zandvoort</td> 
-            <td>07:45</td> 
-            <td>Youtube GT Word</td> 
-            <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-           <td><a href="https://www.youtube.com/@F1BCEsports" target="_blank">F1BC</a></td> 
-
-        </tr> 
-        <tr>
-            <td>19\09</td> 
-            <td>GTWC Europe-Race 1</td> 
-            <td><img src="gtwc-europe-logo.jpg" alt="IGTC" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td>Zandvoort</td> 
-            <td>09:15</td> 
-            <td>Youtube GP\Youtube GT Word</td> 
-            <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td><a href="https://www.youtube.com/@grandepremio" target="_blank">Grande Premio</a></td> 
-            <td><a href="https://www.youtube.com/@GTWorld target="_blank">GT Word</a></td> 
-            
-        </tr> 
-
-        <tr> 
-            <td>19\09</td> 
-            <td>Nascar Brasil-Qulayfing+Sprint</td> 
-            <td><img src="NASCAR BR.png" alt="Nascar Brasil" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td>Curvelo Oval</td> 
-            <td>15:00</td> 
-            <td>Youtube</td> 
-            <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td><a href="https://www.youtube.com/@NASCARBrasilSprintRace" target="_blank">Youtube Nascar Brasil</a></td>  
-        </tr> 
-     <tr> 
-      <tr>
-            <td>20/09</td>
-            <td class="text-left bold">Nascar Brasil-race 1</td>
-            <td><img src="NASCAR BR.png" alt="Nascar Brasil" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td>Curvelo Oval</td>
-            <td>09:00</td>
-            <td>Youtube\SBT\NSports\Claro Sports America Latina</td>
-            <td>
-                 <td>
-                <div class="logo-container">
-                    <img src="logo_youtube.png" alt="YouTube" width="40">
-                    <img src="logo_dazn.png" alt="DAZN" width="25">
-                </div>
-            </td>
-            <td>
-                <div class="links-col">
-                    <a href="https://www.youtube.com/@NASCARBrasilSprintRace" target="_blank">Nascar Brasil</a>
-                    <a href="https://www.youtube.com/@sbt" target="_blank">SBT</a>
-                   <a href="https://www.clarosports.com/en-vivo-home/" target="_blank">Claro Sports America Latina</a>
-                </div>
-            </td>
-        </tr>
-       
- <tr> 
-      <td>19/09</td> 
-      <td>IMSA-Qualyfing</td> 
-      <td><img src="logo_IMSA.png" alt="IMSA" width="50" style="display: block; margin: 0 auto;"></td> 
-      <td>Indianapolis</td> 
-      <td>18:00</td> 
-      <td>Youtube</td> 
-      <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-      <td>-</td> 
-      <td><a href="-" target="_blank">-</a></td> 
-    </tr> 
-
-              <tr> 
-            <td>20/09</td> 
-            <td>Copa Truck-races 1 & 2</td> 
-            <td><img src="copa truck.jpg" alt="Copa Truck" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td>Curvelo</td> 
-            <td>12:00</td> 
-           <td>Youtube\Youtube Esporte na Band\NSports</td>
-            <td>
-                 <td>
-                <div class="logo-container">
-                    <img src="logo_youtube.png" alt="YouTube" width="40">
-                    <img src="logo_dazn.png" alt="DAZN" width="25">
-                </div>
-            <td>
-        <div class="links-col" style="display: flex; flex-direction: column; gap: 5px;">
-            <a href="https://youtube.com" target="_blank">Copa Truck</a>
-            <a href="https://youtube.com" target="_blank">ESporte na Band</a>
-        </div>
-    </td>
-</tr>
-    <tr> 
-      <td>20/09</td> 
-      <td>Nascar Brasil-race 2</td> 
-       <td><img src="NASCAR BR.png" alt="Nascar Brasil" width="50" style="display: block; margin: 0 auto;"></td> 
-      <td>Curvelo-Oval</td> 
-      <td>14:00</td> 
-      <td>Youtube\ESPN 3 ou 4\Claro Sport America Latina</td> 
-      <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-     <td>
-                <div class="logo-container">
-                    <img src="logo_youtube.png" alt="YouTube" width="40">
-                    <img src="logo_dazn.png" alt="DAZN" width="25">
-                </div>
-            </td>
-            <td>
-                <div class="links-col">
-                    <a href="https://www.youtube.com/@NASCARBrasilSprintRace" target="_blank">Nascar Brasil</a>
-                   <a href="https://www.clarosports.com/en-vivo-home/" target="_blank">Claro Sports America Latina</a>
-                </div>
-            </td>
-    
-   <tr> 
-      <td>20/09</td> 
-      <td>IMSA</td> 
-      <td><img src="logo_IMSA.png" alt="IMSA" width="50" style="display: block; margin: 0 auto;"></td> 
-      <td>Indianapolis</td> 
-      <td>16:00</td> 
-      <td>Youtube\Youtube GP</td> 
-      <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-      <td>-</td> 
-      <td><a href="https://www.youtube.com/@grandepremio" target="_blank">-</a></td> 
-    </tr> 
-
-<tr> 
-      <td>12/09</td> 
-      <td>Euro RX-Q2-etapa 6</td> 
-      <td><img src="logo_euro rx.jpg" alt="Euro RX" width="50" style="display: block; margin: 0 auto;"></td> 
-      <td>Lousada</td> 
-      <td>11:00</td> 
-      <td>Youtube</td> 
-      <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-      <td>-</td> 
-      <td><a href="https://www.youtube.com/@fiarallycross" target="_blank">Fia Rallycross</a></td> 
-    </tr> 
-    
-     <tr>
-     <td>12/09</td> 
-      <td>Endurance Brasil\GT Series Cup BR</td> 
-      <td><img src="LOGO_ENDURANCE BRASIL.jpg" alt="Endurance Brasil" width="50" style="display: block; margin: 0 auto;"></td> 
-      <td>Interlagos</td> 
-      <td>11:15</td> 
-      <td>Youtube</td> 
-      <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-      <td>-</td> 
-      <td><a href="https://www.youtube.com/@endurancebrasil" target="_blank">Youtube Endurance Brasil</a></td> 
-  <tr/> 
-            
-       <tr> 
-      <td>12/09</td> 
-      <td>Euro RX-Q3 & Quartas de final-etapa 6</td> 
-      <td><img src="logo_euro rx.jpg" alt="Euro RX" width="50" style="display: block; margin: 0 auto;"></td> 
-      <td>Lousada</td> 
-      <td>13:00</td> 
-      <td>Youtube</td> 
-      <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-      <td>-</td> 
-      <td><a href="https://www.youtube.com/@fiarallycross" target="_blank">Fia Rallycross</a></td> 
-    </tr> 
-        <tr>
-        <td>13\09</td> 
-            <td>IGTC-1000 KM de Suzuka</td> 
-            <td><img src="gtwc-europe-logo.jpg" alt="IGTC" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td>Suzuka</td> 
-            <td>00:15</td> 
-            <td>Youtube GP\Youtube GT Word</td> 
-            <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-            <td><a href="https://www.youtube.com/@grandepremio" target="_blank">Grande Premio</a></td> 
-            <td><a href="https://www.youtube.com/@GTWorld target="_blank">GT Word</a></td> 
-     
-    </tr> 
-               <tr> 
-          <td>13/09</td>
-            <td class="text-left bold">E1 Series-Heats</td>
-            <td><img src="e1 series.png" alt="E1 Series" width="50" style="display: block; margin: 0 auto;"></td>
-            <td>Luanda-Angola</td>
-            <td>06:45</td>
-            <td>Youtube\DAZN</td>
-            <td>
-                <div class="logo-container">
-                    <img src="logo_youtube.png" alt="YouTube" width="40">
-                    <img src="logo_dazn.png" alt="DAZN" width="25">
-                </div>
-            </td>
-            <td>
-                <div class="links-col">
-                    <a href="https://youtube.com" target="_blank">E1 Series</a>
-                    <a href="https://dazn.com" target="_blank">DAZN</a>
-                </div>
-            </td>
-            </tr>
-               </tr> 
-         <tr> 
-    <td>13/09</td> 
-    <td>Rally de Rio Negrinho - BR Rally - On Board - Rodrigo Varela - Peugeot 208 Maxxi Rally</td> 
-    <td><img src="Peugeot 208 Maxxi Rally.JPG" alt="Peugeot 208 Maxxi rally" width="50" style="display: block; margin: 0 auto;"></td> 
-    <td>Rio Negrinho-SC</td> 
-    <td>07:15</td> 
-    <td>Youtube</td> 
-    <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td> 
-    <td><a href="https://www.youtube.com/@RoxoSports" target="_blank">Youtube Roxo Sports</a></td> 
-</tr>
-
-               <tr> 
-      <td>13/09</td> 
-      <td>DTM-race 2</td> 
-      <td><img src="logo_dtm.png" alt="DTM" width="50" style="display: block; margin: 0 auto;"></td> 
-      <td>Sachsenring</td> 
-      <td>08:30</td> 
-      <td>ESPN 3</td> 
-      <td><img src="ESPN LOGO.png" alt="ESPN" width="50" style="display: block; margin: 0 auto;"></td> 
-      <td>-</td> 
-      <td><a href="-" target="_blank">-</a></td> 
-    </tr> 
- <tr> 
-          <td>13/09</td>
-            <td class="text-left bold">E1 Series-Finais</td>
-            <td><img src="e1 series.png" alt="E1 Series" width="50" style="display: block; margin: 0 auto;"></td>
-            <td>Luanda-Angola</td>
-            <td>11:15</td>
-            <td>Youtube\DAZN</td>
-            <td>
-                <div class="logo-container">
-                    <img src="logo_youtube.png" alt="YouTube" width="40">
-                    <img src="logo_dazn.png" alt="DAZN" width="25">
-                </div>
-            </td>
-            <td>
-                <div class="links-col">
-                    <a href="https://youtube.com" target="_blank">E1 Series</a>
-                    <a href="https://dazn.com" target="_blank">DAZN</a>
-                </div>
-            </td>
-            </tr>
-              
-          
-     <tr> 
-  </tbody> 
-</table>
-
-    </tbody> 
-</table>
-
-  <tr>
-        <td>08/08</td>
-        <td>Stock Car Pro Series-race 1</td>
-        <td><img src="STOCK CAR.png" alt="Stock Car" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Santa Cruz do Sul</td>
-        <td>15:00</td>
-        <td>Youtube\Youtube Esporte na Band\Bandsports\RacerBR\Youtube Terra</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr> 
-     
-       <tr>
-        <td>08/08</td>
-        <td>Hill Climb Brasil-Tarde</td>
-        <td><img src="Hill climb Brasil.jpg" alt="Hill Climb Brasil" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Aguas de Lindoia</td>
-        <td>16:00</td>
-        <td>Twitch.TV</td>
-      <td><img src="twitch tv.png" alt="Twitch TV" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr> 
- <tr>
-        <td>31/07</td>
-        <td>Copa Brasil de Kart-Heats-G2</td>
-        <td>Sprint / Asfalto</td>
-        <td><img src="BR KART.PNG" alt="BR KART" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Imperatriz</td>
-        <td>17:25</td>
-        <td>Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr> 
-     
-      <tr>
-        <td>31/07</td>
-        <td>Copa Truck-Qualyfing</td>
-        <td>Sprint / Asfalto</td>
-        <td><img src="copa truck.jpg" alt="Copa Truck" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Cuiaba</td>
-        <td>19:50</td>
-        <td>Youtube Acelerados\Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr> 
-      <tr>
-        <td>31/07</td>
-        <td>Nascar Brasil-Qualyfing+Sprint</td>
-        <td>Sprint / Asfalto</td>
-        <td><img src="NASCAR BR.png" alt="Nascar Brasil" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Cuiaba</td>
-        <td>21:35</td>
-        <td>Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-      <tr>
-        <td>01/08</td>
-        <td>BMW M2 Cup Brasil-race 1</td>
-        <td>Sprint / Asfalto</td>
-        <td><img src="bmw m2 cup BRASIL.jpg" alt="BMW M2 CUP BRASIL" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Santa Cruz do Sul</td>
-        <td>08:55</td>
-        <td>Youtube\Youtube Endurance Brasil</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-       <td>01/08</td>
-        <td>Endurance Brasil</td>
-        <td>Endurance</td>
-        <td><img src="LOGO_ENDURANCE BRASIL.jpg" alt="ENDURANCE BRASIL" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Santa Cruz do Sul</td>
-        <td>11:30</td>
-        <td>Youtube\Youtube High Speed TV</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-   <td>01/08</td>
-        <td>GT Series Cup BR-RACE 1</td>
-        <td>Sprint / Asfalto</td>
-        <td><img src="logo gt series cup br.png" alt="GT Series Cup BR" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Interlagos</td>
-        <td>15:00</td>
-        <td>Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-    <td>01/08</td>
-        <td>SportPrototipo BR-Race 1</td>
-        <td>Sprint / Asfalto</td>
-        <td><img src="SPORT PROTOTIPO BR.jpg" alt="SPORTPROTOTIPO BR" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Interlagos</td>
-        <td>15:00</td>
-        <td>Youtube</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-   <td>01/08</td>
-        <td>GTWC Europe-RACE 1</td>
-        <td>Sprint / Asfalto</td>
-        <td><img src="logo gt series cup br.png" alt="GT Series Cup BR" width="50" style="display: block; margin: 0 auto;"></td>
-        <td>Magny Cours</td>
-        <td>15:00</td>
-        <td>Youtube GT Word\Youtube GP</td>
-        <td><img src="logo_youtube.png" alt="youtube" width="50" style="display: block; margin: 0 auto;"></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div id="semResultados" class="sem-resultados">Nenhuma corrida encontrada.</div>
-
-  <!-- SCRIPT DE FILTROS INTEGRADOS -->
-  <script>
-    let filtroTipoAtual = 'todos';
-
-    // Função executada ao clicar em um botão de tipo
-    function filtrarPorBotao(tipo, botaoClicado) {
-      // Atualiza as classes visuais dos botões
-      const botoes = document.querySelectorAll('.btn-filtro');
-      botoes.forEach(btn => btn.classList.remove('ativo'));
-      botaoClicado.classList.add('ativo');
-
-      // Define o tipo atual e executa o filtro geral
-      filtroTipoAtual = tipo;
-      executarFiltroGeral();
-    }
-
-    // Função executada ao digitar na barra de pesquisa
-    function filtrarTabela() {
-      executarFiltroGeral();
-    }
-
-    // Processa os filtros de busca por texto + categoria de botão ao mesmo tempo
-    function executarFeral() {
-      const input = document.getElementById('inputBusca');
-      const textoFiltro = input.value.toLowerCase();
-      const table = document.getElementById('raceTable');
-      const tr = table.getElementsByTagName('tr');
-      let encontrou = false;
-
-      for (let i = 1; i < tr.length; i++) {
-        const tds = tr[i].getElementsByTagName('td');
-        if (!tds || tds.length < 3) continue;
-
-        // Pega o valor exato da coluna "Tipo de Corrida" (índice 2)
-        const valorTipoCelula = tds[2].innerText;
-
-        // Validação 1: Filtro do Botão
-        let atendeBotao = false;
-        if (filtroTipoAtual === 'todos' || valorTipoCelula.toLowerCase().indexOf(filtroTipoAtual.toLowerCase()) > -1) {
-          atendeBotao = true;
+    <script>
+        // Carrega os dados salvos no localStorage
+        function obterEventos() {
+            const dados = localStorage.getItem('rally_tv_streaming_dados');
+            return dados ? JSON.parse(dados) : [];
         }
 
-        // Validação 2: Filtro de Texto (Varre todas as células da linha)
-        let atendeTexto = false;
-        if (textoFiltro === "") {
-          atendeTexto = true;
-        } else {
-          for (let j = 0; j < tds.length; j++) {
-            if (tds[j] && tds[j].innerText.toLowerCase().indexOf(textoFiltro) > -1) {
-              atendeTexto = true;
-              break;
+        // Armazena novos dados preservando os registros anteriores
+        function salvarEvento(event) {
+            event.preventDefault();
+
+            const novoEvento = {
+                id: Date.now(),
+                data: document.getElementById('prog-data').value,
+                hora: document.getElementById('prog-hora').value,
+                descricao: document.getElementById('prog-descricao').value,
+                local: document.getElementById('prog-local').value,
+                canal: document.getElementById('prog-canal').value,
+                logoCat: document.getElementById('prog-logo-cat').value || '',
+                logoCanal: document.getElementById('prog-logo-canal').value || '',
+                linkTransmissao: document.getElementById('prog-links-transmissao').value || '',
+                linkReplay: document.getElementById('prog-links-replay').value || ''
+            };
+
+            const lista = obterEventos();
+            lista.push(novoEvento);
+            
+            // Organiza por data e hora sequencialmente
+            lista.sort((a, b) => new Date(`${a.data}T${a.hora}`) - new Date(`${b.data}T${b.hora}`));
+            
+            localStorage.setItem('rally_tv_streaming_dados', JSON.stringify(lista));
+
+            document.getElementById('cadastro-tv-form').reset();
+            carregarGrade();
+        }
+
+        function formatarData(dataString) {
+            const partes = dataString.split('-');
+            if (partes.length !== 3) return dataString;
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
+        }
+
+        // Reconstrói a tabela dinamicamente em tela
+        function carregarGrade() {
+            const lista = obterEventos();
+            const tbody = document.getElementById('grade-table-body');
+            tbody.innerHTML = '';
+
+            if (lista.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#666; padding: 20px;">Nenhuma transmissão agendada.</td></tr>`;
+                return;
             }
-          }
+
+            lista.forEach(item => {
+                const tr = document.createElement('tr');
+                
+                let linksHtml = '';
+                if (item.linkTransmissao) linksHtml += `<a href="${item.linkTransmissao}" target="_blank">🔴 Ao Vivo</a> `;
+                if (item.linkReplay) linksHtml += `<a href="${item.linkReplay}" target="_blank">🔄 Replay</a>`;
+                if (!item.linkTransmissao && !item.linkReplay) linksHtml = `<span style="color:#666;">Sem links</span>`;
+
+                let logosHtml = '';
+                if (item.logoCat) logosHtml += `<img src="${item.logoCat}" class="img-logo" alt="Logo Categoria">`;
+                if (item.logoCanal) logosHtml += `<img src="${item.logoCanal}" class="img-logo" alt="Logo Canal">`;
+
+                tr.innerHTML = `
+                    <td>${formatarData(item.data)} - ${item.hora}</td>
+                    <td>${logosHtml || '-'}</td>
+                    <td><strong>${item.descricao}</strong><br>📍 ${item.local}</td>
+                    <td>${item.canal}</td>
+                    <td class="links-transmissao">${linksHtml}</td>
+                `;
+
+                tbody.appendChild(tr);
+            });
         }
 
-        // Exibe a linha se ela passar em ambos os filtros simultaneamente
-        if (atendeBotao && atendeTexto) {
-          tr[i].style.display = "";
-          encontrou = true;
-        } else {
-          tr[i].style.display = "none";
-        }
-      }
-
-      // Alerta de resultados vazios
-      const msgSemResultados = document.getElementById('semResultados');
-      msgSemResultados.style.display = encontrou ? "none" : "block";
-    }
-
-    // Alias para manter a compatibilidade do onkeyup do input original
-    function executarFiltroGeral() {
-      executarFeral();
-    }
-  </script>
-
+        window.onload = carregarGrade;
+    </script>
 </body>
 </html>
 
