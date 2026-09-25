@@ -361,4 +361,22 @@ function renderizarListaDeEventos(eventos) {
     tbody.innerHTML = linhasHtml;
 }
 
+<section class="panel-lista">
+    <h3>Programações Cadastradas</h3>
+    <div class="tabela-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Data/Hora</th>
+                    <th>Evento/Local</th>
+                    <th>Tipo</th>
+                    <th>Canal / Info</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <!-- O JavaScript vai injetar as linhas estritamente aqui dentro -->
+            <tbody id="corpo-tabela"></tbody> 
+        </table>
+    </div>
+</section>
 
