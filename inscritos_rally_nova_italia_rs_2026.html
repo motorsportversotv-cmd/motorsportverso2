@@ -4,42 +4,63 @@
     <meta charset="UTF-8">
     <title>Inscritos Rally</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; padding: 10px; }
+        body { font-family: Arial, sans-serif; max-width: 950px; margin: 20px auto; padding: 10px; }
+        .topo { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px; }
+        .link-admin { color: #0066cc; cursor: pointer; text-decoration: underline; font-size: 14px; font-weight: bold; }
+        #areaCadastro { background-color: #f9f9f9; padding: 20px; border: 1px dashed #999; border-radius: 5px; margin-bottom: 30px; display: none; }
         .campo { margin-bottom: 10px; }
         label { display: inline-block; width: 150px; font-weight: bold; }
         input, select { padding: 5px; width: 250px; }
-        button { padding: 8px 15px; margin-top: 10px; cursor: pointer; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        button { padding: 8px 15px; margin-top: 10px; cursor: pointer; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
     </style>
 </head>
 <body>
 
-    <h2>Cadastro do Rally</h2>
-    <form id="formRally">
-        <div class="campo"><label>Número:</label><input type="number" id="num" required></div>
-        <div class="campo"><label>Piloto:</label><input type="text" id="piloto" required></div>
-        <div class="campo"><label>Navegador:</label><input type="text" id="navegador" required></div>
-        <div class="campo"><label>Equipe:</label><input type="text" id="equipe" required></div>
-        <div class="campo"><label>Veículo:</label><input type="text" id="veiculo" required></div>
-        <div class="campo"><label>Campeonato:</label><input type="text" id="campeonato" required></div>
-        <div class="campo">
-            <label>Categoria:</label>
-            <select id="categoria" required>
-                <option value="BR Rally 2">BR Rally 2</option>
-                <option value="BR Rally 4">BR Rally 4</option>
-                <option value="BR Rally 5">BR Rally 5</option>
-                <option value="Gaucho Rally 2">Gaucho Rally 2</option>
-                <option value="Gaucho Rally 4">Gaucho Rally 4</option>
-                <option value="Gaucho Rally 5">Gaucho Rally 5</option>
-                <option value="RallyPR 4x4">RallyPR 4x4</option>
-            </select>
-        </div>
-        <button type="submit">Salvar Competidor</button>
-    </form>
+    <div class="topo">
+        <h2>Lista de Inscritos - Rally Nova Itália</h2>
+        <!-- Links para alternar a exibição do formulário de cadastro -->
+        <span id="linkAdmin" class="link-admin" onclick="fazerLogin()">Entrar como Admin</span>
+        <span id="linkSair" class="link-admin" onclick="fazerSair()" style="display: none; color: red;">Sair do Painel</span>
+    </div>
 
-    <h2>Lista de Inscritos</h2>
+    <!-- O formulário começa oculto, mas os dados da tabela continuam protegidos -->
+    <div id="areaCadastro">
+        <h3>Painel de Cadastro (Modo Administrador)</h3>
+        <form id="formRally">
+            <div class="campo"><label>Número:</label><input type="number" id="num" required></div>
+            <div class="campo"><label>Piloto:</label><input type="text" id="piloto" required></div>
+            <div class="campo"><label>Navegador:</label><input type="text" id="navegador" required></div>
+            <div class="campo"><label>Equipe:</label><input type="text" id="equipe" required></div>
+            <div class="campo"><label>Veículo:</label><input type="text" id="veiculo" required></div>
+            <div class="campo"><label>Campeonato:</label><input type="text" id="campeonato" required></div>
+            <div class="campo">
+                <label>Categoria:</label>
+                <select id="categoria" required>
+                    <option value="BR Rally 2">BR Rally 2</option>
+                    <option value="BR Rally 4">BR Rally 4</option>
+                    <option value="BR Rally 5">BR Rally 5</option>
+                    <option value="BR Rally 5 L">BR Rally 5 L</option>
+                    <option value="Gaucho Rally 2">Gaucho Rally 2</option>
+                    <option value="Gaucho Rally 4">Gaucho Rally 4</option>
+                    <option value="Gaucho Rally 5">Gaucho Rally 5</option>
+                    <option value="Gaucho Rally 5 L">Gaucho Rally 5 L</option>
+                    <option value="Gaucho UTV SSV">Gaucho UTV SSV</option>
+                    <option value="RallyPR 4x4">RallyPR 4x4</option>
+                    <option value="RallyPR 4x2 Fia">RallyPR 4x2 Fia</option>
+                    <option value="RallyPR 4x2 Pró">RallyPR 4x2 Pró</option>
+                    <option value="RallyPR 4x2 Super">RallyPR 4x2 Super</option>
+                    <option value="RallyPR RCC">RallyPR RCC</option>
+                    <option value="RallyPR RTT">RallyPR RTT</option>
+                </select>
+            </div>
+            <button type="submit" style="background-color: #ccffcc;">Salvar Competidor</button>
+        </form>
+    </div>
+
+    <!-- Tabela visível para todos com os dados carregados do armazenamento -->
     <table>
         <thead>
             <tr>
@@ -56,14 +77,33 @@
     </table>
 
 <script>
-    // Carrega a tabela assim que abre a página usando o código HTML que já estava salvo
+    // PASSO 1: Carrega IMEDIATAMENTE tudo o que foi salvo antes para os dados nunca sumirem
     document.getElementById("tabela").innerHTML = localStorage.getItem("tabela_rally") || "";
 
-    // Quando clica em Salvar Competidor
-    document.getElementById("formRally").addEventListener("submit", function(e) {
-        e.preventDefault(); // Impede a página de atualizar
+    // Senha padrão para exibir o formulário
+    const SENHA_CORRETA = "admin123";
 
-        // Pega os textos digitados
+    function fazerLogin() {
+        let senhaDigitada = prompt("Digite a senha de administrador para liberar o cadastro:");
+        if (senhaDigitada === SENHA_CORRETA) {
+            document.getElementById("areaCadastro").style.display = "block";
+            document.getElementById("linkAdmin").style.display = "none";
+            document.getElementById("linkSair").style.display = "inline";
+        } else if (senhaDigitada !== null) {
+            alert("Senha incorreta!");
+        }
+    }
+
+    function fazerSair() {
+        document.getElementById("areaCadastro").style.display = "none";
+        document.getElementById("linkAdmin").style.display = "inline";
+        document.getElementById("linkSair").style.display = "none";
+    }
+
+    // PASSO 2: Salva os novos competidores sem apagar os antigos da memória
+    document.getElementById("formRally").addEventListener("submit", function(e) {
+        e.preventDefault();
+
         let num = document.getElementById("num").value;
         let piloto = document.getElementById("piloto").value;
         let navegador = document.getElementById("navegador").value;
@@ -72,7 +112,6 @@
         let campeonato = document.getElementById("campeonato").value;
         let categoria = document.getElementById("categoria").value;
 
-        // Cria a linha de texto HTML pura da tabela
         let novaLinha = `<tr>
             <td><b>${num}</b></td>
             <td>${piloto}</td>
@@ -83,15 +122,17 @@
             <td><b>${categoria}</b></td>
         </tr>`;
 
-        // Adiciona a nova linha no fim do elemento tabela
+        // Adiciona na tabela existente na tela
         document.getElementById("tabela").innerHTML += novaLinha;
 
-        // Guarda o código HTML inteiro da tabela no navegador
+        // Atualiza a memória definitiva do navegador (localStorage)
         localStorage.setItem("tabela_rally", document.getElementById("tabela").innerHTML);
 
-       
+        // Limpa os campos do formulário para o próximo piloto
+        document.getElementById("formRally").reset();
     });
 </script>
 
 </body>
 </html>
+
