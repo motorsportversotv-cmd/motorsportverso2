@@ -299,3 +299,8 @@
         </main>
 
         <!-- PAINEL DE EXIBIÇÃO DA LISTA -->
+        // Array global para armazenar os eventos na memória do navegadorlet listaDeEventos = [];
+        // Função executada ao enviar o formuláriofunction salvarEvento(event) {event.preventDefault(); 
+        // Impede a página de recarregar
+        // Captura os valores digitados nos inputsconst dataOriginal = document.getElementById('prog-data-1').value;const hora = document.getElementById('prog-hora-1').value;const descricao = document.getElementById('prog-descricao-1').value;const local = document.getElementById('prog-local-1').value;const canal = document.getElementById('prog-canal-1').value;const descCanal = document.getElementById('prog-desc-canal-1').value;// Formata a data de YYYY-MM-DD para DD/MM/YYYYconst dataFormatada = dataOriginal.split('-').reverse().join('/');// Cria o objeto do novo eventoconst novoEvento = {data: dataFormatada,hora: hora,descricao: descricao,local: local,canal: canal,descCanal: descCanal,tipo: "PRINCIPAL" // Definido como padrão conforme seu layout};// Adiciona o novo evento na listalistaDeEventos.push(novoEvento);// Atualiza a tabela na telarenderizarTabela();// Limpa o formulário para um novo cadastrodocument.getElementById('cadastro-tv-form-1').reset();}// Função responsável por desenhar a tabela formatada na telafunction renderizarTabela() {const container = document.getElementById('tabela-dinamica-container');if (listaDeEventos.length === 0) {container.innerHTML = 'Nenhum evento cadastrado ainda.';return;}// Monta a estrutura HTML inicial da tabelalet html = ``;// Varre a lista e monta cada linha com o "data-label" para o mobilelistaDeEventos.forEach((evento, index) => {html += ``;});
+        // Fecha as tags abertashtml += `
