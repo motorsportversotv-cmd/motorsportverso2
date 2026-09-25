@@ -15,18 +15,19 @@
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
+        .coluna-acao { display: none; text-align: center; }
+        .btn-excluir { background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
+        .btn-excluir:hover { background-color: #cc0000; }
     </style>
 </head>
 <body>
 
     <div class="topo">
         <h2>Lista de Inscritos - Rally Nova Itália</h2>
-        <!-- Links para alternar a exibição do formulário de cadastro -->
         <span id="linkAdmin" class="link-admin" onclick="fazerLogin()">Entrar como Admin</span>
         <span id="linkSair" class="link-admin" onclick="fazerSair()" style="display: none; color: red;">Sair do Painel</span>
     </div>
 
-    <!-- O formulário começa oculto e os dados da tabela ficam protegidos -->
     <div id="areaCadastro">
         <h3>Painel de Cadastro (Modo Administrador)</h3>
         <form id="formRally">
@@ -60,7 +61,6 @@
         </form>
     </div>
 
-    <!-- Tabela pública -->
     <table>
         <thead>
             <tr>
@@ -71,61 +71,98 @@
                 <th>Veículo</th>
                 <th>Campeonato</th>
                 <th>Categoria</th>
+                <th class="coluna-acao" id="thAcao">Ações</th>
             </tr>
         </thead>
         <tbody id="tabela"></tbody>
     </table>
 
 <script>
-    // Carrega imediatamente os dados já salvos
-    document.getElementById("tabela").innerHTML = localStorage.getItem("tabela_rally") || "";
+    // Carrega o banco estruturado ou inicia um vazio para gerenciar as linhas individualmente
+    let dadosSalvos = JSON.parse(localStorage.getItem("dados_rally_estruturados")) || [];
+    let modoAdminAtivo = false;
 
-    // 🔴 ALTERE A SUA SENHA DIRETAMENTE AQUI ENTRE AS ASPAS 🔴
     const SENHA_CORRETA = "Rally2026!";
 
+    // Desenha a tabela dinamicamente com base nos dados salvos
+    function atualizarInterfaceTabela() {
+        const corpoTabela = document.getElementById("tabela");
+        corpoTabela.innerHTML = "";
+
+        dadosSalvos.forEach((competidor, indice) => {
+            let linha = document.createElement("tr");
+            linha.innerHTML = `
+                <td><b>${competidor.num}</b></td>
+                <td>${competidor.piloto}</td>
+                <td>${competidor.navegador}</td>
+                <td>${competidor.equipe}</td>
+                <td>${competidor.veiculo}</td>
+                <td>${competidor.campeonato}</td>
+                <td><b>${competidor.categoria}</b></td>
+                <td class="coluna-acao" style="display: ${modoAdminAtivo ? 'table-cell' : 'none'}">
+                    <button class="btn-excluir" onclick="removerLinha(${indice})">Excluir</button>
+                </td>
+            `;
+            corpoTabela.appendChild(linha);
+        });
+
+        // Controla a exibição do cabeçalho da coluna de ações
+        document.getElementById("thAcao").style.display = modoAdminAtivo ? "table-cell" : "none";
+    }
+
     function fazerLogin() {
-        let senhaDigitada = prompt("Digite a senha de administrador para liberar o cadastro:");
+        let senhaDigitada = prompt("Digite a senha de administrador para liberar ações:");
         if (senhaDigitada === SENHA_CORRETA) {
+            modoAdminAtivo = true;
             document.getElementById("areaCadastro").style.display = "block";
             document.getElementById("linkAdmin").style.display = "none";
             document.getElementById("linkSair").style.display = "inline";
+            atualizarInterfaceTabela();
         } else if (senhaDigitada !== null) {
             alert("Senha incorreta!");
         }
     }
 
     function fazerSair() {
+        modoAdminAtivo = false;
         document.getElementById("areaCadastro").style.display = "none";
         document.getElementById("linkAdmin").style.display = "inline";
         document.getElementById("linkSair").style.display = "none";
+        atualizarInterfaceTabela();
     }
 
-    // Salva os competidores na lista mantendo o histórico
+    // Função para remover uma linha específica
+    function removerLinha(indice) {
+        if (confirm("Deseja mesmo remover este competidor?")) {
+            dadosSalvos.splice(indice, 1); // Remove do array
+            localStorage.setItem("dados_rally_estruturados", JSON.stringify(dadosSalvos)); // Salva nova lista
+            atualizarInterfaceTabela(); // Redesenha a tela
+        }
+    }
+
+    // Grava um novo competidor estruturado
     document.getElementById("formRally").addEventListener("submit", function(e) {
         e.preventDefault();
 
-        let num = document.getElementById("num").value;
-        let piloto = document.getElementById("piloto").value;
-        let navegador = document.getElementById("navegador").value;
-        let equipe = document.getElementById('equipe').value;
-        let veiculo = document.getElementById("veiculo").value;
-        let campeonato = document.getElementById("campeonato").value;
-        let categoria = document.getElementById("categoria").value;
+        let novoCompetidor = {
+            num: document.getElementById("num").value,
+            piloto: document.getElementById("piloto").value,
+            navegador: document.getElementById("navegador").value,
+            equipe: document.getElementById('equipe').value,
+            veiculo: document.getElementById("veiculo").value,
+            campeonato: document.getElementById("campeonato").value,
+            categoria: document.getElementById("categoria").value
+        };
 
-        let novaLinha = `<tr>
-            <td><b>${num}</b></td>
-            <td>${piloto}</td>
-            <td>${navegador}</td>
-            <td>${equipe}</td>
-            <td>${veiculo}</td>
-            <td>${campeonato}</td>
-            <td><b>${categoria}</b></td>
-        </tr>`;
-
-        document.getElementById("tabela").innerHTML += novaLinha;
-        localStorage.setItem("tabela_rally", document.getElementById("tabela").innerHTML);
+        dadosSalvos.push(novoCompetidor);
+        localStorage.setItem("dados_rally_estruturados", JSON.stringify(dadosSalvos));
+        
+        atualizarInterfaceTabela();
         document.getElementById("formRally").reset();
     });
+
+    // Inicia carregando os dados na tela
+    atualizarInterfaceTabela();
 </script>
 
 </body>
