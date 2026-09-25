@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscritos Rally Nova Itália</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 30px;
+        }
+        h2, h3 {
+            text-align: center;
+            color: #1a1a1a;
+        }
+        h2 { margin-bottom: 20px; }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #e65c00;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #ff6b0b;
+        }
+        .table-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 1000px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #1a252f;
+            color: white;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>--- CADASTRO DE INSCRITOS ---</h2>
+    <form id="formRally">
+        <div class="form-group">
+            <label for="num">Número do Carro:</label>
+            <input type="number" id="num" required min="1">
+        </div>
+        
+        <div class="form-group">
+            <label for="piloto">Nome do Piloto:</label>
+            <input type="text" id="piloto" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="navegador">Nome do Navegador:</label>
+            <input type="text" id="navegador" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="equipe">Nome da Equipe:</label>
+            <input type="text" id="equipe" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="marca_modelo">Marca/Modelo do Veículo:</label>
+            <input type="text" id="marca_modelo" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="campeonato">Campeonatos que pontua:</label>
+            <input type="text" id="campeonato" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="categoria">Selecione a Categoria:</label>
+            <select id="categoria" required>
+                <option value="" disabled selected>Escolha uma categoria...</option>
+                <option value="BR Rally 2">BR Rally 2</option>
+                <option value="BR Rally 4">BR Rally 4</option>
+                <option value="BR Rally 5">BR Rally 5</option>
+                <option value="BR Rally 5 L">BR Rally 5 L</option>
+                <option value="Gaucho Rally 2">Gaucho Rally 2</option>
+                <option value="Gaucho Rally 4">Gaucho Rally 4</option>
+                <option value="Gaucho Rally 5">Gaucho Rally 5</option>
+                <option value="Gaucho Rally 5 L">Gaucho Rally 5 L</option>
+                <option value="Gaucho UTV SSV">Gaucho UTV SSV</option>
+                <option value="RallyPR 4x4">RallyPR 4x4</option>
+                <option value="RallyPR 4x2 Fia">RallyPR 4x2 Fia</option>
+                <option value="RallyPR 4x2 Pró">RallyPR 4x2 Pró</option>
+                <option value="RallyPR 4x2 Super">RallyPR 4x2 Super</option>
+                <option value="RallyPR RCC">RallyPR RCC</option>
+                <option value="RallyPR RTT">RallyPR RTT</option>
+            </select>
+        </div>
+        
+        <button type="submit">Cadastrar Inscrito</button>
+    </form>
+</div>
+
+<div class="table-container">
+    <h3>--- LISTA DE INSCRITOS ---</h3>
+    <table>
+        <thead>
+            <tr>
+                <th class="text-center">N°</th>
+                <th>Piloto</th>
+                <th>Navegador</th>
+                <th>Equipe</th>
+                <th>Veículo</th>
+                <th>Campeonato</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody id="listaInscritos">
+            <!-- As linhas contendo os inscritos serão injetadas aqui dinamicamente -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.getElementById('formRally').addEventListener('submit', function(event) {
+        event.preventDefault(); // Impede o recarregamento padrão da página
+        
+        // Captura os valores informados nos campos do formulário
+        const num = document.getElementById('num').value;
+        const piloto = document.getElementById('piloto').value;
+        const navegador = document.getElementById('navegador').value;
+        const equipe = document.getElementById('equipe').value;
+        const marcaModelo = document.getElementById('marca_modelo').value;
+        const campeonato = document.getElementById('campeonato').value;
+        const categoria = document.getElementById('categoria').value;
+        
+        // Localiza o corpo da tabela para inserção dos dados
+        const tabelaBody = document.getElementById('listaInscritos');
+        
+        // Cria um elemento de linha estruturado (tr)
+        const novaLinha = document.createElement('tr');
+        
+        // Popula as colunas (td) da nova linha com as informações coletadas
+        novaLinha.innerHTML = `
+            <td class="text-center"><strong>${num}</strong></td>
+            <td>${piloto}</td>
+            <td>${navegador}</td>
+            <td>${equipe}</td>
+            <td>${marcaModelo}</td>
+            <td>${campeonato}</td>
+            <td><strong>${categoria}</strong></td>
+        `;
+        
+        // Adiciona o elemento visual completo no fim da tabela
+        tabelaBody.appendChild(novaLinha);
+        
+        // Redefine todos os campos do formulário para preparar o próximo registro
+        document.getElementById('formRally').reset();
+    });
+</script>
+
+</body>
+</html>
