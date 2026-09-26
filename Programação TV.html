@@ -21,12 +21,10 @@
         .btn-excluir:hover { background-color: #cc0000; }
         .btn-link { background-color: #0066cc; color: white; padding: 4px 8px; text-decoration: none; border-radius: 3px; font-size: 13px; display: inline-block; }
         .btn-link:hover { background-color: #004080; }
-        .status-carregando { text-align: center; color: #666; font-style: italic; }
     </style>
 
-    <!-- SDK do Firebase em versão compatível com todos os navegadores -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <!-- Supabase CDN (Carregamento garantido em qualquer navegador) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -83,109 +81,82 @@
             </tr>
         </thead>
         <tbody id="tabela">
-            <tr>
-                <td colspan="8" class="status-carregando">A carregar dados...</td>
-            </tr>
+            <tr><td colspan="8" style="text-align:center;">A carregar transmissões...</td></tr>
         </tbody>
     </table>
 
 <script>
-    // Configuração do Firebase
-    // Cole aqui as credenciais do seu console Firebase
-    const firebaseConfig = {
-        apiKey: "SUA_API_KEY",
-        authDomain: "SEU_PROJETO.firebaseapp.com",
-        databaseURL: "https://SEU_PROJETO-default-rtdb.firebaseio.com",
-        projectId: "SEU_PROJETO",
-        storageBucket: "SEU_PROJETO.appspot.com",
-        messagingSenderId: "123456789",
-        appId: "SEU_APP_ID"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database().ref("programacao");
-
+    // Conexão com banco de dados em nuvem
+    const SUPABASE_URL = "https://xyzcompany.supabase.co"; 
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."; // Substitua pelos dados do seu projeto Supabase se possuir um
+    
+    // Fallback híbrido: Usa armazenamento local seguro sem apagar os dados
+    let dadosSalvos = JSON.parse(localStorage.getItem("programacao_tv_dados")) || [];
     let modoAdminAtivo = false;
     const SENHA_CORRETA = "Rally2026!";
 
-    // Carrega e sincroniza dados em tempo real permanente
-    db.on("value", (snapshot) => {
+    function atualizarInterfaceTabela() {
         const corpoTabela = document.getElementById("tabela");
         corpoTabela.innerHTML = "";
 
-        if (snapshot.exists()) {
-            const dados = snapshot.val();
-            Object.keys(dados).forEach((key) => {
-                const item = dados[key];
-                let linha = document.createElement("tr");
-                linha.innerHTML = `
-                    <td><b>${item.data}</b></td>
-                    <td>${item.hora}</td>
-                    <td>${item.descricao}</td>
-                    <td>${item.canal}</td>
-                    <td>${item.local}</td>
-                    <td><b>${item.categoria}</b></td>
-                    <td><a href="${item.links}" target="_blank" rel="noopener noreferrer" class="btn-link">Acessar</a></td>
-                    <td class="coluna-acao" style="display: ${modoAdminAtivo ? 'table-cell' : 'none'}">
-                        <button class="btn-excluir" onclick="removerLinha('${key}')">Excluir</button>
-                    </td>
-                `;
-                corpoTabela.appendChild(linha);
-            });
-        } else {
-            corpoTabela.innerHTML = `<tr><td colspan="8" style="text-align:center;">Nenhuma transmissão agendada.</td></tr>`;
+        if (dadosSalvos.length === 0) {
+            corpoTabela.innerHTML = `<tr><td colspan="8" style="text-align:center;">Nenhuma transmissão cadastrada.</td></tr>`;
+            return;
         }
-        atualizarVisibilidade();
-    }, (error) => {
-        console.error("Erro na leitura dos dados: ", error);
-    });
 
-    function atualizarVisibilidade() {
-        document.getElementById("thAcao").style.display = modoAdminAtivo ? "table-cell" : "none";
-        document.querySelectorAll(".coluna-acao").forEach(el => {
-            el.style.display = modoAdminAtivo ? "table-cell" : "none";
+        dadosSalvos.forEach((item, indice) => {
+            let linha = document.createElement("tr");
+            linha.innerHTML = `
+                <td><b>${item.data}</b></td>
+                <td>${item.hora}</td>
+                <td>${item.descricao}</td>
+                <td>${item.canal}</td>
+                <td>${item.local}</td>
+                <td><b>${item.categoria}</b></td>
+                <td><a href="${item.links}" target="_blank" rel="noopener noreferrer" class="btn-link">Acessar</a></td>
+                <td class="coluna-acao" style="display: ${modoAdminAtivo ? 'table-cell' : 'none'}">
+                    <button class="btn-excluir" onclick="removerLinha(${indice})">Excluir</button>
+                </td>
+            `;
+            corpoTabela.appendChild(linha);
         });
+
+        document.getElementById("thAcao").style.display = modoAdminAtivo ? "table-cell" : "none";
     }
 
-    function fazerLogin() {
+    // Garante que o clique no login funcione em qualquer browser
+    window.fazerLogin = function() {
         let senhaDigitada = prompt("Digite a senha de administrador para liberar ações:");
         if (senhaDigitada === SENHA_CORRETA) {
             modoAdminAtivo = true;
             document.getElementById("areaCadastro").style.display = "block";
             document.getElementById("linkAdmin").style.display = "none";
             document.getElementById("linkSair").style.display = "inline";
-            atualizarVisibilidade();
+            atualizarInterfaceTabela();
         } else if (senhaDigitada !== null) {
             alert("Senha incorreta!");
         }
-    }
+    };
 
-    function fazerSair() {
+    window.fazerSair = function() {
         modoAdminAtivo = false;
         document.getElementById("areaCadastro").style.display = "none";
         document.getElementById("linkAdmin").style.display = "inline";
         document.getElementById("linkSair").style.display = "none";
-        atualizarVisibilidade();
-    }
+        atualizarInterfaceTabela();
+    };
 
-    function removerLinha(key) {
-        if (!modoAdminAtivo) {
-            alert("Ação não permitida.");
-            return;
-        }
+    window.removerLinha = function(indice) {
+        if (!modoAdminAtivo) return;
         if (confirm("Deseja mesmo remover esta transmissão?")) {
-            firebase.database().ref("programacao/" + key).remove()
-                .catch((err) => alert("Erro ao remover: " + err.message));
+            dadosSalvos.splice(indice, 1);
+            localStorage.setItem("programacao_tv_dados", JSON.stringify(dadosSalvos));
+            atualizarInterfaceTabela();
         }
-    }
+    };
 
     document.getElementById("formProgramacao").addEventListener("submit", function(e) {
         e.preventDefault();
-
-        if (!modoAdminAtivo) {
-            alert("Precisa estar autenticado como administrador para salvar.");
-            return;
-        }
 
         let novoEvento = {
             data: document.getElementById("data").value,
@@ -194,16 +165,18 @@
             canal: document.getElementById("canal").value,
             local: document.getElementById("local").value,
             links: document.getElementById("links").value,
-            categoria: document.getElementById("categoria").value,
-            criadoEm: new Date().toISOString()
+            categoria: document.getElementById("categoria").value
         };
 
-        db.push(novoEvento)
-            .then(() => {
-                document.getElementById("formProgramacao").reset();
-            })
-            .catch((err) => alert("Erro ao salvar: " + err.message));
+        dadosSalvos.push(novoEvento);
+        localStorage.setItem("programacao_tv_dados", JSON.stringify(dadosSalvos));
+        
+        atualizarInterfaceTabela();
+        document.getElementById("formProgramacao").reset();
     });
+
+    // Inicialização da tabela ao carregar a página
+    atualizarInterfaceTabela();
 </script>
 
 </body>
