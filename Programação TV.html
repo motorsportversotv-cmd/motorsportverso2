@@ -21,9 +21,10 @@
         .btn-excluir:hover { background-color: #cc0000; }
         .btn-link { background-color: #0066cc; color: white; padding: 4px 8px; text-decoration: none; border-radius: 3px; font-size: 13px; display: inline-block; }
         .btn-link:hover { background-color: #004080; }
+        .status-carregando { text-align: center; color: #666; font-style: italic; }
     </style>
 
-    <!-- Firebase Compat SDK (Compatível com todos os navegadores sem módulos) -->
+    <!-- SDK do Firebase em versão compatível com todos os navegadores -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
@@ -81,11 +82,16 @@
                 <th class="coluna-acao" id="thAcao">Ações</th>
             </tr>
         </thead>
-        <tbody id="tabela"></tbody>
+        <tbody id="tabela">
+            <tr>
+                <td colspan="8" class="status-carregando">A carregar dados...</td>
+            </tr>
+        </tbody>
     </table>
 
 <script>
-    // Substitua pelas credenciais do seu projeto Firebase (Realtime Database)
+    // Configuração do Firebase
+    // Cole aqui as credenciais do seu console Firebase
     const firebaseConfig = {
         apiKey: "SUA_API_KEY",
         authDomain: "SEU_PROJETO.firebaseapp.com",
@@ -102,7 +108,7 @@
     let modoAdminAtivo = false;
     const SENHA_CORRETA = "Rally2026!";
 
-    // Sincronização automática em tempo real
+    // Carrega e sincroniza dados em tempo real permanente
     db.on("value", (snapshot) => {
         const corpoTabela = document.getElementById("tabela");
         corpoTabela.innerHTML = "";
@@ -126,8 +132,12 @@
                 `;
                 corpoTabela.appendChild(linha);
             });
+        } else {
+            corpoTabela.innerHTML = `<tr><td colspan="8" style="text-align:center;">Nenhuma transmissão agendada.</td></tr>`;
         }
         atualizarVisibilidade();
+    }, (error) => {
+        console.error("Erro na leitura dos dados: ", error);
     });
 
     function atualizarVisibilidade() {
@@ -159,13 +169,23 @@
     }
 
     function removerLinha(key) {
+        if (!modoAdminAtivo) {
+            alert("Ação não permitida.");
+            return;
+        }
         if (confirm("Deseja mesmo remover esta transmissão?")) {
-            firebase.database().ref("programacao/" + key).remove();
+            firebase.database().ref("programacao/" + key).remove()
+                .catch((err) => alert("Erro ao remover: " + err.message));
         }
     }
 
     document.getElementById("formProgramacao").addEventListener("submit", function(e) {
         e.preventDefault();
+
+        if (!modoAdminAtivo) {
+            alert("Precisa estar autenticado como administrador para salvar.");
+            return;
+        }
 
         let novoEvento = {
             data: document.getElementById("data").value,
@@ -174,11 +194,15 @@
             canal: document.getElementById("canal").value,
             local: document.getElementById("local").value,
             links: document.getElementById("links").value,
-            categoria: document.getElementById("categoria").value
+            categoria: document.getElementById("categoria").value,
+            criadoEm: new Date().toISOString()
         };
 
-        db.push(novoEvento);
-        document.getElementById("formProgramacao").reset();
+        db.push(novoEvento)
+            .then(() => {
+                document.getElementById("formProgramacao").reset();
+            })
+            .catch((err) => alert("Erro ao salvar: " + err.message));
     });
 </script>
 
