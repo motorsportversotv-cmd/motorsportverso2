@@ -21,6 +21,120 @@
         .btn-link { background-color: #0066cc; color: white; padding: 4px 8px; text-decoration: none; border-radius: 3px; font-size: 13px; display: inline-block; }
         .btn-link:hover { background-color: #004080; }
     </style>
+
+    <!-- Módulos do Firebase SDK (v10) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // CONFIGURAÇÃO DO SEU FIREBASE:
+        // Crie um projeto gratuito em https://console.firebase.google.com/ e cole os dados abaixo
+        const firebaseConfig = {
+            apiKey: "SUA_API_KEY",
+            authDomain: "SEU_PROJETO.firebaseapp.com",
+            databaseURL: "https://SEU_PROJETO-default-rtdb.firebaseio.com",
+            projectId: "SEU_PROJETO",
+            storageBucket: "SEU_PROJETO.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "SEU_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const programacaoRef = ref(db, "programacao");
+
+        let modoAdminAtivo = false;
+        const SENHA_CORRETA = "Rally2026!";
+
+        // Escuta atualizações do banco em tempo real em qualquer dispositivo
+        onValue(programacaoRef, (snapshot) => {
+            const corpoTabela = document.getElementById("tabela");
+            corpoTabela.innerHTML = "";
+
+            if (snapshot.exists()) {
+                const dados = snapshot.val();
+                Object.keys(dados).forEach((idKey) => {
+                    const item = dados[idKey];
+                    let linha = document.createElement("tr");
+                    linha.innerHTML = `
+                        <td><b>${item.data}</b></td>
+                        <td>${item.hora}</td>
+                        <td>${item.descricao}</td>
+                        <td>${item.canal}</td>
+                        <td>${item.local}</td>
+                        <td><b>${item.categoria}</b></td>
+                        <td><a href="${item.links}" target="_blank" rel="noopener noreferrer" class="btn-link">Acessar</a></td>
+                        <td class="coluna-acao" style="display: ${modoAdminAtivo ? 'table-cell' : 'none'}">
+                            <button class="btn-excluir" data-id="${idKey}">Excluir</button>
+                        </td>
+                    `;
+                    corpoTabela.appendChild(linha);
+                });
+
+                // Adiciona evento de remoção para os botões gerados
+                document.querySelectorAll(".btn-excluir").forEach(btn => {
+                    btn.addEventListener("click", function() {
+                        const id = this.getAttribute("data-id");
+                        removerLinha(id);
+                    });
+                });
+            }
+
+            atualizarVisibilidadeAcoes();
+        });
+
+        function atualizarVisibilidadeAcoes() {
+            document.getElementById("thAcao").style.display = modoAdminAtivo ? "table-cell" : "none";
+            document.querySelectorAll(".coluna-acao").forEach(el => {
+                el.style.display = modoAdminAtivo ? "table-cell" : "none";
+            });
+        }
+
+        window.fazerLogin = function() {
+            let senhaDigitada = prompt("Digite a senha de administrador para liberar ações:");
+            if (senhaDigitada === SENHA_CORRETA) {
+                modoAdminAtivo = true;
+                document.getElementById("areaCadastro").style.display = "block";
+                document.getElementById("linkAdmin").style.display = "none";
+                document.getElementById("linkSair").style.display = "inline";
+                atualizarVisibilidadeAcoes();
+            } else if (senhaDigitada !== null) {
+                alert("Senha incorreta!");
+            }
+
+        };
+
+        window.fazerSair = function() {
+            modoAdminAtivo = false;
+            document.getElementById("areaCadastro").style.display = "none";
+            document.getElementById("linkAdmin").style.display = "inline";
+            document.getElementById("linkSair").style.display = "none";
+            atualizarVisibilidadeAcoes();
+        };
+
+        function removerLinha(id) {
+            if (confirm("Deseja mesmo remover esta transmissão?")) {
+                remove(ref(db, `programacao/${id}`));
+            }
+        }
+
+        document.getElementById("formProgramacao").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            let novoEvento = {
+                data: document.getElementById("data").value,
+                hora: document.getElementById("hora").value,
+                descricao: document.getElementById("descricao").value,
+                canal: document.getElementById("canal").value,
+                local: document.getElementById("local").value,
+                links: document.getElementById("links").value,
+                categoria: document.getElementById("categoria").value
+            };
+
+            push(programacaoRef, novoEvento);
+            document.getElementById("formProgramacao").reset();
+        });
+    </script>
 </head>
 <body>
 
@@ -78,88 +192,6 @@
         </thead>
         <tbody id="tabela"></tbody>
     </table>
-
-<script>
-    let dadosSalvos = JSON.parse(localStorage.getItem("programacao_tv_dados")) || [];
-    let modoAdminAtivo = false;
-
-    const SENHA_CORRETA = "Rally2026!";
-
-    function atualizarInterfaceTabela() {
-        const corpoTabela = document.getElementById("tabela");
-        corpoTabela.innerHTML = "";
-
-        dadosSalvos.forEach((item, indice) => {
-            let linha = document.createElement("tr");
-            linha.innerHTML = `
-                <td><b>${item.data}</b></td>
-                <td>${item.hora}</td>
-                <td>${item.descricao}</td>
-                <td>${item.canal}</td>
-                <td>${item.local}</td>
-                <td><b>${item.categoria}</b></td>
-                <td><a href="${item.links}" target="_blank" rel="noopener noreferrer" class="btn-link">Acessar</a></td>
-                <td class="coluna-acao" style="display: ${modoAdminAtivo ? 'table-cell' : 'none'}">
-                    <button class="btn-excluir" onclick="removerLinha(${indice})">Excluir</button>
-                </td>
-            `;
-            corpoTabela.appendChild(linha);
-        });
-
-        document.getElementById("thAcao").style.display = modoAdminAtivo ? "table-cell" : "none";
-    }
-
-    function fazerLogin() {
-        let senhaDigitada = prompt("Digite a senha de administrador para liberar ações:");
-        if (senhaDigitada === SENHA_CORRETA) {
-            modoAdminAtivo = true;
-            document.getElementById("areaCadastro").style.display = "block";
-            document.getElementById("linkAdmin").style.display = "none";
-            document.getElementById("linkSair").style.display = "inline";
-            atualizarInterfaceTabela();
-        } else if (senhaDigitada !== null) {
-            alert("Senha incorreta!");
-        }
-    }
-
-    function fazerSair() {
-        modoAdminAtivo = false;
-        document.getElementById("areaCadastro").style.display = "none";
-        document.getElementById("linkAdmin").style.display = "inline";
-        document.getElementById("linkSair").style.display = "none";
-        atualizarInterfaceTabela();
-    }
-
-    function removerLinha(indice) {
-        if (confirm("Deseja mesmo remover esta transmissão?")) {
-            dadosSalvos.splice(indice, 1);
-            localStorage.setItem("programacao_tv_dados", JSON.stringify(dadosSalvos));
-            atualizarInterfaceTabela();
-        }
-    }
-
-    document.getElementById("formProgramacao").addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        let novoEvento = {
-            data: document.getElementById("data").value,
-            hora: document.getElementById("hora").value,
-            descricao: document.getElementById("descricao").value,
-            canal: document.getElementById("canal").value,
-            local: document.getElementById("local").value,
-            links: document.getElementById("links").value,
-            categoria: document.getElementById("categoria").value
-        };
-
-        dadosSalvos.push(novoEvento);
-        localStorage.setItem("programacao_tv_dados", JSON.stringify(dadosSalvos));
-        
-        atualizarInterfaceTabela();
-        document.getElementById("formProgramacao").reset();
-    });
-
-    atualizarInterfaceTabela();
-</script>
 
 </body>
 </html>
