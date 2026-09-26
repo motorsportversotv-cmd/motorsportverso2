@@ -3,69 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programação TV & Streaming</title>
+    <title>TV & Streaming</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 1000px; margin: 20px auto; padding: 10px; }
-        .topo { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px; }
-        .link-admin { color: #0066cc; cursor: pointer; text-decoration: underline; font-size: 14px; font-weight: bold; }
-        #areaCadastro { background-color: #f9f9f9; padding: 20px; border: 1px dashed #999; border-radius: 5px; margin-bottom: 30px; display: none; }
-        .campo { margin-bottom: 10px; }
-        label { display: inline-block; width: 150px; font-weight: bold; }
-        input, select { padding: 5px; width: 280px; }
-        button { padding: 8px 15px; margin-top: 10px; cursor: pointer; font-weight: bold; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .coluna-acao { display: none; text-align: center; }
-        .btn-excluir { background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
-        .btn-excluir:hover { background-color: #cc0000; }
-        .btn-link { background-color: #0066cc; color: white; padding: 4px 8px; text-decoration: none; border-radius: 3px; font-size: 13px; display: inline-block; }
-        .btn-link:hover { background-color: #004080; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 20px;
+            padding: 0;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
-
-    <!-- Supabase CDN (Carregamento garantido em qualquer navegador) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-    <div class="topo">
-        <h2>Programação de TV & Streaming</h2>
-        <span id="linkAdmin" class="link-admin" onclick="fazerLogin()">Entrar como Admin</span>
-        <span id="linkSair" class="link-admin" onclick="fazerSair()" style="display: none; color: red;">Sair do Painel</span>
-    </div>
-
-    <div id="areaCadastro">
-        <h3>Painel de Cadastro de Eventos (Modo Administrador)</h3>
-        <form id="formProgramacao">
-            <div class="campo"><label>Data:</label><input type="text" id="data" placeholder="Ex: 25/09/2026" required></div>
-            <div class="campo"><label>Hora:</label><input type="text" id="hora" placeholder="Ex: 21:30" required></div>
-            <div class="campo"><label>Descrição:</label><input type="text" id="descricao" placeholder="Ex: FIA WEC - FP3" required></div>
-            <div class="campo"><label>Canal / Transmissão:</label><input type="text" id="canal" placeholder="Ex: BandSports / YouTube" required></div>
-            <div class="campo"><label>Local / Evento:</label><input type="text" id="local" placeholder="Ex: Fuji Speedway" required></div>
-            <div class="campo"><label>Link do Streaming:</label><input type="url" id="links" placeholder="Ex: https://www.youtube.com/..." required></div>
-            <div class="campo">
-                <label>Plataforma / Categoria:</label>
-                <select id="categoria" required>
-                    <option value="Youtube">Youtube</option>
-                    <option value="Twitch.TV">Twitch.TV</option>
-                    <option value="ESPN">ESPN</option>
-                    <option value="Sportv2 BR">Sportv2 BR</option>
-                    <option value="Sportv3 BR">Sportv3 BR</option>
-                    <option value="Racer BR">Racer BR</option>
-                    <option value="Rally TV">Rally TV</option>
-                    <option value="Gaucho Rally 5 L">Gaucho Rally 5 L</option>
-                    <option value="Gaucho UTV SSV">Gaucho UTV SSV</option>
-                    <option value="RallyPR 4x4">RallyPR 4x4</option>
-                    <option value="RallyPR 4x2 Fia">RallyPR 4x2 Fia</option>
-                    <option value="RallyPR 4x2 Pró">RallyPR 4x2 Pró</option>
-                    <option value="RallyPR 4x2 Super">RallyPR 4x2 Super</option>
-                    <option value="RallyPR RCC">RallyPR RCC</option>
-                    <option value="RallyPR RTT">RallyPR RTT</option>
-                </select>
-            </div>
-            <button type="submit" style="background-color: #ccffcc;">Salvar Transmissão</button>
-        </form>
-    </div>
+    <h2>Programação: TV & Streaming</h2>
 
     <table>
         <thead>
@@ -73,111 +61,46 @@
                 <th>Data</th>
                 <th>Hora</th>
                 <th>Descrição</th>
-                <th>Canal</th>
                 <th>Local</th>
-                <th>Categoria</th>
-                <th>Assistir</th>
-                <th class="coluna-acao" id="thAcao">Ações</th>
+                <th>Canal</th>
+                <th>Links</th>
             </tr>
         </thead>
-        <tbody id="tabela">
-            <tr><td colspan="8" style="text-align:center;">A carregar transmissões...</td></tr>
+        <tbody>
+            <tr>
+                <td>25/09/2026</td>
+                <td>21:30</td>
+                <td>Fia WEC-FP3</td>
+                <td>Fuji</td>
+                <td>Youtube GP</td>
+                <td><a href="https://example.com" target="_blank">Assistir Agora</a></td>
+            </tr>
+            <tr>
+                <td>26/09/2026</td>
+                <td>04:00</td>
+                <td>F2-Main Race</td>
+                <td>Baku</td>
+                <td>Globo Play Premium\Sportv 2 ou 3</td>
+                <td><a href="https://example.com" target="_blank">Acessar Netflix</a></td>
+            </tr>
+            <tr>
+                <td>26/09/2026</td>
+                <td>11:00</td>
+                <td>Paranaense de KartCross-sabado</td>
+                <td>Paraná</td>
+                <td>Youtube</td>
+                <td><a href="https://example.com" target="_blank">Ver Detalhes</a></td>
+            </tr>
+             <tr>
+                <td>26/09/2026</td>
+                <td>16:00</td>
+                <td>Perdidos na noite-Cascavel</td>
+                <td>Cascavel</td>
+                <td>Youtube</td>
+                <td><a href="https://example.com" target="_blank">Ver Detalhes</a></td>
+            </tr>
         </tbody>
     </table>
-
-<script>
-    // Conexão com banco de dados em nuvem
-    const SUPABASE_URL = "https://xyzcompany.supabase.co"; 
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."; // Substitua pelos dados do seu projeto Supabase se possuir um
-    
-    // Fallback híbrido: Usa armazenamento local seguro sem apagar os dados
-    let dadosSalvos = JSON.parse(localStorage.getItem("programacao_tv_dados")) || [];
-    let modoAdminAtivo = false;
-    const SENHA_CORRETA = "Rally2026!";
-
-    function atualizarInterfaceTabela() {
-        const corpoTabela = document.getElementById("tabela");
-        corpoTabela.innerHTML = "";
-
-        if (dadosSalvos.length === 0) {
-            corpoTabela.innerHTML = `<tr><td colspan="8" style="text-align:center;">Nenhuma transmissão cadastrada.</td></tr>`;
-            return;
-        }
-
-        dadosSalvos.forEach((item, indice) => {
-            let linha = document.createElement("tr");
-            linha.innerHTML = `
-                <td><b>${item.data}</b></td>
-                <td>${item.hora}</td>
-                <td>${item.descricao}</td>
-                <td>${item.canal}</td>
-                <td>${item.local}</td>
-                <td><b>${item.categoria}</b></td>
-                <td><a href="${item.links}" target="_blank" rel="noopener noreferrer" class="btn-link">Acessar</a></td>
-                <td class="coluna-acao" style="display: ${modoAdminAtivo ? 'table-cell' : 'none'}">
-                    <button class="btn-excluir" onclick="removerLinha(${indice})">Excluir</button>
-                </td>
-            `;
-            corpoTabela.appendChild(linha);
-        });
-
-        document.getElementById("thAcao").style.display = modoAdminAtivo ? "table-cell" : "none";
-    }
-
-    // Garante que o clique no login funcione em qualquer browser
-    window.fazerLogin = function() {
-        let senhaDigitada = prompt("Digite a senha de administrador para liberar ações:");
-        if (senhaDigitada === SENHA_CORRETA) {
-            modoAdminAtivo = true;
-            document.getElementById("areaCadastro").style.display = "block";
-            document.getElementById("linkAdmin").style.display = "none";
-            document.getElementById("linkSair").style.display = "inline";
-            atualizarInterfaceTabela();
-        } else if (senhaDigitada !== null) {
-            alert("Senha incorreta!");
-        }
-    };
-
-    window.fazerSair = function() {
-        modoAdminAtivo = false;
-        document.getElementById("areaCadastro").style.display = "none";
-        document.getElementById("linkAdmin").style.display = "inline";
-        document.getElementById("linkSair").style.display = "none";
-        atualizarInterfaceTabela();
-    };
-
-    window.removerLinha = function(indice) {
-        if (!modoAdminAtivo) return;
-        if (confirm("Deseja mesmo remover esta transmissão?")) {
-            dadosSalvos.splice(indice, 1);
-            localStorage.setItem("programacao_tv_dados", JSON.stringify(dadosSalvos));
-            atualizarInterfaceTabela();
-        }
-    };
-
-    document.getElementById("formProgramacao").addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        let novoEvento = {
-            data: document.getElementById("data").value,
-            hora: document.getElementById("hora").value,
-            descricao: document.getElementById("descricao").value,
-            canal: document.getElementById("canal").value,
-            local: document.getElementById("local").value,
-            links: document.getElementById("links").value,
-            categoria: document.getElementById("categoria").value
-        };
-
-        dadosSalvos.push(novoEvento);
-        localStorage.setItem("programacao_tv_dados", JSON.stringify(dadosSalvos));
-        
-        atualizarInterfaceTabela();
-        document.getElementById("formProgramacao").reset();
-    });
-
-    // Inicialização da tabela ao carregar a página
-    atualizarInterfaceTabela();
-</script>
 
 </body>
 </html>
