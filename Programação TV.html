@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programação TV & Streaming</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 1000px; margin: 20px auto; padding: 10px; }
@@ -21,6 +22,10 @@
         .btn-link { background-color: #0066cc; color: white; padding: 4px 8px; text-decoration: none; border-radius: 3px; font-size: 13px; display: inline-block; }
         .btn-link:hover { background-color: #004080; }
     </style>
+
+    <!-- Firebase Compat SDK (Compatível com todos os navegadores sem módulos) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -80,64 +85,56 @@
     </table>
 
 <script>
-    // URL do servidor gratuito onde a lista fica salva globalmente
-    const API_URL = "https://api.jsonbin.io/v3/b/66f44d85e41b4d34e437b01a"; 
-    
-    let dadosSalvos = [];
+    // Substitua pelas credenciais do seu projeto Firebase (Realtime Database)
+    const firebaseConfig = {
+        apiKey: "SUA_API_KEY",
+        authDomain: "SEU_PROJETO.firebaseapp.com",
+        databaseURL: "https://SEU_PROJETO-default-rtdb.firebaseio.com",
+        projectId: "SEU_PROJETO",
+        storageBucket: "SEU_PROJETO.appspot.com",
+        messagingSenderId: "123456789",
+        appId: "SEU_APP_ID"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database().ref("programacao");
+
     let modoAdminAtivo = false;
     const SENHA_CORRETA = "Rally2026!";
 
-    // Buscar dados do servidor online
-    async function carregarDados() {
-        try {
-            const resposta = await fetch(API_URL + "/latest");
-            if (resposta.ok) {
-                const dadosJson = await resposta.json();
-                dadosSalvos = dadosJson.record || [];
-            }
-        } catch (e) {
-            console.log("Usando dados locais de fallback");
-            dadosSalvos = JSON.parse(localStorage.getItem("programacao_tv_dados")) || [];
-        }
-        atualizarInterfaceTabela();
-    }
-
-    // Salvar dados atualizados no servidor online
-    async function salvarDados() {
-        localStorage.setItem("programacao_tv_dados", JSON.stringify(dadosSalvos));
-        try {
-            await fetch(API_URL, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dadosSalvos)
-            });
-        } catch (e) {
-            console.error("Erro ao sincronizar online:", e);
-        }
-    }
-
-    function atualizarInterfaceTabela() {
+    // Sincronização automática em tempo real
+    db.on("value", (snapshot) => {
         const corpoTabela = document.getElementById("tabela");
         corpoTabela.innerHTML = "";
 
-        dadosSalvos.forEach((item, indice) => {
-            let linha = document.createElement("tr");
-            linha.innerHTML = `
-                <td><b>${item.data}</b></td>
-                <td>${item.hora}</td>
-                <td>${item.descricao}</td>
-                <td>${item.canal}</td>
-                <td>${item.local}</td>
-                <td><b>${item.categoria}</b></td>
-                <td><a href="${item.links}" target="_blank" rel="noopener noreferrer" class="btn-link">Acessar</a></td>
-                <td class="coluna-acao" style="display: ${modoAdminAtivo ? 'table-cell' : 'none'}">
-                    <button class="btn-excluir" onclick="removerLinha(${indice})">Excluir</button>
-                </td>
-            `;
-            corpoTabela.appendChild(linha);
-        });
+        if (snapshot.exists()) {
+            const dados = snapshot.val();
+            Object.keys(dados).forEach((key) => {
+                const item = dados[key];
+                let linha = document.createElement("tr");
+                linha.innerHTML = `
+                    <td><b>${item.data}</b></td>
+                    <td>${item.hora}</td>
+                    <td>${item.descricao}</td>
+                    <td>${item.canal}</td>
+                    <td>${item.local}</td>
+                    <td><b>${item.categoria}</b></td>
+                    <td><a href="${item.links}" target="_blank" rel="noopener noreferrer" class="btn-link">Acessar</a></td>
+                    <td class="coluna-acao" style="display: ${modoAdminAtivo ? 'table-cell' : 'none'}">
+                        <button class="btn-excluir" onclick="removerLinha('${key}')">Excluir</button>
+                    </td>
+                `;
+                corpoTabela.appendChild(linha);
+            });
+        }
+        atualizarVisibilidade();
+    });
 
+    function atualizarVisibilidade() {
         document.getElementById("thAcao").style.display = modoAdminAtivo ? "table-cell" : "none";
+        document.querySelectorAll(".coluna-acao").forEach(el => {
+            el.style.display = modoAdminAtivo ? "table-cell" : "none";
+        });
     }
 
     function fazerLogin() {
@@ -147,7 +144,7 @@
             document.getElementById("areaCadastro").style.display = "block";
             document.getElementById("linkAdmin").style.display = "none";
             document.getElementById("linkSair").style.display = "inline";
-            atualizarInterfaceTabela();
+            atualizarVisibilidade();
         } else if (senhaDigitada !== null) {
             alert("Senha incorreta!");
         }
@@ -158,18 +155,16 @@
         document.getElementById("areaCadastro").style.display = "none";
         document.getElementById("linkAdmin").style.display = "inline";
         document.getElementById("linkSair").style.display = "none";
-        atualizarInterfaceTabela();
+        atualizarVisibilidade();
     }
 
-    async function removerLinha(indice) {
+    function removerLinha(key) {
         if (confirm("Deseja mesmo remover esta transmissão?")) {
-            dadosSalvos.splice(indice, 1);
-            await salvarDados();
-            atualizarInterfaceTabela();
+            firebase.database().ref("programacao/" + key).remove();
         }
     }
 
-    document.getElementById("formProgramacao").addEventListener("submit", async function(e) {
+    document.getElementById("formProgramacao").addEventListener("submit", function(e) {
         e.preventDefault();
 
         let novoEvento = {
@@ -182,15 +177,9 @@
             categoria: document.getElementById("categoria").value
         };
 
-        dadosSalvos.push(novoEvento);
-        await salvarDados();
-        
-        atualizarInterfaceTabela();
+        db.push(novoEvento);
         document.getElementById("formProgramacao").reset();
     });
-
-    // Inicia a busca das informações sincronizadas
-    carregarDados();
 </script>
 
 </body>
