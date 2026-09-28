@@ -1,292 +1,323 @@
-<!doctype html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>24h le mans</title>
+    <title>Mundo do Endurance - WEC, IMSA & Asian Le Mans</title>
     <style>
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #e94560;
+            --accent-color: #0f3460;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --bg-light: #f4f4f9;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'segoe ui', tahoma, geneva, verdana, sans-serif;
         }
+
         body {
-            background-color: #0a1128;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 40px 20px;
-            gap: 30px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
         }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
         .container {
-            background-color: #1c2541;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            border-top: 5px solid #00b4d8;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .countdown-container {
-            background-color: #1c2541;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            border-top: 5px solid #e10600;
-        }
-        #timer {
+
+        nav {
             display: flex;
             justify-content: space-between;
-            gap: 10px;
+            align-items: center;
         }
-        .time-block {
-            flex: 1;
-            background-color: #0a1128;
-            padding: 12px 5px;
-            border-radius: 8px;
-            border: 1px solid #334155;
-        }
-        .time-block span {
-            display: block;
+
+        nav h1 {
             font-size: 1.8rem;
-            font-weight: 800;
-            color: #00b4d8;
-        }
-        .time-block p {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: #94a3b8;
-            margin: 0;
             letter-spacing: 1px;
         }
-        h1 {
-            color: #00b4d8;
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+
+        nav h1 span {
+            color: var(--secondary-color);
         }
-        p {
-            color: #94a3b8;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
+
+        nav ul {
+            display: flex;
+            list-style: none;
         }
-        .btn {
-            display: inline-block;
-            background-color: #00b4d8;
-            color: #0a1128;
-            padding: 12px 30px;
-            border-radius: 6px;
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
             text-decoration: none;
             font-weight: bold;
-            text-transform: uppercase;
-            transition: background 0.3s ease;
+            transition: color 0.3s;
         }
-        .btn:hover {
-            background-color: #90e0ef;
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(15, 52, 96, 0.8)), url('https://unsplash.com') no-repeat center center/cover;
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 0 20px;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+        }
+
+        .main-content {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 100px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .grid-championships {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background-color: var(--text-light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-50px);
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .card-badge {
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .hypercar-highlight {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 60px;
+        }
+
+        .hypercar-highlight h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        .gp-section {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .gp-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .gp-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .gp-item:last-child {
+            border-bottom: none;
+        }
+
+        .gp-name {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .gp-details {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 15px;
+            }
+            .hero h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- CONTAGEM REGRESSIVA -->
-<section class="countdown-container" style="background-color: #1c2541; padding: 30px; border-radius: 12px; max-width: 500px; width: 100%; text-align: center; border-top: 5px solid #e10600; font-family: 'Segoe UI', sans-serif; margin: 0 auto 20px auto;">
-    <h2 style="color: white; margin-bottom: 5px; font-weight: 300; font-size: 1.4rem; text-transform: uppercase;">PRÓXIMA CORRIDA: <span style="font-weight: 800; color: #00b4d8;">24 Horas de Le Mans</span></h2>
-    
-    <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
-        LARGADA: 13 DE JUNHO DE 2026 AS 11:00h
-    </p>
-    
-    <!-- ÁREA DO CRONÔMETRO -->
-    <div id="timer_le_mans" style="display: flex; justify-content: space-between; gap: 10px;">
-        <div style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #334155;">
-            <span id="lm_days" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
-            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Dias</p>
+    <header>
+        <div class="container">
+            <nav>
+                <h1>Endurance<span>Hub</span></h1>
+                <ul>
+                    <li><a href="#campeonatos">Campeonatos</a></li>
+                    <li><a href="#hypercars">Hypercars</a></li>
+                    <li><a href="#gps">Grandes Corridas</a></li>
+                </ul>
+            </nav>
         </div>
-        <div style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #334155;">
-            <span id="lm_hours" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
-            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Horas</p>
+    </header>
+
+    <section class="hero">
+        <div>
+            <h2>A Era de Ouro do Endurance</h2>
+            <p>Acompanhe os protótipos mais velozes do planeta disputando milésimo a milésimo nas pistas mais icônicas do mundo através do WEC, IMSA e Asian Le Mans Series.</p>
         </div>
-        <div style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #334155;">
-            <span id="lm_minutes" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
-            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Min.</p>
-        </div>
-        <div style="flex: 1; background-color: #0a1128; padding: 12px 5px; border-radius: 8px; border: 1px solid #e10600;">
-            <span id="lm_seconds" style="display: block; font-size: 1.8rem; font-weight: 800; color: #00b4d8;">00</span>
-            <p style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; margin: 0; letter-spacing: 1px;">Seg.</p>
-        </div>
-    </div>
-</section>
-<script>
-    (function() {
-        // Alvo definitivo: 13 de Junho de 2026 às 11:00 (Horário de Brasília)
-        const targetTimeLeMans = new Date(2026, 5, 13, 11, 0, 0).getTime();
+    </section>
 
-        function refreshTimer() {
-            const currentTime = new Date().getTime();
-            const timeLeft = targetTimeLeMans - currentTime;
-
-            if (timeLeft <= 0) {
-                document.getElementById('timer_le_mans').innerHTML = "<h3 style='color: #00b4d8; width:100%; text-align:center; font-weight:800; font-size:1.6rem;'>A CORRIDA COMEÇOU!</h3>";
-                return;
-            }
-
-            // Conversão matemática exata dos milissegundos restantes
-            const calcDays = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            const calcHours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const calcMins = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const calcSecs = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-            // Injeta diretamente os dados nos novos IDs de segurança
-            document.getElementById('lm_days').innerText = String(calcDays).padStart(2, '0');
-            document.getElementById('lm_hours').innerText = String(calcHours).padStart(2, '0');
-            document.getElementById('lm_minutes').innerText = String(calcMins).padStart(2, '0');
-            document.getElementById('lm_seconds').innerText = String(calcSecs).padStart(2, '0');
-        }
-
-        refreshTimer();
-        setInterval(refreshTimer, 1000);
-    })();
-</script>
-
-
-    <!-- BLOCO DE INTRODUÇÃO -->
-    <div class="container">
-        <h1>24h le mans</h1>
-        <p>A maior e mais tradicional corrida de resistência do mundo, onde pilotos e máquinas testam seus limites ao extremo por um dia inteiro.</p>
-        <a href="#" class="btn">ver classificação</a>
-    </div>
-
-    <!-- SCRIPT DA CONTAGEM -->
-    <script>
-        const targetDate = new Date(2026, 5, 13, 11, 0, 0).getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const difference = targetDate - now;
-
-            if (difference <= 0) {
-                clearInterval(countdownInterval);
-                document.getElementById('timer').innerHTML = "<h3 style='color: #00b4d8; width:100%; text-align:center; font-weight:800; font-size:1.6rem;'>A CORRIDA COMEÇOU!</h3>";
-                return;
-            }
-
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-            document.getElementById('days').innerText = String(days).padStart(2, '0');
-            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
-        }
-
-        updateCountdown();
-        const countdownInterval = setInterval(updateCountdown, 1000);
-    </script>
-
-</body>
-</html>
-
-
-
-
-    <h1>Mundial de Endurance (WEC)</h1>
-    <p class="subtitle">Detalhes técnicos das máquinas da temporada</p>
-
-    <div class="grid-categorias">
-        <!-- Hypercar LMH -->
-        <div class="card">
-            <div class="card-header">HYPERCAR (LMH)</div>
-            <div class="card-body">
-                <p><strong>Regulamento:</strong> Protótipos com design livre e sistema híbrido opcional.</p>
-                <div class="marcas"><strong>Fabricantes:</strong> Ferrari, Toyota, Peugeot, Aston Martin.</div>
-                <img src="images (5).jpg" alt="Hypercar LMH">
-            </div>
-        </div>
-
-        <!-- Hypercar LMDh -->
-        <div class="card">
-            <div class="card-header">HYPERCAR (LMDh)</div>
-            <div class="card-body">
-                <p><strong>Regulamento:</strong> Sistema híbrido padronizado e chassis de fornecedores oficiais.</p>
-                <div class="marcas"><strong>Fabricantes:</strong> Genesis, Cadillac, BMW, Alpine.</div>
-                <img src="cadillac jota.jpg" alt="HYPERCAR (LMDh)">
-            </div>
-        </div>
-
-        <!-- LMGT3 -->
-        <div class="card">
-            <div class="card-header">LMGT3</div>
-            <div class="card-body">
-                <p><strong>Regulamento:</strong> Carros baseados em modelos de produção com kit FIA GT3.</p>
-                <div class="marcas"><strong>Fabricantes:</strong> Corvette, Aston Martin, Porsche, BMW, Ferrari, Ford, Mercedes, Mclaren  e Lexus.</div>
-                <img src="images (6).jpg" alt="LMGT3">
-            </div>
-        </div>
-    </div>
-</main>
-
-
-
-
-<article>
-    <div class="news-content" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
-        <span class="tag tag-wec">WEC</span>
-        <h3>Novidades Fia WEC 2026</h3>
-
-        <div class="tags-container">
-  <span class="label">Marcadores</span>
-  <a href="#" class="tag">WEC</a>
+    <main class="container main-content">
         
-        <!-- Adicionei display block e margem -->
-        <img src="imagem_2026-03-31_004623684.png" alt="UTV Cup" width="200" style="display: block; margin-bottom: 10px;">
-        
-        <!-- O link agora cairá naturalmente para baixo -->
-        <a href="novidades wec 2026.html" class="read-more">Ler mais →</a>
-    </div>
-</article>
-    
-<script>
-    function updateTimer() {
-        // Alvo: 19 de Abril de 2026
-        const raceDate = new Date("April 19, 2026 08:00:00").getTime();
-        const now = new Date().getTime();
-        const diff = raceDate - now;
+        <!-- Seção de Campeonatos -->
+        <section id="campeonatos">
+            <h2 class="section-title">Principais Campeonatos</h2>
+            <div class="grid-championships">
+                
+                <!-- Card WEC -->
+                <div class="card">
+                    <div class="card-body">
+                        <span class="card-badge">Mundial</span>
+                        <h3>FIA WEC</h3>
+                        <p>O <strong>FIA World Endurance Championship</strong> é o ápice das corridas de longa duração sancionado pela FIA. Reúne montadoras globais competindo nas classes Hypercar e LMGT3.</p>
+                        <p>A joia da coroa do calendário são as lendárias <strong>24 Horas de Le Mans</strong>.</p>
+                    </div>
+                </div>
 
-        if (diff <= 0) {
-            document.getElementById("timer").innerHTML = "<h2 style='color:white'>A CORRIDA COMEÇOU!</h2>";
-            return;
-        }
+                <!-- Card IMSA -->
+                <div class="card">
+                    <div class="card-body">
+                        <span class="card-badge">América do Norte</span>
+                        <h3>IMSA WeatherTech</h3>
+                        <p>O principal campeonato de endurance dos Estados Unidos. Conhecido por corridas extremamente competitivas e pistas desafiadoras com o regulamento de convergência esportiva.</p>
+                        <p>Destaque para as icônicas <strong>24 Horas de Daytona</strong> e as 12 Horas de Sebring.</p>
+                    </div>
+                </div>
 
-        const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
-        const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                <!-- Card Asian Le Mans -->
+                <div class="card">
+                    <div class="card-body">
+                        <span class="card-badge">Ásia / Oriente Médio</span>
+                        <h3>Asian Le Mans Series</h3>
+                        <p>A porta de entrada ideal e a série de inverno que atrai equipes globais para os Emirados Árabes Unidos e região asiática, oferecendo convites automáticos para Le Mans.</p>
+                        <p>O campeonato agora se eleva ao nível máximo com a chegada da classe principal.</p>
+                    </div>
+                </div>
 
-        document.getElementById("months").innerText = String(months).padStart(2, '0');
-        document.getElementById("days").innerText = String(days).padStart(2, '0');
-        document.getElementById("hours").innerText = String(hours).padStart(2, '0');
-        document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
-        document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
-    }
+            </div>
+        </section>
 
-    setInterval(updateTimer, 1000);
-    updateTimer();
-</script>
+        <!-- Destaque Hypercar -->
+        <section id="hypercars" class="hypercar-highlight">
+            <h3>A Revolução da Classe Hypercar</h3>
+            <p>O regulamento técnico <strong>Hypercar (LMH e LMDh)</strong> unificou as principais frentes do automobilismo de resistência mundial. Esta convergência histórica permite que os mesmos carros disputem o FIA WEC e o IMSA de forma simultânea.</p>
+            <br>
+            <p><strong>Novidade na Asian Le Mans Series:</strong> A partir da temporada, as máquinas Hypercar passam a ser elegíveis também na série asiática, consolidando a classe Pro-Am e trazendo montadoras de elite para o grid do campeonato de inverno.</p>
+        </section>
 
-</body>
-</html>
+        <!-- Seção de Grandes Prêmios e Corridas -->
+        <section id="gps" class="gp-section">
+            <h2 class="section-title">Grandes Corridas & Eventos de Destaque</h2>
+            <p>Diferente das corridas tradicionais de GP de tiro curto, os Grandes Prêmios do Endurance são verdadeiros testes de resistência humana e mecânica:</p>
+            
+            <ul class="gp-list">
+                <li class="gp-item">
+                    <span class="gp-name">24 Horas de Le Mans (França)</span>
+                    <span class="gp-details">FIA WEC</span>
+                </li>
+                <li class="gp-item">
+
+                    
 
      
