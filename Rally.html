@@ -125,62 +125,7 @@
 </head>
 <body>
 
-    <div class="container">
-
-        <!-- Lista de Categorias Atualizada com ARA -->
-        <ul class="categories-list">
-            <li class="category-item" data-target="Todos">Todos (<span id="count-todos">0</span>)</li>
-            <li class="category-item" data-target="Link & Co">Link & Co (<span id="count-linkco">0</span>)</li>
-            <li class="category-item" data-target="Rally dos Sertões">Rally dos Sertões (<span id="count-sertoes">0</span>)</li>
-            <li class="category-item" data-target="Paraná">Paraná (<span id="count-parana">0</span>)</li>
-            <li class="category-item" data-target="Tour Auto">Tour Auto (<span id="count-tour">0</span>)</li>
-            <li class="category-item" data-target="ARA">ARA (<span id="count-ara">0</span>)</li>
-        </ul>
-
-        <!-- Seção Dinâmica de Posts Cadastrados -->
-        <div class="posts-wrapper">
-            
-        
-
-    <!-- Script Corrigido para Ler a Classe '.post-card' Real -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Seleciona todos os cards reais da página
-            const posts = document.querySelectorAll('.post-card');
-            
-            let total = posts.length;
-            let linkco = 0;
-            let sertoes = 0;
-            let parana = 0;
-            let tour = 0;
-            let ara = 0;
-
-            // Percorre e contabiliza cada um dos cards baseados no "data-category"
-            posts.forEach(post => {
-                const cat = post.getAttribute('data-category');
-                if (cat === 'Link & Co') linkco++;
-                if (cat === 'Rally dos Sertões') sertoes++;
-                if (cat === 'Paraná') parana++;
-                if (cat === 'Tour Auto') tour++;
-                if (cat === 'ARA') ara++;
-            });
-
-            // Modifica os números do cabeçalho
-            document.getElementById('count-todos').textContent = total;
-            document.getElementById('count-linkco').textContent = linkco;
-            document.getElementById('count-sertoes').textContent = sertoes;
-            document.getElementById('count-parana').textContent = parana;
-            document.getElementById('count-tour').textContent = tour;
-            document.getElementById('count-ara').textContent = ara;
-
-            // Sistema Inteligente de Filtro por Clique
-            const items = document.querySelectorAll('.category-item');
-            items.forEach(item => {
-                item.addEventListener('click', () => {
-                    const target = item.getAttribute('data-target');
-                    
-                    posts.forEach(post => {
-                        const postCat = post.getAttribute('data-category');
+ egory');
                         if (target === 'Todos' || postCat === target) {
                             post.style.display = 'block';
                         } else {
@@ -203,173 +148,15 @@
    
 
    
-            margin-bottom: 15px;
-            border-bottom: 1px solid #1f4e33;
-            padding-bottom: 8px;
-        }
+      
 
-        .lista-links {
-            list-style: none;
-        }
-
-        .lista-links li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px dashed #276341;
-            font-size: 0.9rem;
-        }
-
-        .lista-links li:last-child {
-            border-bottom: none;
-        }
-
-        /* Links interativos do filtro */
-        .lista-links button {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 0.9rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            text-align: left;
-            padding: 0;
-            width: 100%;
-        }
-
-        .lista-links button:hover {
-            text-decoration: underline;
-            color: #aae0bc;
-        }
-
-        /* Estado ativo do botão selecionado */
-        .lista-links button.ativo {
-            color: #52e085;
-            font-weight: bold;
-        }
-
-        .contador {
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 0.9rem;
-            padding-left: 5px;
-        }
-
-        /* Estilização da Coluna do Feed de Posts */
-        .coluna-posts {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* Estrutura Base do Card de Notícias */
-        .card-post {
-            background-color: #111e29;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #162635;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        /* Classe utilitária para esconder posts filtrados */
-        .card-post.escondido {
-            display: none;
-        }
-
-        /* Bloco da Imagem com suporte a Tags absolutas */
-        .container-imagem {
-            position: relative;
-            width: 100%;
-            height: 240px;
-            background-color: #1a2c3d;
-        }
-
-        .container-imagem img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Tag Verde Flutuante */
-        .tag-categoria {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background-color: #4e6c46;
-            color: #ffffff;
-            font-size: 0.75rem;
-            font-weight: bold;
-            padding: 4px 10px;
-            border-radius: 4px;
-        }
-
-        /* Corpo do Texto do Card */
-        .conteudo-post {
-            padding: 20px;
-        }
-
-        .card-post h3 {
-            font-size: 1.25rem;
-            color: #ffffff;
-            font-weight: bold;
-            line-height: 1.3;
-            margin-bottom: 12px;
-        }
-
-        .card-post p {
-            color: #798e9c;
-            font-size: 0.95rem;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
-
-        /* Links de ação interno dos posts */
-        .link-topo {
-            color: #798e9c;
-            text-decoration: none;
-            font-size: 0.85rem;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .leia-mais {
-            color: #4e6b52;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: bold;
-            display: inline-block;
-        }
-
-        .leia-mais:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsividade para telas menores */
-        @media (max-width: 950px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
+     
         }
     </style>
 </head>
 <body>
 
-      <!-- Lista de Marcadores do Portal com IDs para o Script identificar -->
-        <div class="tags-container">
-            <span class="tag-item active" data-tag="Todos">Todos <span class="tag-count" id="count-todos">0</span></span>
-            <span class="tag-item" data-tag="Link & Co">Link & Co <span class="tag-count" id="count-linkco">0</span></span>
-            <span class="tag-item" data-tag="Rally dos Sertões">Rally dos Sertões <span class="tag-count" id="count-sertoes">0</span></span>
-            <span class="tag-item" data-tag="Paraná">Paraná <span class="tag-count" id="count-parana">0</span></span>
-            <span class="tag-item" data-tag="Tour Auto">Tour Auto <span class="tag-count" id="count-tour">0</span></span>
-        </div>
-
-
-
-        <!-- COLUNA 3: Feed Unificado de Notícias -->
-        <main class="coluna-posts">
+    
             
 
 
@@ -606,59 +393,49 @@
   </article>
 </div>
 
-
-
-
-    
-</article>
-
-            </div>  
-       
-</div>
-  
-    
-
-    <!-- Script que realiza a contagem e a filtragem automática -->
+ <!-- Script Corrigido e Otimizado -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const posts = document.querySelectorAll('.post-card');
             
-            // 1. Faz a contagem dos itens existentes no HTML
-            let totalPosts = posts.length;
-            let linkCoCount = 0;
-            let sertoesCount = 0;
-            let paranaCount = 0;
-            let tourCount = 0;
+            let total = posts.length;
+            let linkco = 0;
+            let sertoes = 0;
+            let parana = 0;
+            let tour = 0;
+            let ara = 0;
 
+            // Contabiliza com base no atributo data-category
             posts.forEach(post => {
-                const category = post.getAttribute('data-category');
-                if (category === 'Link & Co') linkCoCount++;
-                if (category === 'Rally dos Sertões') sertoesCount++;
-                if (category === 'Paraná') paranaCount++;
-                if (category === 'Tour Auto') tourCount++;
+                const cat = post.getAttribute('data-category');
+                if (cat === 'Link & Co') linkco++;
+                if (cat === 'Rally dos Sertões') sertoes++;
+                if (cat === 'Paraná') parana++;
+                if (cat === 'Tour Auto') tour++;
+                if (cat === 'ARA') ara++;
             });
 
-            // 2. Insere os números contados dentro dos balões das tags
-            document.getElementById('count-todos').textContent = totalPosts;
-            document.getElementById('count-linkco').textContent = linkCoCount;
-            document.getElementById('count-sertoes').textContent = sertoesCount;
-            document.getElementById('count-parana').textContent = paranaCount;
-            document.getElementById('count-tour').textContent = tourCount;
+            // Atualiza os contadores na tela
+            document.getElementById('count-todos').textContent = total;
+            document.getElementById('count-linkco').textContent = linkco;
+            document.getElementById('count-sertoes').textContent = sertoes;
+            document.getElementById('count-parana').textContent = parana;
+            document.getElementById('count-tour').textContent = tour;
+            document.getElementById('count-ara').textContent = ara;
 
-            // 3. Sistema de clique para Filtrar os posts na tela
-            const tagButtons = document.querySelectorAll('.tag-item');
-            tagButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Remove classe ativa de todos e adiciona no clicado
-                    tagButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
+            // Filtro por clique
+            const items = document.querySelectorAll('.category-item');
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Remove destaque visual do item anterior e adiciona no atual
+                    items.forEach(i => i.classList.remove('ativo'));
+                    item.classList.add('ativo');
 
-                    const selectedTag = button.getAttribute('data-tag');
-
-                    // Mostra ou esconde os cards baseado na tag selecionada
+                    const target = item.getAttribute('data-target');
+                    
                     posts.forEach(post => {
-                        const postCategory = post.getAttribute('data-category');
-                        if (selectedTag === 'Todos' || postCategory === selectedTag) {
+                        const postCat = post.getAttribute('data-category');
+                        if (target === 'Todos' || postCat === target) {
                             post.style.display = 'block';
                         } else {
                             post.style.display = 'none';
@@ -666,393 +443,12 @@
                     });
                 });
             });
-        });     
-</script>
+        });
+    </script>
 
 
-    <!-- GRADE DE NOTÍCIAS (DIV FECHADA CORRETAMENTE) -->
-    <div class="news-container">
-        <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Rally - Funcional com Links</title>
-    <style>
-        /* Estilos Base e Cores */
-        body {
-            background-color: #0b1a24;
-            font-family: Arial, sans-serif;
-            color: #ffffff;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            gap: 30px;
-        }
+    
 
-        /* BARRA LATERAL (Design Verde Floresta) */
-        .sidebar-tags {
-            background-color: #53835c;
-            color: #ffffff;
-            width: 300px;
-            min-width: 300px;
-            padding: 15px;
-            box-sizing: border-box;
-            align-self: flex-start;
-            position: sticky;
-            top: 20px;
-        }
-
-        .sidebar-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            padding-bottom: 5px;
-            border-bottom: 1px dotted #a3c4ab;
-        }
-
-        .tag-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .tag-item {
-            padding: 8px 0;
-            border-bottom: 1px dotted #a3c4ab;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-        }
-
-        .tag-item::before {
-            content: "➔";
-            font-size: 10px;
-            margin-right: 8px;
-            color: #ffffff;
-        }
-
-        .tag-link {
-            color: #ffffff;
-            text-decoration: underline;
-            flex-grow: 1;
-            cursor: pointer;
-        }
-
-        .tag-item:hover .tag-link, .tag-item.active .tag-link {
-            color: #e0f2e5;
-            font-weight: bold;
-        }
-
-        .tag-count {
-            margin-left: 5px;
-            font-weight: bold;
-            padding-right: 5px;
-        }
-
-        /* GRADE DE NOTÍCIAS */
-        .news-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            width: 100%;
-        }
-
-        .card {
-            background: #162a3a;
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #233d52;
-            transition: transform 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .image-container {
-            position: relative;
-            height: 180px;
-            background: #000;
-        }
-
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .tag {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #53835c;
-            color: white;
-            padding: 4px 8px;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 4px;
-        }
-
-        .card-body {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .card-body h3 {
-            font-size: 16px;
-            margin: 0 0 10px 0;
-            color: #fff;
-            line-height: 1.3;
-        }
-
-        .card-body p {
-            font-size: 13px;
-            color: #a0b2c6;
-            margin: 0 0 15px 0;
-            line-height: 1.4;
-        }
-
-        .btn-ler {
-            margin-top: auto;
-            color: #53835c;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .btn-ler:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-
-   
-
-    <!-- GRADE DE NOTÍCIAS COMPLETA -->
-    <div class="news-container">
-        
-        <!-- Notícia 1 -->
-        <article class="card" data-tags="Paranaense">
-            <div class="image-container">
-                <span class="tag">Paranaense</span>
-                <img src="imagem_2026-05-17_214335051.png" alt="Mitsubishi L200 RS">
-            </div>
-            <div class="card-body">
-                <h3>Resultado rally do Centro Oeste-Jardim Alegre</h3>
-                <a href="resultado_rally_centro_oeste_2026.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
-
-        <!-- Notícia 2 -->
-        <article class="card" data-tags="Tour Auto">
-            <div class="image-container">
-                <span class="tag">Tour Auto</span>
-                <img src="Unbenannt-9 (1).png" alt="BMW M1 Pro Car">
-            </div>
-            <div class="card-body">
-                <h3>Resultado final - Tour Auto 2026</h3>
-                <a href="resultado_final_tour_auto26.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
-
-        <!-- Notícia 3 -->
-        <article class="card" data-tags="Rally Virtual">
-            <div class="image-container">
-                <span class="tag">Rally Virtual</span>
-                <img src="hyundai_ac_rally.jpg" alt="Hyundai I20 N Rally 2 Assetto Corsa rally">
-            </div>
-            <div class="card-body">
-                <h3>Fia lança o esports global</h3>
-                <p>Fia lança primeiro esports global baseado no Assetto Corsa rally.</p>
-                <a href="fia_cria_esports_global_de_rally_no_assetto_corsa_rally.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
-
-        <!-- Notícia 4 -->
-        <article class="card" data-tags="Tour Auto">
-            <div class="image-container">
-                <span class="tag">Tour Auto</span>
-                <img src="Porsche-911-Carrera-3.0-RS-blanc-Tour-Auto-2009-3-4-avant-droit_zoom.jpg" alt="Porsche 911 Carrera">
-            </div>
-            <div class="card-body">
-                <h3>Resultado Dia 2 - Tour Auto 2026</h3>
-                <p>Liderança de um Porsche 911 Carrera RS apos segundo dia.</p>
-                <a href="results_day%202_tour_auto%2026.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
-
-        <!-- Notícia 5 -->
-        <article class="card" data-tags="Tour Auto">
-            <div class="image-container">
-                <span class="tag">Tour Auto</span>
-                <img src="tour-auto-1524813481.jpg" alt="Ford GT40">
-            </div>
-            <div class="card-body">
-                <h3>Resultado Dia 1 - Tour Auto 2026</h3>
-                <p>Liderança impressionante do Ford GT40 MKII ao fim da primeira etapa cronometrada.</p>
-                <a href="results_tour_auto_2026.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
-
-        <!-- Notícia 6 -->
-        <article class="card" data-tags="Brasil">
-            <div class="image-container">
-                <span class="tag">Brasil</span>
-                <img src="Peugeot%20208%20Maxxi%20Rally.JPG" alt="Peugeot 208 Rally">
-            </div>
-            <div class="card-body">
-                <h3>Rally Estação 2026</h3>
-                <p>Rodrigo Varela domina as especiais com le Peugeot 208 Maxi Rally e garante a vitória.</p>
-                <p>Fotos rallybr\Lisandro Garcia ou Edson Castro</p>
-                <a href="resultado_dia_1_rally_de_estacao_26.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
-
-        <!-- Notícia 7 -->
-        <article class="card" data-tags="Paraná">
-            <div class="image-container">
-                <span class="tag">Paraná</span>
-                <img src="20250831_151232000_iOS-1-225x300.jpg" alt="Rally do Centro Oeste">
-            </div>
-            <div class="card-body">
-                <h3>Inscritos Rally do Centro Oeste-Jardim Alegre</h3>
-                <a href="inscritos_rally_do_centro_oeste_26.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
-
-        
-  <!-- Notícia 8 -->
-        <article class="card" data-tags="Paraná">
-            <div class="image-container">
-                <span class="tag">Paraná</span>
-                <img src="hyundai_ac_rally.jpg" alt="Hyundai I20 N Rally 2 Assetto Corsa rally">
-            </div>
-            <div class="card-body">
-                <h3>Inscritos rally da Graciosa+ subida da montanha</h3>
-                <a href="inscritos_rally_da_graciosa_ mais_subida da montanha.html" class="btn-ler">Leia mais →</a>
-            </div>
-             <!-- Notícia 9 -->
-        <!-- Exemplo de Post 1 -->
-<div class="post" data-tags="Rio Grande do Sul, Brasil">
-    <h2>Rally Nova Prata, Rio Grande do Sul</h2>
-    <a href="inscritos_rally_da_graciosa_ mais_subida da montanha.html" class="btn-ler">Leia mais →</a>
-</div>
-
-<!-- Exemplo de Post 2 (Agora o Brasil vai contar como 2!) -->
-<div class="post" data-tags="Brasil, BR Rally Raid">
-    <h2>Novo Evento de Rally Raid</h2>
-    <p>Conteúdo do post...</p>
- 
-   <!-- Notícia 9 -->
-        <!-- Exemplo de Post 1 -->
-<div class="post" data-tags="Mitsubishi Cup,Virtual">
-    <h2>Mitsubishi Cup terá campeonato virtual em 2026</h2>
- <img src="mitsubishi virtual.PNG" alt="Mitsubishi Cup Virtual">
-    <a href="Mitsubishi_cup_terá_campeonato_virtual.html" class="btn-ler">Leia mais →</a>
-</div>
-  <!-- Notícia 9 -->
-        <!-- Exemplo de Post 1 -->
-<div class="post" data-tags="ARA">
-    <h2>Resultados ARA Rally-Colorado</h2>
-<img src="Toyota GR Corolla Rally 2 ARA COLORADO.jpg" alt="Toyota GR Corolla Rally 2">
-
-    <a href="Resultados_ARA_Rally_Colorado.html" class="btn-ler">Leia mais →</a>
-
-          <!-- Notícia 7 -->
-        <article class="card" data-tags="ARA">
-            <div class="image-container">
-                <span class="tag">ARA</span>
-                <img src="Toyota GR Corolla Rally 2 ARA COLORADO.jpg" alt="Toyota GR Corolla Rally 2">
-            </div>
-            <div class="card-body">
-                <h2>Resultados ARA Rally-Colorado</h2>
-                <a href="Resultados_ARA_Rally_Colorado.html" class="btn-ler">Leia mais →</a>
-  <!-- Notícia 7 -->
-        <article class="card" data-tags="Mitsubishi Cup,Virtual">
-            <div class="image-container">
-                <span class="tag">Mitsubishi Cup,Virtual</span>
-                <img src="mitsubishi virtual.PNG" alt="Mitsubishi Cup Virtual">
-            </div>
-            <div class="card-body">
-                <h2>Mitsubishi Cup terá campeonato virtual apartir de 2026</h2>
-                <a href="Mitsubishi_cup_terá_campeonato_virtual.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
-<!-- Notícia 7 -->
-        <article class="card" data-tags="Paraná">
-            <div class="image-container">
-                <span class="tag">Paraná</span>
-                <img src="mitsubishi virtual.PNG" alt="Mitsubishi Cup Virtual">
-            </div>
-            <div class="card-body">
-                <h2>Resultados Rally da Graciosa 2026</h2>
-    <a href="resultados_rally_da_graciosa_2026_v2.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
-</div>
-               <!-- Notícia 7 -->
-        <article class="card" data-tags="Mitsubishi Cup,Virtual">
-            <div class="image-container">
-                <span class="tag">Link & Co</span>
-                <img src="mitsubishi virtual.PNG" alt="Mitsubishi Cup Virtual">
-            </div>
-            <div class="card-body">
-                <h2>Grupo Geely entra no mundo do rally com a marca Link & Co </h2>
-                <a href="link_co_entra_no_rally_campeonato_chines.html" class="btn-ler">Leia mais →</a>
-            </div>
-<!-- Notícia 7 -->
-        <article class="card" data-tags="Mitsubishi Cup,Virtual">
-            <div class="image-container">
-                <span class="tag">Rally Dos Sertoes, Sertoes Series, BR Rally Raid</span>
-                <img src="sertoes26_lucas_moraes.png" alt="Lucas Moraes">
-            </div>
-            <div class="card-body">
-                <h2>Atual campeão do W2RC, Lucas Moraes confirma participação no Rally dos Sertoes 2026 </h2>
-                <a href="Lucas_Moraes_confirma_participação_Rally_dos_sertoes_26.html" class="btn-ler">Leia mais →</a>
-            </div>
-               <!-- Notícia 3 -->
-        <article class="card" data-tags="Rally Virtual,Paraná">
-            <div class="image-container">
-                <span class="tag">Rally Virtual,Paraná</span>
-                <img src="hyundai_ac_rally.jpg" alt="Hyundai I20 N Rally 2 Assetto Corsa rally">
-            </div>
-            <div class="card-body">
-                <h3>Resultados RallyPR Virtual etapa 4-Japão</h3>
-                <a href="Resultados_etapa4_rallypr_virtual_japao.html" class="btn-ler">Leia mais →</a>
-            </div>
-            <!-- Notícia 3 -->
-        <article class="card" data-tags="Gaucho">
-            <div class="image-container">
-                <span class="tag">Gaucho</span>
-                <img src="hyundai_ac_rally.jpg" alt="Hyundai I20 N Rally 2 Assetto Corsa rally">
-            </div>
-            <div class="card-body">
-                <h3>Resultados Rally Ipiranga do Sul 2026</h3>
-                <a href="resultado_rally_Ipiranga_do_sul.html" class="btn-ler">Leia mais →</a>
-            </div>
-<!-- Notícia 3 -->
-        <article class="card" data-tags="Brasil">
-            <div class="image-container">
-                <span class="tag">Brasil</span>
-             <div class="card-body">
-                <h3>Rally de Rio Negrinho tera catgeoria rally Raid</h3>
-                <a href="Rally_de_rio_negrinho_terá_categoria_rally raid.html" class="btn-ler">Leia mais →</a>
-            </div>
-                <!-- Notícia 3 -->
-        <article class="card" data-tags="Brasil">
-            <div class="image-container">
-                <span class="tag">Sertoes</span>
-             <div class="card-body">
-                <h3>Inscritos Rally dos Sertoes 2026</h3>
-                <a href="inscritos_rally_dos_sertoes_2026.html" class="btn-ler">Leia mais →</a>
-            </div>
-        </article>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
