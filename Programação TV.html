@@ -27,6 +27,7 @@
         th, td {
             padding: 12px 15px;
             text-align: left;
+            vertical-align: top;
         }
         th {
             background-color: #007bff;
@@ -49,6 +50,106 @@
         a:hover {
             text-decoration: underline;
         }
+
+        /* Estilos para a Descrição e Categoria */
+        .descricao-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .descricao-titulo {
+            font-weight: bold;
+            color: #222;
+        }
+        .categoria-tag {
+            font-size: 11px;
+            color: #555;
+            background-color: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            width: fit-content;
+            display: inline-block;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Estilos da barra expansível */
+        .linha-expansivel {
+            background-color: #1a1a1a !important;
+            display: none;
+        }
+        .linha-expansivel:hover {
+            background-color: #1a1a1a !important;
+        }
+        .container-abas {
+            padding: 15px;
+            color: #ffffff;
+        }
+        .tempo-topo {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #cccccc;
+            margin-bottom: 10px;
+        }
+        .tempo-topo::before {
+            content: "🕒";
+            margin-right: 6px;
+        }
+        .abas-nav {
+            display: flex;
+            border-bottom: 1px solid #444444;
+            margin-bottom: 12px;
+        }
+        .aba-item {
+            padding: 6px 14px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            background: none;
+            border: none;
+            color: #888888;
+        }
+        .aba-item.ativo {
+            background-color: #ffffff;
+            color: #000000;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+        }
+        .lista-canais {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .linha-canal {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px;
+            background-color: #111111;
+            border-radius: 2px;
+        }
+        .canal-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .icone-youtube {
+            width: 16px;
+            height: 16px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: white;
+        }
+        .canal-status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
     </style>
 </head>
 <body>
@@ -60,7 +161,7 @@
             <tr>
                 <th>Data</th>
                 <th>Hora</th>
-                <th>Descrição</th>
+                <th>Descrição / Categoria</th>
                 <th>Local</th>
                 <th>Canal</th>
                 <th>Links</th>
@@ -70,7 +171,12 @@
             <tr>
                 <td>25/09/2026</td>
                 <td>21:30</td>
-                <td>Fia WEC-FP3</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">Fia WEC-FP3</span>
+                        <span class="categoria-tag">Categoria: Endurance</span>
+                    </div>
+                </td>
                 <td>Fuji</td>
                 <td>Youtube GP</td>
                 <td><a href="https://www.youtube.com/@grandepremio" target="_blank">Assistir Agora</a></td>
@@ -78,7 +184,12 @@
             <tr>
                 <td>26/09/2026</td>
                 <td>04:00</td>
-                <td>F2-Main Race</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">F2-Main Race</span>
+                        <span class="categoria-tag">Categoria: Formula</span>
+                    </div>
+                </td>
                 <td>Baku</td>
                 <td>Globo Play Premium\Sportv 2 ou 3</td>
                 <td><a href="https://example.com" target="_blank">Acessar Netflix</a></td>
@@ -86,102 +197,215 @@
             <tr>
                 <td>26/09/2026</td>
                 <td>11:00</td>
-                <td>Paranaense de KartCross-sabado</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">Paranaense de KartCross-sabado</span>
+                        <span class="categoria-tag">Categoria: KartCross</span>
+                    </div>
+                </td>
                 <td>Paraná</td>
                 <td>Youtube</td>
-                <td><a href="https://www.youtube.com/@autodromo_tb" target="_blank">Ver Detalhes</a></td>
+                <td><a href="#" class="btn-detalhes">Ver Detalhes</a></td>
             </tr>
-             <tr>
+            <tr class="linha-expansivel">
+                <td colspan="6">
+                    <div class="container-abas">
+                        <div class="tempo-topo">50 minutes</div>
+                        <div class="abas-nav">
+                            <button class="aba-item ativo">Broadcasts</button>
+                            <button class="aba-item">Live Timing</button>
+                        </div>
+                        <div class="lista-canais">
+                            <div class="linha-canal">
+                                <div class="canal-info">
+                                    <span class="icone-youtube">▶</span>
+                                    <span>MSV TV</span>
+                                </div>
+                                <div class="canal-status">🇬🇧 🌐 🔓</div>
+                            </div>
+                            <div class="linha-canal">
+                                <div class="canal-info">
+                                    <span class="icone-youtube">▶</span>
+                                    <span>Radical Motorsport</span>
+                                </div>
+                                <div class="canal-status">🇬🇧 🌐 🔓</div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
                 <td>26/09/2026</td>
                 <td>16:00</td>
-                <td>Perdidos na noite-Cascavel</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">Perdidos na noite-Cascavel</span>
+                        <span class="categoria-tag">Categoria: Touring Car</span>
+                    </div>
+                </td>
                 <td>Cascavel</td>
                 <td>Youtube</td>
                 <td><a href="https://www.youtube.com/@GOLDRACING" target="_blank">Ver Detalhes</a></td>
             </tr>
-              <tr>
+            <tr>
                 <td>26/09/2026</td>
                 <td>23:30</td>
-                <td>Fia WEC-FP3</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">Fia WEC-FP3</span>
+                        <span class="categoria-tag">Categoria: Endurance</span>
+                    </div>
+                </td>
                 <td>Fuji</td>
                 <td>Youtube Esporte na Band\Youtube GP\Bandsports\Youtube Joven Pan Esportes</td>
                 <td><a href="https://www.youtube.com/@EsportenaBand" target="_blank">Assistir Agora</a></td>
             </tr>
-              <tr>
+            <tr>
                 <td>27/09/2026</td>
                 <td>07:00</td>
-                <td>GT Open</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">GT Open</span>
+                        <span class="categoria-tag">Categoria: GT</span>
+                    </div>
+                </td>
                 <td>Monza</td>
                 <td>Youtube Blau\Youtube A Mil por hora</td>
                 <td><a href="https://www.youtube.com/@blaumotorsport2555" target="_blank">Assistir Agora</a></td>
             </tr>
-             <tr>
+            <tr>
                 <td>27/09/2026</td>
                 <td>09:00</td>
-                <td>Paranaense de KartCross-domingo</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">Paranaense de KartCross-domingo</span>
+                        <span class="categoria-tag">Categoria: KartCross, Off Road</span>
+                    </div>
+                </td>
                 <td>Paraná</td>
                 <td>Youtube</td>
                 <td><a href="https://www.youtube.com/@autodromo_tb" target="_blank">Ver Detalhes</a></td>
             </tr>
-
-            
-             <tr>
+            <tr>
                 <td>27/09/2026</td>
                 <td>09:00</td>
-                <td>Desafio Radical 4x4-domingo</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">Desafio Radical 4x4-domingo</span>
+                        <span class="categoria-tag">Categoria: Off-Road</span>
+                    </div>
+                </td>
                 <td>Campo Magro</td>
                 <td>Youtube</td>
                 <td><a href="https://www.youtube.com/@FOFOESPORTES" target="_blank">Ver Detalhes</a></td>
             </tr>
-            
-               <tr>
+            <tr>
                 <td>27/09/2026</td>
                 <td>12:00</td>
-                <td>Stock Car Pro Series-Endurance</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">Stock Car Pro Series-Endurance</span>
+                        <span class="categoria-tag">Categoria: Stock Car</span>
+                    </div>
+                </td>
                 <td>Brasilia</td>
                 <td>Youtube\Youtube Esporte na Band\Bandsports\RacerBR</td>
                 <td><a href="https://www.youtube.com/@EsportenaBand" target="_blank">Ver Detalhes</a></td>
             </tr>
- <tr>
+            <tr>
                 <td>27/09/2026</td>
                 <td>13:00</td>
-                <td>Super TC2000 Argentino</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">Super TC2000 Argentino</span>
+                        <span class="categoria-tag">Categoria: Touring Car</span>
+                    </div>
+                </td>
                 <td>Rosario</td>
                 <td>Youtube Carburando</td>
                 <td><a href="https://www.youtube.com/@Carburandotv" target="_blank">Ver Detalhes</a></td>
             </tr>
-
-            
- <tr>
+            <tr>
                 <td>27/09/2026</td>
                 <td>14:00</td>
-                <td>GTWC America-Main Race</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">GTWC America-Main Race</span>
+                        <span class="categoria-tag">Categoria: GT</span>
+                    </div>
+                </td>
                 <td>Baber</td>
                 <td>Youtube GT Word\Youtube GP</td>
                 <td><a href="https://www.youtube.com/@GTWorld" target="_blank">Ver Detalhes</a></td>
             </tr>
-
-             <tr>
+            <tr>
                 <td>27/09/2026</td>
                 <td>16:00</td>
-                <td>Nascar Cup Series</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">Nascar Cup Series</span>
+                        <span class="categoria-tag">Categoria: Stock Car</span>
+                    </div>
+                </td>
                 <td>Kansas</td>
                 <td>Phiz TV A Mil por hora\Phiz TV High Speed TV\Phiz TV Motorsport.com</td>
                 <td><a href="https://phiztv.com/" target="_blank">Ver Detalhes</a></td>
             </tr>
-            
-               <tr>
+            <tr>
                 <td>27/09/2026</td>
                 <td>22:15</td>
-                <td>Autocross BR-corrida 2</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">Autocross BR-corrida 2</span>
+                        <span class="categoria-tag">Categoria: Off-Road</span>
+                    </div>
+                </td>
                 <td>Tapurah-MT</td>
                 <td>Bandsports</td>
                 <td><a href="-" target="_blank">Ver Detalhes</a></td>
             </tr>
-
-            
+           <tr>
+                <td>28/09/2026</td>
+                <td>23:00</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">Rally Du Maroc-Prologo</span>
+                        <span class="categoria-tag">Categoria:Rally,Off Road</span>
+                    </div>
+                </td>
+                <td>Maroc</td>
+                <td>Youtube</td>
+                <td><a href="https://www.youtube.com/@WorldRally-RaidChampionship" target="_blank">Ver Detalhes</a></td
+          </tr>
         </tbody>
     </table>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnDetalhes = document.querySelector('.btn-detalhes');
+            const linhaExpansivel = document.querySelector('.linha-expansivel');
+
+            if (btnDetalhes && linhaExpansivel) {
+                btnDetalhes.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (linhaExpansivel.style.display === 'table-row') {
+                        linhaExpansivel.style.display = 'none';
+                        btnDetalhes.textContent = 'Ver Detalhes';
+                    } else {
+                        linhaExpansivel.style.display = 'table-row';
+                        btnDetalhes.textContent = 'Ocultar Detalhes';
+                    }
+                });
+            }
+
+            const abas = document.querySelectorAll('.aba-item');
+            abas.forEach(aba => {
+                aba.addEventListener('click', () => {
+                    abas.forEach(a => a.classList.remove('ativo'));
+                    aba.classList.add('ativo');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
