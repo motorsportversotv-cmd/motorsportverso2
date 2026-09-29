@@ -137,7 +137,7 @@
         }
 
         .card:hover {
-            transform: translateY(-50px);
+            transform: translateY(-10px);
         }
 
         .card-body {
@@ -186,6 +186,7 @@
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 60px;
         }
 
         .gp-list {
@@ -196,6 +197,7 @@
         .gp-item {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 15px 0;
             border-bottom: 1px solid #ddd;
         }
@@ -212,6 +214,34 @@
         .gp-details {
             color: var(--secondary-color);
             font-weight: bold;
+        }
+
+        .calendar-section {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .calendar-table th, .calendar-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .calendar-table th {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+        }
+
+        .calendar-table tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
         footer {
@@ -233,6 +263,10 @@
             .hero h2 {
                 font-size: 2rem;
             }
+            .calendar-table th, .calendar-table td {
+                padding: 8px;
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
@@ -246,6 +280,7 @@
                     <li><a href="#campeonatos">Campeonatos</a></li>
                     <li><a href="#hypercars">Hypercars</a></li>
                     <li><a href="#gps">Grandes Corridas</a></li>
+                    <li><a href="#calendario">Próximos Eventos</a></li>
                 </ul>
             </nav>
         </div>
@@ -280,7 +315,7 @@
                     <div class="card-body">
                         <span class="card-badge">América do Norte</span>
                         <h3>IMSA WeatherTech</h3>
-                        <p>O principal campeonato de endurance dos Estados Unidos. Conhecido por corridas extremamente competitivas e pistas desafiadoras com o regulamento de convergência esportiva.La é chamada de GTP</p>
+                        <p>O principal campeonato de endurance dos Estados Unidos. Conhecido por corridas extremamente competitivas e pistas desafiadoras com o regulamento de convergência esportiva. Lá é chamada de GTP.</p>
                         <p>Destaque para as icônicas <strong>24 Horas de Daytona</strong> e as 12 Horas de Sebring.</p>
                     </div>
                 </div>
@@ -317,7 +352,69 @@
                     <span class="gp-details">FIA WEC</span>
                 </li>
                 <li class="gp-item">
+                    <span class="gp-name">24 Horas de Daytona (EUA)</span>
+                    <span class="gp-details">IMSA</span>
+                </li>
+                <li class="gp-item">
+                    <span class="gp-name">12 Horas de Sebring (EUA)</span>
+                    <span class="gp-details">IMSA</span>
+                </li>
+                <li class="gp-item">
+                    <span class="gp-name">6 Horas de Spa-Francorchamps (Bélgica)</span>
+                    <span class="gp-details">FIA WEC</span>
+                </li>
+            </ul>
+        </section>
 
-                    
+        <!-- Seção Calendário Próximos Eventos -->
+        <section id="calendario" class="calendar-section">
+            <h2 class="section-title">Calendário de Próximos Eventos</h2>
+            <table class="calendar-table">
+                <thead>
+                    <tr>
+                        <th>Evento</th>
+                        <th>Campeonato</th>
+                        <th>Circuito</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Petit Le Mans (10 Horas)</td>
+                        <td>IMSA</td>
+                        <td>Road Atlanta (EUA)</td>
+                        <td>Outubro</td>
+                    </tr>
+                    <tr>
+                        <td>8 Horas do Bahrain</td>
+                        <td>FIA WEC</td>
+                        <td>Bahrain International Circuit</td>
+                        <td>Novembro</td>
+                    </tr>
+                    <tr>
+                        <td>4 Horas de Sepang</td>
+                        <td>Asian Le Mans</td>
+                        <td>Sepang International Circuit</td>
+                        <td>Dezembro</td>
+                    </tr>
+                    <tr>
+                        <td>24 Horas de Daytona</td>
+                        <td>IMSA</td>
+                        <td>Daytona International Speedway</td>
+                        <td>Janeiro</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 EnduranceHub - Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
      
