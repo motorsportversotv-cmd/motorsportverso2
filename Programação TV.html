@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TV & Streaming</title>
+    <title>TV & Streaming - Busca Avançada</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,14 +11,32 @@
             margin: 20px;
             padding: 0;
         }
-        h2 {
+        .container-busca {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            max-width: 1200px;
+            margin: 0 auto 20px auto;
+        }
+        .container-busca h2 {
+            margin-top: 0;
             color: #333;
-            text-align: center;
+        }
+        .campo-pesquisa {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #007bff;
+            border-radius: 6px;
+            box-sizing: border-box;
+            outline: none;
         }
         table {
             width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
             border-collapse: collapse;
-            margin-top: 20px;
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -36,22 +54,22 @@
             font-size: 14px;
             letter-spacing: 0.5px;
         }
-        tr:nth-child(even) {
+        .linha-dados:nth-child(even) {
             background-color: #f8f9fa;
         }
-        tr:hover {
+        .linha-dados:hover {
             background-color: #e9ecef;
         }
-        a {
+        a, .btn-detalhes {
             color: #007bff;
             text-decoration: none;
             font-weight: bold;
+            cursor: pointer;
         }
-        a:hover {
+        a:hover, .btn-detalhes:hover {
             text-decoration: underline;
         }
 
-        /* Estilos para a Descrição e Categoria */
         .descricao-container {
             display: flex;
             flex-direction: column;
@@ -76,10 +94,10 @@
         /* Estilos da barra expansível */
         .linha-expansivel {
             background-color: #1a1a1a !important;
-            display: none;
+            display: none; 
         }
-        .linha-expansivel:hover {
-            background-color: #1a1a1a !important;
+        .linha-expansivel.visivel {
+            display: table-row; 
         }
         .container-abas {
             padding: 15px;
@@ -116,6 +134,12 @@
             border-top-left-radius: 3px;
             border-top-right-radius: 3px;
         }
+        .conteudo-aba {
+            display: none;
+        }
+        .conteudo-aba.ativo {
+            display: block;
+        }
         .lista-canais {
             display: flex;
             flex-direction: column;
@@ -129,34 +153,17 @@
             background-color: #111111;
             border-radius: 2px;
         }
-        .canal-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .icone-youtube {
-            width: 16px;
-            height: 16px;
-            background-color: #ff0000;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 9px;
-            color: white;
-        }
-        .canal-status {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
     </style>
 </head>
 <body>
 
-    <h2>Programação: TV & Streaming</h2>
+    <!-- Módulo de Busca Baseado no Algoritmo -->
+    <div class="container-busca">
+        <h2>Pesquisar Programação</h2>
+        <input type="text" id="inputPesquisa" class="campo-pesquisa" onkeyup="executarPesquisa()" placeholder="Digite para pesquisar por data, hora, descrição, categoria, local ou canal...">
+    </div>
 
-    <table>
+    <table id="tabelaProgramacao">
         <thead>
             <tr>
                 <th>Data</th>
@@ -168,20 +175,38 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <!-- ITEM 1 -->
+            <tr class="linha-dados">
                 <td>29/09/2026</td>
                 <td>16:00</td>
                 <td>
                     <div class="descricao-container">
-                        <span class="descricao-titulo">W2RC-Maroc-etapa  1-resumo</span>
+                        <span class="descricao-titulo">W2RC-Maroc-etapa 1-resumo</span>
                         <span class="categoria-tag">Categoria: Rally , Off Road</span>
                     </div>
                 </td>
                 <td>Maroc</td>
                 <td>Youtube</td>
-                <td><a href="https://www.youtube.com/watch?v=_nUcNG4TxHE" target="_blank">Ver Detalhes</a></td
+                <td><span class="btn-detalhes" onclick="toggleLinha('exp1')">Ver Detalhes</span></td>
             </tr>
-            <tr>
+            <tr id="exp1" class="linha-expansivel">
+                <td colspan="6">
+                    <div class="container-abas">
+                        <div class="tempo-topo">Finalizado</div>
+                        <div id="canais1" class="conteudo-aba ativo">
+                            <div class="lista-canais">
+                                <div class="linha-canal">
+                                    <span>Canal Oficial W2RC</span>
+                                    <a href="https://youtube.com" target="_blank">Acessar Transmissão</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- ITEM 2 -->
+            <tr class="linha-dados">
                 <td>30/09/2026</td>
                 <td>16:00</td>
                 <td>
@@ -192,9 +217,25 @@
                 </td>
                 <td>Maroc</td>
                 <td>Youtube</td>
-                <td><a href="https://www.youtube.com/@WorldRally-RaidChampionship" target="_blank">Ver Detalhes</a></td
+                <td><span class="btn-detalhes" onclick="toggleLinha('exp2')">Ver Detalhes</span></td>
             </tr>
-            <tr>
+            <tr id="exp2" class="linha-expansivel">
+                <td colspan="6">
+                    <div class="container-abas">
+                        <div id="canais2" class="conteudo-aba ativo">
+                            <div class="lista-canais">
+                                <div class="linha-canal">
+                                    <span>World Rally-Raid Championship</span>
+                                    <a href="https://youtube.com" target="_blank">Ir para o Canal</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- ITEM 3 -->
+            <tr class="linha-dados">
                 <td>01/10/2026</td>
                 <td>04:00</td>
                 <td>
@@ -205,10 +246,20 @@
                 </td>
                 <td>Sardenha</td>
                 <td>Youtube</td>
-                <td><a href="https://www.youtube.com/@wrc" class="btn-detalhes">Ver Detalhes</a></td>
+                <td><span class="btn-detalhes" onclick="toggleLinha('exp3')">Ver Detalhes</span></td>
+            </tr>
+            <tr id="exp3" class="linha-expansivel">
+                <td colspan="6">
+                    <div class="container-abas">
+                        <div id="canais3" class="conteudo-aba ativo">
+                            <a href="https://youtube.com" target="_blank">Abrir YouTube WRC</a>
+                        </div>
+                    </div>
+                </td>
             </tr>
 
-             <tr>
+            <!-- ITEM 4 -->
+            <tr class="linha-dados">
                 <td>01/10/2026</td>
                 <td>11:00</td>
                 <td>
@@ -219,10 +270,18 @@
                 </td>
                 <td>Sardenha</td>
                 <td>Sportv4 Portugal</td>
-                <td><a href="-" class="btn-detalhes">Ver Detalhes</a></td>
+                <td><span class="btn-detalhes" onclick="toggleLinha('exp4')">Ver Detalhes</span></td>
+            </tr>
+            <tr id="exp4" class="linha-expansivel">
+                <td colspan="6">
+                    <div class="container-abas">
+                        <p style="font-size: 13px; color: #ccc; margin: 0;">Evento disponível nos canais Sportv de Portugal.</p>
+                    </div>
+                </td>
             </tr>
            
-            <tr>
+            <!-- ITEM 5 -->
+            <tr class="linha-dados">
                 <td>26/09/2026</td>
                 <td>16:00</td>
                 <td>
@@ -233,180 +292,4 @@
                 </td>
                 <td>Cascavel</td>
                 <td>Youtube</td>
-                <td><a href="https://www.youtube.com/@GOLDRACING" target="_blank">Ver Detalhes</a></td>
-            </tr>
-            <tr>
-                <td>26/09/2026</td>
-                <td>23:30</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">Fia WEC-FP3</span>
-                        <span class="categoria-tag">Categoria: Endurance</span>
-                    </div>
-                </td>
-                <td>Fuji</td>
-                <td>Youtube Esporte na Band\Youtube GP\Bandsports\Youtube Joven Pan Esportes</td>
-                <td><a href="https://www.youtube.com/@EsportenaBand" target="_blank">Assistir Agora</a></td>
-            </tr>
-            <tr>
-                <td>27/09/2026</td>
-                <td>07:00</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">GT Open</span>
-                        <span class="categoria-tag">Categoria: GT</span>
-                    </div>
-                </td>
-                <td>Monza</td>
-                <td>Youtube Blau\Youtube A Mil por hora</td>
-                <td><a href="https://www.youtube.com/@blaumotorsport2555" target="_blank">Assistir Agora</a></td>
-            </tr>
-            <tr>
-                <td>27/09/2026</td>
-                <td>09:00</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">Paranaense de KartCross-domingo</span>
-                        <span class="categoria-tag">Categoria: KartCross, Off Road</span>
-                    </div>
-                </td>
-                <td>Paraná</td>
-                <td>Youtube</td>
-                <td><a href="https://www.youtube.com/@autodromo_tb" target="_blank">Ver Detalhes</a></td>
-            </tr>
-            <tr>
-                <td>27/09/2026</td>
-                <td>09:00</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">Desafio Radical 4x4-domingo</span>
-                        <span class="categoria-tag">Categoria: Off-Road</span>
-                    </div>
-                </td>
-                <td>Campo Magro</td>
-                <td>Youtube</td>
-                <td><a href="https://www.youtube.com/@FOFOESPORTES" target="_blank">Ver Detalhes</a></td>
-            </tr>
-            <tr>
-                <td>27/09/2026</td>
-                <td>12:00</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">Stock Car Pro Series-Endurance</span>
-                        <span class="categoria-tag">Categoria: Stock Car</span>
-                    </div>
-                </td>
-                <td>Brasilia</td>
-                <td>Youtube\Youtube Esporte na Band\Bandsports\RacerBR</td>
-                <td><a href="https://www.youtube.com/@EsportenaBand" target="_blank">Ver Detalhes</a></td>
-            </tr>
-            <tr>
-                <td>27/09/2026</td>
-                <td>13:00</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">Super TC2000 Argentino</span>
-                        <span class="categoria-tag">Categoria: Touring Car</span>
-                    </div>
-                </td>
-                <td>Rosario</td>
-                <td>Youtube Carburando</td>
-                <td><a href="https://www.youtube.com/@Carburandotv" target="_blank">Ver Detalhes</a></td>
-            </tr>
-            <tr>
-                <td>27/09/2026</td>
-                <td>14:00</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">GTWC America-Main Race</span>
-                        <span class="categoria-tag">Categoria: GT</span>
-                    </div>
-                </td>
-                <td>Baber</td>
-                <td>Youtube GT Word\Youtube GP</td>
-                <td><a href="https://www.youtube.com/@GTWorld" target="_blank">Ver Detalhes</a></td>
-            </tr>
-            <tr>
-                <td>27/09/2026</td>
-                <td>16:00</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">Nascar Cup Series</span>
-                        <span class="categoria-tag">Categoria: Stock Car</span>
-                    </div>
-                </td>
-                <td>Kansas</td>
-                <td>Phiz TV A Mil por hora\Phiz TV High Speed TV\Phiz TV Motorsport.com</td>
-                <td><a href="https://phiztv.com/" target="_blank">Ver Detalhes</a></td>
-            </tr>
-            <tr>
-                <td>27/09/2026</td>
-                <td>22:15</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">Autocross BR-corrida 2</span>
-                        <span class="categoria-tag">Categoria: Off-Road</span>
-                    </div>
-                </td>
-                <td>Tapurah-MT</td>
-                <td>Bandsports</td>
-                <td><a href="-" target="_blank">Ver Detalhes</a></td>
-            </tr>
-           <tr>
-                <td>28/09/2026</td>
-                <td>23:00</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">W2RC-Rally Du Maroc-Prologo</span>
-                        <span class="categoria-tag">Categoria:Rally,Off Road</span>
-                    </div>
-                </td>
-                <td>Maroc</td>
-                <td>Youtube</td>
-                <td><a href="https://www.youtube.com/@WorldRally-RaidChampionship" target="_blank">Ver Detalhes</a></td
-          </tr>
-             <tr>
-                <td>28/09/2026</td>
-                <td>23:00</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">Classic-Rally Du Maroc-Prologo</span>
-                        <span class="categoria-tag">Categoria:Rally,Off Road, Classic</span>
-                    </div>
-                </td>
-                <td>Maroc</td>
-                <td>Youtube</td>
-                <td><a href="https://www.youtube.com/@WorldRally-RaidChampionship" target="_blank">Ver Detalhes</a></td
-          </tr>
-        </tbody>
-    </table>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const btnDetalhes = document.querySelector('.btn-detalhes');
-            const linhaExpansivel = document.querySelector('.linha-expansivel');
-
-            if (btnDetalhes && linhaExpansivel) {
-                btnDetalhes.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (linhaExpansivel.style.display === 'table-row') {
-                        linhaExpansivel.style.display = 'none';
-                        btnDetalhes.textContent = 'Ver Detalhes';
-                    } else {
-                        linhaExpansivel.style.display = 'table-row';
-                        btnDetalhes.textContent = 'Ocultar Detalhes';
-                    }
-                });
-            }
-
-            const abas = document.querySelectorAll('.aba-item');
-            abas.forEach(aba => {
-                aba.addEventListener('click', () => {
-                    abas.forEach(a => a.classList.remove('ativo'));
-                    aba.classList.add('ativo');
-                });
-            });
-        });
-    </script>
-</body>
-</html>
