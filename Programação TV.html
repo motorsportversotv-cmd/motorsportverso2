@@ -153,6 +153,40 @@
             background-color: #111111;
             border-radius: 2px;
         }
+        // FUNÇÃO DE PESQUISA CORRIGIDA
+function executarPesquisa() {
+const input = document.getElementById('inputPesquisa');
+const filtro = input.value.toLowerCase();
+const tabela = document.getElementById('tabelaProgramacao');
+const linhasDados = tabela.getElementsByClassName('linha-dados');
+// Percorre todas as linhas visíveis da tabela
+for (let i = 0; i < linhasDados.length; i++) {
+const linha = linhasDados[i];
+// Pega de uma vez todo o texto contido nas células daquela linha
+const textoLinha = linha.innerText.toLowerCase();
+// Verifica se o termo digitado existe em qualquer parte da linha
+if (textoLinha.indexOf(filtro) > -1) {
+linha.style.display = ""; // Mostra a linha se houver correspondência
+} else {
+linha.style.display = "none"; // Oculta a linha se não houver
+// Fecha automaticamente o painel expansível da linha ocultada
+const proximaLinha = linha.nextElementSibling;
+if (proximaLinha && proximaLinha.classList.contains('linha-expansivel')) {
+proximaLinha.classList.remove('visivel');
+}
+}
+}
+}
+// Função para abrir e fechar a linha expansível
+function toggleLinha(idLinha) {
+const linha = document.getElementById(idLinha);
+if (linha.classList.contains('visivel')) {
+linha.classList.remove('visivel');
+} else {
+linha.classList.add('visivel');
+}
+}
+
     </style>
 </head>
 <body>
@@ -197,7 +231,7 @@
                             <div class="lista-canais">
                                 <div class="linha-canal">
                                     <span>Canal Oficial W2RC</span>
-                                    <a href="https://youtube.com" target="_blank">Acessar Transmissão</a>
+                                    <a href="https://www.youtube.com/@WorldRally-RaidChampionship" target="_blank">Acessar Transmissão</a>
                                 </div>
                             </div>
                         </div>
@@ -226,7 +260,7 @@
                             <div class="lista-canais">
                                 <div class="linha-canal">
                                     <span>World Rally-Raid Championship</span>
-                                    <a href="https://youtube.com" target="_blank">Ir para o Canal</a>
+                                    <a href="https://www.youtube.com/@WorldRally-RaidChampionship target="_blank">Ir para o Canal</a>
                                 </div>
                             </div>
                         </div>
