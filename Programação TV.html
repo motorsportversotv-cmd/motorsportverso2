@@ -153,31 +153,28 @@
             background-color: #111111;
             border-radius: 2px;
         }
-        // FUNÇÃO DE PESQUISA CORRIGIDA
+      // ENGINE DE BUSCA À PROVA DE FALHAS
 function executarPesquisa() {
-const input = document.getElementById('inputPesquisa');
-const filtro = input.value.toLowerCase();
-const tabela = document.getElementById('tabelaProgramacao');
-const linhasDados = tabela.getElementsByClassName('linha-dados');
-// Percorre todas as linhas visíveis da tabela
-for (let i = 0; i < linhasDados.length; i++) {
-const linha = linhasDados[i];
-// Pega de uma vez todo o texto contido nas células daquela linha
-const textoLinha = linha.innerText.toLowerCase();
-// Verifica se o termo digitado existe em qualquer parte da linha
-if (textoLinha.indexOf(filtro) > -1) {
-linha.style.display = ""; // Mostra a linha se houver correspondência
+const filtro = document.getElementById('inputPesquisa').value.toLowerCase();
+const linhas = document.querySelectorAll('#tabelaProgramacao tbody tr');
+linhas.forEach(linha => {
+// Executa apenas nas linhas que contém dados, pulando as escuras expansíveis
+if (linha.classList.contains('linha-dados')) {
+const textoCompleto = linha.textContent.toLowerCase();
+if (textoCompleto.includes(filtro)) {
+linha.style.display = ""; // Mostra a linha
 } else {
-linha.style.display = "none"; // Oculta a linha se não houver
-// Fecha automaticamente o painel expansível da linha ocultada
-const proximaLinha = linha.nextElementSibling;
-if (proximaLinha && proximaLinha.classList.contains('linha-expansivel')) {
-proximaLinha.classList.remove('visivel');
+linha.style.display = "none"; // Oculta a linha
+// Garante que o painel expansível dela também feche se estivesse aberto
+const proximoElemento = linha.nextElementSibling;
+if (proximoElemento && proximoElemento.classList.contains('linha-expansivel')) {
+proximoElemento.classList.remove('visivel');
 }
 }
 }
+});
 }
-// Função para abrir e fechar a linha expansível
+// Função abrir/fechar detalhes
 function toggleLinha(idLinha) {
 const linha = document.getElementById(idLinha);
 if (linha.classList.contains('visivel')) {
