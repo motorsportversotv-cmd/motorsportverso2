@@ -114,30 +114,7 @@
             content: "🕒";
             margin-right: 6px;
         }
-        .abas-nav {
-            display: flex;
-            border-bottom: 1px solid #444444;
-            margin-bottom: 12px;
-        }
-        .aba-item {
-            padding: 6px 14px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: bold;
-            background: none;
-            border: none;
-            color: #888888;
-        }
-        .aba-item.ativo {
-            background-color: #ffffff;
-            color: #000000;
-            border-top-left-radius: 3px;
-            border-top-right-radius: 3px;
-        }
         .conteudo-aba {
-            display: none;
-        }
-        .conteudo-aba.ativo {
             display: block;
         }
         .lista-canais {
@@ -153,42 +130,11 @@
             background-color: #111111;
             border-radius: 2px;
         }
-      // ENGINE DE BUSCA À PROVA DE FALHAS
-function executarPesquisa() {
-const filtro = document.getElementById('inputPesquisa').value.toLowerCase();
-const linhas = document.querySelectorAll('#tabelaProgramacao tbody tr');
-linhas.forEach(linha => {
-// Executa apenas nas linhas que contém dados, pulando as escuras expansíveis
-if (linha.classList.contains('linha-dados')) {
-const textoCompleto = linha.textContent.toLowerCase();
-if (textoCompleto.includes(filtro)) {
-linha.style.display = ""; // Mostra a linha
-} else {
-linha.style.display = "none"; // Oculta a linha
-// Garante que o painel expansível dela também feche se estivesse aberto
-const proximoElemento = linha.nextElementSibling;
-if (proximoElemento && proximoElemento.classList.contains('linha-expansivel')) {
-proximoElemento.classList.remove('visivel');
-}
-}
-}
-});
-}
-// Função abrir/fechar detalhes
-function toggleLinha(idLinha) {
-const linha = document.getElementById(idLinha);
-if (linha.classList.contains('visivel')) {
-linha.classList.remove('visivel');
-} else {
-linha.classList.add('visivel');
-}
-}
-
     </style>
 </head>
 <body>
 
-    <!-- Módulo de Busca Baseado no Algoritmo -->
+    <!-- Módulo de Busca -->
     <div class="container-busca">
         <h2>Pesquisar Programação</h2>
         <input type="text" id="inputPesquisa" class="campo-pesquisa" onkeyup="executarPesquisa()" placeholder="Digite para pesquisar por data, hora, descrição, categoria, local ou canal...">
@@ -224,7 +170,7 @@ linha.classList.add('visivel');
                 <td colspan="6">
                     <div class="container-abas">
                         <div class="tempo-topo">Finalizado</div>
-                        <div id="canais1" class="conteudo-aba ativo">
+                        <div id="canais1" class="conteudo-aba">
                             <div class="lista-canais">
                                 <div class="linha-canal">
                                     <span>Canal Oficial W2RC</span>
@@ -253,7 +199,7 @@ linha.classList.add('visivel');
             <tr id="exp2" class="linha-expansivel">
                 <td colspan="6">
                     <div class="container-abas">
-                        <div id="canais2" class="conteudo-aba ativo">
+                        <div id="canais2" class="conteudo-aba">
                             <div class="lista-canais">
                                 <div class="linha-canal">
                                     <span>World Rally-Raid Championship</span>
@@ -282,7 +228,7 @@ linha.classList.add('visivel');
             <tr id="exp3" class="linha-expansivel">
                 <td colspan="6">
                     <div class="container-abas">
-                        <div id="canais3" class="conteudo-aba ativo">
+                        <div id="canais3" class="conteudo-aba">
                             <a href="https://www.youtube.com/@wrc" target="_blank">Abrir YouTube WRC</a>
                         </div>
                     </div>
@@ -310,7 +256,7 @@ linha.classList.add('visivel');
                     </div>
                 </td>
             </tr>
-           
+
             <!-- ITEM 5 -->
             <tr class="linha-dados">
                 <td>26/09/2026</td>
@@ -323,4 +269,58 @@ linha.classList.add('visivel');
                 </td>
                 <td>Cascavel</td>
                 <td>Youtube</td>
+                <td><span class="btn-detalhes" onclick="toggleLinha('exp5')">Ver Detalhes</span></td>
+            </tr>
+            <tr id="exp5" class="linha-expansivel">
+                <td colspan="6">
+                    <div class="container-abas">
+                        <div id="canais5" class="conteudo-aba">
+                            <div class="lista-canais">
+                                <div class="linha-canal">
+                                    <span>Transmissão no YouTube</span>
+                                    <a href="https://www.youtube.com" target="_blank">Acessar Transmissão</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
+    <script>
+        // Engine de Pesquisa
+        function executarPesquisa() {
+            const filtro = document.getElementById('inputPesquisa').value.toLowerCase();
+            const linhas = document.querySelectorAll('#tabelaProgramacao tbody tr');
+            
+            linhas.forEach(linha => {
+                if (linha.classList.contains('linha-dados')) {
+                    const textoCompleto = linha.textContent.toLowerCase();
+                    const proximoElemento = linha.nextElementSibling;
+
+                    if (textoCompleto.includes(filtro)) {
+                        linha.style.display = ""; // Exibe a linha principal
+                    } else {
+                        linha.style.display = "none"; // Oculta a linha principal
+                        // Oculta e fecha a aba expansível correspondente
+                        if (proximoElemento && proximoElemento.classList.contains('linha-expansivel')) {
+                            proximoElemento.classList.remove('visivel');
+                        }
+                    }
+                }
+            });
+        }
+
+        // Exibir/Ocultar Detalhes
+        function toggleLinha(idLinha) {
+            const linha = document.getElementById(idLinha);
+            if (linha.classList.contains('visivel')) {
+                linha.classList.remove('visivel');
+            } else {
+                linha.classList.add('visivel');
+            }
+        }
+    </script>
+</body>
+</html>
