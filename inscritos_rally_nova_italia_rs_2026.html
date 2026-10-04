@@ -2,168 +2,231 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Inscritos Rally</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rally de Nova Itália - Filtro de Inscritos</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 950px; margin: 20px auto; padding: 10px; }
-        .topo { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 20px; }
-        .link-admin { color: #0066cc; cursor: pointer; text-decoration: underline; font-size: 14px; font-weight: bold; }
-        #areaCadastro { background-color: #f9f9f9; padding: 20px; border: 1px dashed #999; border-radius: 5px; margin-bottom: 30px; display: none; }
-        .campo { margin-bottom: 10px; }
-        label { display: inline-block; width: 150px; font-weight: bold; }
-        input, select { padding: 5px; width: 250px; }
-        button { padding: 8px 15px; margin-top: 10px; cursor: pointer; font-weight: bold; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .coluna-acao { display: none; text-align: center; }
-        .btn-excluir { background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
-        .btn-excluir:hover { background-color: #cc0000; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 30px;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+        h2 {
+            color: #1a1a1a;
+            border-bottom: 2px solid #e65c00;
+            padding-bottom: 8px;
+        }
+        .seletor-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 15px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+        select:focus {
+            outline: none;
+            border-color: #e65c00;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+        tr {
+            border-bottom: 1px solid #eee;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:last-child {
+            border-bottom: 2px solid #2c3e50;
+        }
+        .hidden {
+            display: none;
+        }
+        .no-results {
+            text-align: center;
+            color: #777;
+            font-style: italic;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <div class="topo">
-        <h2>Lista de Inscritos - Rally Nova Itália</h2>
-        <span id="linkAdmin" class="link-admin" onclick="fazerLogin()">Entrar como Admin</span>
-        <span id="linkSair" class="link-admin" onclick="fazerSair()" style="display: none; color: red;">Sair do Painel</span>
+    <h2>Rally de Nova Itália - Inscritos</h2>
+    
+    <!-- Componente: Escolher qual categoria mostrar na tabela -->
+    <div class="seletor-container">
+        <label for="escolha_categoria">Escolher qual categoria mostrar na tabela:</label>
+        <select id="escolha_categoria" onchange="filtrarPainelRally()">
+            <option value="TODAS">-- Mostrar Todas as Categorias --</option>
+            <option value="BR Rally 2">BR Rally 2</option>
+            <option value="BR Rally 4">BR Rally 4</option>
+            <option value="BR Rally 5">BR Rally 5</option>
+            <option value="BR Rally 5 L">BR Rally 5 L</option>
+            <option value="Gaucho Rally 2">Gaucho Rally 2</option>
+            <option value="Gaucho Rally 4">Gaucho Rally 4</option>
+            <option value="Gaucho Rally 5">Gaucho Rally 5</option>
+            <option value="Guacho Rally 5L">Guacho Rally 5L</option>
+            <option value="Gaucho UTV">Gaucho UTV</option>
+            <option value="RallyPR 4X4">RallyPR 4X4</option>
+            <option value="RallyPR 4x2 Fia">RallyPR 4x2 Fia</option>
+            <option value="RallyPR 4x2 Pró">RallyPR 4x2 Pró</option>
+            <option value="RallyPR 4x2 Super">RallyPR 4x2 Super</option>
+            <option value="RallyPR RCC">RallyPR RCC</option>
+            <option value="RallyPR RTT">RallyPR RTT</option>
+        </select>
     </div>
 
-    <div id="areaCadastro">
-        <h3>Painel de Cadastro (Modo Administrador)</h3>
-        <form id="formRally">
-            <div class="campo"><label>Número:</label><input type="number" id="num" required></div>
-            <div class="campo"><label>Piloto:</label><input type="text" id="piloto" required></div>
-            <div class="campo"><label>Navegador:</label><input type="text" id="navegador" required></div>
-            <div class="campo"><label>Equipe:</label><input type="text" id="equipe" required></div>
-            <div class="campo"><label>Veículo:</label><input type="text" id="veiculo" required></div>
-            <div class="campo"><label>Campeonato:</label><input type="text" id="campeonato" required></div>
-            <div class="campo">
-                <label>Categoria:</label>
-                <select id="categoria" required>
-                    <option value="BR Rally 2">BR Rally 2</option>
-                    <option value="BR Rally 4">BR Rally 4</option>
-                    <option value="BR Rally 5">BR Rally 5</option>
-                    <option value="BR Rally 5 L">BR Rally 5 L</option>
-                    <option value="Gaucho Rally 2">Gaucho Rally 2</option>
-                    <option value="Gaucho Rally 4">Gaucho Rally 4</option>
-                    <option value="Gaucho Rally 5">Gaucho Rally 5</option>
-                    <option value="Gaucho Rally 5 L">Gaucho Rally 5 L</option>
-                    <option value="Gaucho UTV SSV">Gaucho UTV SSV</option>
-                    <option value="RallyPR 4x4">RallyPR 4x4</option>
-                    <option value="RallyPR 4x2 Fia">RallyPR 4x2 Fia</option>
-                    <option value="RallyPR 4x2 Pró">RallyPR 4x2 Pró</option>
-                    <option value="RallyPR 4x2 Super">RallyPR 4x2 Super</option>
-                    <option value="RallyPR RCC">RallyPR RCC</option>
-                    <option value="RallyPR RTT">RallyPR RTT</option>
-                </select>
-            </div>
-            <button type="submit" style="background-color: #ccffcc;">Salvar Competidor</button>
-        </form>
-    </div>
-
-    <table>
+    <!-- Componente: Tabela (Ler) -->
+    <table id="tabelaRally">
         <thead>
             <tr>
-                <th>N°</th>
-                <th>Piloto</th>
-                <th>Navegador</th>
+                <th>Nº (ID)</th>
+                <th>Piloto / Navegador</th>
                 <th>Equipe</th>
-                <th>Veículo</th>
-                <th>Campeonato</th>
-                <th>Categoria</th>
-                <th class="coluna-acao" id="thAcao">Ações</th>
+                <th>Marca / Modelo</th>
+                <th>Cat. BR</th>
+                <th>Cat. Gaúcho</th>
+                <th>Cat. PR</th>
             </tr>
         </thead>
-        <tbody id="tabela"></tbody>
+        <tbody>
+            <!-- Dados simulados baseados nas variáveis do algoritmo para leitura -->
+               <tr data-categorias="BR Rally 2, Gaucho Rally 2">
+                <td>216</td>
+                <td>Rodrigo Varela\Marco Marini</td>
+                <td>Varela Rally \Monster Energy</td>
+                <td>Peugeot 208 Maxxi Rally</td>
+                <td>BR Rally 2</td>
+                <td>Gaucho Rally 2</td>
+                <td>-</td>
+            </tr>
+
+
+            <tr data-categorias="BR Rally 4, Gaucho Rally 4">
+                <td>44</td>
+                <td>Eduardo Tonial\Lucas Neumann</td>
+                <td>ACE RS</td>
+                <td>Renault Clio RS Rally5</td>
+                <td>BR Rally 4</td>
+                <td>Gaucho Rally 4</td>
+                <td>-</td>
+            </tr>
+            <tr data-categorias="BR Rally 4, Gaucho Rally 4">
+                <td>217</td>
+                <td>Rafael Cabelo\Rafael Karpirski</td>
+                <td>RS Rallye</td>
+                <td>VW Gol G8 TSI</td>
+                <td>BR Rally 4</td>
+                <td>Gaucho Rally 4</td>
+                <td>---</td>
+            </tr>
+            <tr data-categorias="Gaucho Rally 4">
+                <td>34</td>
+                <td>Allan Cardoso\Amaxilandro Da Silva</td>
+                <td>Cardoso Rally Team</td>
+                <td>Peugeot 207</td>
+                <td>----</td>
+                <td>Gaucho Rally 4</td>
+                <td>-</td>
+            </tr>
+            <tr data-categorias="Gaucho Rally 4">
+                <td>246</td>
+                <td>Eduardo Kretzchmann\Marcos Pedot</td>
+                <td>RS Rallye</td>
+                <td>VW Gol G3</td>
+                <td>---</td>
+                <td>Gaucho Rally 4</td>
+                <td>---</td>
+            </tr>
+            <tr data-categorias="BR Rally 5, RallyPR 4x2 Pró">
+                <td>10</td>
+                <td>Adib Sada\Albert Oliveira Filho</td>
+                <td>ASTJ</td>
+                <td>Ford Ká</td>
+                <td>BR Rally 5</td>
+                <td>----</td>
+                <td>RallyPR 4x2 Pró</td>
+            </tr>
+
+            <tr data-categorias="BR Rally 5">
+                <td>38</td>
+                <td>Evandro Carbonera\Jean Klein</td>
+                <td>Nova Italia RS Rally</td>
+                <td>Hyundai HB20 1.0</td>
+                <td>BR Rally 5</td>
+                <td>Gaucho Rally 5</td>
+                <td>----</td>
+            </tr>
+
+            
+            <tr data-categorias="Gaucho Rally 5">
+                <td>71</td>
+                <td>Rubens Tati\Matheus Perin</td>
+                <td>Pampeiro Rally</td>
+                <td>VW Polo TSI</td>
+                <td>-</td>
+                <td>Gaucho Rally 5</td>
+                <td>----</td>
+            </tr>
+        </tbody>
     </table>
 
-<script>
-    // Carrega o banco estruturado ou inicia um vazio para gerenciar as linhas individualmente
-    let dadosSalvos = JSON.parse(localStorage.getItem("dados_rally_estruturados")) || [];
-    let modoAdminAtivo = false;
+    <script>
+        function filtrarPainelRally() {
+            const filtroSelecionado = document.getElementById("escolha_categoria").value;
+            const linhasTabela = document.querySelectorAll("#tabelaRally tbody tr");
+            
+            linhasTabela.forEach(linha => {
+                // Caso 'TODAS' esteja marcada, exibe tudo
+                if (filtroSelecionado === "TODAS") {
+                    linha.classList.remove("hidden");
+                    return;
+                }
 
-    const SENHA_CORRETA = "Rally2026!";
+                // Lê o atributo que guarda as categorias do carro atual
+                const categoriasDoCarro = linha.getAttribute("data-categorias");
 
-    // Desenha a tabela dinamicamente com base nos dados salvos
-    function atualizarInterfaceTabela() {
-        const corpoTabela = document.getElementById("tabela");
-        corpoTabela.innerHTML = "";
-
-        dadosSalvos.forEach((competidor, indice) => {
-            let linha = document.createElement("tr");
-            linha.innerHTML = `
-                <td><b>${competidor.num}</b></td>
-                <td>${competidor.piloto}</td>
-                <td>${competidor.navegador}</td>
-                <td>${competidor.equipe}</td>
-                <td>${competidor.veiculo}</td>
-                <td>${competidor.campeonato}</td>
-                <td><b>${competidor.categoria}</b></td>
-                <td class="coluna-acao" style="display: ${modoAdminAtivo ? 'table-cell' : 'none'}">
-                    <button class="btn-excluir" onclick="removerLinha(${indice})">Excluir</button>
-                </td>
-            `;
-            corpoTabela.appendChild(linha);
-        });
-
-        // Controla a exibição do cabeçalho da coluna de ações
-        document.getElementById("thAcao").style.display = modoAdminAtivo ? "table-cell" : "none";
-    }
-
-    function fazerLogin() {
-        let senhaDigitada = prompt("Digite a senha de administrador para liberar ações:");
-        if (senhaDigitada === SENHA_CORRETA) {
-            modoAdminAtivo = true;
-            document.getElementById("areaCadastro").style.display = "block";
-            document.getElementById("linkAdmin").style.display = "none";
-            document.getElementById("linkSair").style.display = "inline";
-            atualizarInterfaceTabela();
-        } else if (senhaDigitada !== null) {
-            alert("Senha incorreta!");
+                // Verifica se a string de categorias contém a opção selecionada no menu
+                if (categoriasDoCarro && categoriasDoCarro.includes(filtroSelecionado)) {
+                    linha.classList.remove("hidden"); // Mostra
+                } else {
+                    linha.classList.add("hidden");    // Esconde
+                }
+            });
         }
-    }
-
-    function fazerSair() {
-        modoAdminAtivo = false;
-        document.getElementById("areaCadastro").style.display = "none";
-        document.getElementById("linkAdmin").style.display = "inline";
-        document.getElementById("linkSair").style.display = "none";
-        atualizarInterfaceTabela();
-    }
-
-    // Função para remover uma linha específica
-    function removerLinha(indice) {
-        if (confirm("Deseja mesmo remover este competidor?")) {
-            dadosSalvos.splice(indice, 1); // Remove do array
-            localStorage.setItem("dados_rally_estruturados", JSON.stringify(dadosSalvos)); // Salva nova lista
-            atualizarInterfaceTabela(); // Redesenha a tela
-        }
-    }
-
-    // Grava um novo competidor estruturado
-    document.getElementById("formRally").addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        let novoCompetidor = {
-            num: document.getElementById("num").value,
-            piloto: document.getElementById("piloto").value,
-            navegador: document.getElementById("navegador").value,
-            equipe: document.getElementById('equipe').value,
-            veiculo: document.getElementById("veiculo").value,
-            campeonato: document.getElementById("campeonato").value,
-            categoria: document.getElementById("categoria").value
-        };
-
-        dadosSalvos.push(novoCompetidor);
-        localStorage.setItem("dados_rally_estruturados", JSON.stringify(dadosSalvos));
-        
-        atualizarInterfaceTabela();
-        document.getElementById("formRally").reset();
-    });
-
-    // Inicia carregando os dados na tela
-    atualizarInterfaceTabela();
-</script>
-
+    </script>
 </body>
 </html>
