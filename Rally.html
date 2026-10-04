@@ -184,16 +184,7 @@
 </head>
 <body>
 
- egory');
-                        if (target === 'Todos' || postCat === target) {
-                            post.style.display = 'block';
-                        } else {
-                            post.style.display = 'none';
-                        }
-                    });
-                });
-            });
-        });
+
     </script>
 </body>
 </html>
@@ -452,94 +443,6 @@
   </article>
 </div>
 
- <!-- Script Corrigido e Rodando Perfeitamente -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const posts = document.querySelectorAll('.post-card');
-            
-            let total = posts.length;
-            let linkco = 0;
-            let sertoes = 0;
-            let parana = 0;
-            let tour = 0;
-            let ara = 0;
-
-            // Faz a varredura e soma cada categoria dinamicamente
-            posts.forEach(post => {
-                const cat = post.getAttribute('data-category');
-                if (cat === 'Link & Co') linkco++;
-                if (cat === 'Rally dos Sertões') sertoes++;
-                if (cat === 'Paraná') parana++;
-                if (cat === 'Tour Auto') tour++;
-                if (cat === 'ARA') ara++;
-            });
-
-            // Insere os números validados dentro de cada badge numérico
-            document.getElementById('count-todos').textContent = total;
-            document.getElementById('count-linkco').textContent = linkco;
-            document.getElementById('count-sertoes').textContent = sertoes;
-
-
-    
-
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const tagItems = document.querySelectorAll('.tag-item');
-        const cards = document.querySelectorAll('.card');
-
-        // Função para limpar e normalizar os textos das tags para comparação segura
-        function normalizarTexto(texto) {
-            if (!texto) return '';
-            return texto.trim()
-                        .toLowerCase()
-                        .normalize("NFD")
-                        .replace(/[\u0300-\u036f]/g, "") // Remove acentos (ex: Paraná vira parana)
-                        .replace(/\\/g, '/');            // Converte barra invertida em barra normal
-        }
-
-        // 1. MECANISMO DE CONTAGEM AUTOMÁTICA
-        tagItems.forEach(item => {
-            const filterValue = normalizarTexto(item.getAttribute('data-filter'));
-            const countSpan = item.querySelector('.tag-count');
-            
-            if (filterValue === 'all') {
-                countSpan.textContent = `(${cards.length})`;
-            } else {
-                const totalMatches = Array.from(cards).filter(card => {
-                    const cardTag = normalizarTexto(card.getAttribute('data-tags'));
-                    return cardTag === filterValue;
-                }).length;
-                countSpan.textContent = `(${totalMatches})`;
-            }
-        });
-
-        // 2. FILTRO AO CLICAR
-        tagItems.forEach(item => {
-            const link = item.querySelector('.tag-link');
-            
-            if (link) {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    
-                    tagItems.forEach(i => i.classList.remove('active'));
-                    item.classList.add('active');
-
-                    const selectedTag = normalizarTexto(item.getAttribute('data-filter'));
-
-                    cards.forEach(card => {
-                        const cardTag = normalizarTexto(card.getAttribute('data-tags'));
-                        
-                        if (selectedTag === 'all' || cardTag === selectedTag) {
-                            card.style.display = 'flex';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            }
-        });
-    });
 </script>
 Conversa no Modo IA: criar htmlVocê disse: criar htmlcriar html18 de setembro de 2026Aqui está a estrutura básica de um arquivo HTML5 que você pode usar como ponto de partida para criar qualquer página web:html<!DOCTYPE html>
 <html lang="pt-BR">
