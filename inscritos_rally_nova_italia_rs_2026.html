@@ -274,14 +274,13 @@
     <!-- Mensagem caso o filtro oculte todas as linhas -->
     <div id="mensagem-vazia" class="no-results hidden">Nenhum carro inscrito nesta categoria.</div>
 
-    <script>
+      <script>
         function filtrarPainelRally() {
             const filtroSelecionado = document.getElementById("escolha_categoria").value;
             const linhasTabela = document.querySelectorAll("#tabelaRally tbody tr");
             const tabelaElemento = document.getElementById("tabelaRally");
             const mensagemVazia = document.getElementById("mensagem-vazia");
 
-            // Inicializadores dos contadores estatísticos dinâmicos
             let totalExibido = 0;
             let totalBRA = 0;
             let totalGaucho = 0;
@@ -290,36 +289,40 @@
             linhasTabela.forEach(linha => {
                 const categoriasDoCarro = linha.getAttribute("data-categorias") || "";
                 
-            // Validação lógica do Filtro
-             let deveExibir = false;
-             if (filtroSelecionado === "TODAS" || categoriasDoCarro.includes(filtroSelecionado)) {
-              deveExibir = true;
-            }
-            // Aplica a visibilidade na tabela
-             if (deveExibir) {
-             linha.classList.remove("hidden");
-           // Incrementa estatísticas com base apenas no que está VISÍVEL
-            totalExibido++;
-            if (categoriasDoCarro.includes("BR Rally")) totalBRA++;
-            if (categoriasDoCarro.includes("Gaucho")) totalGaucho++;
-            if (categoriasDoCarro.includes("RallyPR")) totalPR++;
-            } else {
-            linha.classList.add("hidden");
-            }
-         });
-            // Atualiza os componentes numéricos na interface
+                let deveExibir = false;
+                if (filtroSelecionado === "TODAS" || categoriasDoCarro.includes(filtroSelecionado)) {
+                    deveExibir = true;
+                }
+
+                if (deveExibir) {
+                    linha.classList.remove("hidden");
+                    totalExibido++;
+                    
+                    // Condições corrigidas para ler o texto da tabela sem travar
+                    if (categoriasDoCarro.toLowerCase().includes("br rally")) totalBRA++;
+                    if (categoriasDoCarro.toLowerCase().includes("gaucho rally")) totalGaucho++;
+                    if (categoriasDoCarro.toLowerCase().includes("rallypr")) totalPR++;
+                } else {
+                    linha.classList.add("hidden");
+                }
+            });
+
+            // Atualiza os números na tela
             document.getElementById("num-total").innerText = totalExibido;
             document.getElementById("num-bra").innerText = totalBRA;
             document.getElementById("num-gaucho").innerText = totalGaucho;
             document.getElementById("num-pr").innerText = totalPR;
-            // Gerencia o aviso de "Nenhum resultado encontrado"
+
+            // Gerencia o aviso de lista vazia
             if (totalExibido === 0) {
-           tabelaElemento.classList.add("hidden");
-           mensagemVazia.classList.remove("hidden");
-           } else {
-           tabelaElemento.classList.remove("hidden");
-           mensagemVazia.classList.add("hidden");
-           }
-          }
-          // Executa a contagem assim que abrir o documento para iniciar com os números corretos
-          window.onload = filtrarPainelRally;
+                tabelaElemento.classList.add("hidden");
+                mensagemVazia.classList.remove("hidden");
+            } else {
+                tabelaElemento.classList.remove("hidden");
+                mensagemVazia.classList.add("hidden");
+            }
+        }
+
+        // Executa a função imediatamente ao carregar a página
+        window.onload = filtrarPainelRally;
+    </script>
