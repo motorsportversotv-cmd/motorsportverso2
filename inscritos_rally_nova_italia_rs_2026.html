@@ -15,6 +15,37 @@
             color: #1a1a1a;
             border-bottom: 2px solid #e65c00;
             padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+        /* Estilo do painel de contadores rápidos */
+        .painel-numeros {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .card-numero {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .card-numero.total {
+            background: #e65c00;
+        }
+        .card-numero h3 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .card-numero p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
         }
         .seletor-container {
             background: #fff;
@@ -72,19 +103,42 @@
             border-bottom: 2px solid #2c3e50;
         }
         .hidden {
-            display: none;
+            display: none !important;
         }
         .no-results {
             text-align: center;
             color: #777;
             font-style: italic;
             padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
     </style>
 </head>
 <body>
 
-    <h2>Rally de Nova Itália - Inscritos</h2>
+    <h2>Rally de Nova Itália - Estatísticas e Inscritos</h2>
+
+    <!-- NOVO COMPONENTE: Painel de Contagem Dinâmica -->
+    <div class="painel-numeros">
+        <div class="card-numero total">
+            <h3 id="num-total">0</h3>
+            <p>Total Exibido</p>
+        </div>
+        <div class="card-numero">
+            <h3 id="num-bra">0</h3>
+            <p>Camp. BRA</p>
+        </div>
+        <div class="card-numero">
+            <h3 id="num-gaucho">0</h3>
+            <p>Gaúcho</p>
+        </div>
+        <div class="card-numero">
+            <h3 id="num-pr">0</h3>
+            <p>Rally PR</p>
+        </div>
+    </div>
     
     <!-- Componente: Escolher qual categoria mostrar na tabela -->
     <div class="seletor-container">
@@ -98,7 +152,7 @@
             <option value="Gaucho Rally 2">Gaucho Rally 2</option>
             <option value="Gaucho Rally 4">Gaucho Rally 4</option>
             <option value="Gaucho Rally 5">Gaucho Rally 5</option>
-            <option value="Guacho Rally 5L">Guacho Rally 5L</option>
+            <option value="Gaucho Rally 5L">Gaucho Rally 5L</option>
             <option value="Gaucho UTV">Gaucho UTV</option>
             <option value="RallyPR 4X4">RallyPR 4X4</option>
             <option value="RallyPR 4x2 Fia">RallyPR 4x2 Fia</option>
@@ -123,8 +177,8 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Dados simulados baseados nas variáveis do algoritmo para leitura -->
-               <tr data-categorias="BR Rally 2, Gaucho Rally 2">
+            <!-- Dados ajustados e normalizados no data-categorias para bater com o Select -->
+            <tr data-categorias="BR Rally 2, Gaucho Rally 2">
                 <td>216</td>
                 <td>Rodrigo Varela\Marco Marini</td>
                 <td>Varela Rally \Monster Energy</td>
@@ -133,8 +187,6 @@
                 <td>Gaucho Rally 2</td>
                 <td>-</td>
             </tr>
-
-
             <tr data-categorias="BR Rally 4, Gaucho Rally 4">
                 <td>44</td>
                 <td>Eduardo Tonial\Lucas Neumann</td>
@@ -144,8 +196,7 @@
                 <td>Gaucho Rally 4</td>
                 <td>-</td>
             </tr>
-
-             <tr data-categorias="BR Rally 4">
+            <tr data-categorias="BR Rally 4">
                 <td>22</td>
                 <td>Luis Stedile\Murilo Spirolo</td>
                 <td>PRP</td>
@@ -154,8 +205,6 @@
                 <td>----</td>
                 <td>-</td>
             </tr>
-
-            
             <tr data-categorias="BR Rally 4, Gaucho Rally 4">
                 <td>217</td>
                 <td>Rafael Cabelo\Rafael Karpirski</td>
@@ -192,8 +241,7 @@
                 <td>----</td>
                 <td>RallyPR 4x2 Pró</td>
             </tr>
-
-            <tr data-categorias="BR Rally 5">
+            <tr data-categorias="BR Rally 5, Gaucho Rally 5">
                 <td>38</td>
                 <td>Evandro Carbonera\Jean Klein</td>
                 <td>Nova Italia RS Rally</td>
@@ -202,8 +250,6 @@
                 <td>Gaucho Rally 5</td>
                 <td>----</td>
             </tr>
-
-            
             <tr data-categorias="Gaucho Rally 5">
                 <td>71</td>
                 <td>Rubens Tati\Matheus Perin</td>
@@ -213,8 +259,7 @@
                 <td>Gaucho Rally 5</td>
                 <td>----</td>
             </tr>
-
-             <tr data-categorias="BR Rally 5">
+            <tr data-categorias="BR Rally 5">
                 <td>40</td>
                 <td>Bruno Ramos\</td>
                 <td>Rally Center</td>
@@ -223,108 +268,58 @@
                 <td>----</td>
                 <td>----</td>
             </tr>
-
-            
         </tbody>
     </table>
+
+    <!-- Mensagem caso o filtro oculte todas as linhas -->
+    <div id="mensagem-vazia" class="no-results hidden">Nenhum carro inscrito nesta categoria.</div>
 
     <script>
         function filtrarPainelRally() {
             const filtroSelecionado = document.getElementById("escolha_categoria").value;
             const linhasTabela = document.querySelectorAll("#tabelaRally tbody tr");
+            const tabelaElemento = document.getElementById("tabelaRally");
+            const mensagemVazia = document.getElementById("mensagem-vazia");
+
+            // Inicializadores dos contadores estatísticos dinâmicos
+            let totalExibido = 0;
+            let totalBRA = 0;
+            let totalGaucho = 0;
+            let totalPR = 0;
             
             linhasTabela.forEach(linha => {
-                // Caso 'TODAS' esteja marcada, exibe tudo
-                if (filtroSelecionado === "TODAS") {
-                    linha.classList.remove("hidden");
-                    return;
-                }
-
-                // Lê o atributo que guarda as categorias do carro atual
-                const categoriasDoCarro = linha.getAttribute("data-categorias");
-
-                // Verifica se a string de categorias contém a opção selecionada no menu
-                if (categoriasDoCarro && categoriasDoCarro.includes(filtroSelecionado)) {
-                    linha.classList.remove("hidden"); // Mostra
-                } else {
-                    linha.classList.add("hidden");    // Esconde
-                }
-            });
-        }
-
-        <div class="dashboard">
-        <h1>Rally Nova Itália 2026</h1>
-        <h2>Estatísticas de Campeonatos</h2>
-        
-        <!-- Total Geral -->
-        <div class="stat-main">
-            <div id="total-geral" class="stat-value">0</div>
-            <div class="stat-label" style="color: #ffcc00;">Total Geral de Inscritos</div>
-        </div>
-
-        <!-- Grid de Campeonatos -->
-        <div class="stat-grid">
-            <div class="stat-card">
-                <div id="v-bra" class="stat-value">0</div>
-                <div class="stat-label">Camp. BRA</div>
-            </div>
-            <div class="stat-card">
-                <div id="v-gaucho" class="stat-value">0</div>
-                <div class="stat-label">Gaúcho</div>
-            </div>
-            <div class="stat-card">
-                <div id="v-rallypr" class="stat-value">0</div>
-                <div class="stat-label">Rally PR</div>
-            </div>
-        </div>
-
-        <!-- Controles para atualizar os números em tempo real -->
-        <div class="controls">
-            <p>Simular Nova Inscrição (+1):</p>
-            <div class="btn-group">
-                <button onclick="adicionarInscrito('bra')">+ BRA</button>
-                <button onclick="adicionarInscrito('gaucho')">+ Gaúcho</button>
-                <button onclick="adicionarInscrito('rallypr')">+ Rally PR</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Variáveis que guardam os números (equivalentes ao seu algoritmo)
-        let inscritosBRA = 18;
-        let inscritosGaucho = 15;
-        let inscritosRallyPR = 12;
-
-        // Função para calcular o total e atualizar os elementos na tela (MostrarEstatisticas)
-        function atualizarPainel() {
-            // Calcula o total dinamicamente somando os campeonatos
-            let totalGeral = inscritosBRA + inscritosGaucho + inscritosRallyPR;
-
-            // Injeta os valores atualizados nas tags HTML correspondentes
-            document.getElementById('total-geral').innerText = totalGeral;
-            document.getElementById('v-bra').innerText = inscritosBRA;
-            document.getElementById('v-gaucho').innerText = inscritosGaucho;
-            document.getElementById('v-rallypr').innerText = inscritosRallyPR;
-        }
-
-        // Função chamada pelos botões para adicionar novos inscritos e atualizar os números
-        function adicionarInscrito(campeonato) {
-            if (campeonato === 'bra') {
-                inscritosBRA++;
-            } else if (campeonato === 'gaucho') {
-                inscritosGaucho++;
-            } else if (campeonato === 'rallypr') {
-                inscritosRallyPR++;
+                const categoriasDoCarro = linha.getAttribute("data-categorias") || "";
+                
+            // Validação lógica do Filtro
+             let deveExibir = false;
+             if (filtroSelecionado === "TODAS" || categoriasDoCarro.includes(filtroSelecionado)) {
+              deveExibir = true;
             }
-            
-            // Recarrega os números na tela após a alteração
-            atualizarPainel();
-        }
-
-        // Inicializa o painel com os valores padrão assim que a página abre
-        window.onload = atualizarPainel;
-    </script>
-
-
-</body>
-</html>
+            // Aplica a visibilidade na tabela
+             if (deveExibir) {
+             linha.classList.remove("hidden");
+           // Incrementa estatísticas com base apenas no que está VISÍVEL
+            totalExibido++;
+            if (categoriasDoCarro.includes("BR Rally")) totalBRA++;
+            if (categoriasDoCarro.includes("Gaucho")) totalGaucho++;
+            if (categoriasDoCarro.includes("RallyPR")) totalPR++;
+            } else {
+            linha.classList.add("hidden");
+            }
+         });
+            // Atualiza os componentes numéricos na interface
+            document.getElementById("num-total").innerText = totalExibido;
+            document.getElementById("num-bra").innerText = totalBRA;
+            document.getElementById("num-gaucho").innerText = totalGaucho;
+            document.getElementById("num-pr").innerText = totalPR;
+            // Gerencia o aviso de "Nenhum resultado encontrado"
+            if (totalExibido === 0) {
+           tabelaElemento.classList.add("hidden");
+           mensagemVazia.classList.remove("hidden");
+           } else {
+           tabelaElemento.classList.remove("hidden");
+           mensagemVazia.classList.add("hidden");
+           }
+          }
+          // Executa a contagem assim que abrir o documento para iniciar com os números corretos
+          window.onload = filtrarPainelRally;
