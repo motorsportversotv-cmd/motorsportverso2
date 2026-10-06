@@ -251,31 +251,80 @@
                 }
             });
         }
-    </script>
 
-      <div class="dashboard">
+        <div class="dashboard">
         <h1>Rally Nova Itália 2026</h1>
-        <h2>Painel de Estatísticas Oficiais</h2>
+        <h2>Estatísticas de Campeonatos</h2>
         
-        <div class="stat-card">
-            <!-- O ID "total-inscritos" permite que o JavaScript altere este número -->
-            <div id="total-inscritos" class="stat-value">0</div>
-            <div class="stat-label">Total de Inscritos</div>
+        <!-- Total Geral -->
+        <div class="stat-main">
+            <div id="total-geral" class="stat-value">0</div>
+            <div class="stat-label" style="color: #ffcc00;">Total Geral de Inscritos</div>
+        </div>
+
+        <!-- Grid de Campeonatos -->
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div id="v-bra" class="stat-value">0</div>
+                <div class="stat-label">Camp. BRA</div>
+            </div>
+            <div class="stat-card">
+                <div id="v-gaucho" class="stat-value">0</div>
+                <div class="stat-label">Gaúcho</div>
+            </div>
+            <div class="stat-card">
+                <div id="v-rallypr" class="stat-value">0</div>
+                <div class="stat-label">Rally PR</div>
+            </div>
+        </div>
+
+        <!-- Controles para atualizar os números em tempo real -->
+        <div class="controls">
+            <p>Simular Nova Inscrição (+1):</p>
+            <div class="btn-group">
+                <button onclick="adicionarInscrito('bra')">+ BRA</button>
+                <button onclick="adicionarInscrito('gaucho')">+ Gaúcho</button>
+                <button onclick="adicionarInscrito('rallypr')">+ Rally PR</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // Simulação do valor da sua variável global 'total_inscritos' do algoritmo
-        let total_inscritos = 42; 
+        // Variáveis que guardam os números (equivalentes ao seu algoritmo)
+        let inscritosBRA = 18;
+        let inscritosGaucho = 15;
+        let inscritosRallyPR = 12;
 
-        // Função equivalente ao 'MostrarEstatisticas()' do seu pseudocódigo
-        function mostrarEstatisticas() {
-            document.getElementById('total-inscritos').innerText = total_inscritos;
+        // Função para calcular o total e atualizar os elementos na tela (MostrarEstatisticas)
+        function atualizarPainel() {
+            // Calcula o total dinamicamente somando os campeonatos
+            let totalGeral = inscritosBRA + inscritosGaucho + inscritosRallyPR;
+
+            // Injeta os valores atualizados nas tags HTML correspondentes
+            document.getElementById('total-geral').innerText = totalGeral;
+            document.getElementById('v-bra').innerText = inscritosBRA;
+            document.getElementById('v-gaucho').innerText = inscritosGaucho;
+            document.getElementById('v-rallypr').innerText = inscritosRallyPR;
         }
 
-        // Executa a função assim que a página carrega
-        window.onload = mostrarEstatisticas;
+        // Função chamada pelos botões para adicionar novos inscritos e atualizar os números
+        function adicionarInscrito(campeonato) {
+            if (campeonato === 'bra') {
+                inscritosBRA++;
+            } else if (campeonato === 'gaucho') {
+                inscritosGaucho++;
+            } else if (campeonato === 'rallypr') {
+                inscritosRallyPR++;
+            }
+            
+            // Recarrega os números na tela após a alteração
+            atualizarPainel();
+        }
+
+        // Inicializa o painel com os valores padrão assim que a página abre
+        window.onload = atualizarPainel;
     </script>
+
 
 </body>
 </html>
