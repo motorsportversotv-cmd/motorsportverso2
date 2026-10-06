@@ -252,5 +252,30 @@
             });
         }
     </script>
+
+      <div class="dashboard">
+        <h1>Rally Nova Itália 2026</h1>
+        <h2>Painel de Estatísticas Oficiais</h2>
+        
+        <div class="stat-card">
+            <!-- O ID "total-inscritos" permite que o JavaScript altere este número -->
+            <div id="total-inscritos" class="stat-value">0</div>
+            <div class="stat-label">Total de Inscritos</div>
+        </div>
+    </div>
+
+    <script>
+        // Simulação do valor da sua variável global 'total_inscritos' do algoritmo
+        let total_inscritos = 42; 
+
+        // Função equivalente ao 'MostrarEstatisticas()' do seu pseudocódigo
+        function mostrarEstatisticas() {
+            document.getElementById('total-inscritos').innerText = total_inscritos;
+        }
+
+        // Executa a função assim que a página carrega
+        window.onload = mostrarEstatisticas;
+    </script>
+
 </body>
 </html>
