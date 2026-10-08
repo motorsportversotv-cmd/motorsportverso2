@@ -283,60 +283,112 @@
 
     <div id="msg-no-results" class="no-results">Nenhum inscrito encontrado para o filtro selecionado.</div>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const selectorFiltro = document.getElementById("escolha_categoria");
-        const tabela = document.getElementById("tabelaRally");
-        const msgNoResults = document.getElementById("msg-no-results");
+    <!-- SEÇÃO DE ESTATÍSTICAS -->
+    <h3>ESTATÍSTICAS DE INSCRITOS</h3>
+    <div class="stats-grid">
+        <!-- Card 1: Total Geral -->
+        <div class="chart-card">
+            <h4>Total de Inscritos</h4>
+            <p id="total-inscritos">0</p>
+        </div>
+        
+        <!-- Card 2: Por Categoria -->
+        <div class="chart-card">
+            <h4>Por Categoria</h4>
+            <ul id="lista-categorias"></ul>
+        </div>
+        
+        <!-- Card 3: Por Marca -->
+        <div class="chart-card">
+            <h4>Por Marca</h4>
+            <ul id="lista-marcas"></ul>
+        </div>
 
-        function calcularEstatisticas() {
-            const linhas = tabela.querySelectorAll("tbody tr");
-            let totalAtivo = 0;
-            let totalBR = 0;
-            let totalGaucho = 0;
-            let totalPR = 0;
+        <!-- Card 4: Por Modelo -->
+        <div class="chart-card">
+            <h4>Por Modelo</h4>
+            <ul id="lista-modelos"></ul>
+        </div>
+    </div>
+</div>
 
-            const contagemCategorias = {};
-            const contagemMarcas = {};
-            const contagemModelos = {};
-            const categoriaSelecionada = selectorFiltro.value;
+<!-- LÓGICA CORE DO SISTEMA CORRIGIDA e FECHADA -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const selectorFiltro = document.getElementById("filtro-categoria");
+    
+    function calcularEstatisticas() {
+        const linhas = document.querySelectorAll("#tabela-inscritos tbody tr");
+        
+        let totalAtivo = 0;
+        const contagemCategorias = {};
+        const contagemMarcas = {};
+        const contagemModelos = {};
 
-            linhas.forEach(linha => {
-                // Seleção explícita e segura dos índices das células da tabela
-                const txtModeloCompleto = linha.cells[3] ? linha.cells[3].textContent.trim() : "";
-                const catBR = linha.cells[4] ? linha.cells[4].textContent.trim() : "";
-                const catGaucho = linha.cells[5] ? linha.cells[5].textContent.trim() : "";
-                const catPR = linha.cells[6] ? linha.cells[6].textContent.trim() : "";
+        const categoriaSelecionada = selectorFiltro.value;
 
-                const correspondeFiltro = (categoriaSelecionada === "TODAS" || 
-Use o código com cuidado.
-catBR === categoriaSelecionada ||
-catGaucho === categoriaSelecionada ||
-catPR === categoriaSelecionada);
-if (correspondeFiltro) {
-linha.style.display = "";
-totalAtivo++;
-if (catBR && catBR !== "-") totalBR++;
-if (catGaucho && catGaucho !== "-") totalGaucho++;
-if (catPR && catPR !== "-") totalPR++;
-// Agrupa categorias válidas
-[catBR, catGaucho, catPR].forEach(cat => {
-if (cat && cat !== "-") {
-contagemCategorias[cat] = (contagemCategorias[cat] || 0) + 1;
-}
+        linhas.forEach(linha => {
+            const celulaModeloCompleto = linha.cells[3];
+            const celulaCategoria = linha.cells[4];
+
+            if (celulaCategoria && celulaModeloCompleto) {
+                const nomeCategoria = celulaCategoria.textContent.trim();
+                const textoModeloCompleto = celulaModeloCompleto.textContent.trim();
+
+                // 1. Regra de Filtragem e Visibilidade
+                if (categoriaSelecionada === "todos" || nomeCategoria === categoriaSelecionada) {
+                    linha.style.display = ""; 
+                    
+                    totalAtivo++;
+                    
+                    // Processa Categorias
+                    contagemCategorias[nomeCategoria] = (contagemCategorias[nomeCategoria] || 0) + 1;
+
+                    // Processa Marcas (Extrai a primeira palavra, ex: "VW")
+                    const partesModelo = textoModeloCompleto.split(' ');
+                    const marca = partesModelo[0];
+                    if (marca) {
+                        contagemMarcas[marca] = (contagemMarcas[marca] || 0) + 1;
+                    }
+
+                    // Processa Modelos Completos (ex: "VW Polo MR")
+                    contagemModelos[textoModeloCompleto] = (contagemModelos[textoModeloCompleto] || 0) + 1;
+
+                } else {
+                    linha.style.display = "none"; 
+                }
+            }
+        });
+
+        // 2. Renderização dos Resultados na Tela
+        document.getElementById("total-inscritos").innerText = totalAtivo;
+
+        // Atualiza o card de Categorias
+        const listaCat = document.getElementById("lista-categorias");
+        listaCat.innerHTML = "";
+        for (const [cat, qtd] of Object.entries(contagemCategorias)) {
+            listaCat.innerHTML += `<li><span>${cat}</span><span class="count-val">${qtd}</span></li>`;
+        }
+
+        // Atualiza o card de Marcas
+        const listaMarcas = document.getElementById("lista-marcas");
+        listaMarcas.innerHTML = "";
+        for (const [marca, qtd] of Object.entries(contagemMarcas)) {
+            listaMarcas.innerHTML += `<li><span>${marca}</span><span class="count-val">${qtd}</span></li>`;
+        }
+
+        // Atualiza o card de Modelos
+        const listaModelos = document.getElementById("lista-modelos");
+        listaModelos.innerHTML = "";
+        for (const [modelo, qtd] of Object.entries(contagemModelos)) {
+            listaModelos.innerHTML += `<li><span>${modelo}</span><span class="count-val">${qtd}</span></li>`;
+        }
+    }
+
+    selectorFiltro.addEventListener("change", calcularEstatisticas);
+    calcularEstatisticas();
 });
-// Agrupa Marcas e Modelos
-if (txtModeloCompleto) {
-const marca = txtModeloCompleto.split(' ')[0];
-if (marca) {
-contagemMarcas[marca] = (contagemMarcas[marca] || 0) + 1;
-}
-contagemModelos[txtModeloCompleto] = (contagemModelos[txtModeloCompleto] || 0) + 1;
-}
-} else {
-linha.style.display = "none";
-}
-});
+</script>
 // Atualiza os contadores principais superiores
 
       
