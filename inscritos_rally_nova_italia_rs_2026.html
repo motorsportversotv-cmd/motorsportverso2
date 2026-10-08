@@ -17,7 +17,6 @@
             padding-bottom: 8px;
             margin-bottom: 20px;
         }
-        /* Estilo do painel de contadores rápidos */
         .painel-numeros {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -73,6 +72,55 @@
             outline: none;
             border-color: #e65c00;
         }
+        
+        /* Grid de Estatísticas Visual */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .stats-section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .stats-section h4 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-left: 4px solid #e65c00;
+            padding-left: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            margin-bottom: 15px;
+        }
+        .stat-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .progress-bar-bg {
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            height: 12px;
+            width: 100%;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            width: 0%; 
+            transition: width 0.4s ease-in-out;
+        }
+        .brand-fill { background-color: #2980b9; }
+        .model-fill { background-color: #16a085; }
+        .cat-fill { background-color: #8e44ad; }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -80,6 +128,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             border-radius: 8px;
             overflow: hidden;
+            margin-top: 15px;
         }
         th, td {
             padding: 12px 15px;
@@ -102,9 +151,6 @@
         tr:last-child {
             border-bottom: 2px solid #2c3e50;
         }
-        .hidden {
-            display: none !important;
-        }
         .no-results {
             text-align: center;
             color: #777;
@@ -113,6 +159,8 @@
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-top: 15px;
+            display: none;
         }
     </style>
 </head>
@@ -120,7 +168,7 @@
 
     <h2>Rally de Nova Itália - Estatísticas e Inscritos</h2>
 
-    <!-- NOVO COMPONENTE: Painel de Contagem Dinâmica -->
+    <!-- Painel de Contagem Dinâmica -->
     <div class="painel-numeros">
         <div class="card-numero total">
             <h3 id="num-total">0</h3>
@@ -139,11 +187,11 @@
             <p>Rally PR</p>
         </div>
     </div>
-    
-    <!-- Componente: Escolher qual categoria mostrar na tabela -->
+
+    <!-- Filtro -->
     <div class="seletor-container">
         <label for="escolha_categoria">Escolher qual categoria mostrar na tabela:</label>
-        <select id="escolha_categoria" onchange="filtrarPainelRally()">
+        <select id="escolha_categoria">
             <option value="TODAS">-- Mostrar Todas as Categorias --</option>
             <option value="BR Rally 2">BR Rally 2</option>
             <option value="BR Rally 4">BR Rally 4</option>
@@ -163,7 +211,76 @@
         </select>
     </div>
 
-   
+    <!-- SEÇÃO DE ESTATÍSTICAS COM BARRAS -->
+    <h3>ESTATÍSTICAS DE INSCRITOS</h3>
+    <div class="stats-grid">
+        <div class="stats-section">
+            <h4>Por Categoria</h4>
+            <div id="container-categorias"></div>
+        </div>
+        <div class="stats-section">
+            <h4>Por Marca</h4>
+            <div id="container-marcas"></div>
+        </div>
+        <div class="stats-section">
+            <h4>Por Modelo</h4>
+            <div id="container-modelos"></div>
+        </div>
+    </div>
+
+    <!-- TABELA DE INSCRITOS -->
+    <table id="tabelaRally">
+        <thead>
+            <tr>
+                <th>Nº (ID)</th>
+                <th>Piloto / Navegador</th>
+                <th>Equipe</th>
+                <th>Marca / Modelo</th>
+                <th>Cat. BR</th>
+                <th>Cat. Gaúcho</th>
+                <th>Cat. PR</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>101</td>
+                <td>Piloto A / Navegador A</td>
+                <td>Equipe Alpha</td>
+                <td>VW Polo MR</td>
+                <td>BR Rally 2</td>
+                <td>Gaucho Rally 2</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>102</td>
+                <td>Piloto B / Navegador B</td>
+                <td>Equipe Beta</td>
+                <td>Peugeot 208 Rally4</td>
+                <td>BR Rally 4</td>
+                <td>-</td>
+                <td>RallyPR 4x2 Fia</td>
+            </tr>
+            <tr>
+                <td>103</td>
+                <td>Piloto C / Navegador C</td>
+                <td>Equipe Gamma</td>
+                <td>VW Polo MR</td>
+                <td>BR Rally 2</td>
+                <td>Gaucho Rally 2</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>104</td>
+                <td>Piloto D / Navegador D</td>
+                <td>Equipe Delta</td>
+                <td>Hyundai HB20</td>
+                <td>BR Rally 5</td>
+                <td>Gaucho Rally 5</td>
+                <td>-</td>
+            </tr>
+        </tbody>
+    </table>
+
     <div id="msg-no-results" class="no-results">Nenhum inscrito encontrado para o filtro selecionado.</div>
 
     <script>
@@ -185,72 +302,42 @@
             const categoriaSelecionada = selectorFiltro.value;
 
             linhas.forEach(linha => {
-                // Captura os valores das colunas de categoria (BR=4, Gaúcho=5, PR=6)
-                const txtModeloCompleto = linha.cells[3]?.textContent.trim() || "";
-                const catBR = linha.cells[4]?.textContent.trim() || "";
-                const catGaucho = linha.cells[5]?.textContent.trim() || "";
-                const catPR = linha.cells[6]?.textContent.trim() || "";
+                // Seleção explícita e segura dos índices das células da tabela
+                const txtModeloCompleto = linha.cells[3] ? linha.cells[3].textContent.trim() : "";
+                const catBR = linha.cells[4] ? linha.cells[4].textContent.trim() : "";
+                const catGaucho = linha.cells[5] ? linha.cells[5].textContent.trim() : "";
+                const catPR = linha.cells[6] ? linha.cells[6].textContent.trim() : "";
 
-                // Verifica se a linha possui correspondência com o filtro em QUALQUER uma das 3 colunas de categoria
                 const correspondeFiltro = (categoriaSelecionada === "TODAS" || 
-                                           catBR === categoriaSelecionada || 
-                                           catGaucho === categoriaSelecionada || 
-                                           catPR === categoriaSelecionada);
-
-                if (correspondeFiltro) {
-                    linha.style.display = "";
-                    totalAtivo++;
-
-                    // Conta totais gerais por campeonato (ignora traços ou campos vazios)
-                    if (catBR && catBR !== "-") totalBR++;
 Use o código com cuidado.
+catBR === categoriaSelecionada ||
+catGaucho === categoriaSelecionada ||
+catPR === categoriaSelecionada);
+if (correspondeFiltro) {
+linha.style.display = "";
+totalAtivo++;
+if (catBR && catBR !== "-") totalBR++;
 if (catGaucho && catGaucho !== "-") totalGaucho++;
 if (catPR && catPR !== "-") totalPR++;
-// Contabiliza categorias ativas na filtragem atual
+// Agrupa categorias válidas
 [catBR, catGaucho, catPR].forEach(cat => {
 if (cat && cat !== "-") {
 contagemCategorias[cat] = (contagemCategorias[cat] || 0) + 1;
 }
 });
-// Processa Marcas (Primeira palavra do Modelo)
+// Agrupa Marcas e Modelos
 if (txtModeloCompleto) {
 const marca = txtModeloCompleto.split(' ')[0];
 if (marca) {
 contagemMarcas[marca] = (contagemMarcas[marca] || 0) + 1;
 }
-// Processa Modelos
 contagemModelos[txtModeloCompleto] = (contagemModelos[txtModeloCompleto] || 0) + 1;
 }
 } else {
 linha.style.display = "none";
 }
 });
-// Atualiza os contadores do painel superior topo
-document.getElementById("num-total").innerText = totalAtivo;
-document.getElementById("num-bra").innerText = totalBR;
-document.getElementById("num-gaucho").innerText = totalGaucho;
-document.getElementById("num-pr").innerText = totalPR;
-// Atualiza o card de total das estatísticas de baixo
-document.getElementById("total-inscritos").innerText = totalAtivo;
-// Exibe mensagem caso nenhum resultado seja retornado
-msgNoResults.style.display = totalAtivo === 0 ? "block" : "none";
-// Renderiza as listas analíticas
-renderLista("lista-categorias", contagemCategorias);
-renderLista("lista-marcas", contagemMarcas);
-renderLista("lista-modelos", contagemModelos);
-}
-// Função auxiliar para renderizar listas de estatísticas ordenadas por quantidade decrescente
-function renderLista(idElemento, objetoDados) {
-const elemento = document.getElementById(idElemento);
-elemento.innerHTML = "";
-const itensOrdenados = Object.entries(objetoDados).sort((a, b) => b[1] - a[1]);
-for (const [chave, qtd] of itensOrdenados) {
-elemento.innerHTML += <li><span>${chave}</span><span class="count-val">${qtd}</span></li>;
-}
-}
-selectorFiltro.addEventListener("change", calcularEstatisticas);
-calcularEstatisticas(); // Execução inicial
-});
+// Atualiza os contadores principais superiores
 
       
     
