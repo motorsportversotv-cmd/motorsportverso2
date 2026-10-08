@@ -571,90 +571,123 @@
 
     <div id="msg-no-results" class="no-results">Nenhum inscrito encontrado para o filtro selecionado.</div>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const selectorFiltro = document.getElementById("escolha_categoria");
-        const tabela = document.getElementById("tabelaRally");
-        const msgNoResults = document.getElementById("msg-no-results");
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+    // 1. Captura os elementos da tela pelos IDs corretos
+    const selectorFiltro = document.getElementById("escolha_categoria");
+    const tabela = document.getElementById("tabelaRally");
 
-        function calcularEstatisticas() {
-            const linhas = tabela.querySelectorAll("tbody tr");
-            
-            let totalAtivo = 0;
-            let totalBR = 0;
-            let totalGaucho = 0;
-            let totalPR = 0;
+    function calcularEstatisticas() {
+        // Seleciona todas as linhas de dados, ignorando a primeira linha que é o cabeçalho (th)
+        const linhas = tabela.querySelectorAll("tr");
+        
+        let totalAtivo = 0;
+        let totalBR = 0;
+        let totalGaucho = 0;
+        let totalPR = 0;
 
-            const contagemCategorias = {};
-            const contagemMarcas = {};
-            const contagemModelos = {};
-            const categoriaSelecionada = selectorFiltro.value;
+        const contagemCategorias = {};
+        const contagemMarcas = {};
+        const contagemModelos = {};
+        const categoriaSelecionada = selectorFiltro ? selectorFiltro.value : "TODAS";
 
-            linhas.forEach(linha => {
-                // Captura os valores de texto seguros baseados nas posições das colunas da tabela
-                const txtModeloCompleto = linha.cells[3] ? linha.cells[3].textContent.trim() : "";
-                const catBR = linha.cells[4] ? linha.cells[4].textContent.trim() : "";
-                const catGaucho = linha.cells[5] ? linha.cells[5].textContent.trim() : "";
-                const catPR = linha.cells[6] ? linha.cells[6].textContent.trim() : "";
+        linhas.forEach((linha, indice) => {
+            // Pula a primeira linha se ela contiver os cabeçalhos (th)
+            if (linha.querySelector("th") || indice === 0) return;
 
+            const celulas = linha.cells;
+            if (celulas && celulas.length >= 7) {
+                // Mapeamento exato das colunas conforme o seu HTML original
+                const txtModeloCompleto = celulas[3].textContent.trim(); // Coluna: Marca / Modelo
+                const catBR = celulas[4].textContent.trim();             // Coluna: Cat. BR
+                const catGaucho = celulas[5].textContent.trim();         // Coluna: Cat. Gaúcho
+                const catPR = celulas[6].textContent.trim();             // Coluna: Cat. PR
+
+                // Regra de filtragem: verifica se a opção selecionada existe em qualquer uma das colunas
                 const correspondeFiltro = (categoriaSelecionada === "TODAS" || 
-Use o código com cuidado.
-catBR === categoriaSelecionada ||
-catGaucho === categoriaSelecionada ||
-catPR === categoriaSelecionada);
-if (correspondeFiltro) {
-linha.style.display = "";
-totalAtivo++;
-if (catBR && catBR !== "-") totalBR++;
-if (catGaucho && catGaucho !== "-") totalGaucho++;
-if (catPR && catPR !== "-") totalPR++;
-// Mapeia Categorias Ativas
-[catBR, catGaucho, catPR].forEach(cat => {
-if (cat && cat !== "-") {
-contagemCategorias[cat] = (contagemCategorias[cat] || 0) + 1;
-}
+                                           catBR === categoriaSelecionada || 
+                                           catGaucho === categoriaSelecionada || 
+                                           catPR === categoriaSelecionada);
+
+                if (correspondeFiltro) {
+                    linha.style.display = ""; // Mostra a linha
+                    totalAtivo++;
+
+                    // Contabiliza os campeonatos para os blocos do topo (ignora traços "-")
+                    if (catBR && catBR !== "-") totalBR++;
+                    if (catGaucho && catGaucho !== "-") totalGaucho++;
+                    if (catPR && catPR !== "-") totalPR++;
+
+                    // Alimenta o dicionário de categorias ativas
+                    [catBR, catGaucho, catPR].forEach(cat => {
+                        if (cat && cat !== "-") {
+                            contagemCategorias[cat] = (contagemCategorias[cat] || 0) + 1;
+                        }
+                    });
+
+                    // Alimenta as estatísticas de Marcas e Modelos
+                    if (txtModeloCompleto && txtModeloCompleto !== "-") {
+                        // Pega apenas a primeira palavra como Marca (Ex: "VW")
+                        const marca = txtModeloCompleto.split(' ')[0];
+                        if (marca) {
+                            contagemMarcas[marca] = (contagemMarcas[marca] || 0) + 1;
+                        }
+                        // Pega o modelo completo (Ex: "VW Polo MR")
+                        contagemModelos[txtModeloCompleto] = (contagemModelos[txtModeloCompleto] || 0) + 1;
+                    }
+                } else {
+                    linha.style.display = "none"; // Esconde a linha que não bate com o filtro
+                }
+            }
+        });
+
+        // 2. Atualiza os blocos numéricos superiores na tela
+        const numTotal = document.getElementById("num-total");
+        const numBra = document.getElementById("num-bra");
+        const numGaucho = document.getElementById("num-gaucho");
+        const numPr = document.getElementById("num-pr");
+        const totalInscritosCard = document.getElementById("total-inscritos");
+
+        if (numTotal) numTotal.innerText = totalAtivo;
+        if (numBra) numBra.innerText = totalBR;
+        if (numGaucho) numGaucho.innerText = totalGaucho;
+        if (numPr) numPr.innerText = totalPR;
+        if (totalInscritosCard) totalInscritosCard.innerText = totalAtivo;
+
+        // 3. Renderiza as listas internas das caixas de estatísticas de forma limpa
+        atualizarLayoutLista("lista-categorias", contagemCategorias);
+        atualizarLayoutLista("lista-marcas", contagemMarcas);
+        atualizarLayoutLista("lista-modelos", contagemModelos);
+    }
+
+    // Função interna para construir o HTML das listas ordenadas por quantidade
+    function atualizarLayoutLista(idLista, dadosObjeto) {
+        const listaHtml = document.getElementById(idLista);
+        if (!listaHtml) return;
+
+        listaHtml.innerHTML = "";
+        
+        // Ordena do maior para o menor número de inscritos
+        const ordenados = Object.entries(dadosObjeto).sort((a, b) => b[1] - a[1]);
+
+        if (ordenados.length === 0) {
+            listaHtml.innerHTML = "<li><span style='color:#999; font-style:italic;'>Sem dados disponíveis</span></li>";
+            return;
+        }
+
+        ordenados.forEach(([nome, qtd]) => {
+            listaHtml.innerHTML += `<li><span>${nome}</span><span class="count-val" style="font-weight:bold; color:#e65c00;">${qtd}</span></li>`;
+        });
+    }
+
+    // Vincula o evento de mudança no select e executa a primeira carga
+    if (selectorFiltro) {
+        selectorFiltro.addEventListener("change", calcularEstatisticas);
+    }
+    calcularEstatisticas();
 });
-// Mapeia Marcas e Modelos
-if (txtModeloCompleto && txtModeloCompleto !== "-") {
-const marca = txtModeloCompleto.split(' ')[0];
-if (marca) {
-contagemMarcas[marca] = (contagemMarcas[marca] || 0) + 1;
-}
-contagemModelos[txtModeloCompleto] = (contagemModelos[txtModeloCompleto] || 0) + 1;
-}
-} else {
-linha.style.display = "none";
-}
-});
-// Atualiza os contadores principais superiores
-document.getElementById("num-total").innerText = totalAtivo;
-document.getElementById("num-bra").innerText = totalBR;
-document.getElementById("num-gaucho").innerText = totalGaucho;
-document.getElementById("num-pr").innerText = totalPR;
-// Destrava a contagem numérica no card das estatísticas
-document.getElementById("total-inscritos").innerText = totalAtivo;
-msgNoResults.style.display = totalAtivo === 0 ? "block" : "none";
-// CORREÇÃO CRÍTICA: IDs corrigidos para baterem exatamente com o HTML das listas
-renderizarListaOrdenada("lista-categorias", contagemCategorias);
-renderizarListaOrdenada("lista-marcas", contagemMarcas);
-renderizarListaOrdenada("lista-modelos", contagemModelos);
-}
-function renderizarListaOrdenada(idElemento, objetoDados) {
-const elemento = document.getElementById(idElemento);
-if (!elemento) return; // Evita quebra de script caso o ID mude
-elemento.innerHTML = "";
-const itensOrdenados = Object.entries(objetoDados).sort((a, b) => b[1] - a[1]);
-if (itensOrdenados.length === 0) {
-elemento.innerHTML = "Nenhum dado";
-return;
-}
-itensOrdenados.forEach(([chave, qtd]) => {
-elemento.innerHTML += <li><span>${chave}</span><span class="count-val">${qtd}</span></li>;
-});
-}
-selectorFiltro.addEventListener("change", calcularEstatisticas);
-calcularEstatisticas();
-});
+</script>
+
 
 
 
