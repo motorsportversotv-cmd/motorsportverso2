@@ -67,7 +67,7 @@
             color: #aae0bc;
         }
 
-        /* --- CONTADOR DE TAGS (SEU SCRIPT ADAPTADO) --- */
+        /* --- CONTADOR DE TAGS --- */
         .contador-painel {
             background-color: #111e2e;
             padding: 20px;
@@ -108,6 +108,80 @@
             font-size: 16px;
             margin-top: 5px;
         }
+
+        /* --- FEED DE POSTS --- */
+        .posts-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .post-card {
+            background-color: #111e2e;
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 20px;
+            border: 1px solid #162635;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: opacity 0.3s ease;
+        }
+
+        .escondido {
+            display: none !important;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-height: 300px;
+            overflow: hidden;
+            border-radius: 6px;
+            background-color: #1a2c3d;
+        }
+
+        .image-container img, .post-card img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+            border-radius: 6px;
+        }
+
+        /* --- CAIXA EM VOLTA DAS TAGS --- */
+        .tag {
+            display: inline-block;
+            background-color: #05121e; /* Fundo interno da caixa */
+            color: #52e085;             /* Cor do texto da tag */
+            font-size: 12px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #43764d;  /* Borda/Caixa em volta da tag */
+            width: fit-content;
+        }
+
+        .post-card h2 {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1.3;
+            color: #ffffff;
+        }
+
+        .btn-ler {
+            color: #52e085;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .btn-ler:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -118,7 +192,7 @@
         <ul class="categories-list">
             <li class="category-item ativo">
                 <span>Todas as Categorias</span>
-                <span class="contador">13</span>
+                <span class="contador">21</span>
             </li>
             <li class="category-item">
                 <span>Brasil / BR de Rally</span>
@@ -134,9 +208,7 @@
             </li>
         </ul>
 
-    </div>
-
-     <!-- Painel de Pesquisa (Seu Algoritmo de Soma Evoluído) -->
+        <!-- Painel de Pesquisa -->
         <div class="contador-painel">
             <label for="tagPesquisa">Pesquise por uma tag específica (Ex: Brasil, WRC, Mitsubishi):</label>
             <input type="text" id="tagPesquisa" placeholder="Digite a tag para buscar e somar...">
@@ -144,73 +216,26 @@
             <p id="resultado" class="resultado-texto">mostre a soma da tag: 0</p>
         </div>
 
-     <!-- Script de Busca e Soma Automática -->
-    <script>
-        function pesquisarESomarTag() {
-            // Captura o termo digitado e remove espaços extras
-            let termoPesquisa = document.getElementById("tagPesquisa").value.trim().toLowerCase();
-            
-            // var num, soma: inteiro
-            let soma = 0; // Inicializa nossa soma/contador com 0
-            
-            // Busca todos os cards de posts na página
-            let posts = document.querySelectorAll(".post-card");
-
-            // Se o campo de pesquisa estiver vazio, mostra todos os posts e zera a contagem
-            if (termoPesquisa === "") {
-                posts.forEach(post => post.classList.remove("escondido"));
-                document.getElementById("resultado").innerText = "mostre a soma da tag: 0";
-                return;
-            }
-
-            // Loop por cada post (Equivalente ao laço "Para/ParaCada" do algoritmo)
-            posts.forEach(post => {
-                // Pega a tag cadastrada no atributo "data-tag" do HTML
-                let tagDoPost = post.getAttribute("data-tag").toLowerCase();
-
-                // Verifica se a tag pesquisada é igual ou está contida na tag do post
-                if (tagDoPost.includes(termoPesquisa)) {
-                    post.classList.remove("escondido"); // Mostra o post
-                    soma = soma + 1; // soma <- soma + 1 (Incrementa nosso contador)
-                } else {
-                    post.classList.add("escondido"); // Esconde o post que não serve
-                }
-            });
-
-            // Mostra o resultado final da soma na tela
-            document.getElementById("resultado").innerText = "mostre a soma da tag: " + soma;
-        }
-
-        // Permite que o usuário aperte "Enter" no teclado para pesquisar rápido
-        document.getElementById("tagPesquisa").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                pesquisarESomarTag();
-            }
-        });
-    </script>
-
-
-
         <!-- Feed de Notícias -->
         <div class="posts-wrapper">
 
-            <!-- Post 1: Rally Nova Prata -->
-            <article class="post-card" data-category="Rio Grande do Sul">
+            <!-- Post 1 -->
+            <article class="post-card" data-tag="Rio Grande do Sul">
                 <span class="tag">Rio Grande do Sul</span>
                 <h2>Rally Nova Prata, Rio Grande do Sul</h2>
                 <a href="#" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 2: Novo Evento Rally Raid -->
-            <article class="post-card" data-category="BR Rally Raid">
+            <!-- Post 2 -->
+            <article class="post-card" data-tag="Rally Raid">
                 <span class="tag">Rally Raid</span>
                 <h2>Novo Evento de Rally Raid</h2>
                 <p style="color: #b3b3b3; font-size: 14px;">Confira as novidades e o calendário do novo evento de Rally Raid.</p>
                 <a href="#" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 3: ARA Rally-Colorado -->
-            <article class="post-card" data-category="ARA">
+            <!-- Post 3 -->
+            <article class="post-card" data-tag="ARA">
                 <span class="tag">ARA</span>
                 <h2>Resultados ARA Rally-Colorado</h2>
                 <div class="image-container">
@@ -219,152 +244,174 @@
                 <a href="Resultados_ARA_Rally_Colorado.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 4: Rally da Graciosa 2026 -->
-            <article class="post-card" data-category="Paraná">
+            <!-- Post 4 -->
+            <article class="post-card" data-tag="Paraná">
                 <span class="tag">Paraná</span>
                 <h2>Resultados Rally da Graciosa 2026</h2>
                 <a href="resultados_rally_da_graciosa_2026_v2.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 5: Grupo Veloci -->
-            <article class="post-card" data-category="Brasil">
+            <!-- Post 5 -->
+            <article class="post-card" data-tag="Brasil">
                 <span class="tag">Brasil</span>
                 <h2>Grupo Veloci avalia expansão em novas categorias inclusive no Rally</h2>
                 <a href="Grupo_veloci_dona_stock_car_fala_sobre_expação_inlusive_no_rally.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 6: RallyPR Virtual -->
-            <article class="post-card" data-category="Paraná">
+            <!-- Post 6 -->
+            <article class="post-card" data-tag="RallyPR">
                 <span class="tag">RallyPR</span>
                 <h2>Resultado etapa 5 - RallyPR Virtual - Finlândia</h2>
                 <a href="resultados_rallypr_virtual_etapa_5.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 7: WRC Paraguai -->
-            <article class="post-card" data-category="WRC">
+            <!-- Post 7 -->
+            <article class="post-card" data-tag="WRC">
                 <span class="tag">WRC</span>
                 <h2>Resultados WRC Paraguai 2026</h2>
                 <img src="539492563_779932104419246_4523595047630370902_n-1536x1179-1-e1756507918392.jpg" alt="WRC Paraguai">
                 <a href="resultados_wrc_paraguai.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 8: Lancia no Rallycross -->
-            <article class="post-card" data-category="Euro RX">
+            <!-- Post 8 -->
+            <article class="post-card" data-tag="Euro RX">
                 <span class="tag">Euro RX / Lancia</span>
                 <h2>Da Lancia ao RALLYCROSS</h2>
                 <a href="retorno_da_lancia_europeu_de_rallycross.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 9: Inscritos Rio Negrinho -->
-            <article class="post-card" data-category="Brasil">
+            <!-- Post 9 -->
+            <article class="post-card" data-tag="BR de Rally">
                 <span class="tag">BR de Rally</span>
                 <h2>Inscritos Rally de Rio Negrinho 2026</h2>
                 <img src="rally de rio negrinho clio rs.jpeg" alt="Renault Clio RS Rally 4 Rio Negrinho">
                 <a href="isncritos_rally de rio_negrinho_2026.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 10: Novidades BR de Rally -->
-            <article class="post-card" data-category="Brasil">
+            <!-- Post 10 -->
+            <article class="post-card" data-tag="Brasil">
                 <span class="tag">Brasil</span>
                 <h2>Novidades BR de Rally 2026</h2>
                 <a href="Novidades BR de rally 2026.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 11: Peugeot 208 Rally 4 -->
-            <article class="post-card" data-category="Brasil">
+            <!-- Post 11 -->
+            <article class="post-card" data-tag="Peugeot">
                 <span class="tag">BR de Rally / Peugeot</span>
                 <h2>A chegada de um Peugeot 208 Rally 4 ao Brasil 2026</h2>
                 <img src="Capturar parte 3.PNG" alt="Peugeot 208 Rally 4">
                 <a href="a-chegada_um_peugeot_2028_rally_4_ao_br_de_rally.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 12: Race of Champions -->
-            <article class="post-card" data-category="ROC">
+            <!-- Post 12 -->
+            <article class="post-card" data-tag="ROC">
                 <span class="tag">ROC</span>
                 <h2>Race of Champions retorna em 2027 na Nova Zelândia</h2>
                 <img src="Race of champions.jpg" alt="Race of Champions">
                 <a href="race_of_champions_retorna_em_2027_new_zealand.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 13: Resultados Rio Negrinho -->
-            <article class="post-card" data-category="Brasil">
+            <!-- Post 13 -->
+            <article class="post-card" data-tag="BR de Rally">
                 <span class="tag">BR de Rally</span>
                 <h2>Resultados Rally de Rio Negrinho 2026</h2>
                 <a href="resultado_dia 1_rally de_rio_negrinho_2026.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 14: Mitsubishi Cup -->
-            <article class="post-card" data-category="Mitsubishi Cup">
+            <!-- Post 14 -->
+            <article class="post-card" data-tag="Mitsubishi Cup">
                 <span class="tag">Mitsubishi Cup</span>
                 <h2>Resultados Mitsubishi Cup - Etapas 4 & 5 - Canitar-SP 2026</h2>
                 <img src="Mitsubishi cup canitar.PNG" alt="Mitsubishi Cup Canitar">
                 <a href="resultados_mitsubishi_cup_etapa_4_canitar.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 15: Project Rally One -->
-            <article class="post-card" data-category="WRC">
+            <!-- Post 15 -->
+            <article class="post-card" data-tag="WRC">
                 <span class="tag">WRC / Rally 1</span>
                 <h2>Project Rally One apresenta seu Rally 1 para 2027</h2>
                 <a href="special_rally_one_apresenta _seu_rally1_wrc27.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 16: Inscritos Nova Itália RS -->
-            <article class="post-card" data-category="Brasil">
+            <!-- Post 16 -->
+            <article class="post-card" data-tag="Gaúcho">
                 <span class="tag">BR de Rally / Gaúcho</span>
                 <h2>Inscritos Rally de Nova Itália RS 2026</h2>
                 <a href="inscritos_rally_nova_italia_rs_2026.html" class="btn-ler">Leia mais →</a>
             </article>
 
-            <!-- Post 17: Rally Du Maroc -->
-            <article class="post-card" data-category="Rally Raid">
+            <!-- Post 17 -->
+            <article class="post-card" data-tag="Rally Raid">
                 <span class="tag">Rally Raid / Classic</span>
                 <h2>Rally Du Maroc 2026 terá categoria Classic</h2>
                 <a href="rally_du_maroc_terá_categoria_classic.html" class="btn-ler">Leia mais →</a>
             </article>
-  <!-- Post 17: Rally Dakar Alonso -->
-            <article class="post-card" data-category="Dakar Rally ,"Aston Martin">
+
+            <!-- Post 18 -->
+            <article class="post-card" data-tag="Dakar Rally">
                 <span class="tag">Rally Raid, Aston Martin, Dakar Rally</span>
                 <h2>Fernando Alonso poderá retornar ao Dakar Rally em 2027 com Aston Martin</h2>
                 <a href="fernando_alonso_podera_retorna_ao_dakar_em_2027_com_aston_martin.html" class="btn-ler">Leia mais →</a>
             </article>
-            
-           <!-- Post 17: Rally de Nova Italia Stedile Peugeot 208 Rally 4 -->
-            <article class="post-card" data-category="Brasil, BR Rally, Rally4">
+
+            <!-- Post 19 -->
+            <article class="post-card" data-tag="Brasil">
                 <span class="tag">BR Rally, Peugeot, Rally4</span>
-                <img src="luis_stedile_peugeot_208_rally4.jpeg" alt=luis_stedile_peugeot_208_rally4>
-                <h2>Lider do Fia Codassur 4 e ponteiro entre os lideres to Sttelantis SA Rally Cup, Luis Stedile presente
-                no Rally de Nova Italia com Peugeot 208 Rally 4 em Severiano de Almeida. 
-                </h2>
+                <img src="luis_stedile_peugeot_208_rally4.jpeg" alt="Luis Stedile Peugeot 208 Rally 4">
+                <h2>Lider do Fia Codassur 4 e ponteiro entre os lideres to Stellantis SA Rally Cup, Luis Stedile presente no Rally de Nova Italia com Peugeot 208 Rally 4 em Severiano de Almeida.</h2>
                 <a href="luis-Stedile_com_peugeot_208_rally4_no_rally_nova_italia_rs.html" class="btn-ler">Leia mais →</a>
             </article> 
 
-              
-           <!-- Post 17: Rally de Nova Italia Stedile Peugeot 208 Rally 4 -->
-            <article class="post-card" data-category="WRC,Rally1, Ford, Ford Racing">
-                <span class="tag">WRC,Rally1, Ford, Ford Racing</span>
-                <h2>Ford Racing volta ao WRC em 2028 com equipe de fabrica
-                </h2>
+            <!-- Post 20 -->
+            <article class="post-card" data-tag="WRC">
+                <span class="tag">WRC, Rally1, Ford, Ford Racing</span>
+                <h2>Ford Racing volta ao WRC em 2028 com equipe de fabrica</h2>
                 <a href="luis-Stedile_com_peugeot_208_rally4_no_rally_nova_italia_rs.html" class="btn-ler">Leia mais →</a>
             </article> 
+
+            <!-- Post 21 -->
+            <article class="post-card" data-tag="ERC">
+                <span class="tag">ERC, X Rally Team</span>
+                <h2>Cristian Baumgart e Luis Felipe Eckel no ERC em Portugal com Skoda</h2>
+                <a href="cristian_baugart_e_luis_felipe_eckel_no_erc_portugal_com_skoda.html" class="btn-ler">Leia mais →</a>
+            </article> 
+
         </div>
     </div>
 
-        
-          <!-- Post 18: X Rally Team no rally do ERC em Portugal com Skoda -->
-<article class="post-card" data-category="ERC Rally, X Rally Team">
-    <span class="tag">ERC , X Rally Team</span>
-    <h2>Cristian Baumgart e Luis Felipe Eckel no ERC em Portugal com Skoda</h2>
-    <a href="cristian_baugart_e_luis_felipe_eckel_no_erc_portugal_com_skoda.html" class="btn-ler">Leia mais →</a>
-</article> 
-</div>
-</div>
+    <!-- Script de Busca e Soma Automática -->
+    <script>
+        function pesquisarESomarTag() {
+            let termoPesquisa = document.getElementById("tagPesquisa").value.trim().toLowerCase();
+            let soma = 0;
+            let posts = document.querySelectorAll(".post-card");
 
+            if (termoPesquisa === "") {
+                posts.forEach(post => post.classList.remove("escondido"));
+                document.getElementById("resultado").innerText = "mostre a soma da tag: 0";
+                return;
+            }
+
+            posts.forEach(post => {
+                let tagDoPost = post.getAttribute("data-tag").toLowerCase();
+
+                if (tagDoPost.includes(termoPesquisa)) {
+                    post.classList.remove("escondido");
+                    soma = soma + 1;
+                } else {
+                    post.classList.add("escondido");
+                }
+            });
+
+            document.getElementById("resultado").innerText = "mostre a soma da tag: " + soma;
+        }
+
+        document.getElementById("tagPesquisa").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                pesquisarESomarTag();
+            }
+        });
+    </script>
 
 </body>
 </html>
-   
-
-
-</body>
-</html>
-
