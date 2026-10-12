@@ -134,42 +134,9 @@
             </li>
         </ul>
 
-        <!-- Painel de Entrada para o Contador de Tags -->
-        <div class="contador-painel">
-            <label for="num">Mostre quantas vezes aparece a tag:</label>
-            <input type="number" id="num" placeholder="Digite um valor para somar...">
-            <button onclick="somarTag()">Somar Tag</button>
-            <p id="resultado" class="resultado-texto">mostre a soma da tag: 0</p>
-        </div>
-
     </div>
 
-    <!-- Script JavaScript Corrigido -->
-    <script>
-        // var num, soma: inteiro
-        let soma = 0; // soma <- 0
 
-        function somarTag() {
-            // leia(num)
-            let numInput = document.getElementById("num");
-            let num = parseInt(numInput.value);
-            
-            // Tratamento caso o campo esteja vazio
-            if (isNaN(num)) {
-                alert("Por favor, digite um número válido.");
-                return;
-            }
-
-            // soma <- soma + num
-            soma = soma + num; 
-
-            // escreva("mostre a soma da tag: ", soma)
-            document.getElementById("resultado").innerText = "mostre a soma da tag: " + soma;
-            
-            // Limpa o campo para o próximo número
-            numInput.value = "";
-        }
-    </script>
 
         <!-- Feed de Notícias -->
         <div class="posts-wrapper">
