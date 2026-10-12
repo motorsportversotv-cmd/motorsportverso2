@@ -136,6 +136,59 @@
 
     </div>
 
+     <!-- Painel de Pesquisa (Seu Algoritmo de Soma Evoluído) -->
+        <div class="contador-painel">
+            <label for="tagPesquisa">Pesquise por uma tag específica (Ex: Brasil, WRC, Mitsubishi):</label>
+            <input type="text" id="tagPesquisa" placeholder="Digite a tag para buscar e somar...">
+            <button onclick="pesquisarESomarTag()">Pesquisar e Contar Tag</button>
+            <p id="resultado" class="resultado-texto">mostre a soma da tag: 0</p>
+        </div>
+
+     <!-- Script de Busca e Soma Automática -->
+    <script>
+        function pesquisarESomarTag() {
+            // Captura o termo digitado e remove espaços extras
+            let termoPesquisa = document.getElementById("tagPesquisa").value.trim().toLowerCase();
+            
+            // var num, soma: inteiro
+            let soma = 0; // Inicializa nossa soma/contador com 0
+            
+            // Busca todos os cards de posts na página
+            let posts = document.querySelectorAll(".post-card");
+
+            // Se o campo de pesquisa estiver vazio, mostra todos os posts e zera a contagem
+            if (termoPesquisa === "") {
+                posts.forEach(post => post.classList.remove("escondido"));
+                document.getElementById("resultado").innerText = "mostre a soma da tag: 0";
+                return;
+            }
+
+            // Loop por cada post (Equivalente ao laço "Para/ParaCada" do algoritmo)
+            posts.forEach(post => {
+                // Pega a tag cadastrada no atributo "data-tag" do HTML
+                let tagDoPost = post.getAttribute("data-tag").toLowerCase();
+
+                // Verifica se a tag pesquisada é igual ou está contida na tag do post
+                if (tagDoPost.includes(termoPesquisa)) {
+                    post.classList.remove("escondido"); // Mostra o post
+                    soma = soma + 1; // soma <- soma + 1 (Incrementa nosso contador)
+                } else {
+                    post.classList.add("escondido"); // Esconde o post que não serve
+                }
+            });
+
+            // Mostra o resultado final da soma na tela
+            document.getElementById("resultado").innerText = "mostre a soma da tag: " + soma;
+        }
+
+        // Permite que o usuário aperte "Enter" no teclado para pesquisar rápido
+        document.getElementById("tagPesquisa").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                pesquisarESomarTag();
+            }
+        });
+    </script>
+
 
 
         <!-- Feed de Notícias -->
