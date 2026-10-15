@@ -445,14 +445,13 @@
         </tbody>
     </table>
 
-    <script>
-        function toggleLinha(id) {
-            var linha = document.getElementById(id);
-            if (linha) {
-                linha.classList.toggle('visivel');
-            }
-        }
-    </script>
+    function toggleLinha(id) {
+    var linha = document.getElementById(id);
+    if (linha) {
+        // Alterna a classe 'ativo' que criamos no CSS
+        linha.classList.toggle('ativo');
+    }
+}
 </body>
 </html>
            
