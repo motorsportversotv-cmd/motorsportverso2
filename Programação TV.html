@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -5,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programação de Motorsport</title>
     <style>
-        /* Estilos básicos para visualização da tabela */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f6f9;
@@ -55,14 +55,9 @@
         .btn-detalhes:hover {
             text-decoration: underline;
         }
-
-        /* Regras essenciais para as linhas expansíveis */
         .linha-expansivel {
             display: none; /* Começam fechadas por padrão */
             background-color: #fafbfc;
-        }
-        .linha-expansivel.ativo {
-            display: table-row !important; /* Abre apenas a linha ativa */
         }
         .container-abas {
             padding: 15px;
@@ -275,8 +270,12 @@
         function toggleLinha(id) {
             var linha = document.getElementById(id);
             if (linha) {
-                // Alterna a classe 'ativo' para abrir ou fechar de forma independente
-                linha.classList.toggle('ativo');
+                // Altera diretamente o display inline para forçar a aparição dos links
+                if (linha.style.display === "table-row") {
+                    linha.style.display = "none";
+                } else {
+                    linha.style.display = "table-row";
+                }
             }
         }
     </script>
