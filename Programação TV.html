@@ -152,14 +152,168 @@
             </tr>
         </thead>
         <tbody>
+           <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV & Streaming - Busca Avançada</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 20px;
+            padding: 0;
+        }
+        .container-busca {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            max-width: 1200px;
+            margin: 0 auto 20px auto;
+        }
+        .container-busca h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .campo-pesquisa {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #007bff;
+            border-radius: 6px;
+            box-sizing: border-box;
+            outline: none;
+        }
+        table {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+        .linha-dados:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .linha-dados:hover {
+            background-color: #e9ecef;
+        }
+        a, .btn-detalhes {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        a:hover, .btn-detalhes:hover {
+            text-decoration: underline;
+        }
+
+        .descricao-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .descricao-titulo {
+            font-weight: bold;
+            color: #222;
+        }
+        .categoria-tag {
+            font-size: 11px;
+            color: #555;
+            background-color: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            width: fit-content;
+            display: inline-block;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Estilos da barra expansível */
+        .linha-expansivel {
+            background-color: #1a1a1a !important;
+            display: none; 
+        }
+        .linha-expansivel.visivel {
+            display: table-row; 
+        }
+        .container-abas {
+            padding: 15px;
+            color: #ffffff;
+        }
+        .tempo-topo {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #cccccc;
+            margin-bottom: 10px;
+        }
+        .tempo-topo::before {
+            content: "🕒";
+            margin-right: 6px;
+        }
+        .conteudo-aba {
+            display: block;
+        }
+        .lista-canais {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .linha-canal {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px;
+            background-color: #111111;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Módulo de Busca -->
+    <div class="container-busca">
+        <h2>Pesquisar Programação</h2>
+        <input type="text" id="inputPesquisa" class="campo-pesquisa" onkeyup="executarPesquisa()" placeholder="Digite para pesquisar por data, hora, descrição, categoria, local ou canal...">
+    </div>
+
+    <table id="tabelaProgramacao">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Descrição / Categoria</th>
+                <th>Local</th>
+                <th>Canal</th>
+                <th>Links</th>
+            </tr>
+        </thead>
+        <tbody>
             <!-- ITEM 1 -->
             <tr class="linha-dados">
                 <td>14/10/2026</td>
                 <td>10:00</td>
                 <td>
                     <div class="descricao-container">
-                        <span class="descricao-titulo">Rally Caminhos del Inca-etapa 2</span>
-                        <span class="categoria-tag">Categoria: Rally, Off Road </span>
+                        <span class="descricao-titulo">Rally Caminhos del Inca - Etapa 2</span>
+                        <span class="categoria-tag">Categoria: Rally, Off Road</span>
                     </div>
                 </td>
                 <td>Peru</td>
@@ -170,7 +324,7 @@
                 <td colspan="6">
                     <div class="container-abas">
                         <div class="tempo-topo">Started</div>
-                        <div id="canais1" class="conteudo-aba">
+                        <div class="conteudo-aba">
                             <div class="lista-canais">
                                 <div class="linha-canal">
                                     <span>Mundo Tuerca Peru</span>
@@ -183,73 +337,84 @@
             </tr>
 
             <!-- ITEM 2 -->
-<tr class="linha-dados">
-    <td>16/10/2026</td>
-    <td>13:55</td>
-    <td>
-        <div class="descricao-container">
-            <span class="descricao-titulo">GT World Challenge Europe Endurance Cup - Qualifying</span>
-            <span class="categoria-tag">Categoria: GT, GT3 </span>
-        </div>
-    </td>
-    <td>Algarve</td>
-    <td>Youtube GT World \ Grande Prêmio</td>
-    <td><span class="btn-detalhes" onclick="toggleLinha('exp2')">Ver Detalhes</span></td>
-</tr>
-<tr id="exp2" class="linha-expansivel" style="display: none;">
-    <td colspan="6">
-        <div class="container-abas">
-            <div id="canais4" class="conteudo-aba">
-                <div class="lista-canais">
-                    <div class="linha-canal">
-                        <span>Youtube GT World</span>
-                        <a href="https://www.youtube.com/@GTWorld" target="_blank">Ir para o Canal</a>
+            <tr class="linha-dados">
+                <td>16/10/2026</td>
+                <td>13:55</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">GT World Challenge Europe Endurance Cup - Qualifying</span>
+                        <span class="categoria-tag">Categoria: GT, GT3</span>
                     </div>
-                    <div class="linha-canal">
-                        <span>Grande Premio</span>
-                        <a href="https://www.youtube.com/@grandepremio" target="_blank">Ir para o Canal</a>
+                </td>
+                <td>Algarve</td>
+                <td>Youtube GT World \ Grande Prêmio</td>
+                <td><span class="btn-detalhes" onclick="toggleLinha('exp2')">Ver Detalhes</span></td>
+            </tr>
+            <tr id="exp2" class="linha-expansivel">
+                <td colspan="6">
+                    <div class="container-abas">
+                        <div class="conteudo-aba">
+                            <div class="lista-canais">
+                                <div class="linha-canal">
+                                    <span>Youtube GT World</span>
+                                    <a href="https://www.youtube.com/@GTWorld" target="_blank">Ir para o Canal</a>
+                                </div>
+                                <div class="linha-canal">
+                                    <span>Grande Premio</span>
+                                    <a href="https://www.youtube.com/@grandepremio" target="_blank">Ir para o Canal</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </td>
-</tr>
+                </td>
+            </tr>
             
-             <!-- ITEM 2 -->
-<tr class="linha-dados">
-    <td>16/10/2026</td>
-    <td>13:55</td>
-    <td>
-        <div class="descricao-container">
-            <span class="descricao-titulo">AMG Cup Brasil-race 1-A56 Prolight\Sport</span>
-            <span class="categoria-tag">Categoria: Touring Car </span>
-        </div>
-    </td>
-    <td>Cascavel</td>
-    <td>Youtube  \ High Speed TV</td>
-    <td><span class="btn-detalhes" onclick="toggleLinha('exp2')">Ver Detalhes</span></td>
-</tr>
-<tr id="exp2" class="linha-expansivel" style="display: none;">
-    <td colspan="6">
-        <div class="container-abas">
-            <div id="canais4" class="conteudo-aba">
-                <div class="lista-canais">
-                    <div class="linha-canal">
-                        <span>Youtube High Speed TV</span>
-                        <a href="https://www.youtube.com/@highspeedtvbr" target="_blank">Ir para o Canal</a>
+            <!-- ITEM 3 -->
+            <tr class="linha-dados">
+                <td>16/10/2026</td>
+                <td>20:20</td>
+                <td>
+                    <div class="descricao-container">
+                        <span class="descricao-titulo">AMG Cup Brasil - Race 1 - A56 Prolight / Sport</span>
+                        <span class="categoria-tag">Categoria: Touring Car</span>
                     </div>
-                    <div class="linha-canal">
-                        <span>AMG Cup Brasil</span>
-                        <a href="https://www.youtube.com/@amgcupbrasil" target="_blank">Ir para o Canal</a>
+                </td>
+                <td>Cascavel</td>
+                <td>Youtube \ High Speed TV</td>
+                <td><span class="btn-detalhes" onclick="toggleLinha('exp3')">Ver Detalhes</span></td>
+            </tr>
+            <tr id="exp3" class="linha-expansivel">
+                <td colspan="6">
+                    <div class="container-abas">
+                        <div class="conteudo-aba">
+                            <div class="lista-canais">
+                                <div class="linha-canal">
+                                    <span>Youtube High Speed TV</span>
+                                    <a href="https://www.youtube.com/@highspeedtvbr" target="_blank">Ir para o Canal</a>
+                                </div>
+                                <div class="linha-canal">
+                                    <span>AMG Cup Brasil</span>
+                                    <a href="https://www.youtube.com/@amgcupbrasil" target="_blank">Ir para o Canal</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </td>
-</tr>
-            </div>
-        </div>
-    </td>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function toggleLinha(id) {
+            var linha = document.getElementById(id);
+            if (linha) {
+                linha.classList.toggle('visivel');
+            }
+        }
+    </script>
+</body>
+</html>
+           
 </tr>
 
             <!-- ITEM 4 -->
