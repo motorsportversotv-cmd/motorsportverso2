@@ -266,19 +266,18 @@
         </tbody>
     </table>
 
-    <script>
-        function toggleLinha(id) {
-            var linha = document.getElementById(id);
-            if (linha) {
-                // Altera diretamente o display inline para forçar a aparição dos links
-                if (linha.style.display === "table-row") {
-                    linha.style.display = "none";
-                } else {
-                    linha.style.display = "table-row";
-                }
-            }
-        }
-    </script>
+    function toggleLinha(id) {
+var linha = document.getElementById(id);
+if (linha) {
+// Pega o estilo computado atual para evitar problemas no primeiro clique
+var displayAtual = window.getComputedStyle(linha).display;
+if (displayAtual === "table-row") {
+linha.style.display = "none";
+} else {
+linha.style.display = "table-row";
+}
+}
+}
 </body>
 </html>
            
