@@ -9,262 +9,264 @@
             font-family: Arial, sans-serif;
             background-color: #f4f6f9;
             margin: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #ffffff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-        .linha-dados:hover {
-            background-color: #f1f1f1;
-        }
-        .descricao-container {
-            display: flex;
-            flex-direction: column;
-        }
-        .descricao-titulo {
-            font-weight: bold;
             color: #333;
         }
-        .categoria-tag {
-            font-size: 0.85em;
-            color: #666;
-            background-color: #e9ecef;
-            padding: 2px 6px;
-            border-radius: 4px;
-            width: fit-content;
-            margin-top: 4px;
-        }
-        .btn-detalhes {
-            color: #007bff;
-            background: none;
-            border: none;
-            padding: 0;
-            font-size: 1em;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .btn-detalhes:hover {
-            text-decoration: underline;
-        }
-        .linha-expansivel {
-            display: none; /* Começam fechadas por padrão */
-            background-color: #fafbfc;
-        }
-        .container-abas {
-            padding: 15px;
-        }
-        .tempo-topo {
-            font-size: 0.9em;
-            color: #28a745;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        .lista-canais {
+        .container-programacao {
+            max-width: 1000px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 15px;
         }
-        .linha-canal {
+        .card-evento {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .topo-card {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s;
+        }
+        .topo-card:hover {
+            background-color: #f8f9fa;
+        }
+        .info-esquerda {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .tempo-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #007bff;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            min-width: 80px;
+        }
+        .data { font-size: 0.85em; font-weight: bold; }
+        .hora { font-size: 1.2em; font-weight: bold; }
+        
+        .detalhes-principais {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .titulo-evento {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #222;
+        }
+        .tags-container {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .tag-local {
+            font-size: 0.8em;
+            background-color: #e2f0fe;
+            color: #007bff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .tag-categoria {
+            font-size: 0.8em;
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .canal-info {
+            font-size: 0.9em;
+            color: #666;
+            margin-right: 20px;
+            font-weight: 500;
+        }
+        .btn-expandir {
+            color: #007bff;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        /* Área Expansível Independente */
+        .conteudo-expansivel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease-out;
+            background-color: #fdfdfe;
+            border-top: 1px solid #f1f1f1;
+        }
+        .corpo-detalhes {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .status-badge {
+            font-size: 0.85em;
+            color: #28a745;
+            font-weight: bold;
+        }
+        .lista-transmissoes {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .item-transmissao {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: #ffffff;
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 12px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
         }
-        .linha-canal a {
-            color: #007bff;
+        .nome-plataforma {
+            font-weight: bold;
+            color: #4a5568;
+        }
+        /* Link isolado e totalmente clicável */
+        .link-direto {
+            color: #ffffff;
+            background-color: #007bff;
             text-decoration: none;
             font-weight: bold;
-            display: inline-block;
-            pointer-events: auto; /* Garante que o link seja clicável */
+            font-size: 0.9em;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background-color 0.2s, transform 0.1s;
         }
-        .linha-canal a:hover {
-            text-decoration: underline;
+        .link-direto:hover {
+            background-color: #0056b3;
+        }
+        .link-direto:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
 <body>
 
-    <table>
-        <thead>
-            <tr>
-                <th>DATA</th>
-                <th>HORA</th>
-                <th>DESCRIÇÃO / CATEGORIA</th>
-                <th>LOCAL</th>
-                <th>CANAL</th>
-                <th>LINKS</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- ITEM 1 -->
-            <tr class="linha-dados">
-                <td>14/10/2026</td>
-                <td>10:00</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">Rally Caminhos del Inca - Etapa 2</span>
-                        <span class="categoria-tag">Categoria: Rally, Off Road</span>
+    <div class="container-programacao">
+        
+        <!-- CARD 1 -->
+        <div class="card-evento">
+            <div class="topo-card" onclick="toggleCard(this)">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">14/10/2026</span>
+                        <span class="hora">10:00</span>
                     </div>
-                </td>
-                <td>Peru</td>
-                <td>Youtube</td>
-                <td><button class="btn-detalhes" onclick="toggleLinha('exp1')">Ver Detalhes</button></td>
-            </tr>
-            <tr id="exp1" class="linha-expansivel">
-                <td colspan="6">
-                    <div class="container-abas">
-                        <div class="tempo-topo">Started</div>
-                        <div class="conteudo-aba">
-                            <div class="lista-canais">
-                                <div class="linha-canal">
-                                    <span>Mundo Tuerca Peru</span>
-                                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Acessar Transmissão</a>
-                                </div>
-                            </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">Rally Caminhos del Inca - Etapa 2</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Peru</span>
+                            <span class="tag-categoria">Rally, Off Road</span>
                         </div>
                     </div>
-                </td>
-            </tr>
-
-            <!-- ITEM 2 -->
-            <tr class="linha-dados">
-                <td>16/10/2026</td>
-                <td>13:55</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">GT World Challenge Europe Endurance Cup - Qualifying</span>
-                        <span class="categoria-tag">Categoria: GT, GT3</span>
-                    </div>
-                </td>
-                <td>Algarve</td>
-                <td>Youtube GT World \ Grande Prêmio</td>
-                <td><button class="btn-detalhes" onclick="toggleLinha('exp2')">Ver Detalhes</button></td>
-            </tr>
-            <tr id="exp2" class="linha-expansivel">
-                <td colspan="6">
-                    <div class="container-abas">
-                        <div class="conteudo-aba">
-                            <div class="lista-canais">
-                                <div class="linha-canal">
-                                    <span>Youtube GT World</span>
-                                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Ir para o Canal</a>
-                                </div>
-                                <div class="linha-canal">
-                                    <span>Grande Premio</span>
-                                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Ir para o Canal</a>
-                                </div>
-                            </div>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span class="canal-info">Youtube</span>
+                    <span class="btn-expandir">Ver Links ▼</span>
+                </div>
+            </div>
+            <div class="conteudo-expansivel">
+                <div class="corpo-detalhes">
+                    <div class="status-badge">● Started</div>
+                    <div class="lista-transmissoes">
+                        <div class="item-transmissao">
+                            <span class="nome-plataforma">Mundo Tuerca Peru</span>
+                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="link-direto">Acessar Transmissão</a>
                         </div>
                     </div>
-                </td>
-            </tr>
+                </div>
+            </div>
+        </div>
 
-            <!-- ITEM 3 -->
-            <tr class="linha-dados">
-                <td>16/10/2026</td>
-                <td>20:20</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">AMG Cup Brasil - Race 1 - A45 Prolight / Sport</span>
-                        <span class="categoria-tag">Categoria: Touring Car</span>
+        <!-- CARD 2 -->
+        <div class="card-evento">
+            <div class="topo-card" onclick="toggleCard(this)">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">16/10/2026</span>
+                        <span class="hora">13:55</span>
                     </div>
-                </td>
-                <td>Cascavel</td>
-                <td>Youtube \ High Speed TV</td>
-                <td><button class="btn-detalhes" onclick="toggleLinha('exp3')">Ver Detalhes</button></td>
-            </tr>
-            <tr id="exp3" class="linha-expansivel">
-                <td colspan="6">
-                    <div class="container-abas">
-                        <div class="conteudo-aba">
-                            <div class="lista-canais">
-                                <div class="linha-canal">
-                                    <span>Youtube High Speed TV</span>
-                                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Ir para o Canal</a>
-                                </div>
-                                <div class="linha-canal">
-                                    <span>AMG Cup Brasil</span>
-                                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Ir para o Canal</a>
-                                </div>
-                            </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">GT World Challenge Europe Endurance Cup - Qualifying</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Algarve</span>
+                            <span class="tag-categoria">GT, GT3</span>
                         </div>
                     </div>
-                </td>
-            </tr>
-
-            <!-- ITEM 4 -->
-            <tr class="linha-dados">
-                <td>16/10/2026</td>
-                <td>21:15</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">AMG Cup Brasil - Race 1 - GT4\A45 Pro</span>
-                        <span class="categoria-tag">Categoria: GT, GT4, Touring Car</span>
-                    </div>
-                </td>
-                <td>Cascavel</td>
-                <td>Youtube \ High Speed TV</td>
-                <td><button class="btn-detalhes" onclick="toggleLinha('exp4')">Ver Detalhes</button></td>
-            </tr>
-            <tr id="exp4" class="linha-expansivel">
-                <td colspan="6">
-                    <div class="container-abas">
-                        <div class="conteudo-aba">
-                            <div class="lista-canais">
-                                <div class="linha-canal">
-                                    <span>Youtube High Speed TV</span>
-                                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Ir para o Canal</a>
-                                </div>
-                                <div class="linha-canal">
-                                    <span>AMG Cup Brasil</span>
-                                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">Ir para o Canal</a>
-                                </div>
-                            </div>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span class="canal-info">Youtube GT World \ Grande Prêmio</span>
+                    <span class="btn-expandir">Ver Links ▼</span>
+                </div>
+            </div>
+            <div class="conteudo-expansivel">
+                <div class="corpo-detalhes">
+                    <div class="lista-transmissoes">
+                        <div class="item-transmissao">
+                            <span class="nome-plataforma">Youtube GT World</span>
+                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="link-direto">Ir para o Canal</a>
+                        </div>
+                        <div class="item-transmissao">
+                            <span class="nome-plataforma">Grande Premio</span>
+                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="link-direto">Ir para o Canal</a>
                         </div>
                     </div>
-                </td>
-            </tr>
+                </div>
+            </div>
+        </div>
 
-            <!-- ITEM 5 -->
-            <tr class="linha-dados">
-                <td>17/10/2026</td>
-                <td>08:00</td>
-                <td>
-                    <div class="descricao-container">
-                        <span class="descricao-titulo">Rally Nova Italia RS-BR de Rally-VW Gol G7 #89</span>
-                        <span class="categoria-tag">Categoria: Rally</span>
+        <!-- CARD 3 -->
+        <div class="card-evento">
+            <div class="topo-card" onclick="toggleCard(this)">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">16/10/2026</span>
+                        <span class="hora">20:20</span>
                     </div>
-                </td>
-
-
-    <script>
-        function toggleLinha(id) {
-            var linha = document.getElementById(id);
-            if (linha) {
-                // Pega o estilo computado atual para evitar falhas no primeiro clique
-                var displayAtual = window.getComputedStyle(linha).display;
-                if (displayAtual === "table-row") {
-                    linha.style.display = "none";
-                } else {
-                    linha.style.display = "table-row";
-                }
-            }
-        }
-    </script>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">AMG Cup Brasil - Race 1 - A45 Prolight / Sport</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Cascavel</span>
+                            <span class="tag-categoria">Touring Car</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span class="canal-info">Youtube \ High Speed TV</span>
+                    <span class="btn-expandir">Ver Links ▼</span>
+                </div>
+            </div>
+            <div class="conteudo-expansivel">
+                <div class="corpo-detalhes">
+                    <div class="lista-transmissoes">
+                        <div class="item-transmissao">
+                            <span class="nome-plataforma">Youtube High Speed TV</span>
+                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="link-direto">Ir para o Canal</a>
+                        </div>
+                        <div class="item-transmissao">
+                            <span class="nome-plataforma">AMG Cup Brasil</span>
+                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="link-direto">Ir para o Canal</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 </html>
             <!-- ITEM 4 -->
