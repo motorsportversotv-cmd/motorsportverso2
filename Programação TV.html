@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>
+      <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -255,21 +255,36 @@
             <tr id="exp5" class="linha-expansivel">
                 <td colspan="6">
                     <div class="container-abas">
- // function toggleLinha(id) {
-var linha = document.getElementById(id);
-if (linha) {
-// Pega o estilo computado atual para evitar problemas no primeiro clique
-var displayAtual = window.getComputedStyle(linha).display;
-if (displayAtual === "table-row") {
-linha.style.display = "none";
-} else {
-linha.style.display = "table-row";
-}
+                        <div class="conteudo-aba">
+                            <div class="lista-canais">
+                                <div class="linha-canal">
+                                    <span>Twitch.TV Onde ver Rally</span>
+                                    <a href="https://www.twitch.tv/ondeverrally" target="_blank" rel="noopener noreferrer">Ir para o Canal</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function toggleLinha(id) {
+            var linha = document.getElementById(id);
+            if (linha) {
+                // Pega o estilo computado atual para evitar falhas no primeiro clique
+                var displayAtual = window.getComputedStyle(linha).display;
+                if (displayAtual === "table-row") {
+                    linha.style.display = "none";
+                } else {
+                    linha.style.display = "table-row";
+                }
+            }
+        }
+    </script>
 </body>
 </html>
-           
-</tr>
-
             <!-- ITEM 4 -->
             <tr class="linha-dados">
                 <td>09/10/2026</td>
