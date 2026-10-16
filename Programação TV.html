@@ -351,39 +351,29 @@
     </div>
 </div>
 
-          <script>
+      <script>
 function filtrarEventos() {
-    // 1. Captura o valor digitado no campo de texto e remove espaços extras
-    // O .toLowerCase() faz o sistema ignorar se o usuário digitou maiúsculo ou minúsculo
-    const termo_procurado = document.getElementById("campoPesquisa").value.trim().toLowerCase();
+    // Captura o input de forma segura
+    var input = document.getElementById("campoPesquisa");
+    if (!input) return; // Segurança caso o ID mude
     
-    // 2. Captura todas as linhas da tabela de eventos
-    const linhas = document.getElementsByClassName("linha-evento");
-    const mensagemErro = document.getElementById("mensagemErro");
-    let algumEncontrado = false;
+    var termo_procurado = input.value.trim().toLowerCase();
+    
+    // Captura todas as linhas da tabela
+    var linhas = document.getElementsByClassName("linha-evento");
 
-    // 3. Executa o algoritmo de busca percorrendo linha por linha da tabela
-    for (let i = 0; i < linhas.length; i++) {
-        // Pega todo o texto visível daquela linha específica (juntando todas as colunas)
-        const textoLinha = linhas[i].innerText.toLowerCase();
+    // Loop de busca sequencial
+    for (var i = 0; i < linhas.length; i++) {
+        var textoLinha = linhas[i].innerText.toLowerCase();
 
-        // 4. Verifica se o termo digitado está dentro do conteúdo daquela linha
+        // Se o termo estiver na linha, ela aparece. Se não, ela some.
         if (textoLinha.includes(termo_procurado)) {
-            linhas[i].style.display = ""; // Destrava e exibe a linha se bater com a busca
-            algumEncontrado = true;
+            linhas[i].style.display = "";
         } else {
-            linhas[i].style.display = "none"; // Oculta a linha se não houver correspondência
+            linhas[i].style.display = "none";
         }
     }
-
-    // 5. Exibe um aviso amigável na tela caso a busca não traga nenhum resultado
-    if (algumEncontrado) {
-        mensagemErro.style.display = "none";
-    } else {
-        mensagemErro.style.display = "block";
-    }
 }
-</script>
 
 </body>
 </html>
