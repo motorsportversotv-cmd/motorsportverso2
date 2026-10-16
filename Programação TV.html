@@ -342,3 +342,59 @@
         <span>Youtube/RacerBR</span>
     </div>
 </div>
+
+            <div class="container">
+    <h2>Busca por Palavras</h2>
+    <p><strong>Palavras no sistema:</strong> evento, data, categoria, canal transmissao, local</p>
+    
+    <label for="palavraInput">Digite a palavra que deseja procurar:</label>
+    <input type="text" id="palavraInput" placeholder="Ex: categoria">
+    
+    <button onclick="buscarPalavra()">Buscar</button>
+
+    <div id="resultadoBox" class="resultado" style="display: none;"></div>
+</div>
+
+<script>
+function buscarPalavra() {
+    // 1. Criação do vetor de palavras (equivalente ao seu vetor_palavras)
+    const vetor_palavras = ["evento", "data", "categoria", "canal transmissao", "local"];
+    
+    // 2. Captura a palavra digitada pelo usuário (equivalente ao leia(palavra))
+    // O .toLowerCase() garante que a busca funcione mesmo misturando maiúsculas/minúsculas
+    const elemento_procurado = document.getElementById("palavraInput").value.trim().toLowerCase();
+    
+    let encontrado = false;
+    let posicao = -1;
+    const resultadoBox = document.getElementById("resultadoBox");
+
+    // Limpa buscas anteriores
+    resultadoBox.style.display = "none";
+
+    // 3. Percorre o vetor para realizar a busca (o seu laço Para)
+    for (let i = 0; i < vetor_palavras.length; i++) {
+        if (vetor_palavras[i] === elemento_procurado) {
+            encontrado = true;
+            posicao = i;
+            break; // Equivalente ao 'pare' (interrompe o laço)
+        }
+    }
+
+    // 4. Exibe a mensagem de sucesso ou erro na tela
+    resultadoBox.style.display = "block";
+    if (encontrado) {
+        resultadoBox.className = "resultado sucesso";
+        resultadoBox.innerHTML = "Palavra encontrada no índice/posição: " + posicao;
+    } else {
+        resultadoBox.className = "resultado erro";
+        resultadoBox.innerHTML = "A palavra '" + elemento_procurado + "' não foi encontrada.";
+    }
+}
+</script>
+
+</body>
+</html>
+
+
+
+
