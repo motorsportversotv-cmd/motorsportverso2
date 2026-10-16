@@ -355,40 +355,58 @@
     <div id="resultadoBox" class="resultado" style="display: none;"></div>
 </div>
 
-<h2>Algoritmo de Busca de Palavras</h2>
-    <p>Clique no botão para iniciar a pesquisa no vetor.</p>
+
+<div class="container">
+    <h2>Busca por Palavras</h2>
+    <p><strong>Palavras no sistema:</strong> evento, data, categoria, canal transmissao, local</p>
     
-    <button onclick="iniciarBusca()">Iniciar Busca</button>
+    <label for="palavraInput">Digite a palavra que deseja procurar: </label>
+    <input type="text" id="palavraInput" placeholder="Ex: categoria">
+    <button onclick="buscarPalavra()">Buscar</button>
 
-    <script>
-    function iniciarBusca() {
-        // O seu vetor com as 5 palavras
-        const vetor_palavras = ["evento", "data", "categoria", "canal transmissao", "local"];
-        
-        // Pergunta ao usuário (Equivalente ao escreva/leia)
-        const elemento_procurado = prompt("Digite a palavra que quer procurar (evento, data, categoria, canal transmissao, local):");
-        
-        // Se o usuário cancelar ou deixar em branco, interrompe
-        if (!elemento_procurado) return;
+    <!-- Esta caixa vai mostrar o resultado na tela -->
+    <div id="resultadoBox" class="resultado" style="display: none;"></div>
+</div>
 
-        let encontrado = false;
+<script>
+function buscarPalavra() {
+    // 1. O vetor contendo as palavras cadastradas
+    const vetor_palavras = ["evento", "data", "categoria", "canal transmissao", "local"];
+    
+    // 2. Pega o valor do input, remove espaços e põe tudo em minúsculo
+    const elemento_procurado = document.getElementById("palavraInput").value.trim().toLowerCase();
+    const resultadoBox = document.getElementById("resultadoBox");
 
-        // O laço para percorrer o vetor
-        for (let i = 0; i < vetor_palavras.length; i++) {
-            if (vetor_palavras[i] === elemento_procurado.trim().toLowerCase()) {
-                encontrado = true;
-                alert("Palavra encontrada na posição/índice: " + i);
-                break; // Pare
-            }
-        }
+    // Validação se o campo estiver vazio
+    if (elemento_procurado === "") {
+        resultadoBox.style.display = "block";
+        resultadoBox.className = "resultado erro";
+        resultadoBox.innerHTML = "Por favor, digite uma palavra antes de buscar.";
+        return;
+    }
 
-        // Mensagem caso não encontre
-        if (!encontrado) {
-            alert("A palavra '" + elemento_procurado + "' não foi encontrada.");
+    let encontrado = false;
+    let posicao = -1;
+
+    // 3. Executa o algoritmo de busca percorrendo a lista
+    for (let i = 0; i < vetor_palavras.length; i++) {
+        if (vetor_palavras[i] === elemento_procurado) {
+            encontrado = true;
+            posicao = i;
+            break; // Encontrou, pode parar o laço
         }
     }
-    </script>
 
+    // 4. Mostra o resultado modificando a caixinha na tela
+    resultadoBox.style.display = "block";
+    if (encontrado) {
+        resultadoBox.className = "resultado sucesso";
+        resultadoBox.innerHTML = "Palavra encontrada na posição/índice: " + posicao;
+    } else {
+        resultadoBox.className = "resultado erro";
+        resultadoBox.innerHTML = "A palavra '" + elemento_procurado + "' não foi encontrada.";
+    }
+}
 </body>
 </html>
 
