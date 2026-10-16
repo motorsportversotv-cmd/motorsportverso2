@@ -343,75 +343,7 @@
     </div>
 </div>
 
-            <div class="container">
-    <h2>Busca por Palavras</h2>
-    <p><strong>Palavras no sistema:</strong> evento, data, categoria, canal transmissao, local</p>
-    
-    <label for="palavraInput">Digite a palavra que deseja procurar:</label>
-    <input type="text" id="palavraInput" placeholder="Ex: categoria">
-    
-    <button onclick="buscarPalavra()">Buscar</button>
-
-    <div id="resultadoBox" class="resultado" style="display: none;"></div>
-</div>
-
-
-<div class="container-principal">
-    <h1>Programação de Motorsport</h1>
-
-    <!-- Barra de Pesquisa -->
-    <div class="wrapper-pesquisa">
-        <!-- O onkeyup="filtrarEventos()" chama a função a cada letra digitada -->
-        <input type="text" id="campoPesquisa" class="input-pesquisa" placeholder="Pesquise por evento, categoria, canal ou local..." onkeyup="filtrarEventos()">
-    </div>
-
-    <!-- Lista de Eventos/Cards de Exemplo (Adicione as classes correspondentes ao seu CSS) -->
-    <div id="listaEventos" style="margin-top: 20px;">
-        <div class="evento-card" style="padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 4px;">
-            <h3>GP de Interlagos</h3>
-            <p><strong>Categoria:</strong> Fórmula 1</p>
-            <p><strong>Canal Transmissão:</strong> Band</p>
-            <p><strong>Local:</strong> São Paulo</p>
-        </div>
-
-        <div class="evento-card" style="padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 4px;">
-            <h3>24 Horas de Le Mans</h3>
-            <p><strong>Categoria:</strong> WEC</p>
-            <p><strong>Canal Transmissão:</strong> YouTube</p>
-            <p><strong>Local:</strong> França</p>
-        </div>
-
-        <div class="evento-card" style="padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 4px;">
-            <h3>Rally Dakar</h3>
-            <p><strong>Categoria:</strong> Rally</p>
-            <p><strong>Canal Transmissão:</strong> ESPN</p>
-            <p><strong>Local:</strong> Arábia Saudita</p>
-        </div>
-    </div>
-</div>
-
-<script>
-function filtrarEventos() {
-    // 1. Pega o termo digitado e joga para minúsculo para evitar problemas com maiúsculas
-    const termo_procurado = document.getElementById("campoPesquisa").value.trim().toLowerCase();
-    
-    // 2. Captura todos os blocos de eventos (cards) cadastrados na página
-    const cards = document.getElementsByClassName("evento-card");
-
-    // 3. Loop que varre cada card individualmente
-    for (let i = 0; i < cards.length; i++) {
-        // Pega todo o texto contido dentro daquele card específico
-        const textoCard = cards[i].innerText.toLowerCase();
-
-        // 4. Algoritmo de busca sequencial: verifica se o termo procurado está contido no texto do card
-        if (textoCard.includes(termo_procurado)) {
-            cards[i].style.display = "block"; // Destrava e exibe o bloco se houver correspondência
-        } else {
-            cards[i].style.display = "none";  // Oculta o card se não corresponder ao filtro
-        }
-    }
-}
-</script>
+          
 
 </body>
 </html>
