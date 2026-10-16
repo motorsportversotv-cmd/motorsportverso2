@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programação de Motorsport</title>
+    <!-- Barra de Pesquisa -->
+    <div class="wrapper-pesquisa">
+        <input type="text" id="campoPesquisa" class="input-pesquisa" placeholder="Pesquise por evento, categoria, canal ou local..." onkeyup="filtrarEventos()">
+    </div>
+
+    <!-- Tabela de Eventos -->
+    <table id="tabelaEventos">
+    
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -343,7 +351,39 @@
     </div>
 </div>
 
-          
+          <script>
+function filtrarEventos() {
+    // 1. Captura o valor digitado no campo de texto e remove espaços extras
+    // O .toLowerCase() faz o sistema ignorar se o usuário digitou maiúsculo ou minúsculo
+    const termo_procurado = document.getElementById("campoPesquisa").value.trim().toLowerCase();
+    
+    // 2. Captura todas as linhas da tabela de eventos
+    const linhas = document.getElementsByClassName("linha-evento");
+    const mensagemErro = document.getElementById("mensagemErro");
+    let algumEncontrado = false;
+
+    // 3. Executa o algoritmo de busca percorrendo linha por linha da tabela
+    for (let i = 0; i < linhas.length; i++) {
+        // Pega todo o texto visível daquela linha específica (juntando todas as colunas)
+        const textoLinha = linhas[i].innerText.toLowerCase();
+
+        // 4. Verifica se o termo digitado está dentro do conteúdo daquela linha
+        if (textoLinha.includes(termo_procurado)) {
+            linhas[i].style.display = ""; // Destrava e exibe a linha se bater com a busca
+            algumEncontrado = true;
+        } else {
+            linhas[i].style.display = "none"; // Oculta a linha se não houver correspondência
+        }
+    }
+
+    // 5. Exibe um aviso amigável na tela caso a busca não traga nenhum resultado
+    if (algumEncontrado) {
+        mensagemErro.style.display = "none";
+    } else {
+        mensagemErro.style.display = "block";
+    }
+}
+</script>
 
 </body>
 </html>
