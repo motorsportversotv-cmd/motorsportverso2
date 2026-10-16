@@ -149,43 +149,7 @@
     </div>
 </div>
 
-<!-- Se você já tiver uma tag <script> no fim do arquivo, coloque este código dentro dela: -->
-<script>
-function filtrarEventos() {
-    // 1. O seu vetor contendo as palavras-chave do sistema
-    const vetor_palavras = ["evento", "data", "categoria", "canal transmissao", "local"];
-    
-    // 2. Pega o valor digitado no SEU input (campoPesquisa), limpa espaços e ignora maiúsculas/minúsculas
-    const termo_procurado = document.getElementById("campoPesquisa").value.trim().toLowerCase();
-    
-    // Se o usuário apagar tudo o que digitou, não faz nada
-    if (termo_procurado === "") {
-        console.log("Campo vazio");
-        return;
-    }
 
-    let encontrado = false;
-    let posicao = -1;
-
-    // 3. O algoritmo que varre o seu vetor de palavras
-    for (let i = 0; i < vetor_palavras.length; i++) {
-        if (vetor_palavras[i] === termo_procurado) {
-            encontrado = true;
-            posicao = i;
-            break; // Para o laço se achar
-        }
-    }
-
-    // 4. Retorno visual ou lógica de filtragem
-    if (encontrado) {
-        // Alerta simples para testar se o mecanismo destravou e está lendo
-        console.log("Termo encontrado no sistema na posição: " + posicao);
-        // Aqui você pode colocar a lógica para exibir/esconder os cards ou linhas de eventos da sua página
-    } else {
-        console.log("O termo '" + termo_procurado + "' não corresponde à lista básica.");
-    }
-}
-</script>
 
             <!-- CARD 1 -->
             <div class="card-evento">
@@ -392,46 +356,63 @@ function filtrarEventos() {
 </div>
 
 
- <h2>Busca por Palavras</h2>
-    <p><strong>Palavras no sistema:</strong> evento, data, categoria, canal transmissao, local</p>
-    
-    <label>Digite a palavra que deseja procurar: </label>
-    <input type="text" id="palavraInput" placeholder="Ex: categoria">
-    <button onclick="buscarPalavra()">Buscar</button>
+<div class="container-principal">
+    <h1>Programação de Motorsport</h1>
 
-    <script>
-    function buscarPalavra() {
-        // Lista de palavras cadastradas
-        var vetor_palavras = ["evento", "data", "categoria", "canal transmissao", "local"];
-        
-        // Pega o texto digitado e limpa espaços
-        var elemento_procurado = document.getElementById("palavraInput").value.trim().toLowerCase();
-        
-        if (elemento_procurado === "") {
-            alert("Por favor, digite uma palavra antes de buscar!");
-            return;
-        }
-        
-        var encontrado = false;
-        var posicao = -1;
-        
-        // Algoritmo de busca estruturado
-        for (var i = 0; i < vetor_palavras.length; i++) {
-            if (vetor_palavras[i] === elemento_procurado) {
-                encontrado = true;
-                posicao = i;
-                break;
-            }
-        }
-        
-        // Resposta direta via caixinha do sistema
-        if (encontrado) {
-            alert("Sucesso! Palavra encontrada na posição/índice: " + posicao);
+    <!-- Barra de Pesquisa -->
+    <div class="wrapper-pesquisa">
+        <!-- O onkeyup="filtrarEventos()" chama a função a cada letra digitada -->
+        <input type="text" id="campoPesquisa" class="input-pesquisa" placeholder="Pesquise por evento, categoria, canal ou local..." onkeyup="filtrarEventos()">
+    </div>
+
+    <!-- Lista de Eventos/Cards de Exemplo (Adicione as classes correspondentes ao seu CSS) -->
+    <div id="listaEventos" style="margin-top: 20px;">
+        <div class="evento-card" style="padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 4px;">
+            <h3>GP de Interlagos</h3>
+            <p><strong>Categoria:</strong> Fórmula 1</p>
+            <p><strong>Canal Transmissão:</strong> Band</p>
+            <p><strong>Local:</strong> São Paulo</p>
+        </div>
+
+        <div class="evento-card" style="padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 4px;">
+            <h3>24 Horas de Le Mans</h3>
+            <p><strong>Categoria:</strong> WEC</p>
+            <p><strong>Canal Transmissão:</strong> YouTube</p>
+            <p><strong>Local:</strong> França</p>
+        </div>
+
+        <div class="evento-card" style="padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 4px;">
+            <h3>Rally Dakar</h3>
+            <p><strong>Categoria:</strong> Rally</p>
+            <p><strong>Canal Transmissão:</strong> ESPN</p>
+            <p><strong>Local:</strong> Arábia Saudita</p>
+        </div>
+    </div>
+</div>
+
+<script>
+function filtrarEventos() {
+    // 1. Pega o termo digitado e joga para minúsculo para evitar problemas com maiúsculas
+    const termo_procurado = document.getElementById("campoPesquisa").value.trim().toLowerCase();
+    
+    // 2. Captura todos os blocos de eventos (cards) cadastrados na página
+    const cards = document.getElementsByClassName("evento-card");
+
+    // 3. Loop que varre cada card individualmente
+    for (let i = 0; i < cards.length; i++) {
+        // Pega todo o texto contido dentro daquele card específico
+        const textoCard = cards[i].innerText.toLowerCase();
+
+        // 4. Algoritmo de busca sequencial: verifica se o termo procurado está contido no texto do card
+        if (textoCard.includes(termo_procurado)) {
+            cards[i].style.display = "block"; // Destrava e exibe o bloco se houver correspondência
         } else {
-            alert("A palavra '" + elemento_procurado + "' não foi encontrada.");
+            cards[i].style.display = "none";  // Oculta o card se não corresponder ao filtro
         }
     }
-    </script>
+}
+</script>
+
 </body>
 </html>
 
