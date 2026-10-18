@@ -444,6 +444,248 @@
             </ul>
         </section>
 
+        
+               <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnduranceHub</title>
+    <style>
+        /* Reset e Base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header e Navegação */
+        header {
+            background-color: #111;
+            color: #fff;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+        }
+
+        nav h1 span {
+            color: #e60000;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #e60000;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('genesis_barcelona.jpg') center/cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 40px;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* Seções e Títulos */
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-left: 4px solid #e60000;
+            padding-left: 10px;
+            color: #111;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        /* Seção Calendário */
+        .calendar-section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .calendar-table th, .calendar-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .calendar-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        /* Seção Grid de Carros Hypercar / GTP (Carrossel Horizontal) */
+        .hypercars-section {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .hypercar-slider {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px 5px 20px 5px;
+            scroll-behavior: smooth;
+        }
+
+        /* Personalização da barra de rolagem do slider */
+        .hypercar-slider::-webkit-scrollbar {
+            height: 8px;
+        }
+        .hypercar-slider::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .hypercar-slider::-webkit-scrollbar-thumb {
+            background: #e60000;
+            border-radius: 4px;
+        }
+
+        .hypercar-card {
+            min-width: 270px;
+            max-width: 270px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 16px;
+            flex-shrink: 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hypercar-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .hypercar-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .hypercar-badge-group {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .car-badge {
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #fff;
+        }
+
+        .badge-lmh { background-color: #d9534f; }
+        .badge-lmdh { background-color: #0275d8; }
+
+        .hypercar-card h4 {
+            margin: 0 0 6px 0;
+            font-size: 1.1rem;
+            color: #111;
+        }
+
+        .hypercar-card p {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 4px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111;
+            color: #888;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <h1>Endurance<span>Hub</span></h1>
+                <ul>
+                    <li><a href="#calendario">Calendário</a></li>
+                    <li><a href="#grid-hypercar">Grid Hypercar</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>A Era de Ouro do Endurance</h2>
+            <p>Acompanhe os protótipos mais velozes do planeta disputando milésimo a milésimo nas pistas mais icônicas do mundo através do WEC, IMSA e Asian Le Mans Series.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        
         <!-- Seção Calendário Próximos Eventos -->
         <section id="calendario" class="calendar-section">
             <h2 class="section-title">Calendário de Próximos Eventos</h2>
@@ -485,17 +727,7 @@
             </table>
         </section>
 
-
-
-
-
-
-
-
-
-                
-
-                <!-- NOVA SEÇÃO: Barra Deslizante com Todos os Carros Hypercar / GTP -->
+        <!-- SEÇÃO: Barra Deslizante com Todos os Carros Hypercar / GTP -->
         <section id="grid-hypercar" class="hypercars-section">
             <h2 class="section-title">Grid de Carros Hypercar / GTP</h2>
             <p style="margin-bottom: 20px; color: #666;">Deslize para o lado para conferir os protótipos das regras LMH e LMDh que competem no WEC e IMSA:</p>
@@ -509,7 +741,7 @@
                         <span class="car-badge badge-lmh">LMH</span>
                     </div>
                     <h4>Ferrari 499P</h4>
-                    <p><strong>Equipe:</strong> Ferrari AF Corse\AF Corse\Cetilar Racing</p>
+                    <p><strong>Equipe:</strong> Ferrari AF Corse / AF Corse / Cetilar Racing</p>
                     <p><strong>Motor:</strong> 3.0L V6 Bi-Turbo + Híbrido</p>
                 </div>
 
@@ -535,17 +767,6 @@
                     <p><strong>Motor:</strong> 3.5L V6 Bi-Turbo + Híbrido</p>
                 </div>
 
-                   <!-- Toyota GR010 Hybrid -->
-                <div class="hypercar-card">
-                    <img src="toyota_gr010.jpg" alt="Toyota GR010 Hybrid">
-                    <div class="hypercar-badge-group">
-                        <span class="car-badge badge-lmh">LMH</span>
-                    </div>
-                    <h4>Toyota TR010 Hybrid</h4>
-                    <p><strong>Equipe:</strong> Toyota  Racing</p>
-                    <p><strong>Motor:</strong> 3.5L V6 Bi-Turbo + Híbrido</p>
-                </div>
-
                 <!-- Cadillac V-Series.R -->
                 <div class="hypercar-card">
                     <img src="cadillac_v_series.jpg" alt="Cadillac V-Series.R">
@@ -553,7 +774,7 @@
                         <span class="car-badge badge-lmdh">LMDh</span>
                     </div>
                     <h4>Cadillac V-Series.R</h4>
-                    <p><strong>Equipe:</strong> Cadillac Racing / Wayne Taylor / Jota\Whelen Engering Racing</p>
+                    <p><strong>Equipe:</strong> Cadillac Racing / Wayne Taylor / Jota / Whelen Engineering</p>
                     <p><strong>Motor:</strong> 5.5L V8 Aspirado + Híbrido</p>
                 </div>
 
@@ -564,7 +785,7 @@
                         <span class="car-badge badge-lmdh">LMDh</span>
                     </div>
                     <h4>Acura ARX-06</h4>
-                    <p><strong>Equipe:</strong>-(Não Ativo)</p>
+                    <p><strong>Equipe:</strong> (Não Ativo)</p>
                     <p><strong>Motor:</strong> 2.4L V6 Bi-Turbo + Híbrido</p>
                 </div>
 
@@ -594,57 +815,18 @@
                 <div class="hypercar-card">
                     <img src="lamborghini_sc63.jpg" alt="Lamborghini SC63">
                     <div class="hypercar-badge-group">
-                        <span class="car-badge badge-lmdh">LMDh</span>
-                    </div>
-                    <h4>Lamborghini SC63</h4>
-                    <p><strong>Equipe:</strong>-(Não Ativo)</p>
-                    <p><strong>Motor:</strong> 3.8L V8 Bi-Turbo + Híbrido</p>
-                </div>
+                        <span class="car-badge badge-        
 
-                <!-- Alpine A424 -->
-                <div class="hypercar-card">
-                    <img src="alpine_a424.jpg" alt="Alpine A424">
-                    <div class="hypercar-badge-group">
-                        <span class="car-badge badge-lmdh">LMDh</span>
-                    </div>
-                    <h4>Alpine A424</h4>
-                    <p><strong>Equipe:</strong> Alpine Endurance Team</p>
-                    <p><strong>Motor:</strong> 3.4L V6 Single-Turbo + Híbrido</p>
-                </div>
 
-                <!-- Isotta Fraschini Tipo 6 -->
-                <div class="hypercar-card">
-                    <img src="isotta_tipo6.jpg" alt="Isotta Fraschini Tipo 6">
-                    <div class="hypercar-badge-group">
-                        <span class="car-badge badge-lmh">LMH</span>
-                    </div>
-                    <h4>Isotta Fraschini Tipo 6</h4>
-                    <p><strong>Equipe:</strong> Duqueine / Isotta</p>
-                    <p><strong>Motor:</strong> 3.0L V6 Turbo + Híbrido</p>
-                </div>
 
-                <!-- Genesis GMR-001 / Hypercar -->
-                <div class="hypercar-card">
-                    <img src="genesis_barcelona.jpg" alt="Genesis Hypercar">
-                    <div class="hypercar-badge-group">
-                        <span class="car-badge badge-lmdh">LMDh</span>
-                    </div>
-                    <h4>Genesis GMR 001</h4>
-                    <p><strong>Equipe:</strong> Genesis Magma Racing</p>
-                    <p><strong>Motor:</strong> V6 Bi-Turbo + Híbrido</p>
-                </div>
 
-                 <!-- Glickenhaus 007 LMH/ Hypercar -->
-                <div class="hypercar-card">
-                    <img src="genesis_barcelona.jpg" alt="Genesis Hypercar">
-                    <div class="hypercar-badge-group">
-                        <span class="car-badge badge-lmdh">LMH</span>
-                    </div>
-                    <h4>Glickenhaus SGC 007 LMH</h4>
-                    <p><strong>Equipe:</strong>-(Não Ativo)</p>
-                    <p><strong>Motor:</strong> V8 Twin-Turbo</p>
-                </div>
-    </main>
+
+
+
+
+                
+
+             
 
     <footer>
         <div class="container">
