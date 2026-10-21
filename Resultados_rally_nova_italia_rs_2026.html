@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado Rally Nova Itália 2026</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
+        }
+
+        h2 {
+            color: #ffffff;
+            margin-top: 0;
+            border-left: 5px solid #ef4444;
+            padding-left: 12px;
+            font-size: 1.5rem;
+        }
+
+        .filters-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .filter-container {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+
+        label {
+            font-weight: 600;
+            color: #cbd5e1;
+            white-space: nowrap;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background-color: #1e293b;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        select:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+
+        th {
+            background-color: #0f172a;
+            color: #94a3b8;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .badge-cat {
+            background-color: #2563eb;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-camp {
+            background-color: #10b981;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Resultado Rally Nova Itália - RS (Severiano de Almeida 2026)</h2>
+
+        <!-- Contêiner dos Filtros -->
+        <div class="filters-group">
+            <!-- Seletor de Categoria -->
+            <div class="filter-container">
+                <label for="categoriaFilter">Categoria:</label>
+                <select id="categoriaFilter">
+                    <option value="todas">Todas as Categorias</option>
+                    <option value="RallyPR 4x4">RallyPR 4x4</option>
+                    <option value="Rally 2">Rally 2</option>
+                    <option value="Rally 4">Rally 4</option>
+                    <option value="Rally 5">Rally 5</option>
+                    <option value="Rally 5 L">Rally 5 L</option>
+                    <option value="UTV">UTV</option>
+                    <option value="RallyPR 4x2 Pró">RallyPR 4x2 Pró</option>
+                    <option value="RallyPR 4x2 Super">RallyPR 4x2 Super</option>
+                    <option value="RallyPR RTT">RallyPR RTT</option>
+                </select>
+            </div>
+
+            <!-- Seletor de Campeonato -->
+            <div class="filter-container">
+                <label for="campeonatoFilter">Campeonato:</label>
+                <select id="campeonatoFilter">
+                    <option value="todas">Todos os Campeonatos</option>
+                    <option value="RallyPR">RallyPR</option>
+                    <option value="BR Rally">BR Rally</option>
+                    <option value="Gaúcho">Gaúcho</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Tabela de Resultados -->
+        <div class="table-responsive">
+            <table id="tabelaResultados">
+                <thead>
+                    <tr>
+                        <th>Pos.</th>
+                        <th>Nº</th>
+                        <th>Piloto / Navegador</th>
+                        <th>Carro / Veículo</th>
+                        <th>Equipe</th>
+                        <th>Categoria</th>
+                        <th>Campeonato</th>
+                        <th>Tempo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-categoria="Rally 2" data-campeonato="BR Rally, Gaúcho">
+                        <td>1º</td>
+                        <td>216</td>
+                        <td>Rodrigo Varela / Marco Marini</td>
+                        <td>Peugeot 208 MR</td>
+                        <td>Varela / Monster Energy</td>
+                        <td><span class="badge-cat">Rally 2</span></td>
+                        <td><span class="badge-camp">BR Rally</span><span class="badge-camp">Gaúcho</span></td>
+                        <td>1:13:11.25</td>
+                    </tr>
+                    <tr data-categoria="Rally 4" data-campeonato="BR Rally">
+                        <td>2º</td>
+                        <td>23</td>
+                        <td>Luis Stedile / Murilo Spironelo</td>
+                        <td>Peugeot 208 Rally4</td>
+                        <td>PRP Rally</td>
+                        <td><span class="badge-cat">Rally 4</span></td>
+                        <td><span class="badge-camp">BR Rally</span><span class="badge-camp">Gaúcho</span></td>
+                        <td>1:15:04.54</td>
+                    </tr>
+                    <tr data-categoria="Rally 2" data-campeonato="BR Rally, Gaúcho">
+                        <td>3º</td>
+                        <td>22</td>
+                        <td>Milton Pagliosa / Vinicios Anziliero</td>
+                        <td>Mitsubishi Lancer Evo X</td>
+                        <td>EMA Racing</td>
+                        <td><span clas="badge-cat">Rally 2</span></td>
+                        <td><span class="badge-camp">BR Rally</span><span class="badge-camp">Gaúcho</span></td>
+                        <td>1:17:46.88</td>
+                    </tr>
+                    <tr data-categoria="Rally 5" data-campeonato="BR Rally,Gaúcho">
+                        <td>4º</td>
+                        <td>38</td>
+                        <td>Evandro Carbonera / Jean Klein</td>
+                        <td>Hyundai HB20 1.0</td>
+                        <td>Nova Itália RS Rally</td>
+                        <td><span class="badge-cat">Rally 5</span></td>
+                        <td><span class="badge-camp">BR Rally</span><span class="badge-camp">Gaúcho</span></td>
+                        <td>1:20:16.82</td>
+                    </tr>
+                    <tr data-categoria="UTV" data-campeonato="Gaúcho">
+                        <td>5º</td>
+                        <td>21</td>
+                        <td>Luis Hendersson / Daniel Spósito</td>
+                        <td>Can-Am Maverick R</td>
+                        <td>LH Racing</td>
+                        <td><span class="badge-cat">UTV</span></td>
+                        <td><span class="badge-camp">Gaúcho</span></td>
+                        <td>1:20:59.56</td>
+                    </tr>
+                    <tr data-categoria="UTV" data-campeonato="Gaúcho">
+                        <td>6º</td>
+                        <td>98</td>
+                        <td>Leandro Key / Giovani Bordin</td>
+                        <td>Can-Am Maverick R</td>
+                        <td>-</td>
+                        <td><span class="badge-cat">UTV</span></td>
+                        <td><span class="badge-camp">Gaucho</span></td>
+                        <td>1:22:50.20</td>
+                    </tr>
+                    <tr data-categoria="UTV" data-campeonato="Gaúcho">
+                        <td>7º</td>
+                        <td>51</td>
+                        <td>Francisco Gonzalez / Julio Erache</td>
+                        <td>Can-Am Maverick R</td>
+                        <td>Rodatech Racing</td>
+                        <td><span class="badge-cat">UTV</span></td>
+                        <td><span class="badge-camp">Gaúcho</span></td>
+                        <td>1:23:03.68</td>
+                    </tr>
+                    <tr data-categoria="Rally 4" data-campeonato="Gaúcho">
+                        <td>8º</td>
+                        <td>34</td>
+                        <td>Allan Cardoso / Amaximandro da Silva</td>
+                        <td>Peugeot 207</td>
+                        <td>Cardoso Rally Team</td>
+                        <td><span class="badge-cat">Rally 4</span></td>
+                        <td><span class="badge-camp">Gaúcho</span></td>
+                        <td>1:23:08.63</td>
+                    </tr>
+                    <tr data-categoria="Rally 5" data-campeonato="BR Rally, Gaúcho">
+                        <td>9º</td>
+                        <td>89</td>
+                        <td>Bruno Foscarini / Felipe Costa</td>
+                        <td>VW Gol G7</td>
+                        <td>Rally Cast</td>
+                        <td><span class="badge-cat">Rally 5</span></td>
+                        <td><span class="badge-camp">BR Rally</span><span class="badge-camp">Gaúcho</span></td>
+                        <td>1:23:16.31</td>
+                    </tr>
+                    <tr data-categoria="Rally 5" data-campeonato="BR Rally">
+                        <td>10º</td>
+                        <td>40</td>
+                        <td>Bruno Ramos / Vinicios Zavierucka</td>
+                        <td>VW Up TSI</td>
+                        <td>Rally Center</td>
+                        <td><span class="badge-cat">Rally 5</span></td>
+                        <td><span class="badge-camp">BR Rally</span><span>
+                        <td>1:26:04.41</td>
+                    </tr>
+                     <tr data-categoria="Rally 5 L" data-campeonato="BR Rally, Gaúcho">
+                        <td>11º</td>
+                        <td>46</td>
+                        <td>Andersson Graeff\Marlon Zill</td>
+                        <td>Fia Palio</td>
+                        <td>Andimar Racing</td>
+                        <td><span class="badge-cat">Rally 5 L</span></td>
+                        <td><span class="badge-camp">BR Rally</span><span class="badge-camp">Gaúcho</span></td>
+                        <td>1:26:04.41</td>
+                    </tr>
+
+                      <tr data-categoria="RallyPR 4x2 Pró" data-campeonato="RallyPR">
+                        <td>12º</td>
+                        <td>45</td>
+                        <td>Maycon Soares\Cleiton Casarotto</td>
+                        <td>Peugeot 207</td>
+                        <td>Soares Rally Team</td>
+                        <td><span class="badge-cat">RallyPR 4x2 Pró</span></td>
+                        <td><span class="badge-camp">RallyPR</span>
+                        <td>1:26:04.41</td>
+                    </tr>
+
+                         </tr>
+
+                      <tr data-categoria="UTV" data-campeonato="Gaúcho">
+                        <td>13º</td>
+                        <td>53</td>
+                        <td>Patricia Victorica\Pablo Coceres</td>
+                        <td>Can-Am Maverick R</td>
+                        <td>PDG Club Rally Raid</td>
+                        <td><span class="badge-cat">UTV</span></td>
+                        <td><span class="badge-camp">Gaúcho</span>
+                        <td>1:27:17.38</td>
+                    </tr>
+
+                       </tr>
+
+                      <tr data-categoria="Rally 5 L" data-campeonato="BR Rally, RallyPR">
+                        <td>14º</td>
+                        <td>36</td>
+                        <td>Andersson e Helena Linzmeyer</td>
+                        <td>Peugeot 207</td>
+                        <td>Linzmeyer's Team</td>
+                        <td><span class="badge-cat">Rally 5 L,RallyPR 4x2 Super</span></td>
+                        <td><span class="badge-camp">BR Rally, RallyPR</span>
+                        <td>1:31:01.93</td>
+                    </tr>
+
+                      <tr data-categoria="Rally 5 L" data-campeonato="Gaúcho">
+                        <td>15º</td>
+                        <td>4</td>
+                        <td>João Marcolin\Leonardo Casagrande</td>
+                        <td>Fiat Palio</td>
+                        <td>Marcolin Rally Team</td>
+                        <td><span class="badge-cat">Rally 5 L</span></td>
+                        <td><span class="badge-camp">Gaúcho</span>
+                        <td>1:32:33.57</td>
+                    </tr>
+
+                     <tr data-categoria="RTT" data-campeonato="RallyPR">
+                        <td>16º</td>
+                        <td>32</td>
+                        <td>Felipe Paiva\André Senger</td>
+                        <td>Mitsubishi L200 RS</td>
+                        <td>Octanas Motorsport</td>
+                        <td><span class="badge-cat">RallyPR RTT</span></td>
+                        <td><span class="badge-camp">RallyPR</span>
+                        <td>1:51:54.31</td>
+                    </tr>
+
+                     <tr data-categoria="Rally 5" data-campeonato="BR Rally, RallyPR">
+                        <td>17º</td>
+                        <td>10</td>
+                        <td>Adib Sada\Albert Oliveira Filho</td>
+                        <td>Ford Ká</td>
+                        <td>ASTJ</td>
+                        <td><span class="badge-cat">Rally 5, RallyPR 4x2 Pró</span></td>
+                        <td><span class="badge-camp">BR Rally, RallyPR</span>
+                        <td>***</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Script de filtragem dupla e funcional -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const selectCategoria = document.getElementById("categoriaFilter");
+            const selectCampeonato = document.getElementById("campeonatoFilter");
+            const tabela = document.getElementById("tabelaResultados");
+            const linhas = tabela.querySelectorAll("tbody tr");
+
+            function filtrar() {
+                const categoriaSelecionada = selectCategoria.value.trim().toLowerCase();
+                const campeonatoSelecionado = selectCampeonato.value.trim().toLowerCase();
+
+                linhas.forEach(function (linha) {
+                    const categoriaLinha = (linha.getAttribute("data-categoria") || "").trim().toLowerCase();
+                    const campeonatoLinha = (linha.getAttribute("data-campeonato") || "").trim().toLowerCase();
+
+                    const matchCategoria = categoriaSelecionada === "todas" || categoriaLinha === categoriaSelecionada;
+                    const matchCampeonato = campeonatoSelecionado === "todas" || campeonatoLinha.includes(campeonatoSelecionado);
+
+                    if (matchCategoria && matchCampeonato) {
+                        linha.style.display = "";
+                    } else {
+                        linha.style.display = "none";
+                    }
+                });
+            }
+
+            selectCategoria.addEventListener("change", filtrar);
+            selectCampeonato.addEventListener("change", filtrar);
+        });
+    </script>
+    <h1>decisões de titulos na etapa</h1>
+    <p>Na etapa que teve transmissão ao vivo no Youtube da Roxo Sports, que teve decisões de titulo,
+        na categoria Rally 2, Rodrigo Varela e Marco Marini com Peugeot 208 MR, na Rally 4 , em um funcional
+        melancolico , ja que as duas duplas que tinham chances de titulo tanto no Brasileiro e Gaucho 
+        acabaram quebraram , que ficou o titulo com Eduardo Tonial e Lucas Neumann com Renault Clio RS Rally 5,
+        e a dupla Rafael Cabelo e Rafael Karpirsky com VW Gol G8 TSI  com vice campeonato, na categoria Rally 5 ,
+        o titulo ja tinha sido decidido em Rio Negrinho-SC, com a dupla Bruno Foscarini e Felipe Costa com VW Gol G7,
+        na Rally 5 Light de Andersson Graeff\Marlon Zill com Fiat Palio tanto no Brasileiro e no Gaucho, na categoria RTT do Paranaense,
+        de pilotos, porque o campeao teve dois navegadores diferentes foi campeão com uma etapa de antecedência, de Felipe
+        Paiva com Mitsubishi L200 RS. 
+
+    </p>
+    <a h ref="https://www.youtube.com/watch?v=KMWrbBilU9s&t=28960s" a>
+
+</body>
+</html>
