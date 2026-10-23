@@ -35,15 +35,19 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        /* IMAGEM AJUSTADA: Reduzida para 120px de altura conforme solicitado, sem distorcer */
+        
+        /* ⚡ TAMANHO DA IMAGEM ATUALIZADO ⚡ */
         .news-image {
             width: 100%;
-            height: 120px;
-            object-fit: cover;
+            height: auto;               /* Permite que o aspect-ratio defina a altura */
+            aspect-ratio: 16 / 9;       /* Mantém a proporção de cinema, ideal para fotos de carros */
+            max-height: 350px;          /* Limite máximo para não ocupar a tela toda */
+            object-fit: cover;          /* Corta as bordas inteligentemente se necessário, sem distorcer */
             border-radius: 6px;
             margin-bottom: 20px;
             border: 1px solid #333333;
         }
+
         .news-title {
             font-size: 24px;
             font-weight: bold;
@@ -82,26 +86,21 @@
 </head>
 <body>
 
-    <!-- CONTAINER PRINCIPAL PARA CENTRALIZAR E FORMATAR A NOTÍCIA -->
     <div class="container">
         
-        <!-- Categoria/Meta da notícia -->
         <div class="news-meta">Automobilismo / WEC</div>
         
-        <!-- Imagem com a classe aplicada -->
+        <!-- Imagem redimensionada de forma responsiva -->
         <img src="lamborghini temerario dtm.jpg" alt="Lamborghini Temerario GT3" class="news-image">
         
-        <!-- Título com a classe aplicada -->
         <h1 class="news-title">Lamborghini pode retornar ao Fia WEC futuramente na LMGT3</h1>
         
-        <!-- Conteúdo com a classe aplicada -->
         <div class="news-content">
             <p>A marca italiana, que competiu nas duas categorias em 2024 com a Iron Lynx, acabou não retornando e analisa um retorno no novo regulamento a partir de 2030. Mas, antes disso, pode retornar ao grid com a Temerario GT3, que correu esse ano no IMSA na GTD Pro e no DTM (com as equipes Leipert Motorsport e Red Bull ABT).</p>
             
             <p>Além disso, correu com a Grasser Racing Team e a Huber Motorsport no GTWC Europe. A marca anunciou expansão em 2027, começando pelo Asian Le Mans Series 2026-27 com a própria Leipert Motorsport e, quem sabe, na temporada 2028 no WEC na LMGT3.</p>
         </div>
         
-        <!-- Botão de acesso que estava no CSS mas faltava no HTML -->
         <a href="https://www.terra.com.br/esportes/automobilismo/wec-lamborghini-mira-retorno-a-categoria-com-temerario-gt3-mas-descarta-volta-em-2027,f8db713ad813888527dfb516d4019ca1fyfo42y5.html" class="btn-access">Ler mais detalhes</a>
         
     </div>
