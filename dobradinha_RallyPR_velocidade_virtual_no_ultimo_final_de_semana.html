@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado Rally Nova Itália 2026-Dobradinha RallyPR</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
+        }
+
+        h2 {
+            color: #ffffff;
+            margin-top: 0;
+            border-left: 5px solid #ef4444;
+            padding-left: 12px;
+            font-size: 1.5rem;
+        }
+
+        .filters-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .filter-container {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+
+        label {
+            font-weight: 600;
+            color: #cbd5e1;
+            white-space: nowrap;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background-color: #1e293b;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        select:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+
+        th {
+            background-color: #0f172a;
+            color: #94a3b8;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .badge-cat {
+            background-color: #2563eb;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-camp {
+            background-color: #10b981;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Resultado Rally Nova Itália - RS (Severiano de Almeida 2026)</h2>
+
+        <!-- Contêiner dos Filtros -->
+        <div class="filters-group">
+            <!-- Seletor de Categoria -->
+            <div class="filter-container">
+                <label for="categoriaFilter">Categoria:</label>
+                <select id="categoriaFilter">
+                    <option value="todas">Todas as Categorias</option>
+                    <option value="RallyPR 4x4">RallyPR 4x4</option>
+                    <option value="Rally 2">Rally 2</option>
+                    <option value="Rally 4">Rally 4</option>
+                    <option value="Rally 5">Rally 5</option>
+                    <option value="Rally 5 L">Rally 5 L</option>
+                    <option value="UTV">UTV</option>
+                    <option value="RallyPR 4x2 Pró">RallyPR 4x2 Pró</option>
+                    <option value="RallyPR 4x2 Super">RallyPR 4x2 Super</option>
+                    <option value="RallyPR RTT">RallyPR RTT</option>
+                </select>
+            </div>
+
+            <!-- Seletor de Campeonato -->
+            <div class="filter-container">
+                <label for="campeonatoFilter">Campeonato:</label>
+                <select id="campeonatoFilter">
+                    <option value="todas">Todos os Campeonatos</option>
+                    <option value="RallyPR">RallyPR</option>
+                    <option value="BR Rally">BR Rally</option>
+                    <option value="Gaúcho">Gaúcho</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Tabela de Resultados -->
+        <div class="table-responsive">
+            <table id="tabelaResultados">
+                <thead>
+                    <tr>
+                        <th>Pos.</th>
+                        <th>Nº</th>
+                        <th>Piloto / Navegador</th>
+                        <th>Carro / Veículo</th>
+                        <th>Equipe</th>
+                        <th>Categoria</th>
+                        <th>Campeonato</th>
+                        <th>Tempo</th>
+                    </tr>
+                </thead>
+           
+
+                      <tr data-categoria="RallyPR 4x2 Pró" data-campeonato="RallyPR">
+                        <td>1º</td>
+                        <td>45</td>
+                        <td>Maycon Soares\Cleiton Casarotto</td>
+                        <td>Peugeot 207</td>
+                        <td>Soares Rally Team</td>
+                        <td><span class="badge-cat">RallyPR 4x2 Pró</span></td>
+                        <td><span class="badge-camp">RallyPR</span>
+                        <td>1:26:04.41</td>
+                    </tr>
+
+                        
+
+                    
+                       
+
+                      <tr data-categoria="RallyPR 4x2 Super" data-campeonato="RallyPR">
+                        <td>2º</td>
+                        <td>36</td>
+                        <td>Andersson e Helena Linzmeyer</td>
+                        <td>Peugeot 207</td>
+                        <td>Linzmeyer's Team</td>
+                        <td><span class="badge-cat">Rally 5 L,RallyPR 4x2 Super</span></td>
+                        <td><span class="badge-camp">BR Rally, RallyPR</span>
+                        <td>1:31:01.93</td>
+                    </tr>
+
+                     <tr data-categoria="RallyPR RTT" data-campeonato="RallyPR">
+                        <td>3º</td>
+                        <td>32</td>
+                        <td>Felipe Paiva\André Senger</td>
+                        <td>Mitsubishi L200 RS</td>
+                        <td>Octanas Motorsport</td>
+                        <td><span class="badge-cat">RallyPR RTT</span></td>
+                        <td><span class="badge-camp">RallyPR</span>
+                        <td>1:51:54.31</td>
+                    </tr>
+
+                      <tr data-categoria="RallyPR 4x2 Super" data-campeonato="RallyPR">
+                        <td>4º</td>
+                        <td>211</td>
+                        <td>Marcio Cedraz\Gilson Rocha</td>
+                        <td>Peugeot 207</td>
+                        <td>Bahia Rally</td>
+                        <td><span class="badge-cat">RallyPR 4x2 Super</span></td>
+                        <td><span class="badge-camp">RallyPR</span>
+                        <td>1:55:43.22</td>
+                    </tr>
+
+                     <tr data-categoria="RallyPR 4x2 Pro" data-campeonato="BR Rally, RallyPR">
+                        <td>NC</td>
+                        <td>10</td>
+                        <td>Adib Sada\Albert Oliveira Filho</td>
+                        <td>Ford Ká</td>
+                        <td>ASTJ</td>
+                        <td><span class="badge-cat">Rally 5, RallyPR 4x2 Pró</span></td>
+                        <td><span class="badge-camp">BR Rally, RallyPR</span>
+                        <td>***</td>
+                    </tr>
+
+                       <tr data-categoria="RallyPR 4x2 Super" data-campeonato="RallyPR">
+                        <td>NC</td>
+                        <td>72</td>
+                        <td>Sandro Maia\Guilherme Pontarolo</td>
+                        <td>Fiat Palio</td>
+                        <td>Maia Motorsports\Maia Racing</td>
+                        <td><span class="badge-cat">RallyPR 4x2 Super</span></td>
+                        <td><span class="badge-camp">RallyPR</span>
+                        <td>***</td>
+                    </tr>
+
+                  <tr data-categoria="RallyPR 4x2 Pró" data-campeonato="BR Rally, RallyPR">
+                        <td>NC</td>
+                        <td>29/td>
+                        <td>Albert Oliveira\Ricardo Simon</td>
+                        <td>VW Up TSI</td>
+                        <td>Mega Rally Team</td>
+                        <td><span class="badge-cat">RallyPR 4x2 Pro</span></td>
+                        <td><span class="badge-camp">RallyPR</span>
+                        <td>***</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Script de filtragem dupla e funcional -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const selectCategoria = document.getElementById("categoriaFilter");
+            const selectCampeonato = document.getElementById("campeonatoFilter");
+            const tabela = document.getElementById("tabelaResultados");
+            const linhas = tabela.querySelectorAll("tbody tr");
+
+            function filtrar() {
+                const categoriaSelecionada = selectCategoria.value.trim().toLowerCase();
+                const campeonatoSelecionado = selectCampeonato.value.trim().toLowerCase();
+
+                linhas.forEach(function (linha) {
+                    const categoriaLinha = (linha.getAttribute("data-categoria") || "").trim().toLowerCase();
+                    const campeonatoLinha = (linha.getAttribute("data-campeonato") || "").trim().toLowerCase();
+
+                    const matchCategoria = categoriaSelecionada === "todas" || categoriaLinha === categoriaSelecionada;
+                    const matchCampeonato = campeonatoSelecionado === "todas" || campeonatoLinha.includes(campeonatoSelecionado);
+
+                    if (matchCategoria && matchCampeonato) {
+                        linha.style.display = "";
+                    } else {
+                        linha.style.display = "none";
+                    }
+                });
+            }
+
+            selectCategoria.addEventListener("change", filtrar);
+            selectCampeonato.addEventListener("change", filtrar);
+        });
+    </script>
+    <h1>decisões de titulos na etapa</h1>
+    <p>Na etapa que teve transmissão ao vivo no Youtube da Roxo Sports, que teve decisões de titulo,
+        na categoria Rally 2, Rodrigo Varela e Marco Marini com Peugeot 208 MR, na Rally 4 , em um funcional
+        melancolico , ja que as duas duplas que tinham chances de titulo tanto no Brasileiro e Gaucho 
+        acabaram quebraram , que ficou o titulo com Eduardo Tonial e Lucas Neumann com Renault Clio RS Rally 5,
+        e a dupla Rafael Cabelo e Rafael Karpirsky com VW Gol G8 TSI  com vice campeonato, na categoria Rally 5 ,
+        o titulo ja tinha sido decidido em Rio Negrinho-SC, com a dupla Bruno Foscarini e Felipe Costa com VW Gol G7,
+        na Rally 5 Light de Andersson Graeff\Marlon Zill com Fiat Palio tanto no Brasileiro e no Gaucho, na categoria RTT do Paranaense,
+        de pilotos, porque o campeao teve dois navegadores diferentes foi campeão com uma etapa de antecedência, de Felipe
+        Paiva com Mitsubishi L200 RS. 
+
+   <div class="card">
+        <div class="video-container">
+            <!-- Embed do vídeo do YouTube no exato momento (t=28960s) -->
+            <iframe 
+                src="https://www.youtube.com/embed/KMWrbBilU9s?start=28960" 
+                title="AO VIVO - RALLY NOVA ITÁLIA 2026 | ROXO SPORTS" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+        <div class="content">
+            <span class="badge">Rally de Velocidade</span>
+            <h2>AO VIVO - RALLY NOVA ITÁLIA 2026</h2>
+            <p>
+                Confira a transmissão completa e o encerramento da 5ª etapa do Campeonato Brasileiro de Rally de Velocidade, direto de Severiano de Almeida (RS)[cite: 1], com a cobertura exclusiva da Roxo Sports[cite: 1].
+            </p>
+            <div class="meta-info">
+                <span>Canal: <strong>Roxo Sports</strong></span>[cite: 1]
+                <a href="https://www.youtube.com/watch?v=KMWrbBilU9s&t=28960s" target="_blank" class="btn-watch">
+                    Assistir no YouTube
+                </a>
+            </div>
+        </div>
+    </div>
+
+     <div class="container">
+        <h2>Resultado RallyPR Virtual-Simulada no Chile</h2>
+
+        <!-- Contêiner dos Filtros -->
+        <div class="filters-group">
+            <!-- Seletor de Categoria -->
+            <div class="filter-container">
+                <label for="categoriaFilter">Categoria:</label>
+                <select id="categoriaFilter">
+                    <option value="todas">Todas as Categorias</option>
+                    <option value="RallyPR Virtual">RallyPR Virtual</option>
+                </select>
+            </div>
+
+            <!-- Seletor de Campeonato -->
+            <div class="filter-container">
+                <label for="campeonatoFilter">Campeonato:</label>
+                <select id="campeonatoFilter">
+                    <option value="todas">Todos os Campeonatos</option>
+                    <option value="RallyPR">RallyPR</option>
+                    <option value="BR Rally">BR Rally</option>
+                    <option value="Gaúcho">Gaúcho</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Tabela de Resultados -->
+        <div class="table-responsive">
+            <table id="tabelaResultados">
+                <thead>
+                    <tr>
+                        <th>Pos.</th>
+                        <th>Nº</th>
+                        <th>Piloto / Navegador</th>
+                        <th>Carro / Veículo</th>
+                        <th>Equipe</th>
+                        <th>Categoria</th>
+                        <th>Campeonato</th>
+                        <th>Tempo</th>
+                    </tr>
+                </thead>
+           
+
+                      <tr data-categoria="RallyPR Rally 2" data-campeonato="RallyPR">
+                        <td>1º</td>
+                        <td>45</td>
+                        <td>Guilherme Pontarolo</td>
+                        <td>Skoda Fabia RS Rally 2</td>
+                        <td>-</td>
+                        <td><span class="badge-cat">RallyPR Rally 2</span></td>
+                        <td><span class="badge-camp">RallyPR</span>
+                        <td>55:02.24</td>
+                    </tr>
+
+                     <tr data-categoria="RallyPR Rally 2" data-campeonato="RallyPR">
+                        <td>2º</td>
+                        <td>-</td>
+                        <td>Ricardo Amorim</td>
+                        <td>Skoda Fabia RS Rally 2</td>
+                        <td>-</td>
+                        <td><span class="badge-cat">RallyPR Rally 2</span></td>
+                        <td><span class="badge-camp">RallyPR</span>
+                        <td>56:08.63</td>
+                    </tr>
+
+                     <tr data-categoria="RallyPR Rally 2" data-campeonato="RallyPR">
+                        <td>3º</td>
+                        <td>-</td>
+                        <td>Lucas Volkmann</td>
+                        <td>Toyota GR Yaris Rally 2</td>
+                        <td>-</td>
+                        <td><span class="badge-cat">RallyPR Rally 2</span></td>
+                        <td><span class="badge-camp">RallyPR</span>
+                        <td>56:40.25</td>
+                    </tr>
+
+
+
+</body>
+</html>
+
+</body>
+</html>
