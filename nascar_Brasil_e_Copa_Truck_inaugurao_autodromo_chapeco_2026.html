@@ -1,5 +1,4 @@
-
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -40,10 +39,11 @@
             letter-spacing: 0.5px;
         }
 
+        /* Classe de tamanho da imagem ajustada */
         .news-image {
             width: 100%;
-            height: 120px;
-            object-fit: cover;
+            height: 350px; /* Altura ideal proporcional para a notícia */
+            object-fit: cover; /* Recorta a imagem sem distorcer */
             border-radius: 6px;
             margin-bottom: 20px;
             border: 1px solid #333333;
@@ -71,6 +71,13 @@
         .highlight {
             font-weight: bold;
             color: #ffffff; /* Destaques em branco */
+        }
+
+        /* Alinhamento dos botões lado a lado */
+        .buttons-wrapper {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .btn-access {
@@ -101,7 +108,8 @@
         
         <h1 class="news-title">Nascar Brasil e Copa Truck inauguram o novo autódromo de Chapecó</h1>
 
-        <img src="Nascar Brasil.jpg" alt="Nascar Brasil">
+        <!-- CORRIGIDO: Adicionada a classe news-image para controlar o tamanho -->
+        <img src="Nascar Brasil.jpg" alt="Nascar Brasil" class="news-image">
         
         <div class="news-content">
             <p>A Nascar Brasil, uma das principais categorias de Turismo do Brasil, e a Copa Truck, a principal categoria de caminhões no Brasil, estrearão o novo autódromo de Santa Catarina.</p>
@@ -115,11 +123,15 @@
             <p>O evento de estreia está programado para ocorrer entre os dias <span class="highlight">31 de outubro e 1º de novembro de 2026</span>, reunindo provas da NASCAR Brasil, da Copa Truck e da Copa HB20.</p>
         </div>
 
-         <a href="https://www.f1mania.net/outros/truck/chapeco-recebe-etapa-da-copa-truck-neste-fim-de-semana-veja-horarios/" class="btn-access">Ler mais</a>
-        
-         <a href="https://motorsport.uol.com.br/nascar-brasil-series/news/confira-programacao-da-estreia-da-nascar-brasil-em-chapeco-/10868705/" class="btn-access">Ler mais</a>
+        <div class="buttons-wrapper">
+             <a href="https://www.f1mania.net/outros/truck/chapeco-recebe-etapa-da-copa-truck-neste-fim-de-semana-veja-horarios/" class="btn-access" target="_blank">Ler mais no F1Mania</a>
+            
+             <a href="https://motorsport.uol.com.br/nascar-brasil-series/news/confira-programacao-da-estreia-da-nascar-brasil-em-chapeco-/10868705/" class="btn-access" target="_blank">Ler mais no Motorsport</a>
+        </div>
     </div>
 
 </body>
 </html>
+
+
 
