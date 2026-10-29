@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Rally</title>
+    <title>Portal Rally-Motorsportverso</title>
     <style>
         * {
             box-sizing: border-box;
@@ -22,7 +22,7 @@
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 1200px; /* Aumentado para comportar melhor as 2 colunas */
             display: flex;
             flex-direction: column;
             gap: 30px;
@@ -109,14 +109,15 @@
             margin-top: 5px;
         }
 
-        /* --- FEED DE POSTS --- */
+        /* --- FEED DE POSTS (DUAS COLUNAS) --- */
         .posts-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            flex-wrap: wrap; /* Permite que os cards fiquem um ao lado do outro e quebrem linha */
+            gap: 20px;       /* Espaçamento entre os posts */
         }
 
         .post-card {
+            flex: 1 1 calc(50% - 10px); /* Cada card ocupa metade da largura (menos o gap) */
             background-color: #111e2e;
             border-radius: 8px;
             overflow: hidden;
@@ -126,6 +127,7 @@
             flex-direction: column;
             gap: 12px;
             transition: opacity 0.3s ease;
+            box-sizing: border-box;
         }
 
         .escondido {
@@ -153,13 +155,13 @@
         /* --- CAIXA EM VOLTA DAS TAGS --- */
         .tag {
             display: inline-block;
-            background-color: #05121e; /* Fundo interno da caixa */
-            color: #52e085;             /* Cor do texto da tag */
+            background-color: #05121e; 
+            color: #52e085;             
             font-size: 12px;
             font-weight: bold;
             padding: 5px 10px;
             border-radius: 4px;
-            border: 1px solid #43764d;  /* Borda/Caixa em volta da tag */
+            border: 1px solid #43764d;  
             width: fit-content;
         }
 
@@ -216,7 +218,7 @@
             <p id="resultado" class="resultado-texto">mostre a soma da tag: 0</p>
         </div>
 
-        <!-- Feed de Notícias -->
+        <!-- Feed de Notícias (Duas Colunas) -->
         <div class="posts-wrapper">
 
             <!-- Post 1 -->
@@ -350,8 +352,8 @@
             <!-- Post 19 -->
             <article class="post-card" data-tag="Brasil">
                 <span class="tag">BR Rally, Peugeot, Rally4</span>
-                <img src="luis_stedile_peugeot_208_rally4.jpeg" alt="Luis Stedile Peugeot 208 Rally 4">
                 <h2>Lider do Fia Codassur 4 e ponteiro entre os lideres to Stellantis SA Rally Cup, Luis Stedile presente no Rally de Nova Italia com Peugeot 208 Rally 4 em Severiano de Almeida.</h2>
+                <img src="luis_stedile_peugeot_208_rally4.jpeg" alt="Luis Stedile Peugeot 208 Rally 4">
                 <a href="luis-Stedile_com_peugeot_208_rally4_no_rally_nova_italia_rs.html" class="btn-ler">Leia mais →</a>
             </article> 
 
@@ -369,80 +371,72 @@
                 <a href="cristian_baugart_e_luis_felipe_eckel_no_erc_portugal_com_skoda.html" class="btn-ler">Leia mais →</a>
             </article> 
 
-             <!-- Post 22: Vídeo do YouTube Incorporado -->
-<article class="post-card" data-tag="WRC, Rally1, Project Rally One, Sebastien Loeb">
-    <span class="tag">Sebastien Loeb, Project Rally One, Rally 1, WRC</span>
-    <h2>Test Sebastien Loeb Project Rally One WRC27 Rally 1</h2>
-    <div style="width: 100%; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; background: #000;">
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/l7JD1BUyCo8" title="TEST RALLY1 WRC27 | RallyOne x Sebastien Loeb" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="display: block; width: 100%; height: 100%;"></iframe>
-    </div>
-</article>
+            <!-- Post 22: Vídeo do YouTube Incorporado -->
+            <article class="post-card" data-tag="WRC, Rally1, Project Rally One, Sebastien Loeb">
+                <span class="tag">Sebastien Loeb, Project Rally One, Rally 1, WRC</span>
+                <h2>Test Sebastien Loeb Project Rally One WRC27 Rally 1</h2>
+                <div style="width: 100%; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; background: #000;">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/l7JD1BUyCo8" title="TEST RALLY1 WRC27 | RallyOne x Sebastien Loeb" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="display: block; width: 100%; height: 100%;"></iframe>
+                </div>
             </article>
 
-          <!-- Post 22: Vídeo do YouTube Incorporado --> 
-<article class="post-card" data-tag="WRC, Ford Racing, Rally2 Kit , M-Sport WRT<"> 
-  <span class="tag">WRC, Ford Racing, Rally2 Kit , M-Sport WRT</span> 
-  <h2>Ford Fiesta Rally 2 Kit WRC27 Tests</h2> 
-  <iframe width="554" height="311" src="https://www.youtube.com/embed/m8LQNJkIhl0" title="Test Ford Fiesta M-Sport WRC 2027 | Matthew Wilson [Passats de canto]" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> 
-</article>
+            <!-- Post 23: Vídeo do YouTube Incorporado --> 
+            <article class="post-card" data-tag="WRC, Ford Racing, Rally2 Kit, M-Sport WRT"> 
+              <span class="tag">WRC, Ford Racing, Rally2 Kit, M-Sport WRT</span> 
+              <h2>Ford Fiesta Rally 2 Kit WRC27 Tests</h2> 
+              <div style="width: 100%; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; background: #000;">
+                  <iframe width="100%" height="100%" src="https://www.youtube.com/embed/m8LQNJkIhl0" title="Test Ford Fiesta M-Sport WRC 2027 | Matthew Wilson [Passats de canto]" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="display: block; width: 100%; height: 100%;"></iframe> 
+              </div>
+            </article>
 
- <!-- Post 21 -->
+            <!-- Post 24 -->
             <article class="post-card" data-tag="Perú,Rally Caminhos del Inca">
-                <span class="tag">Perú,Rally Caminhos del Inca  </span>
+                <span class="tag">Perú, Rally Caminhos del Inca</span>
                 <h2>Resultado etapa 2-Rally Caminhos del Inca 2026-Perú</h2>
                 <a href="Resultado_dia2_rally_caminhos_del_inca_peru.html" class="btn-ler">Leia mais →</a>
             </article> 
 
- <!-- Post 21 -->
+            <!-- Post 25 -->
             <article class="post-card" data-tag="RallyPR, BR Rally, Gaucho">
-                <span class="tag">RallyPR, BR Rally, Gaucho  </span>
+                <span class="tag">RallyPR, BR Rally, Gaucho</span>
                 <h2>Resultado Rally Nova Italia RS</h2>
                 <a href="Resultados_rally_nova_italia_rs_2026.html" class="btn-ler">Leia mais →</a>
             </article> 
 
-        </div>
-    </div>
+            <!-- Post 26: Vídeo do YouTube Incorporado -->
+            <article class="post-card" data-tag="WRC, Rally1, Project Rally One, Sebastien Loeb">
+                <span class="tag">Sebastien Loeb, Project Rally One, Rally 1, WRC</span>
+                <h2>Test Sebastien Loeb Project Rally One WRC27 Rally 1</h2>
+                <div style="width: 100%; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; background: #000;">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/l7JD1BUyCo8" title="TEST RALLY1 WRC27 | RallyOne x Sebastien Loeb" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="display: block; width: 100%; height: 100%;"></iframe>
+                </div>
+            </article>
 
+            <!-- Post 27: Vídeo do YouTube Incorporado - Maxxi Rally Argentino -->
+            <article class="post-card" data-tag="Maxxi Rally Argentino">
+                <span class="tag">Maxxi Rally Argentino</span>
+                <h2>Maxxi Rally Argentino</h2>
+                <div style="width: 100%; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; background: #000;">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/gQjvfFnkfTk" title="O que é o Maxxi Rally Argentino" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="display: block; width: 100%; height: 100%;"></iframe>
+                </div>
+            </article>
 
- <!-- Post 22: Vídeo do YouTube Incorporado -->
-<article class="post-card" data-tag="WRC, Rally1, Project Rally One, Sebastien Loeb">
-    <span class="tag">Sebastien Loeb, Project Rally One, Rally 1, WRC</span>
-    <h2>Test Sebastien Loeb Project Rally One WRC27 Rally 1</h2>
-    <div style="width: 100%; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; background: #000;">
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/l7JD1BUyCo8" title="TEST RALLY1 WRC27 | RallyOne x Sebastien Loeb" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="display: block; width: 100%; height: 100%;"></iframe>
-    </div>
-</article>
-
-  <!-- Post 26: Vídeo do YouTube Incorporado - Maxxi Rally Argentino -->
-        <article class="post-card" data-tag="Maxxi Rally Argentino">
-            <span class="tag">Maxxi Rally Argentino</span>
-            <h2>Maxxi Rally Argentino</h2>
-            <div style="width: 100%; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; background: #000;">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/gQjvfFnkfTk" title="O que é o Maxxi Rally Argentino" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="display: block; width: 100%; height: 100%;"></iframe>
-            </div>
-        </article>
-
- <!-- Post 21 -->
+            <!-- Post 28 -->
             <article class="post-card" data-tag="RallyPR, BR Rally, Gaucho">
                 <span class="tag">RallyPR, Virtual</span>
                 <h2>Resultado dobradinha RallyPR- Rally Nova Italia RS + Virtual Chile</h2>
                 <a href="dobradinha_RallyPR_velocidade_virtual_no_ultimo_final_de_semana.html" class="btn-ler">Leia mais →</a>
             </article> 
 
-
-
-     <!-- Post 26: Vídeo do YouTube Incorporado - Maxxi Rally Argentino -->
-        <article class="post-card" data-tag="Transchaco, Paraguai">
-            <span class="tag">Transchaco, Paraguai</span>
-            <h2>Resultados Rally Transchaco-dia 1-Super Prime</h2>
-            <a href="dobradinha_RallyPR_velocidade_virtual_no_ultimo_final_de_semana.html" class="btn-ler">Leia mais →</a>
-        </article>
+            <!-- Post 29 -->
+            <article class="post-card" data-tag="Transchaco, Paraguai">
+                <span class="tag">Transchaco, Paraguai</span>
+                <h2>Resultados Rally Transchaco-dia 1-Super Prime</h2>
+                <a href="dobradinha_RallyPR_velocidade_virtual_no_ultimo_final_de_semana.html" class="btn-ler">Leia mais →</a>
+            </article>
 
         </div>
     </div>
-
-
-    
     
     <!-- Script de Busca e Soma Automática -->
     <script>
@@ -480,3 +474,4 @@
 
 </body>
 </html>
+
