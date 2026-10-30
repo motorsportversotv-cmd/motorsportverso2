@@ -3,150 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programação de Motorsport</title>
-    <!-- Barra de Pesquisa -->
-    <div class="wrapper-pesquisa">
-        <input type="text" id="campoPesquisa" class="input-pesquisa" placeholder="Pesquise por evento, categoria, canal ou local..." onkeyup="filtrarEventos()">
-    </div>
-
-    <!-- Tabela de Eventos -->
-    <table id="tabelaEventos">
-    
+    <title>Programação TV & Streaming - Motorsport</title>
     <style>
+        /* Estilos Gerais do Site */
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f4f6f9;
-            margin: 20px;
-            color: #333;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
         }
-        .container-principal {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+
         h1 {
             text-align: center;
-            color: #1a202c;
-            margin-bottom: 25px;
-        }
-        /* Barra de Pesquisa */
-        .wrapper-pesquisa {
             margin-bottom: 20px;
         }
-        .input-pesquisa {
-            width: 100%;
-            padding: 14px 20px;
-            font-size: 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-            outline: none;
-            box-sizing: border-box;
-            transition: border-color 0.2s;
+
+        /* Container de Filtros por Categoria */
+        .filtros-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
-        .input-pesquisa:focus {
+
+        .btn-filtro {
+            padding: 8px 16px;
+            border: 1px solid #444;
+            background-color: #222;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-filtro.ativo, .btn-filtro:hover {
+            background-color: #007bff;
             border-color: #007bff;
         }
+
         /* Grid de Cards */
-        .container-programacao {
+        .cards-grid {
             display: flex;
             flex-direction: column;
             gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
         }
+
+        /* Estilo do Card de Evento */
         .card-evento {
-            background-color: #ffffff;
+            background-color: #1e1e1e;
+            border: 1px solid #333;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.06);
-            border: 1px solid #e2e8f0;
-            padding: 15px 20px;
+            padding: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            transition: transform 0.2s;
         }
+
+        .card-evento:hover {
+            border-color: #555;
+        }
+
+        /* Classe utilitária para esconder o card quando filtrado */
+        .card-evento.escondido {
+            display: none !important;
+        }
+
         .info-esquerda {
             display: flex;
             gap: 20px;
             align-items: center;
+            width: 100%;
         }
+
         .tempo-info {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            background-color: #007bff;
-            color: white;
-            padding: 8px 12px;
+            min-width: 80px;
+            text-align: center;
+            background-color: #2a2a2a;
+            padding: 8px;
             border-radius: 6px;
-            min-width: 85px;
-            box-sizing: border-box;
         }
-        .data { font-size: 0.85em; font-weight: bold; }
-        .hora { font-size: 1.2em; font-weight: bold; }
-        
+
+        .tempo-info .data {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .tempo-info .hora {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ff9800;
+        }
+
         .detalhes-principais {
             display: flex;
             flex-direction: column;
             gap: 5px;
+            width: 100%;
         }
+
         .titulo-evento {
-            font-size: 1.1em;
+            font-size: 16px;
             font-weight: bold;
-            color: #1a202c;
         }
+
         .tags-container {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
+            margin-top: 5px;
         }
-        .tag-local {
-            font-size: 0.8em;
-            background-color: #e2f0fe;
-            color: #007bff;
+
+        .tag-local, .tag-categoria {
+            font-size: 11px;
             padding: 3px 8px;
             border-radius: 4px;
-            font-weight: bold;
+            background-color: #333;
+            color: #ddd;
         }
+
         .tag-categoria {
-            font-size: 0.8em;
-            background-color: #e9ecef;
-            color: #495057;
-            padding: 3px 8px;
-            border-radius: 4px;
-        }
-        /* Links direto em formato de Tags Rápidas */
-        .tag-canal-link {
-            font-size: 0.8em;
-            background-color: #28a745;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 4px;
-            text-decoration: none;
+            background-color: #0056b3;
             font-weight: bold;
-            transition: background-color 0.15s;
         }
+
+        .tag-canal-link {
+            font-size: 12px;
+            color: #4da6ff;
+            text-decoration: none;
+        }
+
         .tag-canal-link:hover {
-            background-color: #218838;
-        }
-        .info-direita {
-            text-align: right;
-            font-size: 0.9em;
-            color: #64748b;
-            font-weight: 500;
-            min-width: 150px;
-        }
-        .sem-resultados {
-            display: none;
-            text-align: center;
-            padding: 40px;
-            color: #718096;
-            background-color: #ffffff;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-            font-weight: 500;
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
+
+    <h1>Programação TV & Streaming</h1>
+
+    <!-- Botões de Filtro por Categoria -->
+    <div class="filtros-container">
+        <button class="btn-filtro ativo" onclick="filtrarCategoria('todos')">Todos</button>
+        <button class="btn-filtro" onclick="filtrarCategoria('rally')">Rally</button>
+        <button class="btn-filtro" onclick="filtrarCategoria('off-road')">Off-Road</button>
+        <button class="btn-filtro" onclick="filtrarCategoria('gt')">GT</button>
+        <button class="btn-filtro" onclick="filtrarCategoria('nascar')">Nascar</button>
+    </div>
 
     <div class="container-principal">
     <h1>Programação de Motorsport</h1>
@@ -707,6 +718,34 @@ function filtrarEventos() {
         }
     }
 }
+
+             <!-- Script de Filtro -->
+    <script>
+        function filtrarCategoria(categoriaSelecionada) {
+            const cards = document.querySelectorAll('.card-evento');
+            const botoes = document.querySelectorAll('.btn-filtro');
+
+            // Atualiza a aparência do botão ativo
+            botoes.forEach(botao => {
+                botao.classList.remove('ativo');
+                if (botao.textContent.toLowerCase().includes(categoriaSelecionada) || 
+                    (categoriaSelecionada === 'todos' && botao.textContent === 'Todos')) {
+                    botao.classList.add('ativo');
+                }
+            });
+
+            // Mostra ou esconde os cards baseado no atributo data-categoria
+            cards.forEach(card => {
+                const categoriaCard = card.getAttribute('data-categoria');
+                
+                if (categoriaSelecionada === 'todos' || categoriaCard === categoriaSelecionada) {
+                    card.classList.remove('escondido');
+                } else {
+                    card.classList.add('escondido');
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
