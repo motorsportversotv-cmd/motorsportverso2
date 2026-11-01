@@ -1,9 +1,10 @@
-<HTML>
-       <head>
-             <meta charset="UTF-8">
-             <meta name ="viewport" content="width-device-width,initial-scale=1.0">
-             <title>Resultados Rally Transchaco 2026</title>
-              <style>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados Rally Transchaco 2026</title>
+    <style>
         * {
             box-sizing: border-box;
             margin: 0;
@@ -12,7 +13,7 @@
         }
 
         body {
-            background-color: #1a1a1a; /* Fundo grafite escuro */
+            background-color: #1a1a1a;
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -21,7 +22,7 @@
 
         .container {
             width: 100%;
-            max-width: 700px; /* Largura ideal para leitura de notícias */
+            max-width: 700px;
             background-color: #242424;
             border-radius: 8px;
             border: 1px solid #333333;
@@ -29,85 +30,64 @@
             padding: 24px;
         }
 
-        .news-meta {
-            font-size: 13px;
-            color: #ffaa66;
+        h3 {
+            font-size: 24px;
             font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff6600;
+            padding-bottom: 8px;
+        }
+
+        h4 {
+            font-size: 18px;
+            color: #ffaa66;
+            margin-top: 24px;
             margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        /* IMAGEM AJUSTADA: Reduzida para 120px de altura conforme solicitado, sem distorcer */
-        .news-image {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            border: 1px solid #333333;
-        }
-
-        .news-title {
-            font-size: 24px;
-            font-weight: bold;
-            line-height: 1.3;
-            color: #ffffff;
-            margin-bottom: 16px;
-        }
-
-        .news-content {
+        .result-item {
             font-size: 15px;
             color: #cccccc;
-            line-height: 1.6;
-            margin-bottom: 24px;
+            background-color: #1a1a1a;
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #333333;
+            line-height: 1.5;
         }
 
-        .news-content p {
-            margin-bottom: 14px;
-        }
-
-        /* Botão estilizado em Laranja Rally */
-        .btn-access {
-            display: inline-block;
-            background-color: #ff6600;
+        .result-item strong {
             color: #ffffff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: bold;
-            transition: background-color 0.2s, transform 0.1s;
-        }
-
-        .btn-access:hover {
-            background-color: #e65c00;
-        }
-
-        .btn-access:active {
-            transform: scale(0.98);
         }
     </style>
-       </head>
-       <body>
-             <h3>Resultados Rally Transchaco 2026</h3>
-             <p>Top 10</p>
-             <p>1.M.Zaldivar\Gonzales-Skoda Fabia RS Rally 2-MZR Rally-RC2A-4:01:31.1</p>
-             <p>2.T.Weiller\J.Sanchez-Toyota GR Yaris Rally 2-Gazzo Racing Paraguay-RC2A-4:01:57.2</p>
-             <p>3.Saba\Olmos-Toyota GR Yaris Rally 2-Saba Compectition-RC2A-4:06:40.8</p>
-             <p>4.Bastard\Diaz-Toyota  GR Yaris Rally 2-ABR-RC2A-4:11:42.7</p>
-             <p>5.D.Dominguez (H)\Mussano-Toyota GR Yaris Rally 2-RC2A-4:28:03.2</p>
-             <p>6.Chiriani\Gonzales-VW Polo GTI R5-RC2B-4:29:22.3</p>
-             <p>7.Wasmony\Maune-VW Polo GTI R5-RC2B-4:50:18.8</p>
-             <p>8.Escauriza\Garcia-Skoda Fabia Rally 2 Evo-RC2B-5:24:08.39</p>
-             <p>9.Zapag\Pratta-Toyota Hylux-Copetrol Rally Team-T1 4x4-6:16:39.0</p>
-             <p>10.Wasmony\Diaz-Peugeot 208 Rally 4-RC4A-6:31:32.9</p>
+</head>
+<body>
 
-             <p>Resultados Rally Transchaco 2026-Históricos</p>
-             <p>1.Weiller\Lua-Mitsubishi Lancer Evo VIII-RC2NH-1:04:22.2</p>
-             <P>2.Ruoti\Laterza-Toyota Celica-RC2AH-1:05:51.0</p>
-             <p>3.Marret\Bravo-Mitsubishi Lancer EVO VIII-RC2HN-1:11:22.1</p>
-             <p>4.Frontera\Villamayor-Nissan Pulsar-H2-16V-1:28:00.2</p>
-             <p>5.Gonzales\Bellasai_Renault 18 GTX-H2-8V-3:10:00.5</p>
-       </body>
-</HTML>
+    <div class="container">
+        <h3>Resultados Rally Transchaco 2026</h3>
+
+        <h4>Top 10</h4>
+        <div class="result-item"><strong>1.</strong> M.Zaldivar \ Gonzales – Skoda Fabia RS Rally 2 (MZR Rally) – RC2A – 4:01:31.1</div>
+        <div class="result-item"><strong>2.</strong> T.Weiller \ J.Sanchez – Toyota GR Yaris Rally 2 (Gazzo Racing Paraguay) – RC2A – 4:01:57.2</div>
+        <div class="result-item"><strong>3.</strong> Saba \ Olmos – Toyota GR Yaris Rally 2 (Saba Competition) – RC2A – 4:06:40.8</div>
+        <div class="result-item"><strong>4.</strong> Bastard \ Diaz – Toyota GR Yaris Rally 2 (ABR) – RC2A – 4:11:42.7</div>
+        <div class="result-item"><strong>5.</strong> D.Dominguez (H) \ Mussano – Toyota GR Yaris Rally 2 – RC2A – 4:28:03.2</div>
+        <div class="result-item"><strong>6.</strong> Chiriani \ Gonzales – VW Polo GTI R5 – RC2B – 4:29:22.3</div>
+        <div class="result-item"><strong>7.</strong> Wasmony \ Maune – VW Polo GTI R5 – RC2B – 4:50:18.8</div>
+        <div class="result-item"><strong>8.</strong> Escauriza \ Garcia – Skoda Fabia Rally 2 Evo – RC2B – 5:24:08.39</div>
+        <div class="result-item"><strong>9.</strong> Zapag \ Pratta – Toyota Hilux (Copetrol Rally Team) – T1 4x4 – 6:16:39.0</div>
+        <div class="result-item"><strong>10.</strong> Wasmony \ Diaz – Peugeot 208 Rally 4 – RC4A – 6:31:32.9</div>
+
+        <h4>Resultados Históricos</h4>
+        <div class="result-item"><strong>1.</strong> Weiller \ Lua – Mitsubishi Lancer Evo VIII – RC2NH – 1:04:22.2</div>
+        <div class="result-item"><strong>2.</strong> Ruoti \ Laterza – Toyota Celica – RC2AH – 1:05:51.0</div>
+        <div class="result-item"><strong>3.</strong> Marret \ Bravo – Mitsubishi Lancer Evo VIII – RC2HN – 1:11:22.1</div>
+        <div class="result-item"><strong>4.</strong> Frontera \ Villamayor – Nissan Pulsar – H2-16V – 1:28:00.2</div>
+        <div class="result-item"><strong>5.</strong> Gonzales \ Bellasai – Renault 18 GTX – H2-8V – 3:10:00.5</div>
+    </div>
+
+</body>
+</html>
