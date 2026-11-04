@@ -32,6 +32,11 @@ tr:hover { background-color: #222; }
 .hypercar { background-color: #d92525; }
 .lmgt3 { background-color: #007acc; }
 .pro { background-color: #47a847; }
+
+/* Estilo do Botão/Link de Pilotos */
+.pilotos-link-container { text-align: center; margin-top: 30px; margin-bottom: 10px; }
+.pilotos-btn { background-color: #262626; color: #00a8ff; border: 1px solid #00a8ff; padding: 10px 20px; font-weight: bold; border-radius: 4px; text-decoration: none; display: inline-block; transition: 0.2s; }
+.pilotos-btn:hover { background-color: #00a8ff; color: #fff; }
 </style>
 </head>
 <body>
@@ -142,14 +147,15 @@ tr:hover { background-color: #222; }
   </tbody>
   </table>
 </div>
+
+<!-- Link aplicado corretamente para a página de pilotos -->
+<div class="pilotos-link-container">
+  <a href="pilotos.html" class="pilotos-btn">🏎️ Aceder à Base de Pilotos</a>
 </div>
 
-< a h ref=pilotos.html>
+</div>
 
 <script>
-// Configure a URL do seu backend aqui:
-// Se rodar localmente com Ngrok/Tunnel, insira a URL pública HTTPS (ex: https://xxx.ngrok-free.app/api/status)
-// Se rodar no Eclipse localmente sem SSL, configure para http://localhost:8080/api/status
 const API_URL = 'http://localhost:8080/api/status';
 
 async function checkServerStatus() {
@@ -176,7 +182,6 @@ async function checkServerStatus() {
   }
 }
 
-// Verifica status ao carregar e atualiza a cada 5 segundos
 checkServerStatus();
 setInterval(checkServerStatus, 5000);
 </script>
