@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motorsportverso - Base de Pilotos</title>
+<style>
+body { font-family: 'Segoe UI', sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
+.container { max-width: 1200px; margin: 0 auto; background-color: #1a1a1a; border: 1px solid #2d2d2d; padding: 20px; border-radius: 6px; }
+.main-header { background-color: #e10600; color: white; padding: 15px; font-weight: bold; font-size: 22px; border-radius: 4px; text-align: center; margin-bottom: 15px; letter-spacing: 1px; }
+
+/* Menu de Navegação */
+nav { text-align: center; margin-bottom: 25px; background-color: #222; padding: 10px; border-radius: 4px; border: 1px solid #333; }
+nav a { color: #00a8ff; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 14px; }
+nav a:hover { text-decoration: underline; color: #fff; }
+nav a.active { color: #e10600; }
+
+.section-title { font-size: 18px; color: #fff; background-color: #262626; padding: 8px 12px; border-left: 4px solid #00a8ff; margin-top: 20px; margin-bottom: 15px; font-weight: 600; }
+
+/* Tabela de Pilotos */
+table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; margin-bottom: 25px; }
+th { background-color: #222; color: #999; padding: 10px; font-weight: 600; border-bottom: 2px solid #333; text-transform: uppercase; font-size: 11px; }
+td { padding: 10px; border-bottom: 1px solid #262626; vertical-align: middle; }
+tr:hover { background-color: #222; }
+
+.driver-name { font-weight: bold; color: #fff; font-size: 14px; }
+.team-name { color: #aaa; font-size: 12px; }
+.badge { padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px; color: #fff; }
+.hypercar { background-color: #d92525; }
+.lmgt3 { background-color: #007acc; }
+.pro { background-color: #47a847; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="main-header">MOTORSPORTVERSO DASHBOARD</div>
+
+  <!-- Menu de Navegação entre Páginas -->
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="pilotos.html" class="active">Pilotos</a>
+  </nav>
+
+  <div class="section-title">🏎️ Perfil e Cadastro de Pilotos</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Piloto / Nacionalidade</th>
+        <th>Equipa</th>
+        <th>Categoria / Classe</th>
+        <th>Carro Habitual</th>
+        <th style="text-align: center;">Status</th>
+      </tr>
+    </thead>
+    <tbody id="driver-table-body">
+      <tr>
+        <td>#01</td>
+        <td><span class="driver-name">🇮🇹 Antonio Fuoco</span></td>
+        <td><span class="team-name">Ferrari AF Corse\Cetilar Racing</span></td>
+        <td><span class="badge hypercar">HYPERCAR</span></td>
+        <td>Ferrari 499P</td>
+        <td style="text-align: center; color: #00e676;">Ativo</td>
+      </tr>
+      <tr>
+        <td>#02</td>
+        <td><span class="driver-name">🇧🇷 A. Araújo</span></td>
+        <td><span class="team-name">Bemetse Rarsport / Hoorop</span></td>
+        <td><span class="badge lmgt3">LMGT3 / E2-SC</span></td>
+        <td>Nova Proto NP01 / Acura ARX-06</td>
+        <td style="text-align: center; color: #00e676;">Ativo</td>
+      </tr>
+      <tr>
+        <td>#03</td>
+        <td><span class="driver-name">🇪🇸 M. Pambresho</span></td>
+        <td><span class="team-name">Bisca Malamand Team</span></td>
+        <td><span class="badge hypercar">HYPERCAR</span></td>
+        <td>Porsche 963 LMDh</td>
+        <td style="text-align: center; color: #00e676;">Ativo</td>
+      </tr>
+      <tr>
+        <td>#04</td>
+        <td><span class="driver-name">🇫🇷 C. Bedericia</span></td>
+        <td><span class="team-name">PRO Sllve Team</span></td>
+        <td><span class="badge pro">PRO</span></td>
+        <td>Ferrari 296 GT3</td>
+        <td style="text-align: center; color: #00e676;">Ativo</td>
+      </tr>
+
+        <tr>
+        <td>#57</td>
+        <td><span class="driver-name">BR Daniel Serra</span></td>
+        <td><span class="team-name">PRO Kessel Racing</span></td>
+        <td><span class="badge pro">PRO</span></td>
+        <td>Ferrari 296 GT3</td>
+        <td style="text-align: center; color: #00e676;">Ativo</td>
+      </tr>
+
+      
+        <tr>
+        <td>#90</td>
+        <td><span class="driver-name">GBR Catie Munnings</span></td>
+        <td><span class="team-name">-</span></td>
+        <td><span class="badge pro">Rally</span></td>
+        <td>-</td>
+        <td style="text-align: center; color: #00e676;">Inativo</td>
+      </tr>
+
+       <tr>
+        <td>#17</td>
+        <td><span class="driver-name">BR Leo Zettel</span></td>
+        <td><span class="team-name">Octanas Motorsport-</span></td>
+        <td><span class="badge pro">Rally \ Rally 4</span></td>
+        <td>Renault Sandeiro RS</td>
+        <td style="text-align: center; color: #00e676;">Inativo</td>
+      </tr>
+
+        <tr>
+        <td>#27</td>
+        <td><span class="driver-name">BR Fred Zettel(piloto)</span></td>
+        <td><span class="team-name">Octanas Motorsport-</span></td>
+        <td><span class="badge pro">Rally \ Rally 4</span></td>
+        <td>Renault Sandeiro RS</td>
+        <td style="text-align: center; color: #00e676;">Inativo</td>
+      </tr>
+
+         <tr>
+        <td>#27</td>
+        <td><span class="driver-name">BR Lucas Law</span></td>
+        <td><span class="team-name">-</span></td>
+        <td><span class="badge pro">Hill Climb</span></td>
+        <td>Toyota GR Yaris</td>
+        <td style="text-align: center; color: #00e676;">Ativo</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
