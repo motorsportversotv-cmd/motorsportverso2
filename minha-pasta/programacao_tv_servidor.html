@@ -767,6 +767,29 @@ function filtrarEventos() {
                 }
             });
         }
+
+    // URL onde o seu servidor Java está a responder
+const API_URL = 'http://localhost:8080/api/programacao';
+
+async function carregarDadosDoServidor() {
+  try {
+    // 1. O site faz um pedido GET ao seu servidor Java
+    const resposta = await fetch(API_URL);
+    
+    if (resposta.ok) {
+      // 2. O Java devolve os dados do MySQL em formato JSON
+      const dados = document.json(); // ou resposta.json()
+      
+      // 3. O JavaScript insere dinamicamente na tabela do HTML
+      console.log("Dados recebidos com sucesso do Java!", dados);
+    }
+  } catch (erro) {
+    console.log("Erro ao conectar com o servidor Java:", erro);
+  }
+}
+
+// Executa ao carregar a página
+carregarDadosDoServidor();
     </script>
 
 </body>
