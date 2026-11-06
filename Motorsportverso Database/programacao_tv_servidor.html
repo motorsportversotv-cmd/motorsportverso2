@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motorsportverso - Eventos</title>
+    <title>Motorsportverso - Programação TV</title>
     <style>
         * {
             box-sizing: border-box;
@@ -75,7 +75,7 @@
             color: #04d361;
         }
 
-        /* Tabela de Eventos */
+        /* Tabela de Programação */
         .table-container {
             background-color: #202024;
             border-radius: 8px;
@@ -107,9 +107,9 @@
             background-color: #29292e;
         }
 
-        .categoria-tag {
-            background-color: #29292e;
-            color: #e1e1e6;
+        .canal-tag {
+            background-color: #04d361;
+            color: #121214;
             padding: 4px 8px;
             border-radius: 4px;
             font-size: 0.8rem;
@@ -139,86 +139,86 @@
     <nav>
         <a href="index.html">Dashboard</a>
         <a href="pilotos.html">Pilotos</a>
-        <a href="programacao_tv_servidor.html">Programação TV</a>
-        <a href="eventos.html" class="active">Eventos</a>
+        <a href="programacao_tv_servidor.html" class="active">Programação TV</a>
+        <a href="eventos.html">Eventos</a>
     </nav>
 
     <main class="table-container">
-        <h2>Calendário de Eventos</h2>
+        <h2>Programação de TV e Transmissões</h2>
         <br>
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Evento / Etapa</th>
+                    <th>Evento / Sessão</th>
                     <th>Categoria</th>
-                    <th>Circuito / Local</th>
+                    <th>Circuito</th>
                     <th>Data</th>
+                    <th>Onde Assistir (Canal)</th>
                 </tr>
             </thead>
-            <tbody id="tabelaEventos">
+            <tbody id="tabelaProgramacao">
                 <tr>
-                    <td colspan="5" style="text-align: center; color: #a8a8b3;">A carregar dados do servidor Java...</td>
+                    <td colspan="6" style="text-align: center; color: #a8a8b3;">A carregar programação do servidor Java...</td>
                 </tr>
             </tbody>
         </table>
     </main>
 
     <script>
-        const API_URL = 'http://localhost:8080/api/eventos';
+        const API_URL = 'http://localhost:8080/api/programacao'; // Ajuste o endpoint se necessário
 
         const statusDot = document.getElementById('statusDot');
         const statusText = document.getElementById('statusText');
-        const tabelaEventos = document.getElementById('tabelaEventos');
+        const tabelaProgramacao = document.getElementById('tabelaProgramacao');
 
-        // Evento padrão estático com ID formatado
-        const eventoPorscheCupBrasil= {
+        // Evento padrão da Porsche Cup para a Programação TV
+        const eventoPorscheCup = {
             id: 1,
-            nome: "Porsche Cup Brasil-Challenge-Qualyfing",
+            nome: "Porsche Cup Brasil - Challenge - Qualifying",
             categoria: "GT",
             circuito: "Interlagos",
-            data: "05\11\2026",
-            canal: "Youtube Esporte na Band", "Youtube Porsche Cup Brasil"
+            data: "05/11/2026",
+            canal: "Youtube Esporte na Band / Porsche Cup Brasil",
             link: "Friends_Hill_climb_Rio_do_rastro_2026.html"
         };
 
-        function renderizarEventos(listaEventos) {
-            tabelaEventos.innerHTML = '';
+        function renderizarProgramacao(lista) {
+            tabelaProgramacao.innerHTML = '';
 
-            listaEventos.forEach((evento, index) => {
+            lista.forEach((item, index) => {
                 const tr = document.createElement('tr');
-                const link = evento.link || 'Friends_Hill_climb_Rio_do_rastro_2026.html';
-                
-                // Formata o ID: se não vier do backend, usa o índice da linha + 1 como fallback
-                const eventoId = evento.id || (index + 1);
+                const link = item.link || '#';
+                const itemId = item.id || (index + 1);
                 
                 tr.innerHTML = `
-                    <td>${eventoId}</td>
-                    <td><strong><a href="${link}" class="link-evento">${evento.nome || evento.evento || '-'}</a></strong></td>
-                    <td><span class="categoria-tag">${evento.categoria || 'Geral'}</span></td>
-                    <td>${evento.circuito || evento.local || '-'}</td>
-                    <td>${evento.data || '-'}</td>
+                    <td>${itemId}</td>
+                    <td><strong><a href="${link}" class="link-evento">${item.nome || item.evento || '-'}</a></strong></td>
+                    <td><span style="color: #a8a8b3;">${item.categoria || 'Geral'}</span></td>
+                    <td>${item.circuito || item.local || '-'}</td>
+                    <td>${item.data || '-'}</td>
+                    <td><span class="canal-tag">${item.canal || 'Transmissão Oficial'}</span></td>
                 `;
-                tabelaEventos.appendChild(tr);
+                tabelaProgramacao.appendChild(tr);
             });
         }
 
-        async function carregarEventos() {
+        async function carregarProgramacao() {
             try {
                 const resposta = await fetch(API_URL);
                 
                 if (resposta.ok) {
-                    let eventos = await resposta.json();
+                    let dados = await resposta.json();
                     
                     statusDot.classList.add('online');
                     statusText.innerText = 'Servidor Java Conectado';
 
-                    const jaExiste = eventos.some(e => (e.nome || e.evento) === eventoRioDoRastro.nome);
+                    const jaExiste = dados.some(e => (e.nome || e.evento) === eventoPorscheCup.nome);
                     if (!jaExiste) {
-                        eventos.unshift(eventoRioDoRastro);
+                        dados.unshift(eventoPorscheCup);
                     }
 
-                    renderizarEventos(eventos);
+                    renderizarProgramacao(dados);
                 } else {
                     throw new Error('Servidor respondeu com erro');
                 }
@@ -227,11 +227,12 @@
                 statusDot.classList.remove('online');
                 statusText.innerText = 'Servidor Java Desconectado';
                 
-                renderizarEventos([eventoRioDoRastro]);
+                // Exibe o item padrão offline
+                renderizarProgramacao([eventoPorscheCup]);
             }
         }
 
-        carregarEventos();
+        carregarProgramacao();
     </script>
 </body>
 </html>
