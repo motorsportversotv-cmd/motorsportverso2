@@ -160,23 +160,23 @@
             </thead>
             <tbody id="tabelaProgramacao">
                 <tr>
-                    <td colspan="6" style="text-align: center; color: #a8a8b3;">A carregar programação do servidor Java...</td>
+                    <td colspan="7" style="text-align: center; color: #a8a8b3;">A carregar programação do servidor Java...</td>
                 </tr>
             </tbody>
         </table>
     </main>
 
     <script>
-        const API_URL = 'http://localhost:8080/api/programacao'; // Ajuste o endpoint se necessário
+        const API_URL = 'http://localhost:8080/api/programacao';
 
         const statusDot = document.getElementById('statusDot');
         const statusText = document.getElementById('statusText');
         const tabelaProgramacao = document.getElementById('tabelaProgramacao');
 
-        // Evento padrão da Porsche Cup para a Programação TV
-        const eventoPorscheCup = {
+        // Eventos padrão estáticos
+        const eventoPorscheCupQualy = {
             id: 1,
-            hora: "16:30".
+            hora: "16:30",
             nome: "Porsche Cup Brasil - Challenge - Qualifying",
             categoria: "GT",
             circuito: "Interlagos",
@@ -185,27 +185,30 @@
             link: "Friends_Hill_climb_Rio_do_rastro_2026.html"
         };
 
-          const eventoF1 = {
-            id: 1,
-            hora: "12:30"
+        const eventoF1FP1 = {
+            id: 2,
+            hora: "12:30",
             nome: "F1 - FP1",
             categoria: "Formula",
             circuito: "Interlagos",
-            data: "065/11/2026",
-            canal: "Globoplay", "Sportv2 ou 3",
+            data: "06/11/2026",
+            canal: "Globoplay / SporTV",
             link: "Friends_Hill_climb_Rio_do_rastro_2026.html"
         };
-        
-          const eventoPorscheCup = {
-            id: 1,
-            hora: "14:00"
-            nome: "Porsche Cup Brasil - Challenge - race 1",
+
+        const eventoPorscheCupRace1 = {
+            id: 3,
+            hora: "14:00",
+            nome: "Porsche Cup Brasil - Challenge - Race 1",
             categoria: "GT",
             circuito: "Interlagos",
-            data: "065/11/2026",
+            data: "06/11/2026",
             canal: "Youtube Esporte na Band / Porsche Cup Brasil",
             link: "Friends_Hill_climb_Rio_do_rastro_2026.html"
         };
+
+        const eventosEstaticos = [eventoPorscheCupQualy, eventoF1FP1, eventoPorscheCupRace1];
+
         function renderizarProgramacao(lista) {
             tabelaProgramacao.innerHTML = '';
 
@@ -216,6 +219,7 @@
                 
                 tr.innerHTML = `
                     <td>${itemId}</td>
+                    <td>${item.hora || '-'}</td>
                     <td><strong><a href="${link}" class="link-evento">${item.nome || item.evento || '-'}</a></strong></td>
                     <td><span style="color: #a8a8b3;">${item.categoria || 'Geral'}</span></td>
                     <td>${item.circuito || item.local || '-'}</td>
@@ -236,14 +240,13 @@
                     statusDot.classList.add('online');
                     statusText.innerText = 'Servidor Java Conectado';
 
-                    const jaExiste = dados.some(e => (e.nome || e.evento) === eventoPorscheCup.nome);
-                    if (!jaExiste) {
-                        dados.unshift(eventoPorscheCup);
-                    }
-                    const jaExiste = dados.some(e => (e.nome || e.evento) === eventoF1.nome);
-                    if (!jaExiste) {
-                        dados.unshift(eventoF1);
-                    }
+                    // Insere eventos estáticos caso não estejam presentes nos dados vindos da API
+                    eventosEstaticos.forEach(eventoEstatico => {
+                        const jaExiste = dados.some(e => (e.nome || e.evento) === eventoEstatico.nome);
+                        if (!jaExiste) {
+                            dados.push(eventoEstatico);
+                        }
+                    });
 
                     renderizarProgramacao(dados);
                 } else {
@@ -254,9 +257,8 @@
                 statusDot.classList.remove('online');
                 statusText.innerText = 'Servidor Java Desconectado';
                 
-                // Exibe o item padrão offline
-                renderizarProgramacao([eventoPorscheCup]);
-                renderizarProgramacao([eventoF1]);
+                // Exibe a lista completa de eventos estáticos offline
+                renderizarProgramacao(eventosEstaticos);
             }
         }
 
