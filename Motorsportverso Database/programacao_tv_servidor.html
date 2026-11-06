@@ -205,7 +205,7 @@
         <a href="eventos.html">Eventos</a>
     </nav>
 
-    <!-- Formulário de Novo Cadastro com ID automático e Opções de Canais -->
+    <!-- Formulário de Novo Cadastro -->
     <section class="form-container">
         <h2>Adicionar Novo Evento / Transmissão</h2>
         <form id="formNovoEvento">
@@ -247,12 +247,11 @@
                         <option value="NSports">NSports</option>
                         <option value="Kick TV">Kick TV</option>
                         <option value="Globo">Globo</option>
-                        <option value="PhizTV">PhizTV</option>
                     </select>
                 </div>
             </div>
             <br>
-            <button type="submit" class="btn-cadastrar">Salvar na Tabela</button>
+            <button type="submit" class="btn-cadastrar">Salvar no Servidor</button>
         </form>
     </section>
 
@@ -287,15 +286,12 @@
         const tabelaProgramacao = document.getElementById('tabelaProgramacao');
         const formNovoEvento = document.getElementById('formNovoEvento');
 
-        // Eventos padrão estáticos
         const eventosEstaticos = [
             { id: 1, hora: "16:30", nome: "Porsche Cup Brasil - Challenge - Qualifying", categoria: "GT", circuito: "Interlagos", data: "05/11/2026", canal: "Youtube", link: "#" },
             { id: 2, hora: "12:30", nome: "F1 - FP1", categoria: "Formula", circuito: "Interlagos", data: "06/11/2026", canal: "Sportv 2 ou 3 BR", link: "#" },
             { id: 3, hora: "14:00", nome: "Porsche Cup Brasil - Challenge - Race 1", categoria: "GT", circuito: "Interlagos", data: "06/11/2026", canal: "Youtube", link: "#" },
             { id: 4, hora: "15:00", nome: "Porsche Cup Brasil - 992 - Qualifying", categoria: "GT", circuito: "Interlagos", data: "06/11/2026", canal: "Youtube", link: "#" }
         ];
-
-        let listaAtual = [...eventosEstaticos];
 
         function renderizarProgramacao(lista) {
             tabelaProgramacao.innerHTML = '';
@@ -331,23 +327,21 @@
                             dados.push(estatico);
                         }
                     });
-                    listaAtual = dados;
-                    renderizarProgramacao(listaAtual);
+                    renderizarProgramacao(dados);
                 } else {
                     throw new Error();
                 }
             } catch (erro) {
                 statusDot.classList.remove('online');
-                statusText.innerText = 'Modo Local (Servidor Offline)';
-                renderizarProgramacao(listaAtual);
+                statusText.innerText = 'Servidor Java Desconectado';
+                renderizarProgramacao(eventosEstaticos);
             }
         }
 
-        // Lógica para cadastrar novo evento ao preencher o formulário
-        formNovoEvento.addEventListener('submit', (e) => {
+        // Envio do formulário salvando diretamente no Servidor Java via POST
+        formNovoEvento.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Formata a data de AAAA-MM-DD para DD/MM/AAAA
             const dataInput = document.getElementById('inputData').value;
             let dataFormatada = dataInput;
             if (dataInput.includes('-')) {
@@ -355,11 +349,7 @@
                 dataFormatada = `${partes[2]}/${partes[1]}/${partes[0]}`;
             }
 
-            // Gera um ID automático incremental baseado no tamanho da lista
-            const novoId = listaAtual.length > 0 ? Math.max(...listaAtual.map(e => e.id || 0)) + 1 : 1;
-
             const novoEvento = {
-                id: novoId,
                 hora: document.getElementById('inputHora').value,
                 nome: document.getElementById('inputNome').value,
                 categoria: document.getElementById('inputCategoria').value,
@@ -369,19 +359,30 @@
                 link: "#"
             };
 
-            listaAtual.push(novoEvento);
-            renderizarProgramacao(listaAtual);
+            try {
+                const resposta = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(novoEvento)
+                });
 
-            // Limpa o formulário após salvar
-            formNovoEvento.reset();
+                if (resposta.ok) {
+                    alert('Evento salvo com sucesso no servidor!');
+                    formNovoEvento.reset();
+                    carregarProgramacao(); // Recarrega a tabela com os dados atualizados do servidor
+                } else {
+                    alert('Erro ao salvar no servidor. Verifique a API.');
+                }
+            } catch (erro) {
+                console.error('Erro de conexão:', erro);
+                alert('Não foi possível conectar ao servidor Java para salvar o evento.');
+            }
         });
 
         carregarProgramacao();
     </script>
 </body>
 </html>
-     
-
       
-
-     
