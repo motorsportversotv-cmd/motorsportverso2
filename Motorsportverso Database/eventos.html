@@ -115,6 +115,15 @@
             font-size: 0.8rem;
             font-weight: bold;
         }
+
+        a.link-evento {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a.link-evento:hover {
+            color: #04d361;
+        }
     </style>
 </head>
 <body>
@@ -145,61 +154,68 @@
                     <th>Categoria</th>
                     <th>Circuito / Local</th>
                     <th>Data</th>
-                     <a h ref="Friends_Hill_climb_Rio_do_rastro_2026.html">
-                   <td>1</td>
-                   <td>Rio do Rastro Hill Climb</td>
-                   <td>Hill Climb</td>
-                   <td>Rio do Rastro</td>
                 </tr>
-                    
             </thead>
             <tbody id="tabelaEventos">
                 <tr>
                     <td colspan="5" style="text-align: center; color: #a8a8b3;">A carregar dados do servidor Java...</td>
-                    <td></td>
                 </tr>
             </tbody>
         </table>
     </main>
 
     <script>
-        // Endpoint do seu backend Java para a lista de eventos
+        const API_URL = 'http://localhost:8080/api/eventos';
 
         const statusDot = document.getElementById('statusDot');
         const statusText = document.getElementById('statusText');
         const tabelaEventos = document.getElementById('tabelaEventos');
+
+        // Evento padrão estático
+        const eventoRioDoRastro = {
+            id: 1,
+            nome: "Rio do Rastro Hill Climb",
+            categoria: "Hill Climb",
+            circuito: "Serra do Rio do Rastro",
+            data: "2026",
+            link: "Friends_Hill_climb_Rio_do_rastro_2026.html"
+        };
+
+        function renderizarEventos(listaEventos) {
+            tabelaEventos.innerHTML = '';
+
+            listaEventos.forEach(evento => {
+                const tr = document.createElement('tr');
+                const link = evento.link || 'Friends_Hill_climb_Rio_do_rastro_2026.html';
+                
+                tr.innerHTML = `
+                    <td>${evento.id || '-'}</td>
+                    <td><strong><a href="${link}" class="link-evento">${evento.nome || evento.evento || '-'}</a></strong></td>
+                    <td><span class="categoria-tag">${evento.categoria || 'Geral'}</span></td>
+                    <td>${evento.circuito || evento.local || '-'}</td>
+                    <td>${evento.data || '-'}</td>
+                `;
+                tabelaEventos.appendChild(tr);
+            });
+        }
 
         async function carregarEventos() {
             try {
                 const resposta = await fetch(API_URL);
                 
                 if (resposta.ok) {
-                    const eventos = await resposta.json();
+                    let eventos = await resposta.json();
                     
-                    // Atualiza a telemetria para VERDE
                     statusDot.classList.add('online');
                     statusText.innerText = 'Servidor Java Conectado';
 
-                    // Limpa a tabela
-                    tabelaEventos.innerHTML = '';
-
-                    if (eventos.length === 0) {
-                        tabelaEventos.innerHTML = '<tr><td colspan="5" style="text-align:center;">Nenhum evento cadastrado no banco.</td></tr>';
-                        return;
+                    // Se a API não trouxer o evento do Rio do Rastro, adiciona ele no topo da lista
+                    const jaExiste = eventos.some(e => (e.nome || e.evento) === eventoRioDoRastro.nome);
+                    if (!jaExiste) {
+                        eventos.unshift(eventoRioDoRastro);
                     }
 
-                    // Preenche a tabela com os dados vindos do MySQL
-                    eventos.forEach(evento => {
-                        const tr = document.createElement('tr');
-                        tr.innerHTML = `
-                            <td>${evento.id || '-'}</td>
-                            <td><strong>${evento.nome || evento.evento}</strong></td>
-                            <td><span class="categoria-tag">${evento.categoria || 'Geral'}</span></td>
-                            <td>${evento.circuito || evento.local || '-'}</td>
-                            <td>${evento.data || '-'}</td>
-                        `;
-                        tabelaEventos.appendChild(tr);
-                    });
+                    renderizarEventos(eventos);
                 } else {
                     throw new Error('Servidor respondeu com erro');
                 }
@@ -207,12 +223,15 @@
                 console.error('Erro ao conectar ao Java:', erro);
                 statusDot.classList.remove('online');
                 statusText.innerText = 'Servidor Java Desconectado';
-                tabelaEventos.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#e52e2e;">Não foi possível carregar os eventos. Verifique se o servidor JAR está ativo.</td></tr>';
+                
+                // Exibe o evento do Rio do Rastro mesmo se o servidor estiver offline
+                renderizarEventos([eventoRioDoRastro]);
             }
         }
 
-        // Executa ao carregar a página
         carregarEventos();
     </script>
 </body>
 </html>
+               
+   
