@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programação TV & Streaming - Motorsport</title>
+    <style>
+        /* Estilos Gerais do Site */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Container de Filtros por Categoria */
+        .filtros-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-filtro {
+            padding: 8px 16px;
+            border: 1px solid #444;
+            background-color: #222;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-filtro.ativo, .btn-filtro:hover {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        /* Grid de Cards */
+        .cards-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Estilo do Card de Evento */
+        .card-evento {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .card-evento:hover {
+            border-color: #555;
+        }
+
+        /* Classe utilitária para esconder o card quando filtrado */
+        .card-evento.escondido {
+            display: none !important;
+        }
+
+        .info-esquerda {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .tempo-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 80px;
+            text-align: center;
+            background-color: #2a2a2a;
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        .tempo-info .data {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .tempo-info .hora {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ff9800;
+        }
+
+        .detalhes-principais {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
+        }
+
+        .titulo-evento {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .tags-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        .tag-local, .tag-categoria {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background-color: #333;
+            color: #ddd;
+        }
+
+        .tag-categoria {
+            background-color: #0056b3;
+            font-weight: bold;
+        }
+
+        .tag-canal-link {
+            font-size: 12px;
+            color: #4da6ff;
+            text-decoration: none;
+        }
+
+        .tag-canal-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Programação TV & Streaming</h1>
+
+    <!-- Botões de Filtro por Categoria -->
+    <div class="filtros-container">
+        <button class="btn-filtro ativo" onclick="filtrarCategoria('todos')">Todos</button>
+        <button class="btn-filtro" onclick="filtrarCategoria('rally')">Rally</button>
+        <button class="btn-filtro" onclick="filtrarCategoria('off-road')">Off-Road</button>
+        <button class="btn-filtro" onclick="filtrarCategoria('gt')">GT</button>
+        <button class="btn-filtro" onclick="filtrarCategoria('nascar')">Nascar</button>
+    </div>
+
+    <div class="container-principal">
+    <h1>Programação de Motorsport</h1>
+
+    <!-- Barra de Pesquisa -->
+    <div class="wrapper-pesquisa">
+        <input type="text" id="campoPesquisa" class="input-pesquisa" placeholder="Pesquise por evento, categoria, canal ou local..." onkeyup="filtrarEventos()">
+    </div>
+</div>
+
+<!-- CARD 1 -->
+    <div class="card-evento">
+        <div class="info-esquerda">
+            <div class="tempo-info">
+                <span class="data">03/11/2026</span>
+                <span class="hora">04:30</span>
+            </div>
+            <div class="detalhes-principais">
+                <span class="titulo-evento">Toyota Racing\Gazoo Racing - WRC - Launch Team</span>
+                <div class="tags-container">
+                    <span class="tag-local">Japão</span>
+                    <span class="tag-categoria">Rally</span>
+                    <a href="https://www.youtube.com/@TOYOTAGAZOORacingJPchannel" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Youtube Gazoo Racing↗</a>
+                </div>
+            </div>
+        </div>
+        <div class="info-direita">
+            <span>Transmissão: Youtube</span>
+        </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="card-evento">
+        <div class="info-esquerda">
+            <div class="tempo-info">
+                <span class="data">06/11/2026</span>
+                <span class="hora">12:30</span>
+            </div>
+            <div class="detalhes-principais">
+                <span class="titulo-evento">F1 - FP1</span>
+                <div class="tags-container">
+                    <span class="tag-local">Interlagos</span>
+                    <span class="tag-categoria">Formula</span>
+                    <a href="https://globoplay.globo.com/" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Globoplay Premium↗</a>
+                </div>
+            </div>
+        </div>
+        <div class="info-direita">
+            <span>Transmissão: Globoplay Premium / Sportv 2 ou 3</span>
+        </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="card-evento">
+        <div class="info-esquerda">
+            <div class="tempo-info">
+                <span class="data">06/11/2026</span>
+                <span class="hora">14:30</span>
+            </div>
+            <div class="detalhes-principais">
+                <span class="titulo-evento">Porsche Cup Brasil - Corrida / Race 1 - Challenge</span>
+                <div class="tags-container">
+                    <span class="tag-local">Interlagos</span>
+                    <span class="tag-categoria">GT</span>
+                    <a href="https://www.youtube.com/@esportenaband" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Youtube Esporte na Band↗</a>
+                </div>
+            </div>
+        </div>
+        <div class="info-direita">
+            <span>Transmissão: Youtube Esporte na Band</span>
+        </div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="card-evento">
+        <div class="info-esquerda">
+            <div class="tempo-info">
+                <span class="data">07/11/2026</span>
+                <span class="hora">06:20</span>
+            </div>
+            <div class="detalhes-principais">
+                <span class="titulo-evento">FIA WEC - FP3</span>
+                <div class="tags-container">
+                    <span class="tag-local">Monza</span>
+                    <span class="tag-categoria">Hypercar / LMGT3</span>
+                    <a href="https://www.youtube.com/@grandepremio" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Youtube GP↗</a>
+                </div>
+            </div>
+        </div>
+        <div class="info-direita">
+            <span>Transmissão: Youtube GP</span>
+        </div>
+    </div>
+
+
+
+
+            
+
+    
+
+
+          
+                     
+
+
+    <>
+                       
+
+     
+                
+
+
+    
+
+
+
+    
+
+           <!-- CARD 1 -->
+            <div class="card-evento">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">31/10/2026</span>
+                        <span class="hora">07:30</span>
+                    </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">Nascar Brasil-Qualyfing</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Chapeco-SC</span>
+                            <span class="tag-categoria">Nascar</span>
+                            <a href="https://www.youtube.com/@NASCARBrasilSprintRace" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Youtube Nascar Brasil↗</a>
+                            <a href="https://www.clarosports.com/en-vivo-home/" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Claro Sports America Latina↗</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-direita">
+                    <span>Transmissão: Youtube/ Claro Sports America Latina</span>
+                </div>
+            </div>
+                </div>
+            </div>
+
+
+    <!-- CARD 1 -->
+            <div class="card-evento">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">01/11/2026</span>
+                        <span class="hora">07:00</span>
+                    </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">Sertoes Series-SP-dia 2</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Itatinga-SP</span>
+                            <span class="tag-categoria">Rally, Off Road</span>
+                            <a href="https://www.youtube.com/@RoxoSports" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Roxo Sports↗</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-direita">
+                    <span>Transmissão: Youtube Roxo Sports</span>
+                </div>
+            </div>
+                </div>
+            </div>
+
+
+
+            <div class="card-evento">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">01/11/2026</span>
+                        <span class="hora">09:00</span>
+                    </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">Nascar Brasil-race 1</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Chapeco-SC</span>
+                            <span class="tag-categoria">Nascar</span>
+                            <a href="https://www.youtube.com/@NASCARBrasilSprintRace" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Youtube Nascar Brasil↗</a>
+                            <a href="https://www.clarosports.com/en-vivo-home/" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Claro Sports America Latina↗</a>
+                            <a href="https://www.youtube.com/@sbt" target="_blank" rel="noopener noreferrer" class="tag-canal-link">SBT↗</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-direita">
+                    <span>Transmissão: Youtube/ Claro Sports America Latina\ Youtube Nsports\SBT</span>
+                </div>
+            </div>
+                </div>
+                <div class="info-direita">
+                    <span>Transmissão: Youtube</span>
+                </div>
+            </div>
+               
+
+
+          
+            <div class="card-evento">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">01/11/2026</span>
+                        <span class="hora">09:00</span>
+                    </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">Desafio Radical 4x4</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Telemânco Borba-PR</span>
+                            <span class="tag-categoria">Off Road</span>
+                            <a href="https://www.youtube.com/@FOFOESPORTES" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Youtube Fofo Sports↗</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-direita">
+                    <span>Transmissão: Youtube Fofo Sports</span>
+                </div>
+            </div>
+            </div>
+
+ 
+              
+            <div class="card-evento">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">01/11/2026</span>
+                        <span class="hora">12:00</span>
+                    </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">Copa Truck-corridas 1 & 2</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Chapeco-SC</span>
+                            <span class="tag-categoria">Truck</span>
+                            <a href="https://www.youtube.com/@CopaTruck" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Youtube Copa Truck↗</a>
+                             <a href="https://www.youtube.com/@EsportenaBand" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Youtube Esporte na Band↗</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-direita">
+                    <span>Transmissão: Youtube \Youtube Esporte na Band\Bandsports\NSports</span>
+                </div>
+            </div>
+
+
+             <div class="card-evento">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">01/11/2026</span>
+                        <span class="hora">12:50</span>
+                    </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">GTWC ASIA-races-VT</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Shangai</span>
+                            <span class="tag-categoria">GT, GT3</span>
+                            <a href="https://www.youtube.com/@grandepremio" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Youtube GP↗</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-direita">
+                    <span>Transmissão: Youtube</span>
+                </div>
+            </div>
+         
+
+            <div class="card-evento">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">01/11/2026</span>
+                        <span class="hora">14:00</span>
+                    </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">Nascar Brasil-race 2-Estagios 2 & 3</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Chapeco-SC</span>
+                            <span class="tag-categoria">Nascar</span>
+                            <a href="https://www.youtube.com/@NASCARBrasilSprintRace" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Youtube Nascar Brasil↗</a>
+                            <a href="https://www.clarosports.com/en-vivo-home/" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Claro Sports America Latina↗</
+                        </div>
+                    </div>
+                </div>
+                <div class="info-direita">
+                    <span>Transmissão: Youtube/ Claro Sports America Latina\ ESPN 3 ou 4</span>
+                </div>
+            </div>
+                </div>
+                <div class="info-direita">
+                    <span>Transmissão: Youtube</span>
+                </div>
+            </div>
+               
+
+
+
+   <!-- CARD 3 -->
+            <div class="card-evento">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">25/10/2026</span>
+                        <span class="hora">07:00</span>
+                    </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">ERC Rally-SS13</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Portugal</span>
+                            <span class="tag-categoria">Rally</span>
+                            <a href="https://pitsport.st/programs/101910" target="_blank" rel="noopener noreferrer" class="tag-canal-link">-↗</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-direita">
+                    <span>Sportv4 Portugal</span>
+                </div>
+            </div>
+
+
+    
+
+
+
+
+    
+   <!-- CARD 5 -->
+<div class="card-evento">
+    <div class="info-esquerda">
+        <div class="tempo-info">
+            <span class="data">24/10/2026</span>
+            <span class="hora">11:30</span>
+        </div>
+        <div class="detalhes-principais">
+            <span class="titulo-evento">Endurance Brasil</span>
+            <div class="tags-container">
+                <span class="tag-local">Brasilia</span>
+                <span class="tag-categoria">Endurance Racing, GT,Protótipo, GT3, GT4</span>
+                <a href="https://www.youtube.com/@endurancebrasil" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Endurance Brasil ↗</a>
+                <a href="https://www.youtube.com/@highspeedtvbr" target="_blank" rel="noopener noreferrer" class="tag-canal-link">High Speed TV↗</a>
+                <a href="https://www.youtube.com/@RoxoSports" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Roxo Sports↗</a>
+            </div>
+        </div>
+    </div>
+    <div class="info-direita">
+    </div>
+</div>
+
+
+         <!-- CARD 5 -->
+<div class="card-evento">
+    <div class="info-esquerda">
+        <div class="tempo-info">
+            <span class="data">25/10/2026</span>
+            <span class="hora">09:00</span>
+        </div>
+        <div class="detalhes-principais">
+            <span class="titulo-evento">GT Open-race 2</span>
+            <div class="tags-container">
+                <span class="tag-local">Barcelona</span>
+                <span class="tag-categoria">GT, GT3</span>
+                <a href="https://www.youtube.com/@blaumotorsport2555" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Blau Motorsport ↗</a>
+                <a href="https://www.youtube.com/@AMilPorHoraComRodrigoMattar" target="_blank" rel="noopener noreferrer" class="tag-canal-link">A Mil Por Hora ↗</a>
+            </div>
+        </div>
+    </div>
+    <div class="info-direita">
+    </div>
+</div>
+    !-- CARD 1 -->
+            <div class="card-evento">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">25/10/2026</span>
+                        <span class="hora">09:00</span>
+                    </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">Lamborghini Super Trofeu Pró\Pró-AM-race 2</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Monza</span>
+                            <span class="tag-categoria">GT</span>
+                            <a href="https://www.youtube.com/@LamborghiniSquadraCorse" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Lamborghini Squadra Corse↗</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-direita">
+                    <span>Transmissão: Youtube</span>
+                </div>
+    
+
+      <!-- CARD 5 -->
+<div class="card-evento">
+    <div class="info-esquerda">
+        <div class="tempo-info">
+            <span class="data">25/10/2026</span>
+            <span class="hora">10:00</span>
+        </div>
+        <div class="detalhes-principais">
+            <span class="titulo-evento">Rally Transchaco-Super Prime</span>
+            <div class="tags-container">
+                <span class="tag-local">Paraguai</span>
+                <span class="tag-categoria">Rally</span>
+                <a href="https://www.youtube.com/@cochealavista" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Coche la Vista ↗</a>
+            </div>
+        </div>
+    </div>
+    <div class="info-direita">
+    </div>
+</div>
+
+      <!-- CARD 3 -->
+            <div class="card-evento">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">25/10/2026</span>
+                        <span class="hora">10:00</span>
+                    </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">Rally X Global Final-dia 2</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Montalegre</span>
+                            <span class="tag-categoria">Rallycross</span>
+        
+                            <a href="https://www.youtube.com/@RallyXTV" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Rally X TV ↗</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-direita">
+                    <span>Youtube</span>
+                </div>
+            </div>
+
+     <!-- CARD 3 -->
+            <div class="card-evento">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">25/10/2026</span>
+                        <span class="hora">12:00</span>
+                    </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">ERC Rally-SS17</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Portugal</span>
+                            <span class="tag-categoria">Rally</span>
+                            <a href="https://pitsport.st/programs/101910" target="_blank" rel="noopener noreferrer" class="tag-canal-link">-↗</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-direita">
+                    <span>Sportv4 Portugal</span>
+                </div>
+            </div>
+
+
+    <!-- CARD 5 -->
+<div class="card-evento">
+    <div class="info-esquerda">
+        <div class="tempo-info">
+            <span class="data">25/10/2026</span>
+            <span class="hora">17:00</span>
+        </div>
+        <div class="detalhes-principais">
+            <span class="titulo-evento">F1</span>
+            <div class="tags-container">
+                <span class="tag-local">Austin</span>
+                <span class="tag-categoria">Formula</span>
+                <a href="https://globoplay.globo.com" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Globo Play Premium\Sportv2 ou 3 ↗</a>
+            </div>
+        </div>
+    </div>
+    <div class="info-direita">
+    </div>
+</div>
+     <!-- CARD 6 -->
+<div class="card-evento">
+    <div class="info-esquerda">
+        <div class="tempo-info">
+            <span class="data">17/10/2026</span>
+            <span class="hora">08:00</span>
+        </div>
+        <div class="detalhes-principais">
+            <span class="titulo-evento">Rally Nova Italia RS-BR de Rally-Sabado</span>
+            <div class="tags-container">
+                <span class="tag-local">Severiano de Almeida-RS</span>
+                <span class="tag-categoria">Rally</span>
+                <a href="https://www.youtube.com/@RoxoSports" target="_blank" rel="noopener noreferrer" class="tag-canal-link"> Youtube Roxo Sports ↗</a>
+            </div>
+        </div>
+    </div>
+    <div class="info-direita">
+        <span>Youtube Roxo Sports</span>
+    </div>
+</div>
+
+<!-- CARD 7 -->
+<div class="card-evento">
+    <div class="info-esquerda">
+        <div class="tempo-info">
+            <span class="data">17/10/2026</span>
+            <span class="hora">10:30</span>
+        </div>
+        <div class="detalhes-principais">
+            <span class="titulo-evento">Mitsubishi Cup</span>
+            <div class="tags-container">
+                <span class="tag-local">Limeira</span>
+                <span class="tag-categoria">Rally</span>
+                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="tag-canal-link">RacerBR/Youtube ↗</a>
+            </div>
+        </div>
+    </div>
+    <div class="info-direita">
+        <span>Youtube/RacerBR</span>
+    </div>
+</div>
+
+    <!-- CARD 2 -->
+            <div class="card-evento">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">17/10/2026</span>
+                        <span class="hora">12:30</span>
+                    </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">GTWCE</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Algarve</span>
+                            <span class="tag-categoria">GT, GT3</span>
+                            <a href="https://www.youtube.com/@grandepremio" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Grande Prêmio↗</a>
+                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="tag-canal-link">GT Word↗</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-direita">
+                    <span>Youtube / Grande Prêmio</span>
+                </div>
+            </div>
+
+        <!-- CARD 2 -->
+            <div class="card-evento">
+                <div class="info-esquerda">
+                    <div class="tempo-info">
+                        <span class="data">17/10/2026</span>
+                        <span class="hora">14:30</span>
+                    </div>
+                    <div class="detalhes-principais">
+                        <span class="titulo-evento">Stock Car Pró Series-race 1</span>
+                        <div class="tags-container">
+                            <span class="tag-local">Cascavel-PR</span>
+                            <span class="tag-categoria">Touring Car</span>
+                            <a href="https://www.youtube.com/@grandepremio" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Stock Car↗</a>
+                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="tag-canal-link">Esporte na Band↗</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-direita">
+                    <span>Youtube / Esporte na Band\Bandsports\RacerBR</span>
+                </div>
+            </div>
+      <script>
+      <script>
+
+          
+ 
+      <script>
+function filtrarEventos() {
+    // Captura o input de forma segura
+    var input = document.getElementById("campoPesquisa");
+    if (!input) return; // Segurança caso o ID mude
+    
+    var termo_procurado = input.value.trim().toLowerCase();
+    
+    // Captura todas as linhas da tabela
+    var linhas = document.getElementsByClassName("linha-evento");
+
+    // Loop de busca sequencial
+    for (var i = 0; i < linhas.length; i++) {
+        var textoLinha = linhas[i].innerText.toLowerCase();
+
+        // Se o termo estiver na linha, ela aparece. Se não, ela some.
+        if (textoLinha.includes(termo_procurado)) {
+            linhas[i].style.display = "";
+        } else {
+            linhas[i].style.display = "none";
+        }
+    }
+}
+
+             <!-- Script de Filtro -->
+    <script>
+        function filtrarCategoria(categoriaSelecionada) {
+            const cards = document.querySelectorAll('.card-evento');
+            const botoes = document.querySelectorAll('.btn-filtro');
+
+            // Atualiza a aparência do botão ativo
+            botoes.forEach(botao => {
+                botao.classList.remove('ativo');
+                if (botao.textContent.toLowerCase().includes(categoriaSelecionada) || 
+                    (categoriaSelecionada === 'todos' && botao.textContent === 'Todos')) {
+                    botao.classList.add('ativo');
+                }
+            });
+
+            // Mostra ou esconde os cards baseado no atributo data-categoria
+            cards.forEach(card => {
+                const categoriaCard = card.getAttribute('data-categoria');
+                
+                if (categoriaSelecionada === 'todos' || categoriaCard === categoriaSelecionada) {
+                    card.classList.remove('escondido');
+                } else {
+                    card.classList.add('escondido');
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
