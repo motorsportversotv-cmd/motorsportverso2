@@ -150,6 +150,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Hora</th>
                     <th>Evento / Sessão</th>
                     <th>Categoria</th>
                     <th>Circuito</th>
@@ -175,6 +176,7 @@
         // Evento padrão da Porsche Cup para a Programação TV
         const eventoPorscheCup = {
             id: 1,
+            hora: "16:30".
             nome: "Porsche Cup Brasil - Challenge - Qualifying",
             categoria: "GT",
             circuito: "Interlagos",
@@ -183,6 +185,27 @@
             link: "Friends_Hill_climb_Rio_do_rastro_2026.html"
         };
 
+          const eventoF1 = {
+            id: 1,
+            hora: "12:30"
+            nome: "F1 - FP1",
+            categoria: "Formula",
+            circuito: "Interlagos",
+            data: "065/11/2026",
+            canal: "Globoplay", "Sportv2 ou 3",
+            link: "Friends_Hill_climb_Rio_do_rastro_2026.html"
+        };
+        
+          const eventoPorscheCup = {
+            id: 1,
+            hora: "14:00"
+            nome: "Porsche Cup Brasil - Challenge - race 1",
+            categoria: "GT",
+            circuito: "Interlagos",
+            data: "065/11/2026",
+            canal: "Youtube Esporte na Band / Porsche Cup Brasil",
+            link: "Friends_Hill_climb_Rio_do_rastro_2026.html"
+        };
         function renderizarProgramacao(lista) {
             tabelaProgramacao.innerHTML = '';
 
@@ -217,6 +240,10 @@
                     if (!jaExiste) {
                         dados.unshift(eventoPorscheCup);
                     }
+                    const jaExiste = dados.some(e => (e.nome || e.evento) === eventoF1.nome);
+                    if (!jaExiste) {
+                        dados.unshift(eventoF1);
+                    }
 
                     renderizarProgramacao(dados);
                 } else {
@@ -231,6 +258,11 @@
                 renderizarProgramacao([eventoPorscheCup]);
             }
         }
+
+        carregarProgramacao();
+    </script>
+</body>
+</html>
 
         carregarProgramacao();
     </script>
