@@ -1,433 +1,118 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motorsportverso - Programação TV</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+function doGet() {
+  try {
+    var spreadsheetId = "SEU_ID_DA_PLANILHA_AQUI"; 
+    var sheet = SpreadsheetApp.openById(spreadsheetId).getActiveSheet();
+    var data = sheet.getDataRange().getValues();
+    
+    // Transforma as linhas da planilha em uma lista de objetos JSON
+    var resultado = [];
+    for (var i = 1; i < data.length; i++) {
+      resultado.push({
+        id: i, // ID gerado automaticamente com base na linha
+        hora: data[i][0],
+        evento: data[i][1],
+        categoria: data[i][2],
+        circuito: data[i][3],
+        data: data[i][4],
+        canal: data[i][5]
+      });
+    }
+    
+    return ContentService.createTextOutput(JSON.stringify(resultado))
+                         .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ "result": "error", "error": error.toString() }))
+                         .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+function doPost(e) {
+  try {
+    // Apenas o ID, sem o "https://..." e sem o "/edit..."
+    var spreadsheetId = "1_k7zqEGcwGfpihuI_zIMWx6zZ14aNYSk2VZ_TVFBgT8"; 
+    var sheet = SpreadsheetApp.openById(spreadsheetId).getActiveSheet();
 
-        body {
-            background-color: #121214;
-            color: #e1e1e6;
-            padding: 20px;
-        }
+    
+    var data = JSON.parse(e.postData.contents);
+    
+    var rowData = [
+      data.hora,
+      data.evento,
+      data.categoria,
+      data.circuito,
+      data.data,
+      data.canal
+    ];
+    
+    sheet.appendRow(rowData);
+    
+    return ContentService.createTextOutput(JSON.stringify({ "result": "success" }))
+                         .setMimeType(ContentService.MimeType.JSON);
+                         
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ "result": "error", "error": error.toString() }))
+                         .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+${evento.evento}
+${evento.categoria}
+${evento.circuito}
+${formatarData(evento.data)}
+${evento.canal}
+`;
+tabela.appendChild(linha);
+});
+}
+// Atualiza badge para conectado
+statusDot.style.backgroundColor = '#04d361';
+statusDot.style.boxShadow = '0 0 8px #04d361';
+statusText.innerText = 'Portal Motorsport Ativo';
+})
+.catch(error => {
+console.error('Erro ao ler dados:', error);
+statusDot.style.backgroundColor = '#ff4444';
+statusDot.style.boxShadow = '0 0 8px #ff4444';
+statusText.innerText = 'Erro na Telemetria do Banco';
+});
+}
+// 2. ENVIAR NOVOS DADOS PARA O BANCO (POST)
+document.getElementById('formNovoEvento').addEventListener('submit', function(e) {
+e.preventDefault();
+const btn = e.target.querySelector('button');
+btn.innerText = "Enviando para os boxes...";
+btn.disabled = true;
+const novoEvento = {
+hora: document.getElementById('inputHora').value,
+evento: document.getElementById('inputNome').value,
+categoria: document.getElementById('inputCategoria').value,
+circuito: document.getElementById('inputCircuito').value,
+data: document.getElementById('inputData').value,
+canal: document.getElementById('inputCanal').value
+};
+fetch(URL_API, {
+method: 'POST',
+mode: 'no-cors', // Evita restrições CORS locais do navegador
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify(novoEvento)
+})
+.then(() => {
+alert('Transmissão salva com sucesso!');
+document.getElementById('formNovoEvento').reset();
+// Recarrega a tabela após 1.5 segundos para dar tempo ao banco processar
+setTimeout(carregarProgramacao, 1500);
+})
+.catch(error => {
+console.error('Erro no envio:', error);
+alert('Erro de comunicação com o servidor.');
+})
+.finally(() => {
+btn.innerText = "Salvar no Servidor";
+btn.disabled = false;
+});
+});
+// Executa a leitura assim que o site abre
+window.onload = carregarProgramacao;
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #29292e;
-            margin-bottom: 30px;
-        }
 
-        h1 {
-            color: #e1e1e6;
-            font-size: 1.8rem;
-        }
 
-        /* Status da Telemetria */
-        .status-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background-color: #202024;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid #29292e;
-        }
 
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #04d361;
-            box-shadow: 0 0 8px #04d361;
-            transition: all 0.3s ease;
-        }
 
-        /* Navegação */
-        nav {
-            margin-bottom: 25px;
-        }
-
-        nav a {
-            color: #a8a8b3;
-            text-decoration: none;
-            margin-right: 15px;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-
-        nav a:hover, nav a.active {
-            color: #04d361;
-        }
-
-        /* Formulário de Cadastro */
-        .form-container {
-            background-color: #202024;
-            border-radius: 8px;
-            padding: 20px;
-            border: 1px solid #29292e;
-            margin-bottom: 25px;
-        }
-
-        .form-container h2 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #04d361;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .form-group label {
-            font-size: 0.85rem;
-            color: #a8a8b3;
-        }
-
-        .form-group input, .form-group select {
-            background-color: #121214;
-            border: 1px solid #29292e;
-            color: #e1e1e6;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            border-color: #04d361;
-            outline: none;
-        }
-
-        .btn-cadastrar {
-            grid-column: 1 / -1;
-            background-color: #04d361;
-            color: #121214;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .btn-cadastrar:hover {
-            background-color: #04bf55;
-        }
-
-        /* Tabela de Programação */
-        .table-container {
-            background-color: #202024;
-            border-radius: 8px;
-            padding: 20px;
-            border: 1px solid #29292e;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th, td {
-            padding: 12px 16px;
-            border-bottom: 1px solid #29292e;
-        }
-
-        th {
-            background-color: #121214;
-            color: #04d361;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-        }
-
-        tr:hover {
-            background-color: #29292e;
-        }
-
-        .canal-tag {
-            background-color: #04d361;
-            color: #121214;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        a.link-evento {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        a.link-evento:hover {
-            color: #04d361;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>Motorsportverso Database</h1>
-        <div class="status-badge">
-            <div id="statusDot" class="status-dot"></div>
-            <span id="statusText">Portal Motorsport Ativo</span>
-        </div>
-    </header>
-
-    <nav>
-        <a href="index.html">Dashboard</a>
-        <a href="pilotos.html">Pilotos</a>
-        <a href="programacao_tv_servidor.html" class="active">Programação TV</a>
-        <a href="eventos.html">Eventos</a>
-    </nav>
-
-    <!-- Formulário de Novo Cadastro -->
-    <section class="form-container">
-        <h2>Adicionar Novo Evento / Transmissão</h2>
-        <form id="formNovoEvento">
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="inputHora">Hora</label>
-                    <input type="time" id="inputHora" required>
-                </div>
-                <div class="form-group">
-                    <label for="inputNome">Evento / Sessão</label>
-                    <input type="text" id="inputNome" placeholder="Ex: F1 - Q / WEC - Corrida" required>
-                </div>
-                <div class="form-group">
-                    <label for="inputCategoria">Categoria</label>
-                    <input type="text" id="inputCategoria" placeholder="Ex: Formula, GT, Hypercar" required>
-                </div>
-                <div class="form-group">
-                    <label for="inputCircuito">Circuito / Local</label>
-                    <input type="text" id="inputCircuito" placeholder="Ex: Interlagos, Monza" required>
-                </div>
-                <div class="form-group">
-                    <label for="inputData">Data</label>
-                    <input type="date" id="inputData" required>
-                </div>
-                <div class="form-group">
-                    <label for="inputCanal">Onde Assistir (Canal)</label>
-                    <select id="inputCanal" required>
-                        <option value="" disabled selected>Selecione o canal...</option>
-                        <option value="Youtube">Youtube</option>
-                        <option value="Twitch">Twitch</option>
-                        <option value="ESPN">ESPN</option>
-                        <option value="Sportv 2 ou 3 BR">Sportv 2 ou 3 BR</option>
-                        <option value="Sportv 4 Port">Sportv 4 Port</option>
-                        <option value="Facebook">Facebook</option>
-                        <option value="DAZN">DAZN</option>
-                        <option value="Bandsports">Bandsports</option>
-                        <option value="Band">Band</option>
-                        <option value="SBT">SBT</option>
-                        <option value="NSports">NSports</option>
-                        <option value="Kick TV">Kick TV</option>
-                        <option value="Globo">Globo</option>
-                    </select>
-                </div>
-            </div>
-            <br>
-            <button type="submit" class="btn-cadastrar">Salvar no Servidor</button>
-        </form>
-    </section>
-
-    <main class="table-container">
-        <h2>Programação de TV e Transmissões</h2>
-        <br>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Hora</th>
-                    <th>Evento / Sessão</th>
-                    <th>Categoria</th>
-                    <th>Circuito</th>
-                    <th>Data</th>
-                    <th>Onde Assistir (Canal)</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaProgramacao">
-                <!-- Conteúdo estático de garantia atualizado -->
-                <tr>
-                    <td>#1</td>
-                    <td>16:30</td>
-                    <td><strong><a href="#" class="link-evento">Porsche Cup Brasil - Challenge - Qualifying</a></strong></td>
-                    <td><span style="color: #a8a8b3;">GT</span></td>
-                    <td>Interlagos</td>
-                    <td>05/11/2026</td>
-                    <td><span class="canal-tag">Youtube</span></td>
-                </tr>
-                <tr>
-                    <td>#2</td>
-                    <td>12:30</td>
-                    <td><strong><a href="#" class="link-evento">F1 - FP1</a></strong></td>
-                    <td><span style="color: #a8a8b3;">Formula</span></td>
-                    <td>Interlagos</td>
-                    <td>06/11/2026</td>
-                    <td><span class="canal-tag">Sportv 2 ou 3 BR</span></td>
-                </tr>
-                <tr>
-                    <td>#3</td>
-                    <td>14:00</td>
-                    <td><strong><a href="#" class="link-evento">Porsche Cup Brasil - Challenge - Race 1</a></strong></td>
-                    <td><span style="color: #a8a8b3;">GT</span></td>
-                    <td>Interlagos</td>
-                    <td>06/11/2026</td>
-                    <td><span class="canal-tag">Youtube</span></td>
-                </tr>
-                <tr>
-                    <td>#4</td>
-                    <td>15:00</td>
-                    <td><strong><a href="#" class="link-evento">Porsche Cup Brasil - 992 - Qualifying</a></strong></td>
-                    <td><span style="color: #a8a8b3;">GT</span></td>
-                    <td>Interlagos</td>
-                    <td>06/11/2026</td>
-                    <td><span class="canal-tag">Youtube</span></td>
-                </tr>
-                <tr>
-                    <td>#5</td>
-                    <td>21:30</td>
-                    <td><strong><a href="#" class="link-evento">Nascar Truck Series</a></strong></td>
-                    <td><span style="color: #a8a8b3;">Nascar</span></td>
-                    <td>Homestead</td>
-                    <td>06/11/2026</td>
-                    <td><span class="canal-tag">ESPN 3\Phiz TV</span></td>
-                </tr>
-                <tr>
-                    <td>#6</td>
-                    <td>06:20</td>
-                    <td><strong><a href="#" class="link-evento">FIA WEC</a></strong></td>
-                    <td><span style="color: #a8a8b3;">Hypercar / Endurance</span></td>
-                    <td>Monza</td>
-                    <td>07/11/2026</td>
-                    <td><span class="canal-tag">Youtube GP</span></td>
-                </tr>
-                <tr>
-                    <td>#7</td>
-                    <td>08:00</td>
-                    <td><strong><a href="#" class="link-evento">Legends of Le Mans-Race 1</a></strong></td>
-                    <td><span style="color: #a8a8b3;">Retro, LMP1, LMP2, LMGTE</span></td>
-                    <td>Monza</td>
-                    <td>07/11/2026</td>
-                    <td><span class="canal-tag">Youtube</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </main>
-
-    <script>
-        const API_URL = 'http://localhost:8080/api/programacao';
-        const tabelaProgramacao = document.getElementById('tabelaProgramacao');
-        const formNovoEvento = document.getElementById('formNovoEvento');
-
-        const eventosEstaticos = [
-            { id: 1, hora: "16:30", nome: "Porsche Cup Brasil - Challenge - Qualifying", categoria: "GT", circuito: "Interlagos", data: "05/11/2026", canal: "Youtube", link: "#" },
-            { id: 2, hora: "12:30", nome: "F1 - FP1", categoria: "Formula", circuito: "Interlagos", data: "06/11/2026", canal: "Sportv 2 ou 3 BR", link: "#" },
-            { id: 3, hora: "14:00", nome: "Porsche Cup Brasil - Challenge - Race 1", categoria: "GT", circuito: "Interlagos", data: "06/11/2026", canal: "Youtube", link: "#" },
-            { id: 4, hora: "15:00", nome: "Porsche Cup Brasil - 992 - Qualifying", categoria: "GT", circuito: "Interlagos", data: "06/11/2026", canal: "Youtube", link: "#" },
-            { id: 5, hora: "21:30", nome: "Nascar Truck Series", categoria: "Nascar", circuito: "Homestead", data: "06/11/2026", canal: "ESPN 3", link: "#" },
-            { id: 6, hora: "20:20", nome: "FIA WEC", categoria: "Hypercar / Endurance", circuito: "Monza", data: "07/11/2026", canal: "Youtube", link: "#" },
-            { id: 7, hora: "08:00", nome: "Legends of Le Mans", categoria: "Classic / Documentary", circuito: "Monza", data: "07/11/2026", canal: "Youtube", link: "#" }
-        ];
-
-        function renderizarProgramacao(lista) {
-            tabelaProgramacao.innerHTML = '';
-            lista.forEach((item, index) => {
-                const tr = document.createElement('tr');
-                const link = item.link || '#';
-                const itemId = item.id || (index + 1);
-                
-                tr.innerHTML = `
-                    <td>#${itemId}</td>
-                    <td>${item.hora || '-'}</td>
-                    <td><strong><a href="${link}" class="link-evento">${item.nome || item.evento || '-'}</a></strong></td>
-                    <td><span style="color: #a8a8b3;">${item.categoria || 'Geral'}</span></td>
-                    <td>${item.circuito || item.local || '-'}</td>
-                    <td>${item.data || '-'}</td>
-                    <td><span class="canal-tag">${item.canal || 'Transmissão Oficial'}</span></td>
-                `;
-                tabelaProgramacao.appendChild(tr);
-            });
-        }
-
-        async function carregarProgramacao() {
-            try {
-                const resposta = await fetch(API_URL);
-                if (resposta.ok) {
-                    let dados = await resposta.json();
-                    if (dados && dados.length > 0) {
-                        eventosEstaticos.forEach(estatico => {
-                            if (!dados.some(e => (e.nome || e.evento) === estatico.nome)) {
-                                dados.push(estatico);
-                            }
-                        });
-                        renderizarProgramacao(dados);
-                    }
-                }
-            } catch (erro) {
-                console.log("Servidor Java offline. A manter dados estáticos locais.");
-            }
-        }
-
-        formNovoEvento.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const dataInput = document.getElementById('inputData').value;
-            let dataFormatada = dataInput;
-            if (dataInput.includes('-')) {
-                const partes = dataInput.split('-');
-                dataFormatada = `${partes[2]}/${partes[1]}/${partes[0]}`;
-            }
-
-            const novoEvento = {
-                hora: document.getElementById('inputHora').value,
-                nome: document.getElementById('inputNome').value,
-                categoria: document.getElementById('inputCategoria').value,
-                circuito: document.getElementById('inputCircuito').value,
-                data: dataFormatada,
-                canal: document.getElementById('inputCanal').value,
-                link: "#"
-            };
-
-            try {
-                const resposta = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(novoEvento)
-                });
-
-                if (resposta.ok) {
-                    alert('Evento salvo com sucesso no servidor!');
-                    formNovoEvento.reset();
-                    carregarProgramacao();
-                } else {
-                    alert('Erro ao salvar no servidor.');
-                }
-            } catch (erro) {
-                alert('Não foi possível ligar ao servidor Java para guardar o evento.');
-            }
-        });
-
-        carregarProgramacao();
-    </script>
-</body>
-</html>
