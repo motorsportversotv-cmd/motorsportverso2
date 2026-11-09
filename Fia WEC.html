@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EnduranceHub - O Portal das Corridas de Longa Duração</title>
+    <title>EnduranceHub - Hypercar \ GTP-Fia WEC, IMSA e Ásia Le Mans Series</title>
     <style>
         /* ==========================================================================
            RESET E VARIÁVEIS GERAIS
@@ -82,7 +82,7 @@
             color: #ffffff;
             text-align: center;
             padding: 80px 20px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .hero h2 {
@@ -97,6 +97,64 @@
             margin: 0 auto;
             font-size: 1.1rem;
             color: #ddd;
+        }
+
+        /* ==========================================================================
+           PAINEL DE PESQUISA E CONTAGEM DE TAGS
+           ========================================================================== */
+        .contador-painel {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-top: 4px solid #e60000;
+        }
+
+        .contador-painel label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #111;
+            font-size: 1rem;
+        }
+
+        .contador-painel input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .contador-painel input[type="text"]:focus {
+            border-color: #e60000;
+        }
+
+        .contador-painel button {
+            background-color: #e60000;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .contador-painel button:hover {
+            background-color: #b30000;
+        }
+
+        .resultado-texto {
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #333;
         }
 
         /* ==========================================================================
@@ -398,6 +456,14 @@
 
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="container">
+
+        <!-- Painel de Pesquisa de Tags -->
+        <div class="contador-painel">
+            <label for="tagPesquisa">Pesquise por uma tag específica (Ex: WEC, Ferrari, IMSA, Porsche):</label>
+            <input type="text" id="tagPesquisa" placeholder="Digite a tag para buscar e somar...">
+            <button onclick="pesquisarESomarTag()">Pesquisar e Contar Tag</button>
+            <p id="resultado" class="resultado-texto">mostre a soma da tag: 0</p>
+        </div>
 
         <!-- 1. CAMPEONATOS -->
         <section id="campeonatos">
@@ -739,8 +805,29 @@
         </div>
     </footer>
 
-</body>
-</html>
+    <!-- SCRIPT DE PESQUISA E CONTAGEM DE TAGS -->
+    <script>
+        function pesquisarESomarTag() {
+            const termo = document.getElementById('tagPesquisa').value.trim().toLowerCase();
+            const pResultado = document.getElementById('resultado');
+
+            if (!termo) {
+                pResultado.textContent = "Por favor, digite uma tag para buscar.";
+                return;
+            }
+
+            // Pega todo o texto visível dentro do container principal da página
+            const corpoPagina = document.querySelector('main').innerText.toLowerCase();
+
+            // Expressão regular para contar todas as ocorrências da palavra/termo na página
+            const regex = new RegExp(termo, 'g');
+            const ocorrencias = corpoPagina.match(regex);
+
+            const total = ocorrencias ? ocorrencias.length : 0;
+
+            pResultado.textContent = `Soma da tag "${termo}": ${total} ocorrência(s) encontrada(s).`;
+        }
+    </script>
 
 </body>
 </html>
