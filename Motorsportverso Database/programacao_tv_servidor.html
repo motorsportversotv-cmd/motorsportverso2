@@ -1,68 +1,310 @@
-function doGet() {
-  try {
-    var spreadsheetId = "SEU_ID_DA_PLANILHA_AQUI"; 
-    var sheet = SpreadsheetApp.openById(spreadsheetId).getActiveSheet();
-    var data = sheet.getDataRange().getValues();
-    
-    // Transforma as linhas da planilha em uma lista de objetos JSON
-    var resultado = [];
-    for (var i = 1; i < data.length; i++) {
-      resultado.push({
-        id: i, // ID gerado automaticamente com base na linha
-        hora: data[i][0],
-        evento: data[i][1],
-        categoria: data[i][2],
-        circuito: data[i][3],
-        data: data[i][4],
-        canal: data[i][5]
-      });
-    }
-    
-    return ContentService.createTextOutput(JSON.stringify(resultado))
-                         .setMimeType(ContentService.MimeType.JSON);
-  } catch (error) {
-    return ContentService.createTextOutput(JSON.stringify({ "result": "error", "error": error.toString() }))
-                         .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-function doPost(e) {
-  try {
-    // Apenas o ID, sem o "https://..." e sem o "/edit..."
-    var spreadsheetId = "1_k7zqEGcwGfpihuI_zIMWx6zZ14aNYSk2VZ_TVFBgT8"; 
-    var sheet = SpreadsheetApp.openById(spreadsheetId).getActiveSheet();
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motorsportverso - Programação TV</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    
-    var data = JSON.parse(e.postData.contents);
-    
-    var rowData = [
-      data.hora,
-      data.evento,
-      data.categoria,
-      data.circuito,
-      data.data,
-      data.canal
-    ];
-    
-    sheet.appendRow(rowData);
-    
-    return ContentService.createTextOutput(JSON.stringify({ "result": "success" }))
-                         .setMimeType(ContentService.MimeType.JSON);
-                         
-  } catch (error) {
-    return ContentService.createTextOutput(JSON.stringify({ "result": "error", "error": error.toString() }))
-                         .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-${evento.evento}
-${evento.categoria}
-${evento.circuito}
-${formatarData(evento.data)}
-${evento.canal}
-`;
-tabela.appendChild(linha);
+        body {
+            background-color: #121214;
+            color: #e1e1e6;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #29292e;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #e1e1e6;
+            font-size: 1.8rem;
+        }
+
+        /* Status da Telemetria */
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #202024;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid #29292e;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #f1c40f;
+            box-shadow: 0 0 8px #f1c40f;
+            transition: all 0.3s ease;
+        }
+
+        /* Navegação */
+        nav {
+            margin-bottom: 25px;
+        }
+
+        nav a {
+            color: #a8a8b3;
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #04d361;
+        }
+
+        /* Formulário de Cadastro */
+        .form-container {
+            background-color: #202024;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #29292e;
+            margin-bottom: 25px;
+        }
+
+        .form-container h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #04d361;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            color: #a8a8b3;
+        }
+
+        .form-group input, .form-group select {
+            background-color: #121214;
+            border: 1px solid #29292e;
+            color: #e1e1e6;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #04d361;
+            outline: none;
+        }
+
+        .btn-cadastrar {
+            grid-column: 1 / -1;
+            background-color: #04d361;
+            color: #121214;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-cadastrar:hover {
+            background-color: #04bf55;
+        }
+
+        /* Tabela de Programação */
+        .table-container {
+            background-color: #202024;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #29292e;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #29292e;
+        }
+
+        th {
+            background-color: #121214;
+            color: #04d361;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:hover {
+            background-color: #29292e;
+        }
+
+        .canal-tag {
+            background-color: #04d361;
+            color: #121214;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Motorsportverso Database</h1>
+        <div class="status-badge">
+            <div id="statusDot" class="status-dot"></div>
+            <span id="statusText">Conectando ao Servidor...</span>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="pilotos.html">Pilotos</a>
+        <a href="programacao_tv_servidor.html" class="active">Programação TV</a>
+        <a href="eventos.html">Eventos</a>
+    </nav>
+
+    <!-- Formulário de Novo Cadastro -->
+    <section class="form-container">
+        <h2>Adicionar Novo Evento / Transmissão</h2>
+        <form id="formNovoEvento">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="inputHora">Hora</label>
+                    <input type="time" id="inputHora" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputNome">Evento / Sessão</label>
+                    <input type="text" id="inputNome" placeholder="Ex: F1 - Q / WEC - Corrida" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputCategoria">Categoria</label>
+                    <input type="text" id="inputCategoria" placeholder="Ex: Formula, GT, Hypercar" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputCircuito">Circuito / Local</label>
+                    <input type="text" id="inputCircuito" placeholder="Ex: Interlagos, Monza" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputData">Data</label>
+                    <input type="date" id="inputData" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputCanal">Onde Assistir (Canal)</label>
+                    <select id="inputCanal" required>
+                        <option value="" disabled selected>Selecione o canal...</option>
+                        <option value="Youtube">Youtube</option>
+                        <option value="Twitch">Twitch</option>
+                        <option value="ESPN">ESPN</option>
+                        <option value="Sportv 2 ou 3 BR">Sportv 2 ou 3 BR</option>
+                        <option value="Sportv 4 Port">Sportv 4 Port</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="DAZN">DAZN</option>
+                        <option value="Bandsports">Bandsports</option>
+                        <option value="Band">Band</option>
+                        <option value="SBT">SBT</option>
+                        <option value="NSports">NSports</option>
+                        <option value="Kick TV">Kick TV</option>
+                        <option value="Globo">Globo</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn-cadastrar">Salvar no Servidor</button>
+        </form>
+    </section>
+
+    <main class="table-container">
+        <h2>Programação de TV e Transmissões</h2>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Hora</th>
+                    <th>Evento / Sessão</th>
+                    <th>Categoria</th>
+                    <th>Circuito</th>
+                    <th>Data</th>
+                    <th>Onde Assistir (Canal)</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaProgramacao">
+                <!-- Os dados inseridos no Google Sheets aparecerão aqui dinamicamente -->
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        // COLE A URL GERADA NO SEU GOOGLE APPS SCRIPT AQUI DENTRO:
+        const URL_API = "SUA_URL_DO_WEB_APP_AQUI";
+
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+
+        // Formata datas vindas do Google Sheets (AAAA-MM-DD para DD/MM/AAAA)
+        function formatarData(dataString) {
+            if(!dataString) return '';
+            const dataObj = new Date(dataString);
+            if (isNaN(dataObj)) return dataString;
+            const dataLocal = new Date(dataObj.getTime() + dataObj.getTimezoneOffset() * 60000);
+            return dataLocal.toLocaleDateString('pt-BR');
+        }
+
+        // 1. CARREGAR DADOS DO BANCO (GET)
+        function carregarProgramacao() {
+            fetch(URL_API)
+                .then(response => response.json())
+                .then(dados => {
+                    const tabela = document.getElementById('tabelaProgramacao');
+                    tabela.innerHTML = ''; 
+
+                    if (!dados || dados.length === 0) {
+                        tabela.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhum evento agendado.</td></tr>';
+                    } else {
+                        dados.forEach(evento => {
+                            const linha = document.createElement('tr');
+                            linha.innerHTML = `
+                                <td>#${evento.id}</td>
+                                <td>${evento.hora}</td>
+                                <td><strong>${evento.evento}</strong></td>
+                                <td>${evento.categoria}</td>
+                                <td>${evento.circuito}</td>
+                                <td>${formatarData(evento.data)}</td>
+                                <td><span class="canal-tag">${evento.canal}</span></td>
+                            `;
+                            tabela.appendChild(linha);
+
 });
 }
-// Atualiza badge para conectado
 statusDot.style.backgroundColor = '#04d361';
 statusDot.style.boxShadow = '0 0 8px #04d361';
 statusText.innerText = 'Portal Motorsport Ativo';
@@ -90,14 +332,13 @@ canal: document.getElementById('inputCanal').value
 };
 fetch(URL_API, {
 method: 'POST',
-mode: 'no-cors', // Evita restrições CORS locais do navegador
+mode: 'no-cors',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify(novoEvento)
 })
 .then(() => {
 alert('Transmissão salva com sucesso!');
 document.getElementById('formNovoEvento').reset();
-// Recarrega a tabela após 1.5 segundos para dar tempo ao banco processar
 setTimeout(carregarProgramacao, 1500);
 })
 .catch(error => {
@@ -109,8 +350,9 @@ btn.innerText = "Salvar no Servidor";
 btn.disabled = false;
 });
 });
-// Executa a leitura assim que o site abre
+// Carrega a listagem quando a página abre
 window.onload = carregarProgramacao;
+
 
 
 
