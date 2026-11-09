@@ -181,7 +181,7 @@
         <h1>Motorsportverso Database</h1>
         <div class="status-badge">
             <div id="statusDot" class="status-dot"></div>
-            <span id="statusText">Conectando ao Servidor...</span>
+            <span id="statusText">Conectando à Planilha...</span>
         </div>
     </header>
 
@@ -194,7 +194,7 @@
 
     <!-- Formulário de Novo Cadastro -->
     <section class="form-container">
-        <h2>Adicionar Novo Evento / Transmissão</h2>
+        <h2>Adicionar Novo Evento / Transmissão (Direto na Planilha)</h2>
         <form id="formNovoEvento">
             <div class="form-grid">
                 <div class="form-group">
@@ -238,7 +238,7 @@
                 </div>
             </div>
             <br>
-            <button type="submit" class="btn-cadastrar">Salvar no Servidor</button>
+            <button type="submit" class="btn-cadastrar">Salvar na Planilha</button>
         </form>
     </section>
 
@@ -258,101 +258,111 @@
                 </tr>
             </thead>
             <tbody id="tabelaProgramacao">
-                <!-- Os dados inseridos no Google Sheets aparecerão aqui dinamicamente -->
+                <!-- Preenchido automaticamente via JavaScript -->
             </tbody>
         </table>
     </main>
 
     <script>
-        // COLE A URL GERADA NO SEU GOOGLE APPS SCRIPT AQUI DENTRO:
-        const URL_API = "SUA_URL_DO_WEB_APP_AQUI";
+        // ATENÇÃO: Cole aqui a URL gerada pelo SheetDB
+        const URL_SHEETDB = "https://sheetdb.io/api/v1/iu6bb038dba2o";
 
         const statusDot = document.getElementById('statusDot');
         const statusText = document.getElementById('statusText');
 
-        // Formata datas vindas do Google Sheets (AAAA-MM-DD para DD/MM/AAAA)
+        // Formata a data de AAAA-MM-DD para DD/MM/AAAA
         function formatarData(dataString) {
             if(!dataString) return '';
-            const dataObj = new Date(dataString);
-            if (isNaN(dataObj)) return dataString;
-            const dataLocal = new Date(dataObj.getTime() + dataObj.getTimezoneOffset() * 60000);
-            return dataLocal.toLocaleDateString('pt-BR');
+            const partes = dataString.split('-');
+            if(partes.length !== 3) return dataString;
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
         }
 
-        // 1. CARREGAR DADOS DO BANCO (GET)
+        // 1. LER DADOS DA PLANILHA DIRETO DO NAVEGADOR (GET)
         function carregarProgramacao() {
-            fetch(URL_API)
+            fetch(URL_SHEETDB)
                 .then(response => response.json())
                 .then(dados => {
                     const tabela = document.getElementById('tabelaProgramacao');
                     tabela.innerHTML = ''; 
 
-                    if (!dados || dados.length === 0) {
-                        tabela.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhum evento agendado.</td></tr>';
+                    if (!dados || dados.length === 0 || dados.error) {
+                        tabela.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhum evento agendado na planilha.</td></tr>';
                     } else {
-                        dados.forEach(evento => {
+                        // O index + 1 serve como ID da linha
+                        dados.forEach((evento, index) => {
                             const linha = document.createElement('tr');
                             linha.innerHTML = `
-                                <td>#${evento.id}</td>
-                                <td>${evento.hora}</td>
-                                <td><strong>${evento.evento}</strong></td>
-                                <td>${evento.categoria}</td>
-                                <td>${evento.circuito}</td>
+                                <td>#${index + 1}</td>
+                                <td>${evento.hora || ''}</td>
+                                <td><strong>${evento.evento || ''}</strong></td>
+                                <td>${evento.categoria || ''}</td>
+                                <td>${evento.circuito || ''}</td>
                                 <td>${formatarData(evento.data)}</td>
-                                <td><span class="canal-tag">${evento.canal}</span></td>
+                                <td><span class="canal-tag">${evento.canal || ''}</span></td>
                             `;
-                            tabela.appendChild(linha);
 
+
+tabela.appendChild(linha);
 });
 }
 statusDot.style.backgroundColor = '#04d361';
 statusDot.style.boxShadow = '0 0 8px #04d361';
-statusText.innerText = 'Portal Motorsport Ativo';
+statusText.innerText = 'Planilha Conectada';
 })
 .catch(error => {
-console.error('Erro ao ler dados:', error);
+console.error('Erro ao ler planilha:', error);
 statusDot.style.backgroundColor = '#ff4444';
 statusDot.style.boxShadow = '0 0 8px #ff4444';
-statusText.innerText = 'Erro na Telemetria do Banco';
+statusText.innerText = 'Erro de Conexão com a Planilha';
 });
 }
-// 2. ENVIAR NOVOS DADOS PARA O BANCO (POST)
+// 2. SALVAR DADOS NA PLANILHA DIRETO DO NAVEGADOR (POST)
 document.getElementById('formNovoEvento').addEventListener('submit', function(e) {
 e.preventDefault();
 const btn = e.target.querySelector('button');
-btn.innerText = "Enviando para os boxes...";
+btn.innerText = "Gravando na planilha...";
 btn.disabled = true;
+// Os nomes das propriedades devem ser idênticos aos cabeçalhos criados no Passo 1
 const novoEvento = {
+data: [{
 hora: document.getElementById('inputHora').value,
 evento: document.getElementById('inputNome').value,
 categoria: document.getElementById('inputCategoria').value,
 circuito: document.getElementById('inputCircuito').value,
 data: document.getElementById('inputData').value,
 canal: document.getElementById('inputCanal').value
+}]
 };
-fetch(URL_API, {
+fetch(URL_SHEETDB, {
 method: 'POST',
-mode: 'no-cors',
-headers: { 'Content-Type': 'application/json' },
+headers: {
+'Accept': 'application/json',
+'Content-Type': 'application/json'
+},
 body: JSON.stringify(novoEvento)
 })
-.then(() => {
-alert('Transmissão salva com sucesso!');
+.then(response => response.json())
+.then(resposta => {
+if(resposta.created) {
+alert('Transmissão salva com sucesso na planilha!');
 document.getElementById('formNovoEvento').reset();
-setTimeout(carregarProgramacao, 1500);
+carregarProgramacao(); // Atualiza a tabela na hora
+} else {
+alert('A API respondeu mas não conseguiu criar a linha.');
+}
 })
 .catch(error => {
 console.error('Erro no envio:', error);
-alert('Erro de comunicação com o servidor.');
+alert('Erro ao se comunicar com a planilha.');
 })
 .finally(() => {
-btn.innerText = "Salvar no Servidor";
+btn.innerText = "Salvar na Planilha";
 btn.disabled = false;
 });
 });
-// Carrega a listagem quando a página abre
+// Carrega as linhas assim que abre o site
 window.onload = carregarProgramacao;
-
 
 
 
