@@ -262,10 +262,9 @@
             </tbody>
         </table>
     </main>
-
-    <script>
-        // ATENÇÃO: Cole aqui a URL gerada pelo SheetDB
-        const URL_SHEETDB = "https://sheetdb.io/api/v1/iu6bb038dba2o";
+<script>
+        // SUBSTITUA PELA SUA URL REAL DO SHEETDB AQUI:
+        const URL_SHEETDB = "SUA_URL_DO_SHEETDB_AQUI";
 
         const statusDot = document.getElementById('statusDot');
         const statusText = document.getElementById('statusText');
@@ -289,7 +288,6 @@
                     if (!dados || dados.length === 0 || dados.error) {
                         tabela.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhum evento agendado na planilha.</td></tr>';
                     } else {
-                        // O index + 1 serve como ID da linha
                         dados.forEach((evento, index) => {
                             const linha = document.createElement('tr');
                             linha.innerHTML = `
@@ -301,68 +299,71 @@
                                 <td>${formatarData(evento.data)}</td>
                                 <td><span class="canal-tag">${evento.canal || ''}</span></td>
                             `;
+                            tabela.appendChild(linha);
+                        });
+                    }
 
+                    statusDot.style.backgroundColor = '#04d361';
+                    statusDot.style.boxShadow = '0 0 8px #04d361';
+                    statusText.innerText = 'Planilha Conectada';
+                })
+                .catch(error => {
+                    console.error('Erro ao ler planilha:', error);
+                    statusDot.style.backgroundColor = '#ff4444';
+                    statusDot.style.boxShadow = '0 0 8px #ff4444';
+                    statusText.innerText = 'Erro de Conexão com a Planilha';
+                });
+        }
 
-tabela.appendChild(linha);
-});
-}
-statusDot.style.backgroundColor = '#04d361';
-statusDot.style.boxShadow = '0 0 8px #04d361';
-statusText.innerText = 'Planilha Conectada';
-})
-.catch(error => {
-console.error('Erro ao ler planilha:', error);
-statusDot.style.backgroundColor = '#ff4444';
-statusDot.style.boxShadow = '0 0 8px #ff4444';
-statusText.innerText = 'Erro de Conexão com a Planilha';
-});
-}
-// 2. SALVAR DADOS NA PLANILHA DIRETO DO NAVEGADOR (POST)
-document.getElementById('formNovoEvento').addEventListener('submit', function(e) {
-e.preventDefault();
-const btn = e.target.querySelector('button');
-btn.innerText = "Gravando na planilha...";
-btn.disabled = true;
-// Os nomes das propriedades devem ser idênticos aos cabeçalhos criados no Passo 1
-const novoEvento = {
-data: [{
-hora: document.getElementById('inputHora').value,
-evento: document.getElementById('inputNome').value,
-categoria: document.getElementById('inputCategoria').value,
-circuito: document.getElementById('inputCircuito').value,
-data: document.getElementById('inputData').value,
-canal: document.getElementById('inputCanal').value
-}]
-};
-fetch(URL_SHEETDB, {
-method: 'POST',
-headers: {
-'Accept': 'application/json',
-'Content-Type': 'application/json'
-},
-body: JSON.stringify(novoEvento)
-})
-.then(response => response.json())
-.then(resposta => {
-if(resposta.created) {
-alert('Transmissão salva com sucesso na planilha!');
-document.getElementById('formNovoEvento').reset();
-carregarProgramacao(); // Atualiza a tabela na hora
-} else {
-alert('A API respondeu mas não conseguiu criar a linha.');
-}
-})
-.catch(error => {
-console.error('Erro no envio:', error);
-alert('Erro ao se comunicar com a planilha.');
-})
-.finally(() => {
-btn.innerText = "Salvar na Planilha";
-btn.disabled = false;
-});
-});
-// Carrega as linhas assim que abre o site
-window.onload = carregarProgramacao;
+        // 2. SALVAR DADOS NA PLANILHA DIRETO DO NAVEGADOR (POST)
+        document.getElementById('formNovoEvento').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerText = "Gravando na planilha...";
+            btn.disabled = true;
+
+            const novoEvento = {
+                data: [{
+                    hora: document.getElementById('inputHora').value,
+                    evento: document.getElementById('inputNome').value,
+                    categoria: document.getElementById('inputCategoria').value,
+                    circuito: document.getElementById('inputCircuito').value,
+                    data: document.getElementById('inputData').value,
+                    canal: document.getElementById('inputCanal').value
+                }]
+            };
+
+            fetch(URL_SHEETDB, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(novoEvento)
+            })
+            .then(response => response.json())
+            .then(resposta => {
+                if(resposta.created) {
+                    alert('Transmissão salva com sucesso na planilha!');
+                    document.getElementById('formNovoEvento').reset();
+                    carregarProgramacao(); // Atualiza a tabela na tela
+                } else {
+                    alert('A API respondeu mas não conseguiu criar a linha. Verifique os cabeçalhos da planilha.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro no envio:', error);
+                alert('Erro ao se comunicar com a planilha.');
+            })
+            .finally(() => {
+                btn.innerText = "Salvar na Planilha";
+                btn.disabled = false;
+            });
+        });
+
+        // Carrega as linhas assim que abre o site
+        window.onload = carregarProgramacao;
+    </script>
 
 
 
