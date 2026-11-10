@@ -361,6 +361,17 @@
             });
         });
 
+    // Converter número em série do Excel para Horário HH:MM
+function excelTimeToHHMM(excelTime) {
+  if (typeof excelTime === 'number') {
+    const totalMinutes = Math.round(excelTime * 24 * 60);
+    const hours = String(Math.floor(totalMinutes / 60)).padStart(2, '0');
+    const minutes = String(totalMinutes % 60).padStart(2, '0');
+    return `${hours}:${minutes}`;
+  }
+  return excelTime; // Caso já seja string (ex: "13:35")
+}
+
         // Carrega as linhas assim que abre o site
         window.onload = carregarProgramacao;
     </script>
