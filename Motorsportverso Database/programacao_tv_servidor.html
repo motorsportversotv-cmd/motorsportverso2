@@ -1,380 +1,169 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motorsportverso - Programação TV</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #121214;
-            color: #e1e1e6;
-            padding: 20px;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #29292e;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            color: #e1e1e6;
-            font-size: 1.8rem;
-        }
-
-        /* Status da Telemetria */
-        .status-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background-color: #202024;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid #29292e;
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #f1c40f;
-            box-shadow: 0 0 8px #f1c40f;
-            transition: all 0.3s ease;
-        }
-
-        /* Navegação */
-        nav {
-            margin-bottom: 25px;
-        }
-
-        nav a {
-            color: #a8a8b3;
-            text-decoration: none;
-            margin-right: 15px;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-
-        nav a:hover, nav a.active {
-            color: #04d361;
-        }
-
-        /* Formulário de Cadastro */
-        .form-container {
-            background-color: #202024;
-            border-radius: 8px;
-            padding: 20px;
-            border: 1px solid #29292e;
-            margin-bottom: 25px;
-        }
-
-        .form-container h2 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #04d361;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .form-group label {
-            font-size: 0.85rem;
-            color: #a8a8b3;
-        }
-
-        .form-group input, .form-group select {
-            background-color: #121214;
-            border: 1px solid #29292e;
-            color: #e1e1e6;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            border-color: #04d361;
-            outline: none;
-        }
-
-        .btn-cadastrar {
-            grid-column: 1 / -1;
-            background-color: #04d361;
-            color: #121214;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .btn-cadastrar:hover {
-            background-color: #04bf55;
-        }
-
-        /* Tabela de Programação */
-        .table-container {
-            background-color: #202024;
-            border-radius: 8px;
-            padding: 20px;
-            border: 1px solid #29292e;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th, td {
-            padding: 12px 16px;
-            border-bottom: 1px solid #29292e;
-        }
-
-        th {
-            background-color: #121214;
-            color: #04d361;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-        }
-
-        tr:hover {
-            background-color: #29292e;
-        }
-
-        .canal-tag {
-            background-color: #04d361;
-            color: #121214;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: inline-block;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>Motorsportverso Database</h1>
-        <div class="status-badge">
-            <div id="statusDot" class="status-dot"></div>
-            <span id="statusText">Conectando à Planilha...</span>
-        </div>
-    </header>
-
-    <nav>
-        <a href="index.html">Dashboard</a>
-        <a href="pilotos.html">Pilotos</a>
-        <a href="programacao_tv_servidor.html" class="active">Programação TV</a>
-        <a href="eventos.html">Eventos</a>
-    </nav>
-
-    <!-- Formulário de Novo Cadastro -->
-    <section class="form-container">
-        <h2>Adicionar Novo Evento / Transmissão (Direto na Planilha)</h2>
-        <form id="formNovoEvento">
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="inputHora">Hora</label>
-                    <input type="time" id="inputHora" required>
-                </div>
-                <div class="form-group">
-                    <label for="inputNome">Evento / Sessão</label>
-                    <input type="text" id="inputNome" placeholder="Ex: F1 - Q / WEC - Corrida" required>
-                </div>
-                <div class="form-group">
-                    <label for="inputCategoria">Categoria</label>
-                    <input type="text" id="inputCategoria" placeholder="Ex: Formula, GT, Hypercar" required>
-                </div>
-                <div class="form-group">
-                    <label for="inputCircuito">Circuito / Local</label>
-                    <input type="text" id="inputCircuito" placeholder="Ex: Interlagos, Monza" required>
-                </div>
-                <div class="form-group">
-                    <label for="inputData">Data</label>
-                    <input type="date" id="inputData" required>
-                </div>
-                <div class="form-group">
-                    <label for="inputCanal">Onde Assistir (Canal)</label>
-                    <select id="inputCanal" required>
-                        <option value="" disabled selected>Selecione o canal...</option>
-                        <option value="Youtube">Youtube</option>
-                        <option value="Twitch">Twitch</option>
-                        <option value="ESPN">ESPN</option>
-                        <option value="Sportv 2 ou 3 BR">Sportv 2 ou 3 BR</option>
-                        <option value="Sportv 4 Port">Sportv 4 Port</option>
-                        <option value="Facebook">Facebook</option>
-                        <option value="DAZN">DAZN</option>
-                        <option value="Bandsports">Bandsports</option>
-                        <option value="Band">Band</option>
-                        <option value="SBT">SBT</option>
-                        <option value="NSports">NSports</option>
-                        <option value="Kick TV">Kick TV</option>
-                        <option value="Globo">Globo</option>
-                    </select>
-                </div>
-            </div>
-            <br>
-            <button type="submit" class="btn-cadastrar">Salvar na Planilha</button>
-        </form>
-    </section>
-
-    <main class="table-container">
-        <h2>Programação de TV e Transmissões</h2>
-        <br>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Hora</th>
-                    <th>Evento / Sessão</th>
-                    <th>Categoria</th>
-                    <th>Circuito</th>
-                    <th>Data</th>
-                    <th>Onde Assistir (Canal)</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaProgramacao">
-                <!-- Preenchido automaticamente via JavaScript -->
-            </tbody>
-        </table>
-    </main>
 <script>
-        // SUBSTITUA PELA SUA URL REAL DO SHEETDB AQUI:
-        const URL_SHEETDB = "https://sheetdb.io/api/v1/iu6bb038dba2o";
+    // URL REAL DO SHEETDB:
+    const URL_SHEETDB = "https://sheetdb.io/api/v1/iu6bb038dba2o";
 
-        const statusDot = document.getElementById('statusDot');
-        const statusText = document.getElementById('statusText');
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
 
-        // Formata a data de AAAA-MM-DD para DD/MM/AAAA
-        function formatarData(dataString) {
-            if(!dataString) return '';
-            const partes = dataString.split('-');
-            if(partes.length !== 3) return dataString;
-            return `${partes[2]}/${partes[1]}/${partes[0]}`;
+    // 1. Converte número serial do Excel (ex: 46339) para data legível (DD/MM/AAAA)
+    function excelDateToDMY(serial) {
+        if (!serial || isNaN(serial)) {
+            // Se já estiver no formato AAAA-MM-DD ou texto, tenta tratar
+            if (typeof serial === 'string' && serial.includes('-')) {
+                const partes = serial.split('-');
+                if (partes.length === 3) return `${partes[2]}/${partes[1]}/${partes[0]}`;
+            }
+            return serial || '';
         }
+        // Base de dias do Excel (considerando o bug do ano bissexto de 1900)
+        const utc_days = Math.floor(serial - 25569);
+        const dateObj = new Date(utc_days * 86400 * 1000);
+        const day = String(dateObj.getUTCDate()).padStart(2, '0');
+        const month = String(dateObj.getUTCMonth() + 1).padStart(2, '0');
+        const year = dateObj.getUTCFullYear();
+        return `${day}/${month}/${year}`;
+    }
 
-        // 1. LER DADOS DA PLANILHA DIRETO DO NAVEGADOR (GET)
-        function carregarProgramacao() {
-            fetch(URL_SHEETDB)
-                .then(response => response.json())
-                .then(dados => {
-                    const tabela = document.getElementById('tabelaProgramacao');
-                    tabela.innerHTML = ''; 
-
-                    if (!dados || dados.length === 0 || dados.error) {
-                        tabela.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhum evento agendado na planilha.</td></tr>';
-                    } else {
-                        dados.forEach((evento, index) => {
-                            const linha = document.createElement('tr');
-                            linha.innerHTML = `
-                                <td>#${index + 1}</td>
-                                <td>${evento.hora || ''}</td>
-                                <td><strong>${evento.evento || ''}</strong></td>
-                                <td>${evento.categoria || ''}</td>
-                                <td>${evento.circuito || ''}</td>
-                                <td>${formatarData(evento.data)}</td>
-                                <td><span class="canal-tag">${evento.canal || ''}</span></td>
-                            `;
-                            tabela.appendChild(linha);
-                        });
-                    }
-
-                    statusDot.style.backgroundColor = '#04d361';
-                    statusDot.style.boxShadow = '0 0 8px #04d361';
-                    statusText.innerText = 'Planilha Conectada';
-                })
-                .catch(error => {
-                    console.error('Erro ao ler planilha:', error);
-                    statusDot.style.backgroundColor = '#ff4444';
-                    statusDot.style.boxShadow = '0 0 8px #ff4444';
-                    statusText.innerText = 'Erro de Conexão com a Planilha';
-                });
+    // 2. Converte número decimal do Excel (ex: 0,375) ou string para Horário HH:MM
+    function excelTimeToHHMM(excelTime) {
+        if (typeof excelTime === 'number' || (!isNaN(excelTime) && excelTime !== '')) {
+            const num = Number(excelTime);
+            const totalMinutes = Math.round(num * 24 * 60);
+            const hours = String(Math.floor(totalMinutes / 60) % 24).padStart(2, '0');
+            const minutes = String(totalMinutes % 60).padStart(2, '0');
+            return `${hours}:${minutes}`;
         }
+        return excelTime || ''; // Retorna a string original se já for hora (ex: "13:35")
+    }
 
-        // 2. SALVAR DADOS NA PLANILHA DIRETO DO NAVEGADOR (POST)
-        document.getElementById('formNovoEvento').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            btn.innerText = "Gravando na planilha...";
-            btn.disabled = true;
+    // Converte data para formato padrão comparável (AAAA-MM-DD ou serial)
+    function parseDataParaComparacao(dataStr) {
+        if (!dataStr) return 0;
+        if (!isNaN(dataStr)) return Number(dataStr); // É um número serial do Excel
+        if (dataStr.includes('-')) return dataStr; // Já está AAAA-MM-DD
+        if (dataStr.includes('/')) {
+            const p = dataStr.split('/');
+            if (p.length === 3) return `${p[2]}-${p[1]}-${p[0]}`;
+        }
+        return dataStr;
+    }
 
-            const novoEvento = {
-                data: [{
-                    hora: document.getElementById('inputHora').value,
-                    evento: document.getElementById('inputNome').value,
-                    categoria: document.getElementById('inputCategoria').value,
-                    circuito: document.getElementById('inputCircuito').value,
-                    data: document.getElementById('inputData').value,
-                    canal: document.getElementById('inputCanal').value
-                }]
-            };
+    // Converte hora para valor numérico em minutos para ordenação correta
+    function parseHoraParaMinutos(horaStr) {
+        if (typeof horaStr === 'number' || !isNaN(horaStr)) {
+            return Number(horaStr) * 24 * 60; // Se for decimal do Excel
+        }
+        if (typeof horaStr === 'string' && horaStr.includes(':')) {
+            const partes = horaStr.split(':');
+            return (parseInt(partes[0]) || 0) * 60 + (parseInt(partes[1]) || 0);
+        }
+        return 0;
+    }
 
-            fetch(URL_SHEETDB, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(novoEvento)
-            })
+    // 3. LER DADOS DA PLANILHA DIRETO DO NAVEGADOR (GET) COM ORDENAÇÃO
+    function carregarProgramacao() {
+        fetch(URL_SHEETDB)
             .then(response => response.json())
-            .then(resposta => {
-                if(resposta.created) {
-                    alert('Transmissão salva com sucesso na planilha!');
-                    document.getElementById('formNovoEvento').reset();
-                    carregarProgramacao(); // Atualiza a tabela na tela
+            .then(dados => {
+                const tabela = document.getElementById('tabelaProgramacao');
+                tabela.innerHTML = ''; 
+
+                if (!dados || dados.length === 0 || dados.error) {
+                    tabela.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhum evento agendado na planilha.</td></tr>';
                 } else {
-                    alert('A API respondeu mas não conseguiu criar a linha. Verifique os cabeçalhos da planilha.');
+                    // ORDENAR OS DADOS: Data Crescente, depois Hora Crescente
+                    dados.sort((a, b) => {
+                        const dataA = parseDataParaComparacao(a.data);
+                        const dataB = parseDataParaComparacao(b.data);
+
+                        if (dataA < dataB) return -1;
+                        if (dataA > dataB) return 1;
+
+                        // Se a data for igual, ordena pela hora
+                        const horaA = parseHoraParaMinutos(a.hora);
+                        const horaB = parseHoraParaMinutos(b.hora);
+                        return horaA - horaB;
+                    });
+
+                    dados.forEach((evento, index) => {
+                        const horaFormatada = excelTimeToHHMM(evento.hora);
+                        const dataFormatada = excelDateToDMY(evento.data);
+
+                        const linha = document.createElement('tr');
+                        linha.innerHTML = `
+                            <td>#${index + 1}</td>
+                            <td>${horaFormatada}</td>
+                            <td><strong>${evento.evento || ''}</strong></td>
+                            <td>${evento.categoria || ''}</td>
+                            <td>${evento.circuito || ''}</td>
+                            <td>${dataFormatada}</td>
+                            <td><span class="canal-tag">${evento.canal || ''}</span></td>
+                        `;
+                        tabela.appendChild(linha);
+                    });
                 }
+
+                statusDot.style.backgroundColor = '#04d361';
+                statusDot.style.boxShadow = '0 0 8px #04d361';
+                statusText.innerText = 'Planilha Conectada';
             })
             .catch(error => {
-                console.error('Erro no envio:', error);
-                alert('Erro ao se comunicar com a planilha.');
-            })
-            .finally(() => {
-                btn.innerText = "Salvar na Planilha";
-                btn.disabled = false;
+                console.error('Erro ao ler planilha:', error);
+                statusDot.style.backgroundColor = '#ff4444';
+                statusDot.style.boxShadow = '0 0 8px #ff4444';
+                statusText.innerText = 'Erro de Conexão com a Planilha';
             });
+    }
+
+    // 4. SALVAR DADOS NA PLANILHA DIRETO DO NAVEGADOR (POST)
+    document.getElementById('formNovoEvento').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector('button');
+        btn.innerText = "Gravando na planilha...";
+        btn.disabled = true;
+
+        const novoEvento = {
+            data: [{
+                hora: document.getElementById('inputHora').value,
+                evento: document.getElementById('inputNome').value,
+                categoria: document.getElementById('inputCategoria').value,
+                circuito: document.getElementById('inputCircuito').value,
+                data: document.getElementById('inputData').value,
+                canal: document.getElementById('inputCanal').value
+            }]
+        };
+
+        fetch(URL_SHEETDB, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(novoEvento)
+        })
+        .then(response => response.json())
+        .then(resposta => {
+            if(resposta.created) {
+                alert('Transmissão salva com sucesso na planilha!');
+                document.getElementById('formNovoEvento').reset();
+                carregarProgramacao(); // Atualiza a tabela na tela
+            } else {
+                alert('A API respondeu mas não conseguiu criar a linha. Verifique os cabeçalhos da planilha.');
+            }
+        })
+        .catch(error => {
+            console.error('Erro no envio:', error);
+            alert('Erro ao se comunicar com a planilha.');
+        })
+        .finally(() => {
+            btn.innerText = "Salvar na Planilha";
+            btn.disabled = false;
         });
+    });
 
-    // Converter número em série do Excel para Horário HH:MM
-function excelTimeToHHMM(excelTime) {
-  if (typeof excelTime === 'number') {
-    const totalMinutes = Math.round(excelTime * 24 * 60);
-    const hours = String(Math.floor(totalMinutes / 60)).padStart(2, '0');
-    const minutes = String(totalMinutes % 60).padStart(2, '0');
-    return `${hours}:${minutes}`;
-  }
-  return excelTime; // Caso já seja string (ex: "13:35")
-}
-
-        // Carrega as linhas assim que abre o site
-        window.onload = carregarProgramacao;
-    </script>
+    // Carrega as linhas assim que abre o site
+    window.onload = carregarProgramacao;
+</script>
 
 
 
