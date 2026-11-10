@@ -132,6 +132,12 @@
             background-color: #04bf55;
         }
 
+        .btn-cancelar {
+            background-color: #e74c3c !important;
+            margin-top: 10px;
+            display: none;
+        }
+
         /* Tabela de Programação */
         .table-container {
             background-color: #202024;
@@ -173,6 +179,26 @@
             font-weight: bold;
             display: inline-block;
         }
+
+        .btn-acao {
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            margin-right: 4px;
+        }
+
+        .btn-editar {
+            background-color: #f1c40f;
+            color: #121214;
+        }
+
+        .btn-excluir {
+            background-color: #e74c3c;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -192,10 +218,11 @@
         <a href="eventos.html">Eventos</a>
     </nav>
 
-    <!-- Formulário de Novo Cadastro -->
+    <!-- Formulário de Novo Cadastro / Edição -->
     <section class="form-container">
-        <h2>Adicionar Novo Evento / Transmissão (Direto na Planilha)</h2>
+        <h2 id="formTitle">Adicionar Novo Evento / Transmissão (Direto na Planilha)</h2>
         <form id="formNovoEvento">
+            <input type="hidden" id="editIndex"> <!-- Campo oculto para saber se está editando -->
             <div class="form-grid">
                 <div class="form-group">
                     <label for="inputHora">Hora</label>
@@ -238,7 +265,8 @@
                 </div>
             </div>
             <br>
-            <button type="submit" class="btn-cadastrar">Salvar na Planilha</button>
+            <button type="submit" id="btnSubmit" class="btn-cadastrar">Salvar na Planilha</button>
+            <button type="button" id="btnCancelar" class="btn-cadastrar btn-cancelar" onclick="cancelarEdicao()">Cancelar Edição</button>
         </form>
     </section>
 
@@ -255,6 +283,7 @@
                     <th>Circuito</th>
                     <th>Data</th>
                     <th>Onde Assistir (Canal)</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody id="tabelaProgramacao">
@@ -264,13 +293,32 @@
     </main>
 
     <script>
-        // URL REAL DO SHEETDB:
         const URL_SHEETDB = "https://sheetdb.io/api/v1/iu6bb038dba2o";
 
         const statusDot = document.getElementById('statusDot');
         const statusText = document.getElementById('statusText');
+        let listaDadosGlobal = []; // Armazena os dados ordenados para manipulação
 
-        // 1. Converte número serial do Excel (ex: 46339) para data legível (DD/MM/AAAA)
+        // Converte número serial do Excel para AAAA-MM-DD para preencher o input type="date"
+        function excelDateToInputFormat(serial) {
+            if (!serial) return '';
+            if (!isNaN(serial)) {
+                const utc_days = Math.floor(serial - 25569);
+                const dateObj = new Date(utc_days * 86400 * 1000);
+                const year = dateObj.getUTCFullYear();
+                const month = String(dateObj.getUTCMonth() + 1).padStart(2, '0');
+                const day = String(dateObj.getUTCDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+            if (typeof serial === 'string' && serial.includes('-')) return serial; // Já está AAAA-MM-DD
+            if (typeof serial === 'string' && serial.includes('/')) {
+                const p = serial.split('/');
+                if (p.length === 3) return `${p[2]}-${p[1]}-${p[0]}`;
+            }
+            return '';
+        }
+
+        // Converte data serial para exibição DD/MM/AAAA
         function excelDateToDMY(serial) {
             if (!serial || isNaN(serial)) {
                 if (typeof serial === 'string' && serial.includes('-')) {
@@ -287,7 +335,7 @@
             return `${day}/${month}/${year}`;
         }
 
-        // 2. Converte número decimal do Excel (ex: 0,375) ou string para Horário HH:MM
+        // Converte hora decimal do Excel ou string para HH:MM
         function excelTimeToHHMM(excelTime) {
             if (typeof excelTime === 'number' || (!isNaN(excelTime) && excelTime !== '')) {
                 const num = Number(excelTime);
@@ -299,7 +347,6 @@
             return excelTime || ''; 
         }
 
-        // Prepara a data para comparação correta na ordenação
         function parseDataParaComparacao(dataStr) {
             if (!dataStr) return 0;
             if (!isNaN(dataStr)) return Number(dataStr);
@@ -311,7 +358,6 @@
             return dataStr;
         }
 
-        // Prepara a hora em minutos para ordenação correta
         function parseHoraParaMinutos(horaStr) {
             if (typeof horaStr === 'number' || !isNaN(horaStr)) {
                 return Number(horaStr) * 24 * 60;
@@ -323,7 +369,7 @@
             return 0;
         }
 
-        // 3. LER DADOS DA PLANILHA (GET) COM ORDENAÇÃO CRESCENTE POR DATA E HORA
+        // Carrega dados da planilha com ordenação crescente
         function carregarProgramacao() {
             fetch(URL_SHEETDB)
                 .then(response => response.json())
@@ -332,9 +378,10 @@
                     tabela.innerHTML = ''; 
 
                     if (!dados || dados.length === 0 || dados.error) {
-                        tabela.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhum evento agendado na planilha.</td></tr>';
+                        tabela.innerHTML = '<tr><td colspan="8" style="text-align:center;">Nenhum evento agendado na planilha.</td></tr>';
+                        listaDadosGlobal = [];
                     } else {
-                        // ORDENAR OS DADOS: Data Crescente, depois Hora Crescente
+                        // Ordenação por Data Crescente, depois Hora Crescente
                         dados.sort((a, b) => {
                             const dataA = parseDataParaComparacao(a.data);
                             const dataB = parseDataParaComparacao(b.data);
@@ -346,6 +393,8 @@
                             const horaB = parseHoraParaMinutos(b.hora);
                             return horaA - horaB;
                         });
+
+                        listaDadosGlobal = dados; // Salva para referenciar nas ações
 
                         dados.forEach((evento, index) => {
                             const horaFormatada = excelTimeToHHMM(evento.hora);
@@ -360,6 +409,10 @@
                                 <td>${evento.circuito || ''}</td>
                                 <td>${dataFormatada}</td>
                                 <td><span class="canal-tag">${evento.canal || ''}</span></td>
+                                <td>
+                                    <button class="btn-acao btn-editar" onclick="prepararEdicao(${index})">Editar</button>
+                                    <button class="btn-acao btn-excluir" onclick="excluirEvento(${index})">Excluir</button>
+                                </td>
                             `;
                             tabela.appendChild(linha);
                         });
@@ -377,53 +430,138 @@
                 });
         }
 
-        // 4. SALVAR DADOS NA PLANILHA (POST)
+        // Enviar formulário (Criar ou Atualizar)
         document.getElementById('formNovoEvento').addEventListener('submit', function(e) {
             e.preventDefault();
-            const btn = e.target.querySelector('button');
+            const btn = document.getElementById('btnSubmit');
+            const editIndex = document.getElementById('editIndex').value;
+            
+            const horaVal = document.getElementById('inputHora').value;
+            const eventoVal = document.getElementById('inputNome').value;
+            const categoriaVal = document.getElementById('inputCategoria').value;
+            const circuitoVal = document.getElementById('inputCircuito').value;
+            const dataVal = document.getElementById('inputData').value;
+            const canalVal = document.getElementById('inputCanal').value;
+
             btn.innerText = "Gravando na planilha...";
             btn.disabled = true;
 
-            const novoEvento = {
-                data: [{
-                    hora: document.getElementById('inputHora').value,
-                    evento: document.getElementById('inputNome').value,
-                    categoria: document.getElementById('inputCategoria').value,
-                    circuito: document.getElementById('inputCircuito').value,
-                    data: document.getElementById('inputData').value,
-                    canal: document.getElementById('inputCanal').value
-                }]
-            };
+            if (editIndex === "") {
+                // CRIAR NOVO (POST)
+                const novoEvento = {
+                    data: [{
+                        hora: horaVal,
+                        evento: eventoVal,
+                        categoria: categoriaVal,
+                        circuito: circuitoVal,
+                        data: dataVal,
+                        canal: canalVal
+                    }]
+                };
 
-            fetch(URL_SHEETDB, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(novoEvento)
-            })
-            .then(response => response.json())
-            .then(resposta => {
-                if(resposta.created) {
-                    alert('Transmissão salva com sucesso na planilha!');
-                    document.getElementById('formNovoEvento').reset();
+                fetch(URL_SHEETDB, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                    body: JSON.stringify(novoEvento)
+                })
+                .then(res => res.json())
+                .then(resposta => {
+                    if(resposta.created) {
+                        alert('Transmissão salva com sucesso!');
+                        document.getElementById('formNovoEvento').reset();
+                        carregarProgramacao();
+                    } else {
+                        alert('Erro ao criar registro.');
+                    }
+                })
+                .catch(err => alert('Erro de comunicação.'))
+                .finally(() => { btn.innerText = "Salvar na Planilha"; btn.disabled = false; });
+
+            } else {
+                // ATUALIZAR EXISTENTE (PUT usando o evento original como chave de busca)
+                const itemOriginal = listaDadosGlobal[editIndex];
+                // O SheetDB permite atualizar por valor de coluna usando /coluna/valor
+                const urlUpdate = `${URL_SHEETDB}/evento/${encodeURIComponent(itemOriginal.evento)}`;
+
+                const dadosAtualizados = {
+                    data: {
+                        hora: horaVal,
+                        evento: eventoVal,
+                        categoria: categoriaVal,
+                        circuito: circuitoVal,
+                        data: dataVal,
+                        canal: canalVal
+                    }
+                };
+
+                fetch(urlUpdate, {
+                    method: 'PUT',
+                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dadosAtualizados)
+                })
+                .then(res => res.json())
+                .then(resposta => {
+                    alert('Registro atualizado com sucesso!');
+                    cancelarEdicao();
                     carregarProgramacao();
-                } else {
-                    alert('A API respondeu mas não conseguiu criar a linha. Verifique os cabeçalhos da planilha.');
-                }
-            })
-            .catch(error => {
-                console.error('Erro no envio:', error);
-                alert('Erro ao se comunicar com a planilha.');
-            })
-            .finally(() => {
-                btn.innerText = "Salvar na Planilha";
-                btn.disabled = false;
-            });
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Erro ao atualizar registro.');
+                })
+                .finally(() => { btn.innerText = "Salvar na Planilha"; btn.disabled = false; });
+            }
         });
 
-        // Carrega as linhas assim que abre o site
+        // Preencher o formulário com os dados da linha para edição
+        function prepararEdicao(index) {
+            const item = listaDadosGlobal[index];
+            document.getElementById('editIndex').value = index;
+            document.getElementById('inputHora').value = excelTimeToHHMM(item.hora);
+            document.getElementById('inputNome').value = item.evento || '';
+            document.getElementById('inputCategoria').value = item.categoria || '';
+            document.getElementById('inputCircuito').value = item.circuito || '';
+            document.getElementById('inputData').value = excelDateToInputFormat(item.data);
+            document.getElementById('inputCanal').value = item.canal || '';
+
+            document.getElementById('formTitle').innerText = "Editar Transmissão";
+            document.getElementById('btnSubmit').innerText = "Atualizar na Planilha";
+            document.getElementById('btnCancelar').style.display = "block";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Cancelar modo de edição
+        function cancelarEdicao() {
+            document.getElementById('editIndex').value = "";
+            document.getElementById('formNovoEvento').reset();
+            document.getElementById('formTitle').innerText = "Adicionar Novo Evento / Transmissão (Direto na Planilha)";
+            document.getElementById('btnSubmit').innerText = "Salvar na Planilha";
+            document.getElementById('btnCancelar').style.display = "none";
+        }
+
+        // Excluir evento da planilha
+        function excluirEvento(index) {
+            const item = listaDadosGlobal[index];
+            if (confirm(`Deseja realmente excluir o evento "${item.evento}"?`)) {
+                // Deleta no SheetDB utilizando a coluna 'evento' como chave
+                const urlDelete = `${URL_SHEETDB}/evento/${encodeURIComponent(item.evento)}`;
+
+                fetch(urlDelete, {
+                    method: 'DELETE',
+                    headers: { 'Accept': 'application/json' }
+                })
+                .then(res => res.json())
+                .then(resposta => {
+                    alert('Evento excluído com sucesso!');
+                    carregarProgramacao();
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Erro ao excluir o evento.');
+                });
+            }
+        }
+
         window.onload = carregarProgramacao;
     </script>
 </body>
