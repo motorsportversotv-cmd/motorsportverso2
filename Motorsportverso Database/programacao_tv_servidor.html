@@ -170,53 +170,42 @@
             background-color: #29292e;
         }
 
-        .links-container {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
         .canal-tag {
-            background-color: #29292e;
-            color: #e1e1e6;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .link-tag {
             background-color: #04d361;
             color: #121214;
             padding: 4px 10px;
             border-radius: 4px;
             font-size: 0.8rem;
             font-weight: bold;
+            display: inline-block;
+        }
+
+        /* Botões de Links para abrir em nova janela */
+        .btn-link-abrir {
+            background-color: #3498db;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            text-decoration: none;
-            transition: transform 0.15s, background-color 0.2s;
+            transition: background 0.2s, transform 0.1s;
         }
 
-        .link-tag.secundario {
-            background-color: #3498db;
-            color: white;
-        }
-
-        .link-tag.secundario:hover {
+        .btn-link-abrir:hover {
             background-color: #2980b9;
-            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+            transform: translateY(-1px);
         }
 
-        .link-tag:hover {
-            background-color: #04bf55;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(4, 211, 97, 0.3);
+        .btn-link-abrir.secundario {
+            background-color: #9b59b6;
+        }
+
+        .btn-link-abrir.secundario:hover {
+            background-color: #8e44ad;
         }
 
         .btn-acao {
@@ -303,11 +292,11 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="inputLink1">Link Principal 1 (Opcional)</label>
+                    <label for="inputLink1">Link 1 (Principal)</label>
                     <input type="url" id="inputLink1" placeholder="https://...">
                 </div>
                 <div class="form-group">
-                    <label for="inputLink2">Link Secundário 2 (Opcional)</label>
+                    <label for="inputLink2">Link 2 (Secundário)</label>
                     <input type="url" id="inputLink2" placeholder="https://...">
                 </div>
             </div>
@@ -329,12 +318,14 @@
                     <th>Categoria</th>
                     <th>Circuito</th>
                     <th>Data</th>
-                    <th>Onde Assistir (Canal / Links)</th>
+                    <th>Canal</th>
+                    <th>Link 1</th>
+                    <th>Link 2</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody id="tabelaProgramacao">
-                <tr><td colspan="8" style="text-align:center; color: #a8a8b3;">Carregando dados do servidor (aguarde alguns segundos)...</td></tr>
+                <tr><td colspan="10" style="text-align:center; color: #a8a8b3;">Carregando dados do servidor (aguarde alguns segundos)...</td></tr>
             </tbody>
         </table>
     </main>
@@ -368,269 +359,3 @@
             if (!serial || isNaN(serial)) {
                 if (typeof serial === 'string' && serial.includes('-')) {
                     const partes = serial.split('-');
-                    if (partes.length === 3) return `${partes[2]}/${partes[1]}/${partes[0]}`;
-                }
-                return serial || '';
-            }
-            const utc_days = Math.floor(serial - 25569);
-            const dateObj = new Date(utc_days * 86400 * 1000);
-            const day = String(dateObj.getUTCDate()).padStart(2, '0');
-            const month = String(dateObj.getUTCMonth() + 1).padStart(2, '0');
-            const year = dateObj.getUTCFullYear();
-            return `${day}/${month}/${year}`;
-        }
-
-        function excelTimeToHHMM(excelTime) {
-            if (typeof excelTime === 'number' || (!isNaN(excelTime) && excelTime !== '')) {
-                const num = Number(excelTime);
-                const totalMinutes = Math.round(num * 24 * 60);
-                const hours = String(Math.floor(totalMinutes / 60) % 24).padStart(2, '0');
-                const minutes = String(totalMinutes % 60).padStart(2, '0');
-                return `${hours}:${minutes}`;
-            }
-            return excelTime || ''; 
-        }
-
-        function parseDataParaComparacao(dataStr) {
-            if (!dataStr) return 0;
-            if (!isNaN(dataStr)) return Number(dataStr);
-            if (dataStr.includes('-')) return dataStr;
-            if (dataStr.includes('/')) {
-                const p = dataStr.split('/');
-                if (p.length === 3) return `${p[2]}-${p[1]}-${p[0]}`;
-            }
-            return dataStr;
-        }
-
-        function parseHoraParaMinutos(horaStr) {
-            if (typeof horaStr === 'number' || !isNaN(horaStr)) {
-                return Number(horaStr) * 24 * 60;
-            }
-            if (typeof horaStr === 'string' && horaStr.includes(':')) {
-                const partes = horaStr.split(':');
-                return (parseInt(partes[0]) || 0) * 60 + (parseInt(partes[1]) || 0);
-            }
-            return 0;
-        }
-
-        function formatarUrl(url) {
-            if (!url) return '';
-            const trimmed = url.trim();
-            if (!trimmed) return '';
-            if (!/^https?:\/\//i.test(trimmed)) {
-                return 'https://' + trimmed;
-            }
-            return trimmed;
-        }
-
-        function carregarProgramacao() {
-            const tabela = document.getElementById('tabelaProgramacao');
-            tabela.innerHTML = '<tr><td colspan="8" style="text-align:center; color: #a8a8b3;">Carregando dados do servidor (aguarde alguns segundos)...</td></tr>';
-
-            fetch(URL_SHEETDB)
-                .then(response => response.json())
-                .then(dados => {
-                    tabela.innerHTML = ''; 
-
-                    if (!dados || dados.length === 0 || dados.error) {
-                        tabela.innerHTML = '<tr><td colspan="8" style="text-align:center;">Nenhum evento agendado na planilha.</td></tr>';
-                        listaDadosGlobal = [];
-                    } else {
-                        dados.sort((a, b) => {
-                            const dataA = parseDataParaComparacao(a.data);
-                            const dataB = parseDataParaComparacao(b.data);
-
-                            if (dataA < dataB) return -1;
-                            if (dataA > dataB) return 1;
-
-                            const horaA = parseHoraParaMinutos(a.hora);
-                            const horaB = parseHoraParaMinutos(b.hora);
-                            return horaA - horaB;
-                        });
-
-                        listaDadosGlobal = dados; 
-
-                        dados.forEach((evento, index) => {
-                            const horaFormatada = excelTimeToHHMM(evento.hora);
-                            const dataFormatada = excelDateToDMY(evento.data);
-                            const link1 = formatarUrl(evento.link1);
-                            const link2 = formatarUrl(evento.link2);
-
-                            let htmlConteudo = `<div class="links-container"><span class="canal-tag">${evento.canal || 'Canal'}</span>`;
-
-                            if (link1) {
-                                htmlConteudo += `<a href="${link1}" target="_blank" rel="noopener noreferrer" class="link-tag" title="Abrir Link 1">Link 1 ↗</a>`;
-                            }
-                            if (link2) {
-                                htmlConteudo += `<a href="${link2}" target="_blank" rel="noopener noreferrer" class="link-tag secundario" title="Abrir Link 2">Link 2 ↗</a>`;
-                            }
-
-                            htmlConteudo += `</div>`;
-
-                            const linha = document.createElement('tr');
-                            linha.innerHTML = `
-                                <td>#${index + 1}</td>
-                                <td>${horaFormatada}</td>
-                                <td><strong>${evento.evento || ''}</strong></td>
-                                <td>${evento.categoria || ''}</td>
-                                <td>${evento.circuito || ''}</td>
-                                <td>${dataFormatada}</td>
-                                <td>${htmlConteudo}</td>
-                                <td>
-                                    <button class="btn-acao btn-editar" onclick="prepararEdicao(${index})">Editar</button>
-                                    <button class="btn-acao btn-excluir" onclick="excluirEvento(${index})">Excluir</button>
-                                </td>
-                            `;
-                            tabela.appendChild(linha);
-                        });
-                    }
-
-                    statusDot.style.backgroundColor = '#04d361';
-                    statusDot.style.boxShadow = '0 0 8px #04d361';
-                    statusText.innerText = 'Planilha Conectada';
-                })
-                .catch(error => {
-                    console.error('Erro ao ler planilha:', error);
-                    statusDot.style.backgroundColor = '#ff4444';
-                    statusDot.style.boxShadow = '0 0 8px #ff4444';
-                    statusText.innerText = 'Erro de Conexão com a Planilha';
-                    tabela.innerHTML = '<tr><td colspan="8" style="text-align:center; color: #ff4444;">Erro ao carregar dados. Verifique sua conexão.</td></tr>';
-                });
-        }
-
-        document.getElementById('formNovoEvento').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('btnSubmit');
-            const editIndex = document.getElementById('editIndex').value;
-            
-            const horaVal = document.getElementById('inputHora').value;
-            const eventoVal = document.getElementById('inputNome').value;
-            const categoriaVal = document.getElementById('inputCategoria').value;
-            const circuitoVal = document.getElementById('inputCircuito').value;
-            const dataVal = document.getElementById('inputData').value;
-            const canalVal = document.getElementById('inputCanal').value;
-            const link1Val = formatarUrl(document.getElementById('inputLink1').value);
-            const link2Val = formatarUrl(document.getElementById('inputLink2').value);
-
-            btn.innerText = "Gravando na planilha...";
-            btn.disabled = true;
-
-            if (editIndex === "") {
-                const novoEvento = {
-                    data: [{
-                        hora: horaVal,
-                        evento: eventoVal,
-                        categoria: categoriaVal,
-                        circuito: circuitoVal,
-                        data: dataVal,
-                        canal: canalVal,
-                        link1: link1Val,
-                        link2: link2Val
-                    }]
-                };
-
-                fetch(URL_SHEETDB, {
-                    method: 'POST',
-                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                    body: JSON.stringify(novoEvento)
-                })
-                .then(res => res.json())
-                .then(resposta => {
-                    if(resposta.created) {
-                        alert('Transmissão salva com sucesso!');
-                        document.getElementById('formNovoEvento').reset();
-                        carregarProgramacao();
-                    } else {
-                        alert('Erro ao criar registro.');
-                    }
-                })
-                .catch(err => alert('Erro de comunicação.'))
-                .finally(() => { btn.innerText = "Salvar na Planilha"; btn.disabled = false; });
-
-            } else {
-                const itemOriginal = listaDadosGlobal[editIndex];
-                const urlUpdate = `${URL_SHEETDB}/evento/${encodeURIComponent(itemOriginal.evento)}`;
-
-                const dadosAtualizados = {
-                    data: {
-                        hora: horaVal,
-                        evento: eventoVal,
-                        categoria: categoriaVal,
-                        circuito: circuitoVal,
-                        data: dataVal,
-                        canal: canalVal,
-                        link1: link1Val,
-                        link2: link2Val
-                    }
-                };
-
-                fetch(urlUpdate, {
-                    method: 'PUT',
-                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dadosAtualizados)
-                })
-                .then(res => res.json())
-                .then(resposta => {
-                    alert('Registro atualizado com sucesso!');
-                    cancelarEdicao();
-                    carregarProgramacao();
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert('Erro ao atualizar registro.');
-                })
-                .finally(() => { btn.innerText = "Salvar na Planilha"; btn.disabled = false; });
-            }
-        });
-
-        function prepararEdicao(index) {
-            const item = listaDadosGlobal[index];
-            document.getElementById('editIndex').value = index;
-            document.getElementById('inputHora').value = excelTimeToHHMM(item.hora);
-            document.getElementById('inputNome').value = item.evento || '';
-            document.getElementById('inputCategoria').value = item.categoria || '';
-            document.getElementById('inputCircuito').value = item.circuito || '';
-            document.getElementById('inputData').value = excelDateToInputFormat(item.data);
-            document.getElementById('inputCanal').value = item.canal || '';
-            document.getElementById('inputLink1').value = item.link1 || '';
-            document.getElementById('inputLink2').value = item.link2 || '';
-
-            document.getElementById('formTitle').innerText = "Editar Transmissão";
-            document.getElementById('btnSubmit').innerText = "Atualizar na Planilha";
-            document.getElementById('btnCancelar').style.display = "block";
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function cancelarEdicao() {
-            document.getElementById('editIndex').value = "";
-            document.getElementById('formNovoEvento').reset();
-            document.getElementById('formTitle').innerText = "Adicionar Novo Evento / Transmissão (Direto na Planilha)";
-            document.getElementById('btnSubmit').innerText = "Salvar na Planilha";
-            document.getElementById('btnCancelar').style.display = "none";
-        }
-
-        function excluirEvento(index) {
-            const item = listaDadosGlobal[index];
-            if (confirm(`Deseja realmente excluir o evento "${item.evento}"?`)) {
-                const urlDelete = `${URL_SHEETDB}/evento/${encodeURIComponent(item.evento)}`;
-
-                fetch(urlDelete, {
-                    method: 'DELETE',
-                    headers: { 'Accept': 'application/json' }
-                })
-                .then(res => res.json())
-                .then(resposta => {
-                    alert('Evento excluído com sucesso!');
-                    carregarProgramacao();
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert('Erro ao excluir o evento.');
-                });
-            }
-        }
-
-        window.onload = carregarProgramacao;
-    </script>
-</body>
-</html>
