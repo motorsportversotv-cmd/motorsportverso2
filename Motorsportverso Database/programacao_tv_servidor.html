@@ -170,6 +170,12 @@
             background-color: #29292e;
         }
 
+        .links-container {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
         .canal-tag {
             background-color: #04d361;
             color: #121214;
@@ -184,8 +190,17 @@
             transition: transform 0.15s, background-color 0.2s;
         }
 
+        .canal-tag.secundario {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .canal-tag.secundario:hover {
+            background-color: #2980b9;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+        }
+
         a.canal-tag:hover {
-            background-color: #04bf55;
             transform: translateY(-1px);
             box-shadow: 0 2px 8px rgba(4, 211, 97, 0.3);
         }
@@ -274,8 +289,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="inputLink">Link da Transmissão (Opcional)</label>
-                    <input type="url" id="inputLink" placeholder="https://youtube.com/watch?v=...">
+                    <label for="inputLink1">Link Principal 1 (Opcional)</label>
+                    <input type="url" id="inputLink1" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label for="inputLink2">Link Secundário 2 (Opcional)</label>
+                    <input type="url" id="inputLink2" placeholder="https://...">
                 </div>
             </div>
             <br>
@@ -380,7 +399,6 @@
             return 0;
         }
 
-        // Garante que o link tenha https:// caso o usuário cole sem protocolo
         function formatarUrl(url) {
             if (!url) return '';
             const trimmed = url.trim();
@@ -421,12 +439,23 @@
                         dados.forEach((evento, index) => {
                             const horaFormatada = excelTimeToHHMM(evento.hora);
                             const dataFormatada = excelDateToDMY(evento.data);
-                            const linkFormatado = formatarUrl(evento.link);
+                            const link1 = formatarUrl(evento.link1);
+                            const link2 = formatarUrl(evento.link2);
 
-                            // Se houver link, renderiza como botão clicável; caso contrário, apenas a tag estática
-                            const canalHtml = linkFormatado 
-                                ? `<a href="${linkFormatado}" target="_blank" rel="noopener noreferrer" class="canal-tag" title="Abrir transmissão">${evento.canal || 'Assistir'} ↗</a>`
-                                : `<span class="canal-tag">${evento.canal || ''}</span>`;
+                            // Monta a célula de canais/links
+                            let canalHtml = `<span class="canal-tag">${evento.canal || ''}</span>`;
+                            let botoesLinks = '';
+
+                            if (link1) {
+                                botoesLinks += `<a href="${link1}" target="_blank" rel="noopener noreferrer" class="canal-tag" title="Link Principal">Link 1 ↗</a>`;
+                            }
+                            if (link2) {
+                                botoesLinks += `<a href="${link2}" target="_blank" rel="noopener noreferrer" class="canal-tag secundario" title="Link Secundário">Link 2 ↗</a>`;
+                            }
+
+                            if (botoesLinks) {
+                                canalHtml = `<div class="links-container"><span class="canal-tag">${evento.canal || 'Assistir'}</span>${botoesLinks}</div>`;
+                            }
 
                             const linha = document.createElement('tr');
                             linha.innerHTML = `
@@ -470,7 +499,8 @@
             const circuitoVal = document.getElementById('inputCircuito').value;
             const dataVal = document.getElementById('inputData').value;
             const canalVal = document.getElementById('inputCanal').value;
-            const linkVal = formatarUrl(document.getElementById('inputLink').value);
+            const link1Val = formatarUrl(document.getElementById('inputLink1').value);
+            const link2Val = formatarUrl(document.getElementById('inputLink2').value);
 
             btn.innerText = "Gravando na planilha...";
             btn.disabled = true;
@@ -484,7 +514,8 @@
                         circuito: circuitoVal,
                         data: dataVal,
                         canal: canalVal,
-                        link: linkVal
+                        link1: link1Val,
+                        link2: link2Val
                     }]
                 };
 
@@ -518,7 +549,8 @@
                         circuito: circuitoVal,
                         data: dataVal,
                         canal: canalVal,
-                        link: linkVal
+                        link1: link1Val,
+                        link2: link2Val
                     }
                 };
 
@@ -550,7 +582,8 @@
             document.getElementById('inputCircuito').value = item.circuito || '';
             document.getElementById('inputData').value = excelDateToInputFormat(item.data);
             document.getElementById('inputCanal').value = item.canal || '';
-            document.getElementById('inputLink').value = item.link || '';
+            document.getElementById('inputLink1').value = item.link1 || '';
+            document.getElementById('inputLink2').value = item.link2 || '';
 
             document.getElementById('formTitle').innerText = "Editar Transmissão";
             document.getElementById('btnSubmit').innerText = "Atualizar na Planilha";
@@ -591,7 +624,5 @@
     </script>
 </body>
 </html>
-
-
 
 
