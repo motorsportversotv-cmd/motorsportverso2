@@ -173,11 +173,21 @@
         .canal-tag {
             background-color: #04d361;
             color: #121214;
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 4px;
             font-size: 0.8rem;
             font-weight: bold;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            transition: transform 0.15s, background-color 0.2s;
+        }
+
+        a.canal-tag:hover {
+            background-color: #04bf55;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(4, 211, 97, 0.3);
         }
 
         .btn-acao {
@@ -263,6 +273,10 @@
                         <option value="Globo">Globo</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="inputLink">Link da Transmissão (Opcional)</label>
+                    <input type="url" id="inputLink" placeholder="https://youtube.com/watch?v=...">
+                </div>
             </div>
             <br>
             <button type="submit" id="btnSubmit" class="btn-cadastrar">Salvar na Planilha</button>
@@ -287,7 +301,6 @@
                 </tr>
             </thead>
             <tbody id="tabelaProgramacao">
-                <!-- Mensagem visível enquanto o servidor acorda -->
                 <tr><td colspan="8" style="text-align:center; color: #a8a8b3;">Carregando dados do servidor (aguarde alguns segundos)...</td></tr>
             </tbody>
         </table>
@@ -367,6 +380,17 @@
             return 0;
         }
 
+        // Garante que o link tenha https:// caso o usuário cole sem protocolo
+        function formatarUrl(url) {
+            if (!url) return '';
+            const trimmed = url.trim();
+            if (!trimmed) return '';
+            if (!/^https?:\/\//i.test(trimmed)) {
+                return 'https://' + trimmed;
+            }
+            return trimmed;
+        }
+
         function carregarProgramacao() {
             const tabela = document.getElementById('tabelaProgramacao');
             tabela.innerHTML = '<tr><td colspan="8" style="text-align:center; color: #a8a8b3;">Carregando dados do servidor (aguarde alguns segundos)...</td></tr>';
@@ -380,7 +404,6 @@
                         tabela.innerHTML = '<tr><td colspan="8" style="text-align:center;">Nenhum evento agendado na planilha.</td></tr>';
                         listaDadosGlobal = [];
                     } else {
-                        // Ordenação rigorosa por Data Crescente e Hora Crescente (Gera IDs cronológicos exatos)
                         dados.sort((a, b) => {
                             const dataA = parseDataParaComparacao(a.data);
                             const dataB = parseDataParaComparacao(b.data);
@@ -398,6 +421,12 @@
                         dados.forEach((evento, index) => {
                             const horaFormatada = excelTimeToHHMM(evento.hora);
                             const dataFormatada = excelDateToDMY(evento.data);
+                            const linkFormatado = formatarUrl(evento.link);
+
+                            // Se houver link, renderiza como botão clicável; caso contrário, apenas a tag estática
+                            const canalHtml = linkFormatado 
+                                ? `<a href="${linkFormatado}" target="_blank" rel="noopener noreferrer" class="canal-tag" title="Abrir transmissão">${evento.canal || 'Assistir'} ↗</a>`
+                                : `<span class="canal-tag">${evento.canal || ''}</span>`;
 
                             const linha = document.createElement('tr');
                             linha.innerHTML = `
@@ -407,7 +436,7 @@
                                 <td>${evento.categoria || ''}</td>
                                 <td>${evento.circuito || ''}</td>
                                 <td>${dataFormatada}</td>
-                                <td><span class="canal-tag">${evento.canal || ''}</span></td>
+                                <td>${canalHtml}</td>
                                 <td>
                                     <button class="btn-acao btn-editar" onclick="prepararEdicao(${index})">Editar</button>
                                     <button class="btn-acao btn-excluir" onclick="excluirEvento(${index})">Excluir</button>
@@ -441,6 +470,7 @@
             const circuitoVal = document.getElementById('inputCircuito').value;
             const dataVal = document.getElementById('inputData').value;
             const canalVal = document.getElementById('inputCanal').value;
+            const linkVal = formatarUrl(document.getElementById('inputLink').value);
 
             btn.innerText = "Gravando na planilha...";
             btn.disabled = true;
@@ -453,7 +483,8 @@
                         categoria: categoriaVal,
                         circuito: circuitoVal,
                         data: dataVal,
-                        canal: canalVal
+                        canal: canalVal,
+                        link: linkVal
                     }]
                 };
 
@@ -486,11 +517,12 @@
                         categoria: categoriaVal,
                         circuito: circuitoVal,
                         data: dataVal,
-                        canal: canalVal
+                        canal: canalVal,
+                        link: linkVal
                     }
                 };
 
-    fetch(urlUpdate, {
+                fetch(urlUpdate, {
                     method: 'PUT',
                     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
                     body: JSON.stringify(dadosAtualizados)
@@ -518,6 +550,7 @@
             document.getElementById('inputCircuito').value = item.circuito || '';
             document.getElementById('inputData').value = excelDateToInputFormat(item.data);
             document.getElementById('inputCanal').value = item.canal || '';
+            document.getElementById('inputLink').value = item.link || '';
 
             document.getElementById('formTitle').innerText = "Editar Transmissão";
             document.getElementById('btnSubmit').innerText = "Atualizar na Planilha";
