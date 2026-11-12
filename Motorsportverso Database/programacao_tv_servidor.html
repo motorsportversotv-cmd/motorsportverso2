@@ -418,7 +418,7 @@
         function formatarUrl(url) {
             if (!url) return '';
             const trimmed = String(url).trim();
-            if (!trimmed) return '';
+            if (!trimmed || trimmed === '--') return '';
             if (!/^https?:\/\//i.test(trimmed)) {
                 return 'https://' + trimmed;
             }
@@ -454,8 +454,13 @@
                     dados.forEach((evento, index) => {
                         const horaFormatada = excelTimeToHHMM(evento.hora);
                         const dataFormatada = excelDateToDMY(evento.data);
-                        const link1 = formatarUrl(evento.link1);
-                        const link2 = formatarUrl(evento.link2);
+                        
+                        // Garante mapeamento flexível caso venha com L maiúsculo (Link1/Link2) ou minúsculo (link1/link2)
+                        const rawLink1 = evento.link1 || evento.Link1 || '';
+                        const rawLink2 = evento.link2 || evento.Link2 || '';
+
+                        const link1 = formatarUrl(rawLink1);
+                        const link2 = formatarUrl(rawLink2);
 
                         const htmlLink1 = link1
                             ? `<a href="${link1}" target="_blank" rel="noopener noreferrer" class="btn-link-abrir">🌐 Abrir Link 1</a>`
@@ -565,68 +570,3 @@
                     body: JSON.stringify(dadosAtualizados)
                 })
                 .then(res => res.json())
-                .then(() => {
-                    alert('Registro atualizado com sucesso!');
-                    cancelarEdicao();
-                    carregarProgramacao();
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert('Erro ao atualizar registro.');
-                })
-                .finally(() => { btn.innerText = "Salvar na Planilha"; btn.disabled = false; });
-            }
-        });
-
-        function prepararEdicao(index) {
-            const item = listaDadosGlobal[index];
-            document.getElementById('editIndex').value = index;
-            document.getElementById('inputHora').value = excelTimeToHHMM(item.hora);
-            document.getElementById('inputNome').value = item.evento || '';
-            document.getElementById('inputCategoria').value = item.categoria || '';
-            document.getElementById('inputCircuito').value = item.circuito || '';
-            document.getElementById('inputData').value = excelDateToInputFormat(item.data);
-            document.getElementById('inputCanal').value = item.canal || '';
-            document.getElementById('inputLink1').value = item.link1 || '';
-            document.getElementById('inputLink2').value = item.link2 || '';
-
-            document.getElementById('formTitle').innerText = "Editar Transmissão";
-            document.getElementById('btnSubmit').innerText = "Atualizar na Planilha";
-            document.getElementById('btnCancelar').style.display = "block";
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function cancelarEdicao() {
-            document.getElementById('editIndex').value = "";
-            document.getElementById('formNovoEvento').reset();
-            document.getElementById('formTitle').innerText = "Adicionar Novo Evento / Transmissão (Direto na Planilha)";
-            document.getElementById('btnSubmit').innerText = "Salvar na Planilha";
-            document.getElementById('btnCancelar').style.display = "none";
-        }
-
-        function excluirEvento(index) {
-            const item = listaDadosGlobal[index];
-            if (confirm(`Deseja realmente excluir o evento "${item.evento}"?`)) {
-                const urlDelete = `${URL_SHEETDB}/evento/${encodeURIComponent(item.evento)}`;
-
-                fetch(urlDelete, {
-                    method: 'DELETE',
-                    headers: { 'Accept': 'application/json' }
-                })
-                .then(res => res.json())
-                .then(() => {
-                    alert('Evento excluído com sucesso!');
-                    carregarProgramacao();
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert('Erro ao excluir o evento.');
-                });
-            }
-        }
-
-        window.onload = carregarProgramacao;
-    </script>
-</body>
-</html>
-           
