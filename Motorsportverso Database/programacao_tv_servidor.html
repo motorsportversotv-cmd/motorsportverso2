@@ -174,9 +174,22 @@
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .canal-tag {
+            background-color: #29292e;
+            color: #e1e1e6;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .link-tag {
             background-color: #04d361;
             color: #121214;
             padding: 4px 10px;
@@ -190,17 +203,18 @@
             transition: transform 0.15s, background-color 0.2s;
         }
 
-        .canal-tag.secundario {
+        .link-tag.secundario {
             background-color: #3498db;
             color: white;
         }
 
-        .canal-tag.secundario:hover {
+        .link-tag.secundario:hover {
             background-color: #2980b9;
             box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
         }
 
-        a.canal-tag:hover {
+        .link-tag:hover {
+            background-color: #04bf55;
             transform: translateY(-1px);
             box-shadow: 0 2px 8px rgba(4, 211, 97, 0.3);
         }
@@ -315,7 +329,7 @@
                     <th>Categoria</th>
                     <th>Circuito</th>
                     <th>Data</th>
-                    <th>Onde Assistir (Canal)</th>
+                    <th>Onde Assistir (Canal / Links)</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -442,20 +456,17 @@
                             const link1 = formatarUrl(evento.link1);
                             const link2 = formatarUrl(evento.link2);
 
-                            // Monta a célula de canais/links
-                            let canalHtml = `<span class="canal-tag">${evento.canal || ''}</span>`;
-                            let botoesLinks = '';
+                            // Monta os elementos visuais da coluna de canal/links
+                            let htmlConteudo = `<div class="links-container"><span class="canal-tag">${evento.canal || 'Canal'}</span>`;
 
                             if (link1) {
-                                botoesLinks += `<a href="${link1}" target="_blank" rel="noopener noreferrer" class="canal-tag" title="Link Principal">Link 1 ↗</a>`;
+                                htmlConteudo += `<a href="${link1}" target="_blank" rel="noopener noreferrer" class="link-tag" title="Abrir Link 1">Link 1 ↗</a>`;
                             }
                             if (link2) {
-                                botoesLinks += `<a href="${link2}" target="_blank" rel="noopener noreferrer" class="canal-tag secundario" title="Link Secundário">Link 2 ↗</a>`;
+                                htmlConteudo += `<a href="${link2}" target="_blank" rel="noopener noreferrer" class="link-tag secundario" title="Abrir Link 2">Link 2 ↗</a>`;
                             }
 
-                            if (botoesLinks) {
-                                canalHtml = `<div class="links-container"><span class="canal-tag">${evento.canal || 'Assistir'}</span>${botoesLinks}</div>`;
-                            }
+                            htmlConteudo += `</div>`;
 
                             const linha = document.createElement('tr');
                             linha.innerHTML = `
@@ -465,7 +476,7 @@
                                 <td>${evento.categoria || ''}</td>
                                 <td>${evento.circuito || ''}</td>
                                 <td>${dataFormatada}</td>
-                                <td>${canalHtml}</td>
+                                <td>${htmlConteudo}</td>
                                 <td>
                                     <button class="btn-acao btn-editar" onclick="prepararEdicao(${index})">Editar</button>
                                     <button class="btn-acao btn-excluir" onclick="excluirEvento(${index})">Excluir</button>
@@ -624,5 +635,3 @@
     </script>
 </body>
 </html>
-
-
