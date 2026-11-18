@@ -129,27 +129,25 @@
       background-color: #47a847; 
     }
 
-    /* Estilo do Botão/Link de Pilotos */
-    .pilotos-link-container { 
-      text-align: center; 
-      margin-top: 30px; 
-      margin-bottom: 10px; 
+    /* Botão Compacto na Tabela */
+    .ficha-btn {
+      background-color: #262626;
+      color: #00a8ff;
+      border: 1px solid #00a8ff;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: bold;
+      border-radius: 3px;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.2s;
+      white-space: nowrap;
     }
-    .pilotos-btn { 
-      background-color: #262626; 
-      color: #00a8ff; 
-      border: 1px solid #00a8ff; 
-      padding: 10px 20px; 
-      font-weight: bold; 
-      border-radius: 4px; 
-      text-decoration: none; 
-      display: inline-block; 
-      transition: 0.2s; 
+    .ficha-btn:hover {
+      background-color: #00a8ff;
+      color: #fff;
     }
-    .pilotos-btn:hover { 
-      background-color: #00a8ff; 
-      color: #fff; 
-    }
+
     .ano {
       font-size: 14px;
       margin-top: 15px;
@@ -185,6 +183,7 @@
         <th>Marca</th>
         <th>Modelo</th>
         <th>Categoria</th>
+        <th style="text-align: right;">Perfil</th>
       </tr>
     </thead>
     <tbody>
@@ -194,6 +193,7 @@
         <td class="brand">Toyota</td>
         <td class="model">GR Yaris</td>
         <td><span class="badge pro">SS-5</span></td>
+        <td style="text-align: right;"><a href="ficha_lucas_law.html" class="ficha-btn">Ver Ficha</a></td>
       </tr>
       <tr data-category="SS-5A">
         <td class="pos">65</td>
@@ -201,6 +201,7 @@
         <td class="brand">Honda</td>
         <td class="model">Civic Type R FL5</td>
         <td><span class="badge pro">SS-5A</span></td>
+        <td style="text-align: right;"><a href="ficha_ricardo.html" class="ficha-btn">Ver Ficha</a></td>
       </tr>
       <tr data-category="Extreme">
         <td class="pos">333</td>
@@ -208,6 +209,7 @@
         <td class="brand">Audi</td>
         <td class="model">A3</td>
         <td><span class="badge pro">Extreme</span></td>
+        <td style="text-align: right;"><a href="ficha_rizzotto.html" class="ficha-btn">Ver Ficha</a></td>
       </tr>
       <tr data-category="Street ASP">
         <td class="pos">21</td>
@@ -215,16 +217,13 @@
         <td class="brand">Peugeot</td>
         <td class="model">106</td>
         <td><span class="badge pro">Street ASP</span></td>
+        <td style="text-align: right;"><a href="ficha_cris.html" class="ficha-btn">Ver Ficha</a></td>
       </tr>
     </tbody>
   </table>
 
   <div class="ano">
     <strong>Ano: 2026</strong>
-  </div>
-
-  <div class="pilotos-link-container">
-    <a href="ficha_lucas_law.html" class="pilotos-btn">Ver Ficha Completa do Piloto</a>
   </div>
 </div>
 
