@@ -60,16 +60,18 @@
             font-size: 16px;
         }
 
-        /* Títulos das Seções (Estilo da Imagem) */
+        /* Títulos das Seções com Borda Azul/Vermelha lateral */
         .section-title {
-            font-size: 18px;
+            font-size: 16px;
             color: #fff;
-            background-color: #262626;
+            background-color: #1a1a1a;
             padding: 10px 15px;
             border-left: 4px solid #00a8ff;
+            border-bottom: 2px solid #2d2d2d;
             margin-top: 30px;
-            margin-bottom: 15px;
+            margin-bottom: 0;
             font-weight: 600;
+            letter-spacing: 0.5px;
         }
         .section-title.red-border {
             border-left-color: #e10600;
@@ -84,13 +86,14 @@
             margin-bottom: 25px;
         }
         th {
-            background-color: #222;
+            background-color: #1f1f1f;
             color: #999;
             padding: 12px 10px;
             font-weight: 600;
             border-bottom: 2px solid #333;
             text-transform: uppercase;
             font-size: 11px;
+            letter-spacing: 0.5px;
         }
         td {
             padding: 12px 10px;
@@ -105,18 +108,13 @@
         .col-ano {
             font-weight: bold;
             color: #fff;
-            width: 60px;
         }
         .col-no {
             font-weight: bold;
             color: #ffbc00;
-            width: 50px;
         }
         .col-evento {
             color: #e0e0e0;
-        }
-        .col-equipe {
-            color: #ccc;
         }
         .col-local {
             color: #e0e0e0;
@@ -127,7 +125,7 @@
             gap: 8px;
         }
         .col-carro img {
-            height: 22px;
+            height: 20px;
             width: auto;
         }
         .brand {
@@ -149,15 +147,38 @@
         .badge-club {
             background-color: #2e7d32;
         }
+        .badge-dash {
+            color: #888;
+        }
         .col-resultado {
-            font-family: monospace;
-            font-size: 13px;
             font-weight: bold;
             color: #ffbc00;
             text-align: right;
         }
         th.text-right {
             text-align: right;
+        }
+
+        /* Botão Voltar */
+        .pilotos-link-container {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        .pilotos-btn {
+            background-color: #262626;
+            color: #00a8ff;
+            border: 1px solid #00a8ff;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s;
+        }
+        .pilotos-btn:hover {
+            background-color: #00a8ff;
+            color: #fff;
         }
     </style>
 </head>
@@ -227,31 +248,33 @@
                 <td class="col-ano">2025</td>
                 <td class="col-no">90</td>
                 <td class="col-evento">Fia Extreme H</td>
-                <td class="col-equipe">Hansen \ Andreas Bakkured</td>
+                <td style="color: #ccc;">Hansen \ Andreas Bakkured</td>
                 <td class="col-local">Arabia Saudita</td>
                 <td><span class="model">Pioner25</span></td>
-                <td>-</td>
+                <td><span class="badge-dash">-</span></td>
                 <td class="col-resultado">5. Over Hall</td>
             </tr>
             <tr>
                 <td class="col-ano">2025</td>
                 <td class="col-no">90</td>
                 <td class="col-evento">Extreme E-Final Day 2</td>
-                <td class="col-equipe">Hansen \ Andreas Bakkured</td>
+                <td style="color: #ccc;">Hansen \ Andreas Bakkured</td>
                 <td class="col-local">Arabia Saudita</td>
                 <td><span class="model">Odyssey21</span></td>
-                <td>-</td>
+                <td><span class="badge-dash">-</span></td>
                 <td class="col-resultado">1. Over Hall</td>
             </tr>
         </tbody>
     </table>
 
+    <div class="pilotos-link-container">
+        <a href="index.html" class="pilotos-btn">Voltar para a Entry List</a>
+    </div>
+
 </div>
 
 </body>
 </html>
-
-
 
 
 
