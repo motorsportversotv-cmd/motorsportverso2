@@ -32,19 +32,6 @@
             letter-spacing: 1px;
         }
 
-        /* Cabeçalho da Seção no novo formato */
-        .section-header {
-            background-color: #1a1a1a;
-            color: white;
-            padding: 12px 15px;
-            font-weight: bold;
-            font-size: 18px;
-            border-bottom: 3px solid #00a8ff;
-            margin-top: 30px;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-        }
-
         /* Perfil da Pilota */
         .ficha-piloto {
             display: flex;
@@ -52,7 +39,7 @@
             gap: 24px;
             border-bottom: 2px solid #333;
             padding-bottom: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         .foto-pilota {
             width: 140px;
@@ -65,6 +52,7 @@
         .ficha-piloto h1 {
             margin: 0 0 8px 0;
             font-size: 28px;
+            color: #fff;
         }
         .ficha-piloto h3, .ficha-piloto p {
             margin: 5px 0;
@@ -72,65 +60,104 @@
             font-size: 16px;
         }
 
-        /* Estrutura em Blocos de Corrida */
-        .bloco-corrida {
-            border-top: 1px solid #2d2d2d;
-            padding-top: 15px;
-            margin-top: 15px;
+        /* Títulos das Seções (Estilo da Imagem) */
+        .section-title {
+            font-size: 18px;
+            color: #fff;
+            background-color: #262626;
+            padding: 10px 15px;
+            border-left: 4px solid #00a8ff;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
         }
-        .bloco-corrida:first-of-type {
-            border-top: none;
-            padding-top: 0;
-            margin-top: 0;
+        .section-title.red-border {
+            border-left-color: #e10600;
         }
 
-        .lista-dados {
-            border: 1px solid #2d2d2d;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 15px;
-            background-color: #1a1a1a;
+        /* Tabelas Horizontais */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            text-align: left;
+            margin-bottom: 25px;
         }
-        .dado-linha {
-            display: flex;
-            align-items: center;
-            padding: 10px 14px;
-            border-bottom: 1px solid #2d2d2d;
-            font-size: 14px;
-            gap: 10px;
+        th {
+            background-color: #222;
+            color: #999;
+            padding: 12px 10px;
+            font-weight: 600;
+            border-bottom: 2px solid #333;
+            text-transform: uppercase;
+            font-size: 11px;
         }
-        .dado-linha:last-child {
-            border-bottom: none;
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #262626;
+            vertical-align: middle;
         }
-        .dado-linha:hover {
+        tr:hover {
             background-color: #222;
         }
-        .dado-label {
-            font-weight: bold;
-            color: #999;
-            min-width: 140px;
-        }
 
-        /* Estilos personalizados para os dados */
-        .ano-tag {
+        /* Formatação das Colunas */
+        .col-ano {
             font-weight: bold;
             color: #fff;
+            width: 60px;
         }
-        .no-tag {
+        .col-no {
             font-weight: bold;
             color: #ffbc00;
+            width: 50px;
         }
-        .car-model {
+        .col-evento {
+            color: #e0e0e0;
+        }
+        .col-equipe {
+            color: #ccc;
+        }
+        .col-local {
+            color: #e0e0e0;
+        }
+        .col-carro {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .col-carro img {
+            height: 22px;
+            width: auto;
+        }
+        .brand {
+            color: #fff;
+            font-weight: bold;
+        }
+        .model {
             color: #00a8ff;
             font-weight: bold;
         }
-        .resultado-destaque {
+        .badge {
+            padding: 3px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 3px;
+            color: #fff;
+            display: inline-block;
+        }
+        .badge-club {
+            background-color: #2e7d32;
+        }
+        .col-resultado {
+            font-family: monospace;
+            font-size: 13px;
             font-weight: bold;
             color: #ffbc00;
+            text-align: right;
         }
-        .dado-linha img {
-            height: 26px;
-            width: auto;
+        th.text-right {
+            text-align: right;
         }
     </style>
 </head>
@@ -148,135 +175,81 @@
         </div>
     </div>
 
-    <!-- SEÇÃO 2026 -->
-    <div class="section-header">Histórico de Provas e Resultados (2026)</div>
-    
-    <div class="bloco-corrida">
-        <div class="lista-dados">
-            <div class="dado-linha">
-                <span class="dado-label">Ano:</span>
-                <span class="ano-tag">2026</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">No:</span>
-                <span class="no-tag">35</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Evento:</span>
-                <span>Citroen 24h-Snernetton-2CV-C5</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Local:</span>
-                <span>Snernetton</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Carro:</span>
-                <img src="logo Citroen.png" alt="Logo Citroën">
-                <span>Citroen <span class="car-model">2CV</span></span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Categoria:</span>
-                <span>Club</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Resultados:</span>
-                <span class="resultado-destaque">19. Over Hall, 19. Club - 622 Laps</span>
-            </div>
-        </div>
-    </div>
+    <!-- TABELA 2026 -->
+    <div class="section-title">Histórico de Provas e Resultados (2026)</div>
+    <table>
+        <thead>
+            <tr>
+                <th>ANO</th>
+                <th>NO</th>
+                <th>EVENTO</th>
+                <th>LOCAL</th>
+                <th>CARRO</th>
+                <th>CATEGORIA</th>
+                <th class="text-right">RESULTADO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="col-ano">2026</td>
+                <td class="col-no">35</td>
+                <td class="col-evento">Citroen 24h-Snernetton-2CV-C5</td>
+                <td class="col-local">Snernetton</td>
+                <td>
+                    <div class="col-carro">
+                        <img src="logo Citroen.png" alt="Logo Citroën">
+                        <span><span class="brand">Citroen</span> <span class="model">2CV</span></span>
+                    </div>
+                </td>
+                <td><span class="badge badge-club">Club</span></td>
+                <td class="col-resultado">19. Over Hall, 19. Club - 622 Laps</td>
+            </tr>
+        </tbody>
+    </table>
 
-    <!-- SEÇÃO 2025 -->
-    <div class="section-header">Histórico de Provas e Resultados (2025)</div>
-    
-    <!-- Corrida 1 de 2025 -->
-    <div class="bloco-corrida">
-        <div class="lista-dados">
-            <div class="dado-linha">
-                <span class="dado-label">Ano:</span>
-                <span class="ano-tag">2025</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">No:</span>
-                <span class="no-tag">90</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Evento:</span>
-                <span>Fia Extreme H</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Equipe:</span>
-                <span>Hansen</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Dupla\Navegador:</span>
-                <span>Andreas Bakkured</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Local:</span>
-                <span>Arabia Saudita</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Carro:</span>
-                <span class="car-model">Pioner25</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Categoria:</span>
-                <span>-</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Resultados:</span>
-                <span class="resultado-destaque">5. Over Hall</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Corrida 2 de 2025 -->
-    <div class="bloco-corrida">
-        <div class="lista-dados">
-            <div class="dado-linha">
-                <span class="dado-label">Ano:</span>
-                <span class="ano-tag">2025</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">No:</span>
-                <span class="no-tag">90</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Evento:</span>
-                <span>Extreme E-Final Day 2</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Equipe:</span>
-                <span>Hansen</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Dupla\Navegador:</span>
-                <span>Andreas Bakkured</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Local:</span>
-                <span>Arabia Saudita</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Carro:</span>
-                <span class="car-model">Odyssey21</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Categoria:</span>
-                <span>-</span>
-            </div>
-            <div class="dado-linha">
-                <span class="dado-label">Resultados:</span>
-                <span class="resultado-destaque">1. Over Hall</span>
-            </div>
-        </div>
-    </div>
+    <!-- TABELA 2025 -->
+    <div class="section-title red-border">Histórico de Provas e Resultados (2025)</div>
+    <table>
+        <thead>
+            <tr>
+                <th>ANO</th>
+                <th>NO</th>
+                <th>EVENTO</th>
+                <th>EQUIPE \ DUPLA \ NAVEGADOR</th>
+                <th>LOCAL</th>
+                <th>CARRO</th>
+                <th>CATEGORIA</th>
+                <th class="text-right">RESULTADO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="col-ano">2025</td>
+                <td class="col-no">90</td>
+                <td class="col-evento">Fia Extreme H</td>
+                <td class="col-equipe">Hansen \ Andreas Bakkured</td>
+                <td class="col-local">Arabia Saudita</td>
+                <td><span class="model">Pioner25</span></td>
+                <td>-</td>
+                <td class="col-resultado">5. Over Hall</td>
+            </tr>
+            <tr>
+                <td class="col-ano">2025</td>
+                <td class="col-no">90</td>
+                <td class="col-evento">Extreme E-Final Day 2</td>
+                <td class="col-equipe">Hansen \ Andreas Bakkured</td>
+                <td class="col-local">Arabia Saudita</td>
+                <td><span class="model">Odyssey21</span></td>
+                <td>-</td>
+                <td class="col-resultado">1. Over Hall</td>
+            </tr>
+        </tbody>
+    </table>
 
 </div>
 
 </body>
 </html>
-
 
 
 
