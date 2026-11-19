@@ -32,7 +32,7 @@
             letter-spacing: 1px;
         }
 
-        /* Perfil da Pilota */
+        /* Perfil do Piloto */
         .ficha-piloto {
             display: flex;
             align-items: center;
@@ -155,8 +155,22 @@
             color: #ffbc00;
             text-align: right;
         }
+        .col-resultado.sem-resultado {
+            color: #00a8ff;
+        }
         th.text-right {
             text-align: right;
+        }
+
+        /* Link de Vídeo */
+        .video-link {
+            color: #00a8ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .video-link:hover {
+            text-decoration: underline;
+            color: #fff;
         }
 
         /* Botão Voltar */
@@ -206,6 +220,7 @@
                 <th>LOCAL</th>
                 <th>CARRO</th>
                 <th>CATEGORIA</th>
+                <th>VÍDEO</th>
                 <th class="text-right">RESULTADO</th>
             </tr>
         </thead>
@@ -222,10 +237,12 @@
                     </div>
                 </td>
                 <td><span class="badge badge-club">Street Turbo</span></td>
+                <td>
+                    <a href="https://youtu.be/BG7S20tNFVU" target="_blank" class="video-link">Assista em https://youtu.be/BG7S20tNFVU</a>
+                </td>
                 <td class="col-resultado">5. Over Hall, 1.Street Turbo</td>
             </tr>
-
-             <tr>
+            <tr>
                 <td class="col-ano">2026</td>
                 <td class="col-no">20</td>
                 <td class="col-evento">Friends Hill Climb</td>
@@ -237,15 +254,23 @@
                     </div>
                 </td>
                 <td><span class="badge badge-club">Street Ev</span></td>
-                <td class="col-resultado">-</td>
+                <td><span class="badge-dash">-</span></td>
+                <td class="col-resultado sem-resultado">-</td>
             </tr>
         </tbody>
     </table>
+
+    <div class="pilotos-link-container">
+        <a href="index.html" class="pilotos-btn">Voltar para a Entry List</a>
+    </div>
 
 </div>
 
 </body>
 </html>
+</div>
+
+
 
 
 
