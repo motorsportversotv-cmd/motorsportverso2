@@ -48,13 +48,13 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background-color: #e52e2e; /* Vermelho por padrão */
+            background-color: #e52e2e;
             box-shadow: 0 0 8px #e52e2e;
             transition: all 0.3s ease;
         }
 
         .status-dot.online {
-            background-color: #04d361; /* Verde quando conecta */
+            background-color: #04d361;
             box-shadow: 0 0 8px #04d361;
         }
 
@@ -171,24 +171,25 @@
         const statusText = document.getElementById('statusText');
         const tabelaEventos = document.getElementById('tabelaEventos');
 
-        // Evento padrão estático
-        const eventoRioDoRastro = {
-            id: 1,
-            nome: "Rio do Rastro Hill Climb",
-            categoria: "Hill Climb",
-            circuito: "Serra do Rio do Rastro",
-            data: "2026",
-            link: "FriendsHill_climb_Rio_do_rastro_2026.html"
-        };_
-
-          const eventoRioDoRastro = {
-            id: 2,
-            nome: "Baja 1000",
-            categoria: "Off Road", "Rally", 
-            circuito: "Mexico", "California", 
-            data: "2026",
-            link: "FriendsHill_climb_Rio_do_rastro_2026.html"
-        };_
+        // Eventos padrão estáticos
+        const eventosPadrao = [
+            {
+                id: 1,
+                nome: "Rio do Rastro Hill Climb",
+                categoria: "Hill Climb",
+                circuito: "Serra do Rio do Rastro",
+                data: "2026",
+                link: "FriendsHill_climb_Rio_do_rastro_2026.html"
+            },
+            {
+                id: 2,
+                nome: "Baja 1000",
+                categoria: "Off Road / Rally",
+                circuito: "México / Califórnia",
+                data: "2026",
+                link: "FriendsHill_climb_Rio_do_rastro_2026.html"
+            }
+        ];
 
         function renderizarEventos(listaEventos) {
             tabelaEventos.innerHTML = '';
@@ -196,7 +197,7 @@
             listaEventos.forEach(evento => {
                 const tr = document.createElement('tr');
                 const link = evento.link || 'Friends_Hill_climb_Rio_do_rastro_2026.html';
-                
+
                 tr.innerHTML = `
                     <td>${evento.id || '-'}</td>
                     <td><strong><a href="${link}" class="link-evento">${evento.nome || evento.evento || '-'}</a></strong></td>
@@ -211,18 +212,18 @@
         async function carregarEventos() {
             try {
                 const resposta = await fetch(API_URL);
-                
+
                 if (resposta.ok) {
                     let eventos = await resposta.json();
-                    
+
                     statusDot.classList.add('online');
                     statusText.innerText = 'Servidor Java Conectado';
 
-                    // Se a API não trouxer o evento do Rio do Rastro, adiciona ele no topo da lista
-                    const jaExiste = eventos.some(e => (e.nome || e.evento) === eventoRioDoRastro.nome);
-                    if (!jaExiste) {
-                        eventos.unshift(eventoRioDoRastro);
-                    }
+                    // Garante que os eventos padrão estejam no topo caso não venham da API
+                    const faltantes = [...eventosPadrao].reverse().filter(padrao =>
+                        !eventos.some(e => (e.nome || e.evento) === padrao.nome)
+                    );
+                    eventos = [...faltantes, ...eventos];
 
                     renderizarEventos(eventos);
                 } else {
@@ -232,9 +233,9 @@
                 console.error('Erro ao conectar ao Java:', erro);
                 statusDot.classList.remove('online');
                 statusText.innerText = 'Servidor Java Desconectado';
-                
-                // Exibe o evento do Rio do Rastro mesmo se o servidor estiver offline
-                renderizarEventos([eventoRioDoRastro]);
+
+                // Exibe os eventos padrão mesmo se o servidor estiver offline
+                renderizarEventos(eventosPadrao);
             }
         }
 
