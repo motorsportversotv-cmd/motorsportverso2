@@ -119,6 +119,11 @@
       border-color: #00a8ff;
     }
 
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+
     table { 
       width: 100%; 
       border-collapse: collapse; 
@@ -134,11 +139,13 @@
       border-bottom: 2px solid #333; 
       text-transform: uppercase; 
       font-size: 11px; 
+      white-space: nowrap;
     }
     td { 
       padding: 10px; 
       border-bottom: 1px solid #262626; 
       vertical-align: middle; 
+      white-space: nowrap;
     }
     tr:hover { 
       background-color: #222; 
@@ -169,26 +176,17 @@
     }
     .pro { 
       background-color: #47a847; 
-    
+    }
 
-     /* Parciais, Tempos e Diferenças */
+    /* Parciais */
     .partial-col {
       font-family: 'Consolas', 'Courier New', monospace;
       font-size: 12px;
-      color: #d4d4d8;
-    }
-    .time-col {
-      font-family: 'Consolas', 'Courier New', monospace;
-      font-weight: bold;
-      font-size: 14px;
-      color: #04d361;
-    }
-    .gap-col {
-      font-family: 'Consolas', 'Courier New', monospace;
-      font-size: 12px;
-      color: #a8a8b3;
+      color: #71717a;
+      text-align: center;
     }
 
+    /* Botão Compacto na Tabela */
     .ficha-btn {
       background-color: #262626;
       color: #00a8ff;
@@ -217,30 +215,6 @@
       border-top: 1px solid #2d2d2d;
       padding-top: 12px;
     }
-      
-    /* Botão Compacto na Tabela */
-    .ficha-btn {
-      background-color: #262626;
-      color: #00a8ff;
-      border: 1px solid #00a8ff;
-      padding: 5px 10px;
-      font-size: 11px;
-      font-weight: bold;
-      border-radius: 3px;
-      text-decoration: none;
-      display: inline-block;
-      transition: 0.2s;
-      white-space: nowrap;
-    }
-    .ficha-btn:hover {
-      background-color: #00a8ff;
-      color: #fff;
-    }
-
-    .ano {
-      font-size: 14px;
-      margin-top: 15px;
-    }
   </style>
 </head>
 <body>
@@ -261,7 +235,7 @@
   </nav>
   
   <div class="filter-bar">
-    <p>Entry List</p>
+    <p>Entry List &amp; Parciais</p>
     <div class="filter-group">
       <label for="categoryFilter">Filtrar Categoria:</label>
       <select id="categoryFilter" class="category-select" onchange="filtrarCategoria()">
@@ -275,71 +249,102 @@
     </div>
   </div>
 
-  <table id="entryTable">
-    <thead>
-      <tr>
-        <th>No</th>
-        <th>Driver</th>
-        <th>Marca</th>
-        <th>Modelo</th>
-        <th>Categoria</th>
-        <th style="text-align: right;">Perfil</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr data-category="SS-5">
-        <td class="pos">50</td>
-        <td class="driver-name">Lucas Law</td>
-        <td class="brand">Toyota</td>
-        <td class="model">GR Yaris</td>
-        <td><span class="badge pro">SS-5</span></td>
-        <td style="text-align: right;"><a href="ficha_lucas_law.html" class="ficha-btn">Ver Ficha</a></td>
-      </tr>
-      <tr data-category="SS-5A">
-        <td class="pos">65</td>
-        <td class="driver-name">Ricardo</td>
-        <td class="brand">Honda</td>
-        <td class="model">Civic Type R FL5</td>
-        <td><span class="badge pro">SS-5A</span></td>
-        <td style="text-align: right;"><a href="Ricardo_civic_fl5.html" class="ficha-btn">Ver Ficha</a></td>
-      </tr>
-      <tr data-category="Extreme">
-        <td class="pos">333</td>
-        <td class="driver-name">Rizzotto</td>
-        <td class="brand">Audi</td>
-        <td class="model">A3</td>
-        <td><span class="badge pro">Extreme</span></td>
-        <td style="text-align: right;"><a href="ficha_rizzotto.html" class="ficha-btn">Ver Ficha</a></td>
-      </tr>
-      <tr data-category="Street ASP">
-        <td class="pos">21</td>
-        <td class="driver-name">Cris</td>
-        <td class="brand">Peugeot</td>
-        <td class="model">106</td>
-        <td><span class="badge pro">Street ASP</span></td>
-        <td style="text-align: right;"><a href="ficha_cris.html" class="ficha-btn">Ver Ficha</a></td>
-      </tr>
-      <tr data-category="Extreme">
-        <td class="pos">325</td>
-        <td class="driver-name">Fabio Baggio</td>
-        <td class="brand">BMW</td>
-        <td class="model">325</td>
-        <td><span class="badge pro">Extreme</span></td>
-        <td style="text-align: right;"><a href="ficha_rizzotto.html" class="ficha-btn">Ver Ficha</a></td>
-      </tr>
-      <tr data-category="Street EV">
-        <td class="pos">20</td>
-        <td class="driver-name">Leo Grimm</td>
-        <td class="brand">Geely</td>
-        <td class="model">EX2 Pró</td>
-        <td><span class="badge pro">Street EV</span></td>
-        <td style="text-align: right;"><a href="ficha_Leo_Grimm.html" class="ficha-btn">Ver Ficha</a></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table id="entryTable">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Driver</th>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Categoria</th>
+          <th style="text-align: center;">S1</th>
+          <th style="text-align: center;">S2</th>
+          <th style="text-align: center;">S3</th>
+          <th style="text-align: center;">S4</th>
+          <th style="text-align: right;">Perfil</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-category="SS-5">
+          <td class="pos">50</td>
+          <td class="driver-name">Lucas Law</td>
+          <td class="brand">Toyota</td>
+          <td class="model">GR Yaris</td>
+          <td><span class="badge pro">SS-5</span></td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td style="text-align: right;"><a href="ficha_lucas_law.html" class="ficha-btn">Ver Ficha</a></td>
+        </tr>
+        <tr data-category="SS-5A">
+          <td class="pos">65</td>
+          <td class="driver-name">Ricardo</td>
+          <td class="brand">Honda</td>
+          <td class="model">Civic Type R FL5</td>
+          <td><span class="badge pro">SS-5A</span></td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td style="text-align: right;"><a href="Ricardo_civic_fl5.html" class="ficha-btn">Ver Ficha</a></td>
+        </tr>
+        <tr data-category="Extreme">
+          <td class="pos">333</td>
+          <td class="driver-name">Rizzotto</td>
+          <td class="brand">Audi</td>
+          <td class="model">A3</td>
+          <td><span class="badge pro">Extreme</span></td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td style="text-align: right;"><a href="ficha_rizzotto.html" class="ficha-btn">Ver Ficha</a></td>
+        </tr>
+        <tr data-category="Street ASP">
+          <td class="pos">21</td>
+          <td class="driver-name">Cris</td>
+          <td class="brand">Peugeot</td>
+          <td class="model">106</td>
+          <td><span class="badge pro">Street ASP</span></td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td style="text-align: right;"><a href="ficha_cris.html" class="ficha-btn">Ver Ficha</a></td>
+        </tr>
+        <tr data-category="Extreme">
+          <td class="pos">325</td>
+          <td class="driver-name">Fabio Baggio</td>
+          <td class="brand">BMW</td>
+          <td class="model">325</td>
+          <td><span class="badge pro">Extreme</span></td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td style="text-align: right;"><a href="ficha_rizzotto.html" class="ficha-btn">Ver Ficha</a></td>
+        </tr>
+        <tr data-category="Street EV">
+          <td class="pos">20</td>
+          <td class="driver-name">Leo Grimm</td>
+          <td class="brand">Geely</td>
+          <td class="model">EX2 Pró</td>
+          <td><span class="badge pro">Street EV</span></td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td class="partial-col">-</td>
+          <td style="text-align: right;"><a href="ficha_Leo_Grimm.html" class="ficha-btn">Ver Ficha</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <div class="ano">
+  <div class="footer-info">
     <strong>Ano: 2026</strong>
+    <span> Serra do Rio do Rastro (SC)</span>
   </div>
 </div>
 
