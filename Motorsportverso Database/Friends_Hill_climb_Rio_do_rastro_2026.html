@@ -32,6 +32,48 @@
       letter-spacing: 1px; 
     }
 
+    /* Barra de Links para Resultados das Subidas */
+    .subidas-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background-color: #141414;
+      padding: 10px 15px;
+      border-radius: 4px;
+      border: 1px solid #2d2d2d;
+      margin-bottom: 20px;
+    }
+    .subidas-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #999;
+      margin-right: 8px;
+      letter-spacing: 0.5px;
+    }
+    .subida-link {
+      background-color: #222;
+      color: #e0e0e0;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid #333;
+      transition: all 0.2s ease;
+    }
+    .subida-link:hover {
+      background-color: #2c2c2c;
+      border-color: #00a8ff;
+      color: #00a8ff;
+    }
+    .subida-link.active {
+      background-color: #e10600;
+      border-color: #e10600;
+      color: #fff;
+    }
+
     /* Barra de Controle / Filtro */
     .filter-bar {
       display: flex;
@@ -160,6 +202,16 @@
   <div class="main-header">MOTORSPORT DATABASE CENTRE</div>
 
   <h2>Results Friends Hill Climb Rio do Rastro 2026 - Brasil, Santa Catarina</h2>
+
+  <!-- Barra de Navegação das Subidas -->
+  <nav class="subidas-bar" aria-label="Navegação de resultados das subidas">
+    <span class="subidas-title">Sessões:</span>
+    <a href="FriendsHill_climb_Rio_do_rastro_2026.html" class="subida-link active">Entry List</a>
+    <a href="subida_1_rio_do_rastro_2026.html" class="subida-link">Subida 1</a>
+    <a href="subida_2_rio_do_rastro_2026.html" class="subida-link">Subida 2</a>
+    <a href="subida_3_rio_do_rastro_2026.html" class="subida-link">Subida 3</a>
+    <a href="resultado_geral_rio_do_rastro_2026.html" class="subida-link">Resultado Geral</a>
+  </nav>
   
   <div class="filter-bar">
     <p>Entry List</p>
@@ -220,7 +272,7 @@
         <td><span class="badge pro">Street ASP</span></td>
         <td style="text-align: right;"><a href="ficha_cris.html" class="ficha-btn">Ver Ficha</a></td>
       </tr>
-       <tr data-category="Extreme">
+      <tr data-category="Extreme">
         <td class="pos">325</td>
         <td class="driver-name">Fabio Baggio</td>
         <td class="brand">BMW</td>
@@ -228,12 +280,12 @@
         <td><span class="badge pro">Extreme</span></td>
         <td style="text-align: right;"><a href="ficha_rizzotto.html" class="ficha-btn">Ver Ficha</a></td>
       </tr>
-       <tr data-category="Street EV">
+      <tr data-category="Street EV">
         <td class="pos">20</td>
         <td class="driver-name">Leo Grimm</td>
         <td class="brand">Geely</td>
         <td class="model">EX2 Pró</td>
-        <td><span class="badge pro">Street Ev</span></td>
+        <td><span class="badge pro">Street EV</span></td>
         <td style="text-align: right;"><a href="ficha_Leo_Grimm.html" class="ficha-btn">Ver Ficha</a></td>
       </tr>
     </tbody>
