@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subida 1 - Results Friends Hill Climb Rio do Rastro 2026</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', sans-serif; 
+      background-color: #121212; 
+      color: #e0e0e0; 
+      margin: 0; 
+      padding: 20px; 
+    }
+    .container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      background-color: #1a1a1a; 
+      border: 1px solid #2d2d2d; 
+      padding: 20px; 
+      border-radius: 6px; 
+    }
+    .main-header { 
+      background-color: #e10600; 
+      color: white; 
+      padding: 15px; 
+      font-weight: bold; 
+      font-size: 22px; 
+      border-radius: 4px; 
+      text-align: center; 
+      margin-bottom: 25px; 
+      letter-spacing: 1px; 
+    }
+
+    /* Barra de Links para Resultados das Subidas */
+    .subidas-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background-color: #141414;
+      padding: 10px 15px;
+      border-radius: 4px;
+      border: 1px solid #2d2d2d;
+      margin-bottom: 20px;
+    }
+    .subidas-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #999;
+      margin-right: 8px;
+      letter-spacing: 0.5px;
+    }
+    .subida-link {
+      background-color: #222;
+      color: #e0e0e0;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid #333;
+      transition: all 0.2s ease;
+    }
+    .subida-link:hover {
+      background-color: #2c2c2c;
+      border-color: #00a8ff;
+      color: #00a8ff;
+    }
+    .subida-link.active {
+      background-color: #e10600;
+      border-color: #e10600;
+      color: #fff;
+    }
+
+    /* Barra de Controle / Filtro */
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+      background-color: #222;
+      padding: 12px 15px;
+      border-radius: 4px;
+      border: 1px solid #333;
+    }
+    .filter-bar p {
+      margin: 0;
+      font-weight: 600;
+      color: #fff;
+    }
+    .session-meta {
+      font-size: 12px;
+      color: #aaa;
+      font-weight: normal;
+      margin-left: 10px;
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .filter-group label {
+      font-size: 13px;
+      color: #aaa;
+      font-weight: 600;
+    }
+    .category-select {
+      background-color: #1a1a1a;
+      color: #fff;
+      border: 1px solid #444;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .category-select:hover,
+    .category-select:focus {
+      border-color: #00a8ff;
+    }
+
+    table { 
+      width: 100%; 
+      border-collapse: collapse; 
+      font-size: 13px; 
+      text-align: left; 
+      margin-bottom: 25px; 
+    }
+    th { 
+      background-color: #222; 
+      color: #999; 
+      padding: 10px; 
+      font-weight: 600; 
+      border-bottom: 2px solid #333; 
+      text-transform: uppercase; 
+      font-size: 11px; 
+    }
+    td { 
+      padding: 10px; 
+      border-bottom: 1px solid #262626; 
+      vertical-align: middle; 
+    }
+    tr:hover { 
+      background-color: #222; 
+    }
+
+    /* Posições e Pódio */
+    .pos { 
+      font-weight: bold; 
+      color: #ffbc00; 
+      text-align: center; 
+      width: 40px; 
+    }
+    .pos-1 { color: #ffd700; font-size: 15px; }
+    .pos-2 { color: #c0c0c0; font-size: 14px; }
+    .pos-3 { color: #cd7f32; font-size: 14px; }
+
+    .car-num {
+      color: #aaa;
+      font-weight: bold;
+      width: 45px;
+    }
+    .driver-name { 
+      font-weight: bold; 
+      color: #fff; 
+    }
+    .brand { 
+      color: #fff; 
+      font-weight: bold; 
+    }
+    .model { 
+      color: #00a8ff; 
+    }
+    .badge { 
+      padding: 2px 6px; 
+      font-size: 10px; 
+      font-weight: bold; 
+      border-radius: 3px; 
+      color: #fff; 
+    }
+    .pro { 
+      background-color: #47a847; 
+    }
+
+    /* Tempos e Diferenças */
+    .time-col {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-weight: bold;
+      font-size: 14px;
+      color: #04d361;
+    }
+    .gap-col {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 12px;
+      color: #a8a8b3;
+    }
+    .dnf {
+      color: #e10600;
+      font-weight: bold;
+    }
+
+    .ficha-btn {
+      background-color: #262626;
+      color: #00a8ff;
+      border: 1px solid #00a8ff;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: bold;
+      border-radius: 3px;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+    .ficha-btn:hover {
+      background-color: #00a8ff;
+      color: #fff;
+    }
+
+    .footer-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #aaa;
+      margin-top: 15px;
+      border-top: 1px solid #2d2d2d;
+      padding-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="main-header">MOTORSPORT DATABASE CENTRE</div>
+
+  <h2>Results Friends Hill Climb Rio do Rastro 2026 - Brasil, Santa Catarina</h2>
+
+  <!-- Barra de Navegação das Subidas -->
+  <nav class="subidas-bar" aria-label="Navegação de resultados das subidas">
+    <span class="subidas-title">Sessões:</span>
+    <a href="FriendsHill_climb_Rio_do_rastro_2026.html" class="subida-link">Entry List</a>
+    <a href="subida_1_rio_do_rastro_2026.html" class="subida-link active">Subida 1</a>
+    <a href="subida_2_rio_do_rastro_2026.html" class="subida-link">Subida 2</a>
+    <a href="subida_3_rio_do_rastro_2026.html" class="subida-link">Subida 3</a>
+    <a href="resultado_geral_rio_do_rastro_2026.html" class="subida-link">Resultado Geral</a>
+  </nav>
+  
+  <div class="filter-bar">
+    <p>Classificação - Subida 1 <span class="session-meta">Extensão: 8.4 km | Pista Seca</span></p>
+    <div class="filter-group">
+      <label for="categoryFilter">Filtrar Categoria:</label>
+      <select id="categoryFilter" class="category-select" onchange="filtrarCategoria()">
+        <option value="ALL">Todas as Categorias</option>
+        <option value="SS-5">SS-5</option>
+        <option value="SS-5A">SS-5A</option>
+        <option value="Extreme">Extreme</option>
+        <option value="Street ASP">Street ASP</option>
+        <option value="Street EV">Street EV</option>
+      </select>
+    </div>
+  </div>
+
+  <table id="resultsTable">
+    <thead>
+      <tr>
+        <th style="text-align: center;">Pos</th>
+        <th>No</th>
+        <th>Driver</th>
+        <th>Carro</th>
+        <th>Categoria</th>
+        <th>Tempo</th>
+        <th>Diff. Líder</th>
+        <th style="text-align: right;">Perfil</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-category="Extreme">
+        <td class="pos pos-1">1º</td>
+        <td class="car-num">#333</td>
+        <td class="driver-name">Rizzotto</td>
+        <td><span class="brand">Audi</span> <span class="model">A3</span></td>
+        <td><span class="badge pro">Extreme</span></td>
+        <td class="time-col">***</td>
+        <td class="gap-col">-</td>
+        <td style="text-align: right;"><a href="ficha_rizzotto.html" class="ficha-btn">Ver Ficha</a></td>
+      </tr>
+      <tr data-category="SS-5">
+        <td class="pos pos-2">2º</td>
+        <td class="car-num">#50</td>
+        <td class="driver-name">Lucas Law</td>
+        <td><span class="brand">Toyota</span> <span class="model">GR Yaris</span></td>
+        <td><span class="badge pro">SS-5</span></td>
+        <td class="time-col">***</td>
+        <td class="gap-col">-</td>
+        <td style="text-align: right;"><a href="ficha_lucas_law.html" class="ficha-btn">Ver Ficha</a></td>
+      </tr>
+      <tr data-category="SS-5A">
+        <td class="pos pos-3">3º</td>
+        <td class="car-num">#65</td>
+        <td class="driver-name">Ricardo</td>
+        <td><span class="brand">Honda</span> <span class="model">Civic Type R FL5</span></td>
+        <td><span class="badge pro">SS-5A</span></td>
+        <td class="time-col">***</td>
+        <td class="gap-col">-</td>
+        <td style="text-align: right;"><a href="Ricardo_civic_fl5.html" class="ficha-btn">Ver Ficha</a></td>
+      </tr>
+      <tr data-category="Extreme">
+        <td class="pos">4º</td>
+        <td class="car-num">#325</td>
+        <td class="driver-name">Fabio Baggio</td>
+        <td><span class="brand">BMW</span> <span class="model">325</span></td>
+        <td><span class="badge pro">Extreme</span></td>
+        <td class="time-col">***</td>
+        <td class="gap-col">-</td>
+        <td style="text-align: right;"><a href="ficha_rizzotto.html" class="ficha-btn">Ver Ficha</a></td>
+      </tr>
+      <tr data-category="Street EV">
+        <td class="pos">5º</td>
+        <td class="car-num">#20</td>
+        <td class="driver-name">Leo Grimm</td>
+        <td><span class="brand">Geely</span> <span class="model">EX2 Pró</span></td>
+        <td><span class="badge pro">Street EV</span></td>
+        <td class="time-col">***</td>
+        <td class="gap-col">-</td>
+        <td style="text-align: right;"><a href="ficha_Leo_Grimm.html" class="ficha-btn">Ver Ficha</a></td>
+      </tr>
+      <tr data-category="Street ASP">
+        <td class="pos">6º</td>
+        <td class="car-num">#21</td>
+        <td class="driver-name">Cris</td>
+        <td><span class="brand">Peugeot</span> <span class="model">106</span></td>
+        <td><span class="badge pro">Street ASP</span></td>
+        <td class="time-col">***</td>
+        <td class="gap-col">-</td>
+        <td style="text-align: right;"><a href="ficha_cris.html" class="ficha-btn">Ver Ficha</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer-info">
+    <strong>Ano: 2026</strong>
+    <span>Cronometragem Oficial - Serra do Rio do Rastro (SC)</span>
+  </div>
+</div>
+
+<script>
+  function filtrarCategoria() {
+    const categoriaSelecionada = document.getElementById('categoryFilter').value;
+    const linhas = document.querySelectorAll('#resultsTable tbody tr');
+
+    linhas.forEach(linha => {
+      const categoriaLinha = linha.getAttribute('data-category');
+      if (categoriaSelecionada === 'ALL' || categoriaLinha === categoriaSelecionada) {
+        linha.style.display = '';
+      } else {
+        linha.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
