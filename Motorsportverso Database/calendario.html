@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendário — Motorsport Database Centre</title>
+<style>
+  body { font-family: 'Segoe UI', sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 20px; }
+  .container { max-width: 1200px; margin: 0 auto; background-color: #1a1a1a; border: 1px solid #2d2d2d; padding: 20px; border-radius: 6px; }
+  .main-header { background-color: #e10600; color: white; padding: 15px; font-weight: bold; font-size: 22px; border-radius: 4px; text-align: center; margin-bottom: 25px; letter-spacing: 1px; }
+
+  .section-title { font-size: 18px; color: #fff; background-color: #262626; padding: 8px 12px; border-left: 4px solid #00a8ff; margin-top: 20px; margin-bottom: 15px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; margin-bottom: 25px; }
+  th { background-color: #222; color: #999; padding: 10px; font-weight: 600; border-bottom: 2px solid #333; text-transform: uppercase; font-size: 11px; }
+  td { padding: 10px; border-bottom: 1px solid #262626; vertical-align: middle; }
+  tr:hover { background-color: #222; }
+
+  .data-col { font-family: monospace; font-weight: bold; color: #ffbc00; white-space: nowrap; }
+  
+  /* Link clicável nos nomes dos eventos */
+  .event-link {
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    transition: color 0.2s;
+  }
+  .event-link:hover {
+    color: #00a8ff;
+    text-decoration: underline;
+  }
+
+  .desc-sub { color: #aaa; font-size: 12px; display: block; }
+  .local-col { color: #00a8ff; font-weight: 600; }
+  .badge { padding: 3px 7px; font-size: 10px; font-weight: bold; border-radius: 3px; color: #fff; text-transform: uppercase; display: inline-block; }
+  .cat-wec { background-color: #d92525; }
+  .cat-gt { background-color: #007acc; }
+  .cat-hill { background-color: #47a847; }
+  .cat-rally { background-color: #ff6600; }
+  .cat-porsche { background-color: #c8102e; }
+
+  .tv-sim { color: #00e676; font-weight: bold; display: block; font-size: 12px; }
+  .tv-canal { color: #e0e0e0; font-size: 12px; }
+  .tv-nao { color: #ff4d4d; font-weight: bold; font-size: 12px; }
+
+  /* Selos de Status do Final de Semana */
+  .status-fim-semana {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .status-agora { background-color: #e10600; color: #fff; animation: pulse 1.5s infinite; }
+  .status-proximo { background-color: #ffbc00; color: #121212; }
+  .status-futuro { background-color: #2d2d2d; color: #00a8ff; border: 1px solid #00a8ff; }
+  .status-encerrado { background-color: #222; color: #666; }
+
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+
+  /* Modal da Programação do Final de Semana */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-box {
+    background-color: #1a1a1a;
+    border: 1px solid #00a8ff;
+    border-radius: 6px;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 168, 255, 0.25);
+  }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+  }
+  .modal-title { font-size: 18px; font-weight: bold; color: #ffbc00; }
+  .close-btn {
+    background: none; border: none; color: #ff4d4d;
+    font-size: 20px; font-weight: bold; cursor: pointer;
+  }
+  .close-btn:hover { color: #fff; }
+
+  .nav-links { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
+  .nav-btn { background-color: #262626; color: #00a8ff; border: 1px solid #00a8ff; padding: 10px 20px; font-weight: bold; border-radius: 4px; text-decoration: none; transition: 0.2s; }
+  .nav-btn:hover { background-color: #00a8ff; color: #fff; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="main-header">MOTORSPORT DATABASE CENTRE — CALENDÁRIO</div>
+
+  <div class="section-title">📅 Calendário de Eventos <span style="font-size: 12px; color: #aaa; font-weight: normal;">(Clique no nome do evento para ver a programação do final de semana)</span></div>
+  <table>
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Descrição</th>
+        <th>Local</th>
+        <th>Categoria</th>
+        <th>Transmissão</th>
+      </tr>
+    </thead>
+    <tbody id="corpo-calendario">
+      <tr>
+        <td class="data-col">28/11/2026</td>
+        <td>
+          <a href="#" class="event-link" data-evento="porsche-500km">500 KM de Interlagos-Porsche Cup Brasil</a>
+          <span class="desc-sub">-</span>
+        </td>
+        <td class="local-col">🇧🇷 Interlagos</td>
+        <td><span class="badge cat-porsche">Cup</span></td>
+        <td>
+          <span class="tv-sim">Sim — Com transmissão</span>
+          <span class="tv-canal">Band / BandSports / Youtube</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="data-col">04/12/2026</td>
+        <td>
+          <a href="#" class="event-link" data-evento="rally-pr">RallyPR-Sprint</a>
+          <span class="desc-sub">-</span>
+        </td>
+        <td class="local-col">🇧🇷 Balsa Nova</td>
+        <td><span class="badge cat-rally">Rally</span></td>
+        <td>
+          <span class="tv-nao">Sem transmissão confirmada</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="data-col">03/05/2026</td>
+        <td>
+          <a href="#" class="event-link" data-evento="gtwc-sprint">GT World Challenge Sprint Cup</a>
+          <span class="desc-sub">Corridas curtas de carros de turismo GT3</span>
+        </td>
+        <td class="local-col">🇬🇧 Brands Hatch, Kent</td>
+        <td><span class="badge cat-gt">PRO / GT3</span></td>
+        <td>
+          <span class="tv-sim">Sim — Com transmissão</span>
+          <span class="tv-canal">GT World (YouTube)</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="data-col">11/10/2026</td>
+        <td>
+          <a href="#" class="event-link" data-evento="hill-climb">FIA Hill Climb Masters</a>
+          <span class="desc-sub">Competição contra o relógio em percurso de montanha</span>
+        </td>
+        <td class="local-col">🇵🇹 Rampa da Falperra, Braga</td>
+        <td><span class="badge cat-hill">Cat. 2 (E2-SS / E2-SC)</span></td>
+        <td>
+          <span class="tv-sim">Sim — Com transmissão</span>
+          <span class="tv-canal">FIA Official YouTube</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="data-col">11/11/2026 - 15/11/2026</td>
+        <td>
+          <a href="#" class="event-link" data-evento="baja-1000">Baja 1000</a>
+          <span class="desc-sub">Prova de rally-raid e off-road no deserto</span>
+        </td>
+        <td class="local-col">🇲🇽 Ensenada, Baja California</td>
+        <td><span class="badge cat-rally">Trophy Truck / UTV</span></td>
+        <td>
+          <span class="tv-nao">Sem transmissão</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="nav-links">
+    <a href="index.html" class="nav-btn">🏎️ Voltar à Telemetria</a>
+    <a href="pilotos.html" class="nav-btn">👤 Base de Pilotos</a>
+  </div>
+</div>
+
+<!-- Janela Modal de Programação do Final de Semana -->
+<div class="modal-overlay" id="modal-programacao">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-titulo">Programação</div>
+      <button class="close-btn" id="fechar-modal">&times;</button>
+    </div>
+    <div id="modal-conteudo"></div>
+  </div>
+</div>
+
+<script>
+// 1. Base de Programação Detalhada por Evento (Sessões e Horários)
+const programacoesFDS = {
+  "porsche-500km": {
+    titulo: "500 KM de Interlagos — Porsche Cup Brasil",
+    sessoes: [
+      { dia: "Sexta (27/11)", sessao: "Treinos Livres 1 e 2", hora: "10:00 / 14:30", canal: "YouTube Porsche Cup" },
+      { dia: "Sábado (28/11)", sessao: "Classificação (Qualifying)", hora: "09:00", canal: "YouTube Porsche Cup" },
+      { dia: "Sábado (28/11)", sessao: "Largada — 500 KM de Interlagos", hora: "13:30", canal: "Band / BandSports / YouTube" }
+    ]
+  },
+  "rally-pr": {
+    titulo: "RallyPR-Sprint — Balsa Nova",
+    sessoes: [
+      { dia: "Sexta (04/12)", sessao: "Reconhecimento e Shakedown", hora: "14:00", canal: "Sem transmissão" },
+      { dia: "Sábado (05/12)", sessao: "Especiais SS1 a SS4", hora: "08:30", canal: "Sem transmissão confirmada" }
+    ]
+  },
+  "gtwc-sprint": {
+    titulo: "GT World Challenge Sprint Cup — Brands Hatch",
+    sessoes: [
+      { dia: "Sábado (02/05)", sessao: "Qualifying 1 e 2", hora: "11:45", canal: "GT World (YouTube)" },
+      { dia: "Domingo (03/05)", sessao: "Corrida 1 (Sprint)", hora: "07:05", canal: "GT World (YouTube)" },
+      { dia: "Domingo (03/05)", sessao: "Corrida 2 (Sprint)", hora: "11:15", canal: "GT World (YouTube)" }
+    ]
+  },
+  "hill-climb": {
+    titulo: "FIA Hill Climb Masters — Rampa da Falperra",
+    sessoes: [
+      { dia: "Sábado (10/10)", sessao: "Subidas de Treino Oficial", hora: "06:00", canal: "FIA Official YouTube" },
+      { dia: "Domingo (11/10)", sessao: "Subidas de Prova 1, 2 e 3", hora: "05:30", canal: "FIA Official YouTube" }
+    ]
+  },
+  "baja-1000": {
+    titulo: "SCORE Baja 1000 — Ensenada",
+    sessoes: [
+      { dia: "Quarta (11/11)", sessao: "Vistoria Técnica e Contingência", hora: "13:00", canal: "SCORE Tracking (Sem TV)" },
+      { dia: "Sexta (13/11)", sessao: "Largada Motos / Trophy Trucks", hora: "05:00 / 14:00", canal: "SCORE Live Tracking" }
+    ]
+  }
+};
+
+// 2. Controle de Clique nos Nomes dos Eventos
+const modal = document.getElementById("modal-programacao");
+const modalTitulo = document.getElementById("modal-titulo");
+const modalConteudo = document.getElementById("modal-conteudo");
+
+document.querySelectorAll(".event-link").forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const id = link.getAttribute("data-evento");
+    const dados = programacoesFDS[id];
+
+    if (!dados) return;
+
+    modalTitulo.textContent = dados.titulo;
+    let htmlTabela = `
+      <table style="margin-bottom: 0;">
+        <thead>
+          <tr>
+            <th>Dia</th>
+            <th>Sessão</th>
+            <th>Horário</th>
+            <th>Canal</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    dados.sessoes.forEach(s => {
+      htmlTabela += `
+        <tr>
+          <td class="data-col">${s.dia}</td>
+          <td style="color:#fff; font-weight:bold;">${s.sessao}</td>
+          <td style="font-family:monospace; color:#00a8ff;">${s.hora}</td>
+          <td style="font-size:12px;">${s.canal}</td>
+        </tr>
+      `;
+    });
+
+    htmlTabela += `</tbody></table>`;
+    modalConteudo.innerHTML = htmlTabela;
+    modal.style.display = "flex";
+  });
+});
+
+document.getElementById("fechar-modal").addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) modal.style.display = "none";
+});
+
+// 3. Cruzamento Automático com a Data Atual e Final de Semana
+document.addEventListener("DOMContentLoaded", () => {
+  const hoje = new Date();
+  hoje.setHours(0, 0, 0, 0);
+
+  const diaSemana = hoje.getDay();
+  const diasParaSexta = diaSemana === 0 ? 5 : (5 - diaSemana);
+  
+  const inicioFDS = new Date(hoje);
+  inicioFDS.setDate(hoje.getDate() + (diasParaSexta < 0 ? 0 : diasParaSexta));
+  
+  const fimFDS = new Date(inicioFDS);
+  fimFDS.setDate(inicioFDS.getDate() + 2);
+  fimFDS.setHours(23, 59, 59, 999);
+
+  function parseDataBR(str) {
+    const [dia, mes, ano] = str.trim().split('/').map(Number);
+    return new Date(ano, mes - 1, dia);
+  }
+
+  document.querySelectorAll("#corpo-calendario tr").forEach(tr => {
+    const celulaData = tr.querySelector(".data-col");
+    if (!celulaData) return;
+
+    const partes = celulaData.textContent.trim().split("-");
+    const dataInicio = parseDataBR(partes[0]);
+    const dataFim = partes[1] ? parseDataBR(partes[1]) : new Date(dataInicio);
+    dataFim.setHours(23, 59, 59, 999);
+
+    let badgeHTML = "";
+    if (hoje >= dataInicio && hoje <= dataFim) {
+      badgeHTML = `<br><span class="status-fim-semana status-agora">🔴 Em Andamento</span>`;
+    } else if (dataInicio <= fimFDS && dataFim >= inicioFDS) {
+      badgeHTML = `<br><span class="status-fim-semana status-proximo">🏁 Programação deste FDS</span>`;
+      tr.style.backgroundColor = "rgba(255, 188, 0, 0.06)";
+    } else if (dataInicio > fimFDS) {
+      badgeHTML = `<br><span class="status-fim-semana status-futuro">📅 Próximas Semanas</span>`;
+    } else {
+      badgeHTML = `<br><span class="status-fim-semana status-encerrado">✔ Encerrado</span>`;
+      tr.style.opacity = "0.55";
+    }
+
+    celulaData.innerHTML += badgeHTML;
+  });
+});
+</script>
+
+</body>
+</html>
