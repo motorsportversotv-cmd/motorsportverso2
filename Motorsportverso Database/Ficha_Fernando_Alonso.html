@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha Fernando Alonso — Motorsport Database Centre</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #1a1a1a;
+            border: 1px solid #2d2d2d;
+            padding: 20px;
+            border-radius: 6px;
+        }
+        .main-header {
+            background-color: #e10600;
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 22px;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        /* Perfil do Piloto */
+        .ficha-piloto {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        .foto-piloto {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #e10600;
+            background-color: #262626;
+        }
+        .ficha-piloto h1 {
+            margin: 0 0 8px 0;
+            font-size: 28px;
+            color: #fff;
+        }
+        .ficha-piloto h3, .ficha-piloto p {
+            margin: 5px 0;
+            color: #bbb;
+            font-size: 16px;
+        }
+
+        /* Títulos das Seções com Borda Azul/Vermelha lateral */
+        .section-title {
+            font-size: 16px;
+            color: #fff;
+            background-color: #1a1a1a;
+            padding: 10px 15px;
+            border-left: 4px solid #00a8ff;
+            border-bottom: 2px solid #2d2d2d;
+            margin-top: 30px;
+            margin-bottom: 0;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .section-title.red-border {
+            border-left-color: #e10600;
+        }
+
+        /* Tabelas Horizontais */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+        th {
+            background-color: #1f1f1f;
+            color: #999;
+            padding: 12px 10px;
+            font-weight: 600;
+            border-bottom: 2px solid #333;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #262626;
+            vertical-align: middle;
+        }
+        tr:hover {
+            background-color: #222;
+        }
+
+        /* Formatação das Colunas */
+        .col-ano {
+            font-weight: bold;
+            color: #fff;
+        }
+        .col-no {
+            font-weight: bold;
+            color: #ffbc00;
+        }
+        .col-evento {
+            color: #e0e0e0;
+            font-weight: 600;
+        }
+        .col-local {
+            color: #e0e0e0;
+        }
+        .col-carro {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .col-carro img {
+            height: 20px;
+            width: auto;
+            border-radius: 2px;
+        }
+        .brand {
+            color: #fff;
+            font-weight: bold;
+        }
+        .model {
+            color: #00a8ff;
+            font-weight: bold;
+        }
+        .badge {
+            padding: 3px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 3px;
+            color: #fff;
+            display: inline-block;
+        }
+        .badge-club {
+            background-color: #2e7d32;
+        }
+        .badge-dpi {
+            background-color: #007acc;
+        }
+        .col-resultado {
+            font-weight: bold;
+            color: #ffbc00;
+            text-align: right;
+        }
+        th.text-right {
+            text-align: right;
+        }
+
+        /* Botões de Navegação */
+        .pilotos-link-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        .pilotos-btn {
+            background-color: #262626;
+            color: #00a8ff;
+            border: 1px solid #00a8ff;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s;
+        }
+        .pilotos-btn:hover {
+            background-color: #00a8ff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="main-header">MOTORSPORT DATABASE CENTRE</div>
+
+    <div class="ficha-piloto">
+        <img src="Fernando Alonso.png" alt="Fernando Alonso" class="foto-piloto">
+        <div>
+            <h1>🇪🇸 Fernando Alonso</h1>
+            <h3>Nat: ESP</h3>
+            <p>Categoria: Dakar / Endurance</p>
+        </div>
+    </div>
+
+    <!-- TABELA PRÓXIMAS PROVAS / 2027 -->
+    <div class="section-title">Provas Programadas (2027)</div>
+    <table>
+        <thead>
+            <tr>
+                <th>ANO</th>
+                <th>NO</th>
+                <th>EVENTO</th>
+                <th>LOCAL</th>
+                <th>CARRO</th>
+                <th>CATEGORIA</th>
+                <th class="text-right">RESULTADO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="col-ano">2027</td>
+                <td class="col-no">?</td>
+                <td class="col-evento">Dakar Rally</td>
+                <td class="col-local">🇵🇹 Portugal / 🇲🇦 Maroc</td>
+                <td>
+                    <div class="col-carro">
+                        <img src="logo Aston Martin.png" alt="Logo Aston Martin">
+                        <span><span class="brand">Aston Martin</span> <span class="model">T1+</span></span>
+                    </div>
+                </td>
+                <td><span class="badge badge-club">T1+</span></td>
+                <td class="col-resultado">-</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- TABELA HISTÓRICO ENDURANCE -->
+    <div class="section-title red-border">Histórico de Provas e Resultados (Endurance)</div>
+    <table>
+        <thead>
+            <tr>
+                <th>ANO</th>
+                <th>NO</th>
+                <th>EVENTO</th>
+                <th>EQUIPE / DUPLA / COMPANHEIROS</th>
+                <th>LOCAL</th>
+                <th>CARRO</th>
+                <th>CATEGORIA</th>
+                <th class="text-right">RESULTADO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="col-ano">2019</td>
+                <td class="col-no">8</td>
+                <td class="col-evento">24h de Le Mans</td>
+                <td style="color: #ccc;">Toyota Gazoo Racing / S. Buemi / K. Nakajima</td>
+                <td class="col-local">🇫🇷 Le Mans</td>
+                <td>
+                    <div class="col-carro">
+                        <img src="Toyota GR.jpeg" alt="Toyota GR">
+                        <span><span class="brand">Toyota</span> <span class="model">TS050 Hybrid</span></span>
+                    </div>
+                </td>
+                <td><span class="badge badge-club">1. LMP1</span></td>
+                <td class="col-resultado">1. Overall - 385 Laps</td>
+            </tr>
+            <tr>
+                <td class="col-ano">2019</td>
+                <td class="col-no">10</td>
+                <td class="col-evento">24h Daytona</td>
+                <td style="color: #ccc;">Konica Minolta Cadillac WTR / R. Van Der Zande / J. Taylor / K. Kobayashi</td>
+                <td class="col-local">🇺🇸 Daytona</td>
+                <td>
+                    <div class="col-carro">
+                        <span><span class="brand">Cadillac</span> <span class="model">DPi-V.R</span></span>
+                    </div>
+                </td>
+                <td><span class="badge badge-dpi">1. DPi</span></td>
+                <td class="col-resultado">1. Overall - 593 Laps</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="pilotos-link-container">
+        <a href="index.html" class="pilotos-btn">🏎️ Voltar à Telemetria</a>
+        <a href="pilotos.html" class="pilotos-btn">👤 Base de Pilotos</a>
+        <a href="eventos.html" class="pilotos-btn">📅 Calendário de Eventos</a>
+    </div>
+
+</div>
+
+</body>
+</html>
+
+
+
